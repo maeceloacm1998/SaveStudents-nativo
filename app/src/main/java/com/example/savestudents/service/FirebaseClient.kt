@@ -1,5 +1,6 @@
 package com.example.savestudents.service
 
+import android.util.Log
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.service.model.FirebaseClientModel
 import com.example.savestudents.service.model.FirebaseResponseModel
@@ -20,10 +21,13 @@ class FirebaseClient : FirebaseClientModel {
                         FirestoreDbConstants.MessageError.EMPTY_RESULT
                     )
                 )
+                handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE, FirestoreDbConstants.StatusCode.NOT_FOUND.toString(), FirestoreDbConstants.MessageError.EMPTY_RESULT)
                 return@addOnSuccessListener
             }
 
             val res = result.documents as T
+            handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE, FirestoreDbConstants.StatusCode.SUCCESS.toString(), res.toString())
+
             firebaseResponseModel.onSuccess(res)
         }.addOnFailureListener { error ->
             firebaseResponseModel.onFailure(
@@ -32,6 +36,7 @@ class FirebaseClient : FirebaseClientModel {
                     error.message.toString()
                 )
             )
+            handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE, FirestoreDbConstants.StatusCode.BAD_REQUEST.toString(), error.message.toString())
         }
     }
 
@@ -48,10 +53,12 @@ class FirebaseClient : FirebaseClientModel {
                         FirestoreDbConstants.MessageError.EMPTY_RESULT
                     )
                 )
+                handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT, FirestoreDbConstants.StatusCode.NOT_FOUND.toString(), FirestoreDbConstants.MessageError.EMPTY_RESULT)
                 return@addOnSuccessListener
             }
 
             val res = result.data as T
+            handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT, FirestoreDbConstants.StatusCode.SUCCESS.toString(), res.toString())
             firebaseResponseModel.onSuccess(res)
         }.addOnFailureListener { error ->
             firebaseResponseModel.onFailure(
@@ -60,6 +67,7 @@ class FirebaseClient : FirebaseClientModel {
                     error.message.toString()
                 )
             )
+            handleLog(FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT, FirestoreDbConstants.StatusCode.SUCCESS.toString(), error.message.toString())
         }
     }
 
@@ -77,5 +85,9 @@ class FirebaseClient : FirebaseClientModel {
 
     private fun setErrorFailure(code: Int, message: String): OnFailureModel {
         return OnFailureModel(code, message)
+    }
+
+    private fun handleLog(typeRequisition: String, statusCode: String, data: String) {
+        Log.d("=================> $typeRequisition", "$statusCode $data")
     }
 }
