@@ -40,11 +40,27 @@ class FirebaseClient : FirebaseClientModel {
         documentPath: String,
         firebaseResponseModel: FirebaseResponseModel<T>
     ) {
-        database.collection(collectionPath).document(documentPath).get()
-            .addOnSuccessListener { result ->
-                val res = result.data as T
-                firebaseResponseModel.onSuccess(res)
+        database.collection(collectionPath).document(documentPath).get().addOnSuccessListener { result ->
+            if (result.data?.isEmpty() == true) {
+                firebaseResponseModel.onFailure(
+                    setErrorFailure(
+                        FirestoreDbConstants.StatusCode.NOT_FOUND,
+                        FirestoreDbConstants.MessageError.EMPTY_RESULT
+                    )
+                )
+                return@addOnSuccessListener
             }
+
+            val res = result.data as T
+            firebaseResponseModel.onSuccess(res)
+        }.addOnFailureListener { error ->
+            firebaseResponseModel.onFailure(
+                setErrorFailure(
+                    FirestoreDbConstants.StatusCode.BAD_REQUEST,
+                    error.message.toString()
+                )
+            )
+        }
     }
 
     override fun setValue(path: String): String {
