@@ -88,6 +88,6 @@ class FirebaseClient : FirebaseClientModel {
     }
 
     private fun handleLog(typeRequisition: String, statusCode: String, data: String) {
-        Log.d("=================> $typeRequisition", "$statusCode $data")
+        Log.d("=================> $typeRequisition", "STATUS_CODE:$statusCode -- DATA:$data")
     }
 }
