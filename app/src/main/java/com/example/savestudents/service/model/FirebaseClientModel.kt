@@ -12,9 +12,12 @@ interface FirebaseClientModel {
         firebaseResponseModel: FirebaseResponseModel<T>
     )
 
-    fun setValue(path: String): String
+    fun setSpecificDocument(
+        collectionPath: String,
+        documentPath: String = "",
+        data: Any
+    )
 
-    fun putValue(path: String): String
+    fun putDocument(collectionPath: String, documentPath: String, data: Any)
 
-    fun deleteValue(path: String): String
-}
+    fun deleteDocument(collectionPath: String, documentPath: String)}
