@@ -23,6 +23,6 @@ abstract class HeaderHolder: EpoxyModelWithHolder<HeaderHolder.SectionHolder>() 
     }
 
     override fun getDefaultLayout(): Int {
-        return R.layout.header_holder
+        return R.layout.header_home_holder
     }
 }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.controller.HeaderMainViewController
 import com.example.savestudents.controller.HomeMainViewController
 import com.example.savestudents.databinding.ActivityHomeBinding
-import com.example.savestudents.repository.HomeRepository
 import com.example.savestudents.viewModel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
