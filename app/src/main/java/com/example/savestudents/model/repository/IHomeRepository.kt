@@ -1,4 +1,4 @@
-package com.example.savestudents.model
+package com.example.savestudents.model.repository
 
 import com.example.savestudents.dto.SubjectListDto
 import com.example.savestudents.service.model.FirebaseResponseModel
