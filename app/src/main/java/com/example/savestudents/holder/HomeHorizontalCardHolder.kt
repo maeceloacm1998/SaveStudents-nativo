@@ -56,7 +56,7 @@ abstract class HomeHorizontalCardHolder :
     }
 
     private fun setSubtitle(holder: SectionHolder) {
-        holder.mSubtitle.text = "${period} periodo"
+        holder.mSubtitle.text = "${period}º Período"
     }
 
     private fun dpToPx(dp: Int): Int {
