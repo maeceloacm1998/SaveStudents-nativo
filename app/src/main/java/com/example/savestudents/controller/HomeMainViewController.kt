@@ -1,12 +1,13 @@
 package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
+import com.example.savestudents.dto.SubjectListDto
 import com.example.savestudents.holder.homeHorizontalCardHolder
 import com.example.savestudents.ui_component.Title.titleHolder
-import com.example.savestudents.ui_component.header.headerHolder
-import com.example.savestudents.ui_component.search.searchEditTextHolder
 
-class HomeMainViewController: EpoxyController() {
+class HomeMainViewController : EpoxyController() {
+    private var mSubjectList: MutableList<SubjectListDto> = mutableListOf()
+
     init {
         requestModelBuild()
     }
@@ -22,19 +23,25 @@ class HomeMainViewController: EpoxyController() {
             marginBottom(8)
             marginLeft(16)
         }
-        var i = 0
 
-        do {
+        mSubjectList.forEach { item ->
             homeHorizontalCardHolder {
-                id("card")
-                title("Algoritmos em Grafos")
-                subtitle("4º Período")
+                id(item.id)
+                title(item.title)
+                item.period?.let { period(it) }
                 marginLeft(16)
                 marginRight(16)
                 marginBottom(8)
             }
-            i++
-        }while (i <= 10)
+        }
+
     }
-    
+
+    fun setSubjectList(subjectList: List<SubjectListDto>) {
+        subjectList.forEach { item ->
+            mSubjectList.add(item)
+        }
+        requestModelBuild()
+    }
+
 }

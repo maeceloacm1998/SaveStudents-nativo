@@ -18,7 +18,7 @@ abstract class HomeHorizontalCardHolder :
     lateinit var title: String
 
     @EpoxyAttribute
-    lateinit var subtitle: String
+    var period: Long = 0
 
     @EpoxyAttribute
     var marginTop: Int = 0
@@ -56,7 +56,7 @@ abstract class HomeHorizontalCardHolder :
     }
 
     private fun setSubtitle(holder: SectionHolder) {
-        holder.mSubtitle.text = subtitle
+        holder.mSubtitle.text = "${period}º Período"
     }
 
     private fun dpToPx(dp: Int): Int {

@@ -1,28 +1,36 @@
 package com.example.savestudents.view.activity
 
+import android.R
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.savestudents.R
 import com.example.savestudents.controller.HeaderMainViewController
 import com.example.savestudents.controller.HomeMainViewController
 import com.example.savestudents.databinding.ActivityHomeBinding
+import com.example.savestudents.repository.HomeRepository
+import com.example.savestudents.viewModel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
     private val headerMainViewController = HeaderMainViewController()
     private val homeMainViewController = HomeMainViewController()
+    private lateinit var mViewModel: HomeViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mViewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(
+            application
+        )).get(HomeViewModel()::class.java)
+
+        handleSubjectList()
         controllers()
+        observers()
     }
 
     private fun controllers() {
@@ -30,9 +38,18 @@ class HomeActivity : AppCompatActivity() {
         handleHomeController()
     }
 
-    private fun setTallestHeaderController() {
-        val viewGroup = window.decorView.findViewById<ViewGroup>(android.R.id.content)
+    private fun observers() {
+        mViewModel.subjectList.observe(this) { observe ->
+            homeMainViewController.setSubjectList(observe)
+        }
+    }
 
+    private fun handleSubjectList() {
+        mViewModel.getSubjectList()
+    }
+
+    private fun setTallestHeaderController() {
+        val viewGroup = window.decorView.findViewById<ViewGroup>(R.id.content)
     }
 
     private fun handleHeaderController() {
@@ -50,3 +67,4 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 }
+
