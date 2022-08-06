@@ -1,7 +1,10 @@
 package com.example.savestudents.view.activity
 
 import android.R
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +20,6 @@ class HomeActivity : AppCompatActivity() {
     private val homeMainViewController = HomeMainViewController()
     private lateinit var mViewModel: HomeViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -27,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
             application
         )).get(HomeViewModel()::class.java)
 
-        handleSubjectList()
+        fetchSubjectList()
         controllers()
         observers()
     }
@@ -43,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSubjectList() {
+    private fun fetchSubjectList() {
         mViewModel.getSubjectList()
     }
 
