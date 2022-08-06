@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_init_rounded_borders.xml" value="0.2555" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secondary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secundary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_secundary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_blue_light.xml" value="0.3415" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_menu_35.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/img_init_rounded_borders.xml" value="0.2555" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/font/open_sans.xml" value="0.3927083333333333" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v23/header_filter_options.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v23/search_bar_holder.xml" value="0.33" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_filter_options.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_home.xml" value="0.25" />
