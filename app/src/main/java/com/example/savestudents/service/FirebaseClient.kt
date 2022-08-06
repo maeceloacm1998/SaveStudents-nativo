@@ -23,6 +23,7 @@ class FirebaseClient : FirebaseClientModel {
                 )
                 handleLog(
                     FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                    collectionPath,
                     FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
                     FirestoreDbConstants.MessageError.EMPTY_RESULT
                 )
@@ -32,6 +33,7 @@ class FirebaseClient : FirebaseClientModel {
             val res = result.documents as T
             handleLog(
                 FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath,
                 FirestoreDbConstants.StatusCode.SUCCESS.toString(),
                 res.toString()
             )
@@ -46,6 +48,7 @@ class FirebaseClient : FirebaseClientModel {
             )
             handleLog(
                 FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath,
                 FirestoreDbConstants.StatusCode.BAD_REQUEST.toString(),
                 error.message.toString()
             )
@@ -68,6 +71,7 @@ class FirebaseClient : FirebaseClientModel {
                     )
                     handleLog(
                         FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                        collectionPath,
                         FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
                         FirestoreDbConstants.MessageError.EMPTY_RESULT
                     )
@@ -77,27 +81,36 @@ class FirebaseClient : FirebaseClientModel {
                 val res = result.data as T
                 handleLog(
                     FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                    collectionPath,
                     FirestoreDbConstants.StatusCode.SUCCESS.toString(),
                     res.toString()
                 )
                 firebaseResponseModel.onSuccess(res)
             }.addOnFailureListener { error ->
-            firebaseResponseModel.onFailure(
-                setErrorFailure(
-                    FirestoreDbConstants.StatusCode.BAD_REQUEST,
+                firebaseResponseModel.onFailure(
+                    setErrorFailure(
+                        FirestoreDbConstants.StatusCode.BAD_REQUEST,
+                        error.message.toString()
+                    )
+                )
+                handleLog(
+                    FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                    collectionPath,
+                    FirestoreDbConstants.StatusCode.SUCCESS.toString(),
                     error.message.toString()
                 )
-            )
-            handleLog(
-                FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
-                FirestoreDbConstants.StatusCode.SUCCESS.toString(),
-                error.message.toString()
-            )
-        }
+            }
     }
 
     override fun setSpecificDocument(collectionPath: String, documentPath: String, data: Any) {
         database.collection(collectionPath).document(documentPath).set(data)
+    }
+
+    override fun createDocument(collectionPath: String): String {
+        val id = database.collection(collectionPath).document().id
+        database.collection(collectionPath).document(id).set({})
+
+        return id
     }
 
     override fun putDocument(collectionPath: String, documentPath: String, data: Any) {
@@ -112,7 +125,7 @@ class FirebaseClient : FirebaseClientModel {
         return OnFailureModel(code, message)
     }
 
-    private fun handleLog(typeRequisition: String, statusCode: String, data: String) {
-        Log.d("=================> $typeRequisition", "STATUS_CODE:$statusCode -- DATA:$data")
+    private fun handleLog(typeRequisition: String, collectionPath: String, statusCode: String, data: String) {
+        Log.d("=================> $typeRequisition",  "PATH:$collectionPath -- STATUS_CODE:$statusCode -- DATA:$data")
     }
 }
