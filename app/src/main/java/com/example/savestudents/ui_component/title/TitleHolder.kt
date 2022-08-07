@@ -1,12 +1,10 @@
-package com.example.savestudents.ui_component.Title
+package com.example.savestudents.ui_component.title
 
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -39,7 +37,12 @@ abstract class TitleHolder : EpoxyModelWithHolder<TitleHolder.SectionHolder>() {
 
     private fun setMargin(holder: SectionHolder) {
         val params = (holder.mContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
-            setMargins(dpToPx(marginLeft),dpToPx(marginTop),dpToPx(marginRight),dpToPx(marginBottom))
+            setMargins(
+                dpToPx(marginLeft),
+                dpToPx(marginTop),
+                dpToPx(marginRight),
+                dpToPx(marginBottom)
+            )
         }
         holder.mContainer.layoutParams = params
     }
