@@ -12,9 +12,10 @@ class FilterOptionsRepository : IFilterOptionsRepository {
 
     override fun getFilterOptions(
         collectionPath: String,
+        orderByName:String,
         firebaseResponseModel: FirebaseResponseModel<List<FilterOptionDTO>>
     ) {
-        client.getDocumentValue(collectionPath, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+        client.getDocumentValue(collectionPath, orderByName, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
             override fun onSuccess(model: List<QueryDocumentSnapshot>) {
                 val res = model.map { it.toObject(FilterOptionDTO::class.java) }
                 firebaseResponseModel.onSuccess(res)

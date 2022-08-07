@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.controller.FilterOptionsController
 import com.example.savestudents.databinding.ActivityFilterOptionsBinding
+import com.example.savestudents.model.contract.FilterOptionsContract
 import com.example.savestudents.viewModel.FilterOptionsViewModel
 
 class FilterOptionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterOptionsBinding
-    private val filterController = FilterOptionsController()
+    private val filterController by lazy { FilterOptionsController(contract) }
     private lateinit var mViewModel: FilterOptionsViewModel
+
+    private var checkboxRadioSelected: String = ""
+    private var checkboxSelectedList: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +35,8 @@ class FilterOptionsActivity : AppCompatActivity() {
     }
 
     private fun fetchFilterOptions() {
-        mViewModel.getPeriodOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_SHIFT)
-        mViewModel.getShiftOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_PERIOD)
+        mViewModel.getPeriodOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_PERIOD, "name")
+        mViewModel.getShiftOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_SHIFT, "order")
     }
 
     private fun handleFilterOptionsController() {
@@ -49,6 +53,35 @@ class FilterOptionsActivity : AppCompatActivity() {
 
         mViewModel.periodOptions.observe(this) { observe ->
             filterController.setPeriodOptions(observe)
+        }
+    }
+
+    private fun setRadioSelected(title: String) {
+        checkboxRadioSelected = title
+        filterController.setRadioSelected(title)
+    }
+
+    private fun setCheckboxSelected(title: String) {
+        checkboxSelectedList.add(title)
+        filterController.setCheckboxSelected(checkboxSelectedList)
+    }
+
+    private fun removeCheckboxSelected(title: String) {
+        checkboxSelectedList.remove(title)
+        filterController.setCheckboxSelected(checkboxSelectedList)
+    }
+
+    private val contract = object : FilterOptionsContract {
+        override fun clickCheckCheckboxListener(title: String) {
+            setCheckboxSelected(title)
+        }
+
+        override fun clickUncheckCheckboxListener(title: String) {
+            removeCheckboxSelected(title)
+        }
+
+        override fun clickCheckCheckboxRadioListener(title: String) {
+            setRadioSelected(title)
         }
     }
 }

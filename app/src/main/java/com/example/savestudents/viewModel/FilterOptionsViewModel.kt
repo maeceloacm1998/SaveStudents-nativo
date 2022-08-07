@@ -21,9 +21,10 @@ class FilterOptionsViewModel : ViewModel(), IFilterOptionsViewModel {
     private val mPeriodOptions = MutableLiveData<List<FilterOption>>()
     val periodOptions: LiveData<List<FilterOption>> = mPeriodOptions
 
-    override fun getShiftOptions(collectionPath: String) {
+    override fun getShiftOptions(collectionPath: String, orderByName: String) {
         repository.getFilterOptions(
             collectionPath,
+            orderByName,
             object : FirebaseResponseModel<List<FilterOptionDTO>> {
                 override fun onSuccess(model: List<FilterOptionDTO>) {
                     mShiftOptions.value = model.asDomainModel()
@@ -35,9 +36,10 @@ class FilterOptionsViewModel : ViewModel(), IFilterOptionsViewModel {
             })
     }
 
-    override fun getPeriodOptions(collectionPath: String) {
+    override fun getPeriodOptions(collectionPath: String, orderByName: String) {
         repository.getFilterOptions(
             collectionPath,
+            orderByName,
             object : FirebaseResponseModel<List<FilterOptionDTO>> {
                 override fun onSuccess(model: List<FilterOptionDTO>) {
                     mPeriodOptions.value = model.asDomainModel()

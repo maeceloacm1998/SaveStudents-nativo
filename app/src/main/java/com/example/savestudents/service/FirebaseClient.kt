@@ -6,14 +6,16 @@ import com.example.savestudents.service.model.FirebaseClientModel
 import com.example.savestudents.service.model.FirebaseResponseModel
 import com.example.savestudents.service.model.OnFailureModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class FirebaseClient : FirebaseClientModel {
     private val database = FirebaseFirestore.getInstance()
     override fun <T> getDocumentValue(
         collectionPath: String,
+        orderByName:String?,
         firebaseResponseModel: FirebaseResponseModel<T>
     ) {
-        database.collection(collectionPath).get().addOnSuccessListener { result ->
+        database.collection(collectionPath).orderBy(orderByName ?: "", Query.Direction.ASCENDING).get().addOnSuccessListener { result ->
             if (result.documents.isEmpty()) {
                 firebaseResponseModel.onFailure(
                     setErrorFailure(
