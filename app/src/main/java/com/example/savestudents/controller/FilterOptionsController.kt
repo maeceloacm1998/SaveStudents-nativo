@@ -5,6 +5,7 @@ import com.example.savestudents.model.FilterOption
 import com.example.savestudents.model.contract.FilterOptionsContract
 import com.example.savestudents.ui_component.checkbox.checkboxRadioHolder
 import com.example.savestudents.ui_component.checkbox.checkboxSelectHolder
+import com.example.savestudents.ui_component.separator.separatorHolder
 import com.example.savestudents.ui_component.title.titleHolder
 
 class FilterOptionsController(private val mContract: FilterOptionsContract) : EpoxyController() {
@@ -35,6 +36,13 @@ class FilterOptionsController(private val mContract: FilterOptionsContract) : Ep
                 marginLeft(16)
                 marginRight(5)
             }
+        }
+
+        separatorHolder {
+            id("separator")
+            marginTop(24)
+            marginRight(16)
+            marginLeft(16)
         }
     }
 
