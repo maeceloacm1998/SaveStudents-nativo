@@ -96,4 +96,9 @@ class FilterOptionsController(private val mContract: FilterOptionsContract) : Ep
         requestModelBuild()
     }
 
+    fun clearFilters() {
+        mCheckboxSelectedList.clear()
+        mRadioSelected = ""
+        requestModelBuild()
+    }
 }

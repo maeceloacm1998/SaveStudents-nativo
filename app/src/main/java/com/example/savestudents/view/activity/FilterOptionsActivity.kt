@@ -29,9 +29,40 @@ class FilterOptionsActivity : AppCompatActivity() {
             )
         ).get(FilterOptionsViewModel()::class.java)
 
+        binding.headerOptions.clearButton.setOnClickListener {
+            val x = ""
+        }
+
         fetchFilterOptions()
         handleFilterOptionsController()
         observer()
+        listeners()
+    }
+
+    private fun listeners() {
+        clearFilters()
+        goBackClickButton()
+        applyFilters()
+    }
+
+    private fun clearFilters() {
+        binding.headerOptions.clearButton.setOnClickListener {
+            checkboxSelectedList.clear()
+            checkboxRadioSelected = ""
+            filterController.clearFilters()
+        }
+    }
+
+    private fun goBackClickButton() {
+        binding.headerOptions.goBackButton.setOnClickListener{
+
+        }
+    }
+
+    private fun applyFilters() {
+        binding.applyFiltersButton.setOnClickListener {
+
+        }
     }
 
     private fun fetchFilterOptions() {
