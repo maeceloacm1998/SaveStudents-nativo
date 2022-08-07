@@ -11,4 +11,5 @@
     // Button Title
     <string name="filter_button_title">filtrar</string>
     <string name="clear_button">Limpar</string>
+    <string name="filter_options_button_apply">Aplicar</string>
 </resources>
