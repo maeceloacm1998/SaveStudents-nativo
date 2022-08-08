@@ -12,10 +12,57 @@ class FirebaseClient : FirebaseClientModel {
     private val database = FirebaseFirestore.getInstance()
     override fun <T> getDocumentValue(
         collectionPath: String,
-        orderByName:String?,
         firebaseResponseModel: FirebaseResponseModel<T>
     ) {
-        database.collection(collectionPath).orderBy(orderByName ?: "", Query.Direction.ASCENDING).get().addOnSuccessListener { result ->
+        database.collection(collectionPath).get().addOnSuccessListener { result ->
+            if (result.documents.isEmpty()) {
+                firebaseResponseModel.onFailure(
+                    setErrorFailure(
+                        FirestoreDbConstants.StatusCode.NOT_FOUND,
+                        FirestoreDbConstants.MessageError.EMPTY_RESULT
+                    )
+                )
+                handleLog(
+                    FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                    collectionPath,
+                    FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
+                    FirestoreDbConstants.MessageError.EMPTY_RESULT
+                )
+                return@addOnSuccessListener
+            }
+
+            val res = result.documents as T
+            handleLog(
+                FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath,
+                FirestoreDbConstants.StatusCode.SUCCESS.toString(),
+                res.toString()
+            )
+
+            firebaseResponseModel.onSuccess(res)
+        }.addOnFailureListener { error ->
+            firebaseResponseModel.onFailure(
+                setErrorFailure(
+                    FirestoreDbConstants.StatusCode.BAD_REQUEST,
+                    error.message.toString()
+                )
+            )
+            handleLog(
+                FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath,
+                FirestoreDbConstants.StatusCode.BAD_REQUEST.toString(),
+                error.message.toString()
+            )
+        }
+    }
+
+    override fun <T> getDocumentWithOrderByValue(
+        collectionPath: String,
+        orderByName: String?,
+        firebaseResponseModel: FirebaseResponseModel<T>
+    ) {
+        database.collection(collectionPath).orderBy(orderByName ?: "", Query.Direction.ASCENDING)
+            .get().addOnSuccessListener { result ->
             if (result.documents.isEmpty()) {
                 firebaseResponseModel.onFailure(
                     setErrorFailure(

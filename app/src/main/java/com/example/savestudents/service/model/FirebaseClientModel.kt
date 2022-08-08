@@ -3,6 +3,11 @@ package com.example.savestudents.service.model
 interface FirebaseClientModel {
     fun <T> getDocumentValue(
         collectionPath: String,
+        firebaseResponseModel: FirebaseResponseModel<T>
+    )
+
+    fun <T> getDocumentWithOrderByValue(
+        collectionPath: String,
         orderByName: String?,
         firebaseResponseModel: FirebaseResponseModel<T>
     )

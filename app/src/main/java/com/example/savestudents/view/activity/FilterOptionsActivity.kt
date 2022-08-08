@@ -29,12 +29,8 @@ class FilterOptionsActivity : AppCompatActivity() {
             )
         ).get(FilterOptionsViewModel()::class.java)
 
-        binding.headerOptions.clearButton.setOnClickListener {
-            val x = ""
-        }
-
-        fetchFilterOptions()
         handleFilterOptionsController()
+        fetchFilterOptions()
         observer()
         listeners()
     }
@@ -54,7 +50,7 @@ class FilterOptionsActivity : AppCompatActivity() {
     }
 
     private fun goBackClickButton() {
-        binding.headerOptions.goBackButton.setOnClickListener{
+        binding.headerOptions.goBackButton.setOnClickListener {
 
         }
     }
@@ -66,14 +62,17 @@ class FilterOptionsActivity : AppCompatActivity() {
     }
 
     private fun fetchFilterOptions() {
-        mViewModel.getPeriodOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_PERIOD, "name")
-        mViewModel.getShiftOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_SHIFT, "order")
+        mViewModel.apply {
+            getShiftOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_SHIFT, "order")
+            getPeriodOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_PERIOD, "name")
+        }
     }
 
     private fun handleFilterOptionsController() {
         binding.filterOptionsList.apply {
             setController(filterController)
             layoutManager = LinearLayoutManager(context)
+            requestModelBuild()
         }
     }
 

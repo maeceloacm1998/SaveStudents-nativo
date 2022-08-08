@@ -15,7 +15,7 @@ class FilterOptionsRepository : IFilterOptionsRepository {
         orderByName:String,
         firebaseResponseModel: FirebaseResponseModel<List<FilterOptionDTO>>
     ) {
-        client.getDocumentValue(collectionPath, orderByName, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+        client.getDocumentWithOrderByValue(collectionPath, orderByName, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
             override fun onSuccess(model: List<QueryDocumentSnapshot>) {
                 val res = model.map { it.toObject(FilterOptionDTO::class.java) }
                 firebaseResponseModel.onSuccess(res)
