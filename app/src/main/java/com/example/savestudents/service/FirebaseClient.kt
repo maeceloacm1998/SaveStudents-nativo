@@ -40,19 +40,6 @@ class FirebaseClient : FirebaseClientModel {
             )
 
             firebaseResponseModel.onSuccess(res)
-        }.addOnFailureListener { error ->
-            firebaseResponseModel.onFailure(
-                setErrorFailure(
-                    FirestoreDbConstants.StatusCode.BAD_REQUEST,
-                    error.message.toString()
-                )
-            )
-            handleLog(
-                FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                collectionPath,
-                FirestoreDbConstants.StatusCode.BAD_REQUEST.toString(),
-                error.message.toString()
-            )
         }
     }
 
@@ -88,19 +75,6 @@ class FirebaseClient : FirebaseClientModel {
             )
 
             firebaseResponseModel.onSuccess(res)
-        }.addOnFailureListener { error ->
-            firebaseResponseModel.onFailure(
-                setErrorFailure(
-                    FirestoreDbConstants.StatusCode.BAD_REQUEST,
-                    error.message.toString()
-                )
-            )
-            handleLog(
-                FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                collectionPath,
-                FirestoreDbConstants.StatusCode.BAD_REQUEST.toString(),
-                error.message.toString()
-            )
         }
     }
 
@@ -135,19 +109,6 @@ class FirebaseClient : FirebaseClientModel {
                     res.toString()
                 )
                 firebaseResponseModel.onSuccess(res)
-            }.addOnFailureListener { error ->
-                firebaseResponseModel.onFailure(
-                    setErrorFailure(
-                        FirestoreDbConstants.StatusCode.BAD_REQUEST,
-                        error.message.toString()
-                    )
-                )
-                handleLog(
-                    FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
-                    collectionPath,
-                    FirestoreDbConstants.StatusCode.SUCCESS.toString(),
-                    error.message.toString()
-                )
             }
     }
 
