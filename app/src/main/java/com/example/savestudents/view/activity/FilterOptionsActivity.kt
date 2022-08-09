@@ -3,6 +3,7 @@ package com.example.savestudents.view.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -102,10 +103,17 @@ class FilterOptionsActivity : AppCompatActivity() {
     private fun observer() {
         mViewModel.shiftOptions.observe(this) { observe ->
             filterController.setShiftOptions(observe)
+            binding.applyFiltersButton.visibility = View.VISIBLE
         }
 
         mViewModel.periodOptions.observe(this) { observe ->
             filterController.setPeriodOptions(observe)
+            binding.applyFiltersButton.visibility = View.VISIBLE
+        }
+
+        mViewModel.handleResponseError.observe(this) { observe ->
+            binding.applyFiltersButton.visibility = View.GONE
+            filterController.setResponseError(observe)
         }
     }
 
@@ -135,6 +143,11 @@ class FilterOptionsActivity : AppCompatActivity() {
 
         override fun clickCheckCheckboxRadioListener(title: String) {
             setRadioSelected(title)
+        }
+
+        override fun tryAgainListener() {
+            handleCacheValuesCheckbox()
+            fetchFilterOptions()
         }
     }
 

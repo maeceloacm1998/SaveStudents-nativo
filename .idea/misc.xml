@@ -12,14 +12,18 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_secundary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_blue_light.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_grayscale_200.xml" value="0.2445" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_grayscale_400.xml" value="0.168" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_primary.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_soft_background.xml" value="0.2555" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_transparent_with_border_primary.xml" value="0.168" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_arrow_left_35.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_arrow_right.xml" value="0.3415" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_arrow_right_24.xml" value="0.168" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_baseline_filter_list_15.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_baseline_search_20.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_menu_35.xml" value="0.3415" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/ic_woman_question.xml" value="0.168" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/img_init_rounded_borders.xml" value="0.2555" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/font/open_sans.xml" value="0.3927083333333333" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v23/header_filter_options.xml" value="0.18541666666666667" />
@@ -39,6 +43,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_holder.xml" value="0.5" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_home_holder.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/home_horizontal_card_holder.xml" value="0.4819277108433735" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/response_error_filter_options_holder.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/search_bar_holder.xml" value="0.26308345120226306" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/separator_holder.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/title_holder.xml" value="0.25" />

@@ -7,9 +7,12 @@
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
     <string name="filter_title">Filtrar</string>
+    <string name="title_filter_options_error">Ohhh… desculpe.</string>
+    <string name="subtitle_filter_options_error">Ocorreu um erro ao carregar os itens</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>
     <string name="clear_button">Limpar</string>
     <string name="filter_options_button_apply">Aplicar</string>
+    <string name="button_filter_options_error">Tente novamente</string>
 </resources>

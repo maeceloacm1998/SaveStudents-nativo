@@ -3,6 +3,7 @@ package com.example.savestudents.controller
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
 import com.example.savestudents.constants.HomeConstants
+import com.example.savestudents.holder.responseErrorFilterOptionsHolder
 import com.example.savestudents.model.FilterOption
 import com.example.savestudents.model.contract.FilterOptionsContract
 import com.example.savestudents.ui_component.checkbox.checkboxRadioHolder
@@ -12,6 +13,7 @@ import com.example.savestudents.ui_component.shimmer.shimmerHolder
 import com.example.savestudents.ui_component.title.titleHolder
 
 class FilterOptionsController(private val mContract: FilterOptionsContract) : EpoxyController() {
+    private var responseError: Boolean = false
     private var offsetShiftOptions: Int = HomeConstants.Shimmer.OFFSET_SHIFT_OPTIONS
     private var offsetPeriodOptions: Int = HomeConstants.Shimmer.OFFSET_PERIOD_OPTIONS
     private val mShiftOptions: MutableList<FilterOption> = mutableListOf()
@@ -20,8 +22,19 @@ class FilterOptionsController(private val mContract: FilterOptionsContract) : Ep
     private var mCheckboxSelectedList: MutableList<String> = mutableListOf()
 
     override fun buildModels() {
-        handleShiftOptions()
-        handlePeriodOptions()
+        if (responseError) {
+            handleResponseError()
+        } else {
+            handleShiftOptions()
+            handlePeriodOptions()
+        }
+    }
+
+    private fun handleResponseError() {
+        responseErrorFilterOptionsHolder {
+            id("response_error")
+            tryAgainListener { mContract.tryAgainListener() }
+        }
     }
 
     private fun handleShiftOptions() {
@@ -116,6 +129,11 @@ class FilterOptionsController(private val mContract: FilterOptionsContract) : Ep
 
     fun setCheckboxSelected(optionsSelectedList: MutableList<String>) {
         mCheckboxSelectedList = optionsSelectedList
+        requestModelBuild()
+    }
+
+    fun setResponseError(error: Boolean) {
+        responseError = error
         requestModelBuild()
     }
 
