@@ -1,12 +1,12 @@
 package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
-import com.example.savestudents.dto.SubjectListDto
 import com.example.savestudents.holder.homeHorizontalCardHolder
-import com.example.savestudents.ui_component.Title.titleHolder
+import com.example.savestudents.model.SubjectList
+import com.example.savestudents.ui_component.title.titleHolder
 
 class HomeMainViewController : EpoxyController() {
-    private var mSubjectList: MutableList<SubjectListDto> = mutableListOf()
+    private var mSubjectList: MutableList<SubjectList> = mutableListOf()
 
     init {
         requestModelBuild()
@@ -34,10 +34,9 @@ class HomeMainViewController : EpoxyController() {
                 marginBottom(8)
             }
         }
-
     }
 
-    fun setSubjectList(subjectList: List<SubjectListDto>) {
+    fun setSubjectList(subjectList: List<SubjectList>) {
         subjectList.forEach { item ->
             mSubjectList.add(item)
         }

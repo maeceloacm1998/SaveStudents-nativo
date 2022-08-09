@@ -1,12 +1,9 @@
-package com.example.savestudents.ui_component.Title
+package com.example.savestudents.ui_component.separator
 
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -14,10 +11,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.savestudents.R
 
 @EpoxyModelClass
-abstract class TitleHolder : EpoxyModelWithHolder<TitleHolder.SectionHolder>() {
-
-    @EpoxyAttribute
-    lateinit var title: String
+abstract class SeparatorHolder : EpoxyModelWithHolder<SeparatorHolder.SectionHolder>() {
 
     @EpoxyAttribute
     var marginTop: Int = 0
@@ -33,19 +27,21 @@ abstract class TitleHolder : EpoxyModelWithHolder<TitleHolder.SectionHolder>() {
 
     override fun bind(holder: SectionHolder) {
         super.bind(holder)
-        setTitle(holder)
-        setMargin(holder)
-    }
-
-    private fun setMargin(holder: SectionHolder) {
-        val params = (holder.mContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
-            setMargins(dpToPx(marginLeft),dpToPx(marginTop),dpToPx(marginRight),dpToPx(marginBottom))
+        holder.apply {
+            setMargin()
         }
-        holder.mContainer.layoutParams = params
     }
 
-    private fun setTitle(holder: SectionHolder) {
-        holder.mTitle.text = title
+    private fun SectionHolder.setMargin() {
+        val params = (mContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            setMargins(
+                dpToPx(marginLeft),
+                dpToPx(marginTop),
+                dpToPx(marginRight),
+                dpToPx(marginBottom)
+            )
+        }
+        mContainer.layoutParams = params
     }
 
     private fun dpToPx(dp: Int): Int {
@@ -54,16 +50,13 @@ abstract class TitleHolder : EpoxyModelWithHolder<TitleHolder.SectionHolder>() {
     }
 
     inner class SectionHolder : EpoxyHolder() {
-        lateinit var mTitle: TextView
         lateinit var mContainer: ConstraintLayout
-
         override fun bindView(itemView: View) {
-            mTitle = itemView.findViewById(R.id.title_holder)
-            mContainer = itemView.findViewById(R.id.title_container)
+            mContainer = itemView.findViewById(R.id.separator_container)
         }
     }
 
     override fun getDefaultLayout(): Int {
-        return R.layout.title_holder
+        return R.layout.separator_holder
     }
 }

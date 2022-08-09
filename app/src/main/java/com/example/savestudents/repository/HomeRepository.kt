@@ -2,8 +2,6 @@ package com.example.savestudents.repository
 
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.dto.SubjectListDto
-import com.example.savestudents.dto.asDomainModel
-import com.example.savestudents.model.SubjectList
 import com.example.savestudents.model.repository.IHomeRepository
 import com.example.savestudents.service.FirebaseClient
 import com.example.savestudents.service.model.FirebaseResponseModel
@@ -16,8 +14,7 @@ class HomeRepository : IHomeRepository {
     override fun getSubjectList(
         firebaseResponseModel: FirebaseResponseModel<List<SubjectListDto>>
     ) {
-        client.getDocumentValue(FirestoreDbConstants.Subject.SUBJECTS_LIST,
-            object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+        client.getDocumentWithOrderByValue(FirestoreDbConstants.Collections.SUBJECTS_LIST, "", object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
                 override fun onSuccess(model: List<QueryDocumentSnapshot>) {
                     val res = model.map { it.toObject(SubjectListDto::class.java) }
                     firebaseResponseModel.onSuccess(res)

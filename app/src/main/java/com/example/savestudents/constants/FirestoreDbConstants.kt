@@ -4,7 +4,6 @@ class FirestoreDbConstants {
     object StatusCode {
         const val SUCCESS = 200
         const val NOT_FOUND = 404
-        const val BAD_REQUEST = 400
     }
 
     object MethodsFirebaseClient {
@@ -16,10 +15,12 @@ class FirestoreDbConstants {
     }
 
     object MessageError {
-        const val EMPTY_RESULT = "Lista vazia"
+        const val EMPTY_RESULT = "Lista vazia ou aparelho celular sem conexao."
     }
 
-    object Subject {
+    object Collections {
         const val SUBJECTS_LIST = "subjects_list"
+        const val FILTER_OPTIONS_SHIFT = "filter_options_shift"
+        const val FILTER_OPTIONS_PERIOD = "filter_options_period"
     }
 }

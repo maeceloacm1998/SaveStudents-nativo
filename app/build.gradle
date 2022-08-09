@@ -41,6 +41,7 @@ android {
 dependencies {
     def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
+    def shimmerVersion = '0.5.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -62,4 +63,7 @@ dependencies {
     // Epoxy
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    // Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 }

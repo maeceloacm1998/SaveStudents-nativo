@@ -8,14 +8,15 @@
 
     <TextView
         android:id="@+id/title_holder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
+        android:fontFamily="More Fonts..."
         android:paddingBottom="8dp"
-        tools:text="Title"
+        android:textStyle="bold"
         android:textColor="@color/soft_black"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
