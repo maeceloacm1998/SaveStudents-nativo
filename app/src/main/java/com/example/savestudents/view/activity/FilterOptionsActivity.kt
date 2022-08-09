@@ -1,5 +1,7 @@
 package com.example.savestudents.view.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +31,7 @@ class FilterOptionsActivity : AppCompatActivity() {
             )
         ).get(FilterOptionsViewModel()::class.java)
 
+        handleCacheValuesCheckbox()
         handleFilterOptionsController()
         fetchFilterOptions()
         observer()
@@ -51,13 +54,15 @@ class FilterOptionsActivity : AppCompatActivity() {
 
     private fun goBackClickButton() {
         binding.headerOptions.goBackButton.setOnClickListener {
-
+            finish()
         }
     }
 
     private fun applyFilters() {
         binding.applyFiltersButton.setOnClickListener {
-
+          val intent =  HomeActivity.newInstance(applicationContext, checkboxRadioSelected, checkboxSelectedList as ArrayList<String>)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -66,6 +71,24 @@ class FilterOptionsActivity : AppCompatActivity() {
             getShiftOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_SHIFT, "order")
             getPeriodOptions(FirestoreDbConstants.Collections.FILTER_OPTIONS_PERIOD, "name")
         }
+    }
+
+    private fun handleCacheValuesCheckbox() {
+        val intent = intent.extras
+        val checkboxSelectedList = intent?.getStringArray(CHECKBOX_SELECTED_LIST)
+        val checkboxRadioSelected = intent?.getString(CHECKBOX_RADIO_SELECTED)
+
+        if (!checkboxRadioSelected.isNullOrBlank() && !checkboxSelectedList.isNullOrEmpty()) {
+            this.checkboxRadioSelected = checkboxRadioSelected
+            this.checkboxSelectedList = checkboxSelectedList.toMutableList()
+            filterController.setRadioSelected(checkboxRadioSelected)
+            filterController.setCheckboxSelected(checkboxSelectedList.toMutableList())
+        }
+
+
+        intent?.getString(CHECKBOX_RADIO_SELECTED)?.let { filterController.setRadioSelected(it) }
+        intent?.getStringArray(CHECKBOX_SELECTED_LIST)
+            ?.let { filterController.setCheckboxSelected(it.toMutableList()) }
     }
 
     private fun handleFilterOptionsController() {
@@ -112,6 +135,26 @@ class FilterOptionsActivity : AppCompatActivity() {
 
         override fun clickCheckCheckboxRadioListener(title: String) {
             setRadioSelected(title)
+        }
+    }
+
+    companion object {
+        private const val CHECKBOX_RADIO_SELECTED = "checkboxRadioSelected"
+        private const val CHECKBOX_SELECTED_LIST = "checkboxSelectedList"
+
+        @JvmStatic
+        fun newInstance(context: Context,checkboxRadioSelected: String, checkboxSelectedList: ArrayList<String>): Intent {
+            val intent = Intent(context, FilterOptionsActivity::class.java)
+            saveBundle(checkboxRadioSelected,checkboxSelectedList,intent)
+            return intent
+        }
+
+        private fun saveBundle(checkboxRadioSelected: String, checkboxSelectedList: ArrayList<String>, intent: Intent) {
+            val bundle = Bundle().apply {
+                this.putString(CHECKBOX_RADIO_SELECTED, checkboxRadioSelected)
+                this.putStringArray(CHECKBOX_SELECTED_LIST, checkboxSelectedList.toArray() as Array<out String>?)
+            }
+            intent.putExtras(bundle)
         }
     }
 }
