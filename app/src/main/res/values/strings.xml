@@ -2,7 +2,7 @@
     <string name="app_name">SaveStudents</string>
 
     // Placeholders
-    <string name="search_edit_text_hint"><font size="14">Nome, periodo ou turno</font></string>
+    <string name="search_edit_text_hint"><font size="16">Nome, periodo ou turno</font></string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
@@ -15,4 +15,5 @@
     <string name="clear_button">Limpar</string>
     <string name="filter_options_button_apply">Aplicar</string>
     <string name="button_filter_options_error">Tente novamente</string>
+    <string name="button_cancel">Cancelar</string>
 </resources>
