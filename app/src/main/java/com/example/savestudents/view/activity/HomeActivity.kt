@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.savestudents.controller.HeaderMainViewController
-import com.example.savestudents.controller.HomeMainViewController
+import com.example.savestudents.controller.HeaderHomeActivityController
+import com.example.savestudents.controller.HomeActivityController
 import com.example.savestudents.databinding.ActivityHomeBinding
 import com.example.savestudents.viewModel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
-    private val headerMainViewController = HeaderMainViewController()
-    private val homeMainViewController = HomeMainViewController()
+    private val headerHomeActivityController = HeaderHomeActivityController()
+    private val homeActivityController = HomeActivityController()
     private lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observers() {
         mViewModel.subjectList.observe(this) { observe ->
-            homeMainViewController.setSubjectList(observe)
+            homeActivityController.setSubjectList(observe)
         }
     }
 
@@ -55,14 +55,14 @@ class HomeActivity : AppCompatActivity() {
     private fun handleHeaderController() {
         setTallestHeaderController()
         binding.headerMainView.apply {
-            setController(headerMainViewController)
+            setController(headerHomeActivityController)
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun handleHomeController() {
         binding.homeMainView.apply {
-            setController(homeMainViewController)
+            setController(homeActivityController)
             layoutManager = LinearLayoutManager(context)
         }
     }

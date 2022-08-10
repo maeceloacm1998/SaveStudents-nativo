@@ -4,7 +4,7 @@ import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.ui_component.header.headerHolder
 import com.example.savestudents.ui_component.search.searchEditTextHolder
 
-class HeaderMainViewController : EpoxyController() {
+class HeaderHomeActivityController : EpoxyController() {
     init {
         requestModelBuild()
     }
