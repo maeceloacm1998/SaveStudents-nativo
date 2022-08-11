@@ -1,18 +1,24 @@
 package com.example.savestudents.view.activity
 
-import android.R
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.savestudents.R
 import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
 import com.example.savestudents.databinding.ActivityHomeBinding
 import com.example.savestudents.model.contract.HeaderHomeActivityContract
 import com.example.savestudents.viewModel.HomeViewModel
+
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -37,6 +43,16 @@ class HomeActivity : AppCompatActivity() {
         observers()
     }
 
+    override fun onCreateView(
+        parent: View?,
+        name: String,
+        context: Context,
+        attrs: AttributeSet
+    ): View? {
+        handleCalculateTallestHeader()
+        return super.onCreateView(parent, name, context, attrs)
+    }
+
     override fun onResume() {
         super.onResume()
         handleCacheFiltersSelected()
@@ -51,8 +67,6 @@ class HomeActivity : AppCompatActivity() {
             this.checkboxRadioSelected = checkboxRadioSelected
             this.checkboxSelectedList = checkboxSelectedList.toMutableList()
         }
-
-        val r = ""
     }
 
     private fun controllers() {
@@ -70,12 +84,7 @@ class HomeActivity : AppCompatActivity() {
         mViewModel.getSubjectList()
     }
 
-    private fun setTallestHeaderController() {
-        val viewGroup = window.decorView.findViewById<ViewGroup>(R.id.content)
-    }
-
     private fun handleHeaderController() {
-        setTallestHeaderController()
         binding.headerMainView.apply {
             setController(headerHomeActivityController)
             layoutManager = LinearLayoutManager(context)
@@ -100,6 +109,23 @@ class HomeActivity : AppCompatActivity() {
                     checkboxSelectedList.toTypedArray()
                 )
             )
+        }
+    }
+
+    private fun handleCalculateTallestHeader() {
+        val layoutTallest = R.layout.activity_home_header_tallest
+
+        (parent?.parent as? ViewGroup)?.let {
+            val headerTallest =
+                LayoutInflater.from(applicationContext).inflate(layoutTallest, null)
+            headerTallest.visibility = View.VISIBLE
+            it.addView(headerTallest)
+            headerTallest.doOnLayout { view ->
+                binding.headerMainView.apply {
+                    this.layoutParams.height = view.measuredHeight
+                }
+                headerTallest.visibility = View.GONE
+            }
         }
     }
 
