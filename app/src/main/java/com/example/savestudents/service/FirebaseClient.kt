@@ -50,32 +50,68 @@ class FirebaseClient : FirebaseClientModel {
     ) {
         database.collection(collectionPath).orderBy(orderByName ?: "", Query.Direction.ASCENDING)
             .get().addOnSuccessListener { result ->
-            if (result.documents.isEmpty()) {
-                firebaseResponseModel.onFailure(
-                    setErrorFailure(
-                        FirestoreDbConstants.StatusCode.NOT_FOUND,
+                if (result.documents.isEmpty()) {
+                    firebaseResponseModel.onFailure(
+                        setErrorFailure(
+                            FirestoreDbConstants.StatusCode.NOT_FOUND,
+                            FirestoreDbConstants.MessageError.EMPTY_RESULT
+                        )
+                    )
+                    handleLog(
+                        FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                        collectionPath,
+                        FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
                         FirestoreDbConstants.MessageError.EMPTY_RESULT
                     )
-                )
+                    return@addOnSuccessListener
+                }
+
+                val res = result.documents as T
                 handleLog(
                     FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
                     collectionPath,
-                    FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
-                    FirestoreDbConstants.MessageError.EMPTY_RESULT
+                    FirestoreDbConstants.StatusCode.SUCCESS.toString(),
+                    res.toString()
                 )
-                return@addOnSuccessListener
+
+                firebaseResponseModel.onSuccess(res)
             }
+    }
 
-            val res = result.documents as T
-            handleLog(
-                FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                collectionPath,
-                FirestoreDbConstants.StatusCode.SUCCESS.toString(),
-                res.toString()
-            )
+    override fun <T> getFilterDocuments(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>,
+        firebaseResponseModel: FirebaseResponseModel<T>
+    ) {
+        database.collection(collectionPath).whereIn(field, values).get()
+            .addOnSuccessListener { result ->
+                if (result.documents.isEmpty()) {
+                    firebaseResponseModel.onFailure(
+                        setErrorFailure(
+                            FirestoreDbConstants.StatusCode.NOT_FOUND,
+                            FirestoreDbConstants.MessageError.EMPTY_RESULT
+                        )
+                    )
+                    handleLog(
+                        FirestoreDbConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
+                        collectionPath,
+                        FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
+                        FirestoreDbConstants.MessageError.EMPTY_RESULT
+                    )
+                    return@addOnSuccessListener
+                }
 
-            firebaseResponseModel.onSuccess(res)
-        }
+                val res = result.documents as T
+                handleLog(
+                    FirestoreDbConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                    collectionPath,
+                    FirestoreDbConstants.StatusCode.SUCCESS.toString(),
+                    res.toString()
+                )
+
+                firebaseResponseModel.onSuccess(res)
+            }
     }
 
     override fun <T> getSpecificDocument(

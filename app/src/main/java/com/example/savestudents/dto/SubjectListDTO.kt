@@ -5,7 +5,7 @@ import com.example.savestudents.model.SubjectList
 data class SubjectListDto(
     var id: Long? = 0,
     var title: String? = "",
-    var period: Long? = 0
+    var period: String? = ""
 )
 
 fun List<SubjectListDto>.asDomainModel(): List<SubjectList> {
