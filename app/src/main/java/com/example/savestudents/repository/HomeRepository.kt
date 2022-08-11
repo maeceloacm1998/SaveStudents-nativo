@@ -14,7 +14,7 @@ class HomeRepository : IHomeRepository {
     override fun getSubjectList(
         firebaseResponseModel: FirebaseResponseModel<List<SubjectListDto>>
     ) {
-        client.getDocumentWithOrderByValue(FirestoreDbConstants.Collections.SUBJECTS_LIST, "", object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+        client.getDocumentValue(FirestoreDbConstants.Collections.SUBJECTS_LIST, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
                 override fun onSuccess(model: List<QueryDocumentSnapshot>) {
                     val res = model.map { it.toObject(SubjectListDto::class.java) }
                     firebaseResponseModel.onSuccess(res)

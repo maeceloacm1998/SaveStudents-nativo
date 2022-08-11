@@ -5,7 +5,7 @@ import com.example.savestudents.holder.homeHorizontalCardHolder
 import com.example.savestudents.model.SubjectList
 import com.example.savestudents.ui_component.title.titleHolder
 
-class HomeMainViewController : EpoxyController() {
+class HomeActivityController : EpoxyController() {
     private var mSubjectList: MutableList<SubjectList> = mutableListOf()
 
     init {
