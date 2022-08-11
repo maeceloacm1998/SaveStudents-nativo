@@ -42,7 +42,7 @@ class FilterOptionsActivity : AppCompatActivity() {
     private fun listeners() {
         clearFilters()
         goBackClickButton()
-        applyFilters()
+        saveFilters()
     }
 
     private fun clearFilters() {
@@ -59,7 +59,7 @@ class FilterOptionsActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyFilters() {
+    private fun saveFilters() {
         binding.applyFiltersButton.setOnClickListener {
           val intent =  HomeActivity.newInstance(applicationContext, checkboxRadioSelected, checkboxSelectedList.toTypedArray())
             startActivity(intent)
@@ -79,10 +79,13 @@ class FilterOptionsActivity : AppCompatActivity() {
         val checkboxSelectedList = intent?.getStringArray(CHECKBOX_SELECTED_LIST)
         val checkboxRadioSelected = intent?.getString(CHECKBOX_RADIO_SELECTED)
 
-        if (!checkboxRadioSelected.isNullOrBlank() && !checkboxSelectedList.isNullOrEmpty()) {
+        if (!checkboxRadioSelected.isNullOrBlank()) {
             this.checkboxRadioSelected = checkboxRadioSelected
-            this.checkboxSelectedList = checkboxSelectedList.toMutableList()
             filterController.setRadioSelected(checkboxRadioSelected)
+        }
+
+        if (!checkboxSelectedList.isNullOrEmpty()) {
+            this.checkboxSelectedList = checkboxSelectedList.toMutableList()
             filterController.setCheckboxSelected(checkboxSelectedList.toMutableList())
         }
     }

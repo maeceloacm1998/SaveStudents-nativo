@@ -21,7 +21,7 @@ import com.example.savestudents.viewModel.HomeViewModel
 
 
 class HomeActivity : AppCompatActivity() {
-    lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityHomeBinding
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController = HomeActivityController()
     private lateinit var mViewModel: HomeViewModel
@@ -63,8 +63,11 @@ class HomeActivity : AppCompatActivity() {
         val checkboxSelectedList = intent?.getStringArray(CHECKBOX_SELECTED_LIST)
         val checkboxRadioSelected = intent?.getString(CHECKBOX_RADIO_SELECTED)
 
-        if (!checkboxRadioSelected.isNullOrBlank() && !checkboxSelectedList.isNullOrEmpty()) {
+        if (!checkboxRadioSelected.isNullOrBlank()) {
             this.checkboxRadioSelected = checkboxRadioSelected
+        }
+
+        if (!checkboxSelectedList.isNullOrEmpty()) {
             this.checkboxSelectedList = checkboxSelectedList.toMutableList()
         }
     }
