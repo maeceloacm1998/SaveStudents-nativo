@@ -3,6 +3,7 @@ package com.example.savestudents.ui_component.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -35,10 +36,7 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
 
     private fun SectionHolder.clickButtonCancel() {
         mButtonCancel.setOnClickListener { view ->
-            mEditText.apply {
-                clearFocus()
-                text.clear()
-            }
+            clearEditText()
             setDefaultBackgroundEditText(view.context)
         }
     }
@@ -61,6 +59,14 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
         mSearchBarContainer.setBackgroundDrawable(context.getDrawable(R.drawable.bg_rounded_blue_light_with_border_primary))
     }
 
+    private fun SectionHolder.clearEditText(){
+        mEditText.apply {
+            clearFocus()
+            text.clear()
+            hideKeyboard(context, this)
+        }
+    }
+
     private fun SectionHolder.visibleButtonFilter() {
         mButtonCancel.visibility = View.GONE
         mButtonFilterContainer.visibility = View.VISIBLE
@@ -73,6 +79,11 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
         mButtonFilterContainer.visibility = View.GONE
         mButtonFilterIcon.visibility = View.GONE
         mButtonFilterText.visibility = View.GONE
+    }
+
+    private fun hideKeyboard(context: Context, view: EditText) {
+        val keyboard = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        keyboard.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     inner class SectionHolder : EpoxyHolder() {

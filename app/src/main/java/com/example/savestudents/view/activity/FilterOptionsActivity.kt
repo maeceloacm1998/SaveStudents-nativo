@@ -61,7 +61,7 @@ class FilterOptionsActivity : AppCompatActivity() {
 
     private fun applyFilters() {
         binding.applyFiltersButton.setOnClickListener {
-          val intent =  HomeActivity.newInstance(applicationContext, checkboxRadioSelected, checkboxSelectedList as ArrayList<String>)
+          val intent =  HomeActivity.newInstance(applicationContext, checkboxRadioSelected, checkboxSelectedList.toTypedArray())
             startActivity(intent)
             finish()
         }
@@ -85,11 +85,6 @@ class FilterOptionsActivity : AppCompatActivity() {
             filterController.setRadioSelected(checkboxRadioSelected)
             filterController.setCheckboxSelected(checkboxSelectedList.toMutableList())
         }
-
-
-        intent?.getString(CHECKBOX_RADIO_SELECTED)?.let { filterController.setRadioSelected(it) }
-        intent?.getStringArray(CHECKBOX_SELECTED_LIST)
-            ?.let { filterController.setCheckboxSelected(it.toMutableList()) }
     }
 
     private fun handleFilterOptionsController() {
@@ -156,16 +151,16 @@ class FilterOptionsActivity : AppCompatActivity() {
         private const val CHECKBOX_SELECTED_LIST = "checkboxSelectedList"
 
         @JvmStatic
-        fun newInstance(context: Context,checkboxRadioSelected: String, checkboxSelectedList: ArrayList<String>): Intent {
+        fun newInstance(context: Context,checkboxRadioSelected: String, checkboxSelectedList: Array<String>): Intent {
             val intent = Intent(context, FilterOptionsActivity::class.java)
             saveBundle(checkboxRadioSelected,checkboxSelectedList,intent)
             return intent
         }
 
-        private fun saveBundle(checkboxRadioSelected: String, checkboxSelectedList: ArrayList<String>, intent: Intent) {
+        private fun saveBundle(checkboxRadioSelected: String, checkboxSelectedList: Array<String>, intent: Intent) {
             val bundle = Bundle().apply {
                 this.putString(CHECKBOX_RADIO_SELECTED, checkboxRadioSelected)
-                this.putStringArray(CHECKBOX_SELECTED_LIST, checkboxSelectedList.toArray() as Array<out String>?)
+                this.putStringArray(CHECKBOX_SELECTED_LIST, checkboxSelectedList)
             }
             intent.putExtras(bundle)
         }

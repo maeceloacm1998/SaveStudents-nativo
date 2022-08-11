@@ -1,14 +1,11 @@
 package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
+import com.example.savestudents.model.contract.HeaderHomeActivityContract
 import com.example.savestudents.ui_component.header.headerHolder
 import com.example.savestudents.ui_component.search.searchEditTextHolder
 
-class HeaderHomeActivityController : EpoxyController() {
-    init {
-        requestModelBuild()
-    }
-
+class HeaderHomeActivityController(private val mContract: HeaderHomeActivityContract) : EpoxyController() {
     override fun buildModels() {
         handleHeader()
         handleSearchEditText()
@@ -23,6 +20,7 @@ class HeaderHomeActivityController : EpoxyController() {
     private fun handleSearchEditText() {
         searchEditTextHolder {
             id("searchEditText")
+            clickFilterButton(mContract::clickFilterButton)
         }
     }
 }
