@@ -12,6 +12,13 @@ interface FirebaseClientModel {
         firebaseResponseModel: FirebaseResponseModel<T>
     )
 
+    fun <T> getFilterDocuments(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>,
+        firebaseResponseModel: FirebaseResponseModel<T>
+    )
+
     fun <T> getSpecificDocument(
         collectionPath: String,
         documentPath: String,
