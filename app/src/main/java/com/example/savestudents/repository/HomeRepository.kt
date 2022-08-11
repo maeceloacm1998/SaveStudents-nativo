@@ -14,7 +14,28 @@ class HomeRepository : IHomeRepository {
     override fun getSubjectList(
         firebaseResponseModel: FirebaseResponseModel<List<SubjectListDto>>
     ) {
-        client.getDocumentValue(FirestoreDbConstants.Collections.SUBJECTS_LIST, object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+        client.getDocumentValue(
+            FirestoreDbConstants.Collections.SUBJECTS_LIST,
+            object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
+                override fun onSuccess(model: List<QueryDocumentSnapshot>) {
+                    val res = model.map { it.toObject(SubjectListDto::class.java) }
+                    firebaseResponseModel.onSuccess(res)
+                }
+
+                override fun onFailure(error: OnFailureModel) {
+                    firebaseResponseModel.onFailure(error)
+                }
+            })
+    }
+
+    override fun getFilterOptions(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>,
+        firebaseResponseModel: FirebaseResponseModel<List<SubjectListDto>>
+    ) {
+        client.getFilterDocuments(collectionPath, field, values,
+            object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
                 override fun onSuccess(model: List<QueryDocumentSnapshot>) {
                     val res = model.map { it.toObject(SubjectListDto::class.java) }
                     firebaseResponseModel.onSuccess(res)
