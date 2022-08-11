@@ -1,8 +1,10 @@
 package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
+import com.example.savestudents.R
 import com.example.savestudents.holder.homeHorizontalCardHolder
 import com.example.savestudents.model.SubjectList
+import com.example.savestudents.ui_component.shimmer.shimmerHolder
 import com.example.savestudents.ui_component.title.titleHolder
 
 class HomeActivityController : EpoxyController() {
@@ -24,14 +26,23 @@ class HomeActivityController : EpoxyController() {
             marginLeft(16)
         }
 
-        mSubjectList.forEach { item ->
-            homeHorizontalCardHolder {
-                id(item.id)
-                title(item.title)
-                item.period?.let { period(it) }
+        if (mSubjectList.isEmpty()) {
+            shimmerHolder {
+                id("shimmer")
+                layout(R.layout.home_horizontal_card_shimmer)
                 marginLeft(16)
                 marginRight(16)
-                marginBottom(8)
+            }
+        } else {
+            mSubjectList.forEach { item ->
+                homeHorizontalCardHolder {
+                    id(item.id)
+                    title(item.title)
+                    item.period?.let { period(it) }
+                    marginLeft(16)
+                    marginRight(16)
+                    marginBottom(8)
+                }
             }
         }
     }

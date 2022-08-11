@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:background="@drawable/bg_rounded_soft_background"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/title"
+            android:layout_width="140dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toTopOf="@id/subtitle"
+            app:layout_constraintStart_toStartOf="@id/card_container"
+            app:layout_constraintTop_toTopOf="@id/card_container"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <View
+            android:id="@+id/subtitle"
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toBottomOf="@id/card_container"
+            app:layout_constraintStart_toStartOf="@id/card_container"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <ImageView
+            android:id="@+id/next_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="38dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toBottomOf="@id/card_container"
+            app:layout_constraintEnd_toEndOf="@id/card_container"
+            app:layout_constraintTop_toTopOf="@id/card_container"
+            app:tint="@color/primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>
