@@ -61,8 +61,8 @@ class FilterOptionsActivity : AppCompatActivity() {
 
     private fun saveFilters() {
         binding.applyFiltersButton.setOnClickListener {
-          val intent =  HomeActivity.newInstance(applicationContext, checkboxRadioSelected, checkboxSelectedList.toTypedArray())
-            startActivity(intent)
+            HomeActivity.saveFiltersSelected(checkboxRadioSelected, checkboxSelectedList)
+            HomeActivity.isFiltered = true
             finish()
         }
     }
@@ -154,13 +154,21 @@ class FilterOptionsActivity : AppCompatActivity() {
         private const val CHECKBOX_SELECTED_LIST = "checkboxSelectedList"
 
         @JvmStatic
-        fun newInstance(context: Context,checkboxRadioSelected: String, checkboxSelectedList: Array<String>): Intent {
+        fun newInstance(
+            context: Context,
+            checkboxRadioSelected: String,
+            checkboxSelectedList: Array<String>
+        ): Intent {
             val intent = Intent(context, FilterOptionsActivity::class.java)
-            saveBundle(checkboxRadioSelected,checkboxSelectedList,intent)
+            saveBundle(checkboxRadioSelected, checkboxSelectedList, intent)
             return intent
         }
 
-        private fun saveBundle(checkboxRadioSelected: String, checkboxSelectedList: Array<String>, intent: Intent) {
+        private fun saveBundle(
+            checkboxRadioSelected: String,
+            checkboxSelectedList: Array<String>,
+            intent: Intent
+        ) {
             val bundle = Bundle().apply {
                 this.putString(CHECKBOX_RADIO_SELECTED, checkboxRadioSelected)
                 this.putStringArray(CHECKBOX_SELECTED_LIST, checkboxSelectedList)

@@ -54,4 +54,8 @@ class HomeActivityController : EpoxyController() {
         requestModelBuild()
     }
 
+    fun clearSubjectList() {
+        mSubjectList.clear()
+        requestModelBuild()
+    }
 }

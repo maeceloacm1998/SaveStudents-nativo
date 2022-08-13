@@ -2,7 +2,6 @@ package com.example.savestudents.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import androidx.core.view.doOnLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.R
+import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
 import com.example.savestudents.databinding.ActivityHomeBinding
@@ -25,9 +25,6 @@ class HomeActivity : AppCompatActivity() {
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController = HomeActivityController()
     private lateinit var mViewModel: HomeViewModel
-
-    private var checkboxRadioSelected: String = ""
-    private var checkboxSelectedList: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,20 +52,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        handleCacheFiltersSelected()
-    }
-
-    private fun handleCacheFiltersSelected() {
-        val intent = intent.extras
-        val checkboxSelectedList = intent?.getStringArray(CHECKBOX_SELECTED_LIST)
-        val checkboxRadioSelected = intent?.getString(CHECKBOX_RADIO_SELECTED)
-
-        if (!checkboxRadioSelected.isNullOrBlank()) {
-            this.checkboxRadioSelected = checkboxRadioSelected
-        }
-
-        if (!checkboxSelectedList.isNullOrEmpty()) {
-            this.checkboxSelectedList = checkboxSelectedList.toMutableList()
+        if (isFiltered) {
+            handleFiltersSelected()
         }
     }
 
@@ -79,6 +64,18 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observers() {
         mViewModel.subjectList.observe(this) { observe ->
+            homeActivityController.setSubjectList(observe)
+        }
+
+        mViewModel.filterSubjectListShift.observe(this) { observe ->
+            homeActivityController.setSubjectList(observe)
+        }
+
+        mViewModel.filterSubjectListPeriod.observe(this) { observe ->
+            homeActivityController.setSubjectList(observe)
+        }
+
+        mViewModel.filterSubjectListAllCategory.observe(this) { observe ->
             homeActivityController.setSubjectList(observe)
         }
     }
@@ -132,34 +129,41 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleFiltersSelected() {
+        homeActivityController.clearSubjectList()
+
+        if (checkboxRadioSelected.isBlank() && checkboxSelectedList.isEmpty()) {
+            fetchSubjectList()
+        }
+        filterSubjectList()
+    }
+
+    private fun filterSubjectList() {
+        mViewModel.filterSubjectList(
+            FirestoreDbConstants.Collections.SUBJECTS_LIST,
+            checkboxSelectedList,
+            checkboxRadioSelected
+        )
+    }
+
     companion object {
-        private const val CHECKBOX_RADIO_SELECTED = "checkboxRadioSelected"
-        private const val CHECKBOX_SELECTED_LIST = "checkboxSelectedList"
+        var checkboxRadioSelected: String = ""
+        var checkboxSelectedList: MutableList<String> = mutableListOf()
+        var isFiltered = false
 
         @JvmStatic
         fun newInstance(
             context: Context,
-            checkboxRadioSelected: String,
-            checkboxSelectedList: Array<String>
         ): Intent {
-            val intent = Intent(context, HomeActivity::class.java)
-            saveBundle(checkboxRadioSelected, checkboxSelectedList, intent)
-            return intent
+            return Intent(context, HomeActivity::class.java)
         }
 
-        private fun saveBundle(
+        fun saveFiltersSelected(
             checkboxRadioSelected: String,
-            checkboxSelectedList: Array<String>,
-            intent: Intent
+            checkboxSelectedList: MutableList<String>
         ) {
-            val bundle = Bundle().apply {
-                this.putString(CHECKBOX_RADIO_SELECTED, checkboxRadioSelected)
-                this.putStringArray(
-                    CHECKBOX_SELECTED_LIST,
-                    checkboxSelectedList
-                )
-            }
-            intent.putExtras(bundle)
+            this.checkboxRadioSelected = checkboxRadioSelected
+            this.checkboxSelectedList = checkboxSelectedList
         }
     }
 }
