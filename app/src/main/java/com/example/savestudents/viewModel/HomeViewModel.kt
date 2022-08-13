@@ -19,6 +19,15 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     private var mSubjectList = MutableLiveData<List<SubjectList>>()
     val subjectList: LiveData<List<SubjectList>> = mSubjectList
 
+    private var mFilterSubjectListShift = MutableLiveData<List<SubjectList>>()
+    val filterSubjectListShift: LiveData<List<SubjectList>> = mFilterSubjectListShift
+
+    private var mFilterSubjectListPeriod = MutableLiveData<List<SubjectList>>()
+    val filterSubjectListPeriod: LiveData<List<SubjectList>> = mFilterSubjectListPeriod
+
+    private var mFilterSubjectListWithPeriodAndShift = MutableLiveData<List<SubjectList>>()
+    val filterSubjectListWithPeriodAndShift: LiveData<List<SubjectList>> = mFilterSubjectListWithPeriodAndShift
+
     override fun getSubjectList() {
         repository.getSubjectList(object : FirebaseResponseModel<List<SubjectListDto>> {
             override fun onSuccess(model: List<SubjectListDto>) {
@@ -30,5 +39,67 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                 val erro = ""
             }
         })
+    }
+
+    override fun filterSubjectListWithShift(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>,
+    ) {
+        repository.getFilterOptions(
+            collectionPath,
+            field,
+            values,
+            object : FirebaseResponseModel<List<SubjectListDto>> {
+                override fun onSuccess(model: List<SubjectListDto>) {
+                    mFilterSubjectListShift.value = model.asDomainModel()
+                }
+
+                override fun onFailure(error: OnFailureModel) {}
+            })
+    }
+
+    override fun filterSubjectListWithPeriod(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>?,
+    ) {
+        if(!values.isNullOrEmpty()) {
+            repository.getFilterOptions(
+                collectionPath,
+                field,
+                values,
+                object : FirebaseResponseModel<List<SubjectListDto>> {
+                    override fun onSuccess(model: List<SubjectListDto>) {
+                        mFilterSubjectListPeriod.value = model.asDomainModel()
+                    }
+
+                    override fun onFailure(error: OnFailureModel) {}
+                })
+        }
+    }
+
+    override fun filterSubjectListWithPeriodAndShift(
+        collectionPath: String,
+        field: String,
+        values: MutableList<String>?,
+        checkboxRadioSelected: String
+    ) {
+        if(!values.isNullOrEmpty()) {
+            repository.getFilterOptions(
+                collectionPath,
+                field,
+                values,
+                object : FirebaseResponseModel<List<SubjectListDto>> {
+                    override fun onSuccess(model: List<SubjectListDto>) {
+                        // TODO implementar o shift como filtro para essa requisicao
+                        val result = model.asDomainModel()
+
+                        mFilterSubjectListWithPeriodAndShift.value = model.asDomainModel()
+                    }
+
+                    override fun onFailure(error: OnFailureModel) {}
+                })
+        }
     }
 }
