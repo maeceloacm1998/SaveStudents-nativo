@@ -62,6 +62,7 @@ class FilterOptionsActivity : AppCompatActivity() {
     private fun saveFilters() {
         binding.applyFiltersButton.setOnClickListener {
             HomeActivity.saveFiltersSelected(checkboxRadioSelected, checkboxSelectedList)
+            HomeActivity.isFiltered = true
             finish()
         }
     }

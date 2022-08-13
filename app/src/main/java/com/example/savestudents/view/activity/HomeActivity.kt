@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.R
 import com.example.savestudents.constants.FirestoreDbConstants
-import com.example.savestudents.constants.HomeConstants
 import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
 import com.example.savestudents.databinding.ActivityHomeBinding
@@ -53,7 +52,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        handleFiltersSelected()
+        if (isFiltered) {
+            handleFiltersSelected()
+        }
     }
 
     private fun controllers() {
@@ -74,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
             homeActivityController.setSubjectList(observe)
         }
 
-        mViewModel.filterSubjectListWithPeriodAndShift.observe(this) { observe ->
+        mViewModel.filterSubjectListAllCategory.observe(this) { observe ->
             homeActivityController.setSubjectList(observe)
         }
     }
@@ -131,36 +132,24 @@ class HomeActivity : AppCompatActivity() {
     private fun handleFiltersSelected() {
         homeActivityController.clearSubjectList()
 
-        if (checkboxRadioSelected.isBlank()) {
-            mViewModel.filterSubjectListWithPeriod(
-                FirestoreDbConstants.Collections.SUBJECTS_LIST,
-                HomeConstants.Filter.PERIOD_FIELD,
-                checkboxSelectedList
-            )
-            return
+        if (checkboxRadioSelected.isBlank() && checkboxSelectedList.isEmpty()) {
+            fetchSubjectList()
         }
+        filterSubjectList()
+    }
 
-        if (checkboxSelectedList.isNullOrEmpty()) {
-            // TODO Fazer result firestore aceitar shift
-            mViewModel.filterSubjectListWithShift(
-                FirestoreDbConstants.Collections.SUBJECTS_LIST,
-                HomeConstants.Filter.PERIOD_FIELD,
-                checkboxSelectedList
-            )
-            return
-        }
-
-//        mViewModel.filterSubjectListWithPeriodAndShift(
-//            FirestoreDbConstants.Collections.SUBJECTS_LIST,
-//            HomeConstants.Filter.PERIOD_FIELD,
-//            checkboxSelectedList,
-//            checkboxRadioSelected
-//        )
+    private fun filterSubjectList() {
+        mViewModel.filterSubjectList(
+            FirestoreDbConstants.Collections.SUBJECTS_LIST,
+            checkboxSelectedList,
+            checkboxRadioSelected
+        )
     }
 
     companion object {
         var checkboxRadioSelected: String = ""
         var checkboxSelectedList: MutableList<String> = mutableListOf()
+        var isFiltered = false
 
         @JvmStatic
         fun newInstance(
