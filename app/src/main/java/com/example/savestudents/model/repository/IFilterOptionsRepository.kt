@@ -9,6 +9,4 @@ interface IFilterOptionsRepository {
         orderByName: String,
         firebaseResponseModel: FirebaseResponseModel<List<FilterOptionDTO>>
     )
-
-
 }
