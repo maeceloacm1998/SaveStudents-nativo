@@ -15,6 +15,7 @@ import com.example.savestudents.R
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
+import com.example.savestudents.controller.SearchBarController
 import com.example.savestudents.databinding.ActivityHomeBinding
 import com.example.savestudents.model.contract.HeaderHomeActivityContract
 import com.example.savestudents.model.contract.HomeActivityContract
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
+    private val searchBarController = SearchBarController()
     private lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,18 +116,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private val headerContract = object : HeaderHomeActivityContract {
-        override fun clickFilterButton() {
-            startActivity(
-                FilterOptionsActivity.newInstance(
-                    applicationContext,
-                    checkboxRadioSelected,
-                    checkboxSelectedList.toTypedArray()
-                )
-            )
-        }
-    }
-
     private val homeContract = object : HomeActivityContract {
         override fun tryAgainListener() {
             fetchSubjectList()
@@ -164,6 +154,36 @@ class HomeActivity : AppCompatActivity() {
             checkboxSelectedList,
             checkboxRadioSelected
         )
+    }
+
+    private val headerContract = object : HeaderHomeActivityContract {
+        override fun clickFilterButtonListener() {
+            startActivity(
+                FilterOptionsActivity.newInstance(
+                    applicationContext,
+                    checkboxRadioSelected,
+                    checkboxSelectedList.toTypedArray()
+                )
+            )
+        }
+
+        override fun clickSearchBarListener() {
+            binding.homeMainView.apply {
+                setController(searchBarController)
+                layoutManager = LinearLayoutManager(context)
+            }
+        }
+
+        override fun clickButtonCancelListener() {
+            binding.homeMainView.apply {
+                setController(homeActivityController)
+                layoutManager = LinearLayoutManager(context)
+            }
+        }
+
+        override fun editTextValue(text: String) {
+            TODO("Not yet implemented")
+        }
     }
 
     companion object {
