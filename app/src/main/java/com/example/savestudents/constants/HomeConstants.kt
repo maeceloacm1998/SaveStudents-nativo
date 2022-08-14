@@ -9,6 +9,7 @@ class HomeConstants {
     object Filter {
         const val SHIFT_FIELD = "shift"
         const val PERIOD_FIELD = "period"
+        const val TITLE_FIELD = "title"
         const val MESSAGE_ERROR = "Nenhuma matéria foi encontrada"
         const val DESCRIPTION_ERROR = "Tente filtrar por outra palavra"
         const val TYPE_LIST_ERROR = "list"

@@ -71,6 +71,10 @@ class HomeActivity : AppCompatActivity() {
             homeActivityController.setSubjectList(observe)
         }
 
+        mViewModel.searchList.observe(this) { observe ->
+            searchBarController.setSubjectList(observe)
+        }
+
         mViewModel.filterSubjectListShift.observe(this) { observe ->
             setError(false)
             homeActivityController.setSubjectList(observe)
@@ -171,18 +175,22 @@ class HomeActivity : AppCompatActivity() {
             binding.homeMainView.apply {
                 setController(searchBarController)
                 layoutManager = LinearLayoutManager(context)
+                requestModelBuild()
             }
         }
 
         override fun clickButtonCancelListener() {
+            homeActivityController.clearSubjectList()
             binding.homeMainView.apply {
                 setController(homeActivityController)
                 layoutManager = LinearLayoutManager(context)
+                requestModelBuild()
             }
+            fetchSubjectList()
         }
 
         override fun editTextValue(text: String) {
-            TODO("Not yet implemented")
+            mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
         }
     }
 

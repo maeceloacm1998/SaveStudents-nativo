@@ -22,6 +22,9 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     private var mSubjectList = MutableLiveData<List<SubjectList>>()
     val subjectList: LiveData<List<SubjectList>> = mSubjectList
 
+    private var mSearchList = MutableLiveData<List<SubjectList>>()
+    val searchList: LiveData<List<SubjectList>> = mSearchList
+
     private var mFilterSubjectListShift = MutableLiveData<List<SubjectList>>()
     val filterSubjectListShift: LiveData<List<SubjectList>> = mFilterSubjectListShift
 
@@ -59,6 +62,27 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
         } else {
             filterPerCategory(collectionPath, periodList, shift)
         }
+    }
+
+    override fun searchSubjectList(collectionPath: String, searchValue: String) {
+        repository.getFilterOptions(
+            collectionPath,
+            HomeConstants.Filter.TITLE_FIELD,
+            mutableListOf(searchValue),
+            object : FirebaseResponseModel<List<SubjectListDto>> {
+                override fun onSuccess(model: List<SubjectListDto>) {
+                    mSearchList.value = model.asDomainModel()
+                }
+
+                override fun onFailure(error: OnFailureModel) {
+                    handleError(
+                        error.code,
+                        HomeConstants.Filter.TYPE_FILTER_ERROR,
+                        HomeConstants.Filter.MESSAGE_ERROR,
+                        HomeConstants.Filter.DESCRIPTION_ERROR
+                    )
+                }
+            })
     }
 
     private fun checkShiftAndPeriod(periodList: MutableList<String>?, shift: String): Boolean =

@@ -43,7 +43,7 @@ class SearchBarController: EpoxyController() {
         }
     }
 
-    fun setSubjectList(list: MutableList<SubjectList>) {
+    fun setSubjectList(list: List<SubjectList>) {
         list.forEach { item ->
             mSubjectList.add(item)
         }
