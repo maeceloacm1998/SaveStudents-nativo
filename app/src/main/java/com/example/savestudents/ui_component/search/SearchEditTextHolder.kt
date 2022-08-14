@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -17,7 +18,16 @@ import com.example.savestudents.R
 abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.SectionHolder>() {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-    lateinit var clickFilterButton: () -> Unit
+    lateinit var clickFilterButtonListener: () -> Unit
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var clickSearchBarListener: () -> Unit
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var clickButtonCancelListener: () -> Unit
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var editTextValue: (text:String) -> Unit
 
     override fun bind(holder: SectionHolder) {
         super.bind(holder)
@@ -25,12 +35,19 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
             handleClickFilterButton()
             clickButtonCancel()
             handleOnFocusEditText()
+            handleEditTextValue()
+        }
+    }
+
+    private fun SectionHolder.handleEditTextValue() {
+        mEditText.addTextChangedListener {
+            editTextValue(it.toString())
         }
     }
 
     private fun SectionHolder.handleClickFilterButton() {
         mButtonFilterContainer.setOnClickListener {
-            clickFilterButton()
+            clickFilterButtonListener()
         }
     }
 
@@ -38,12 +55,14 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
         mButtonCancel.setOnClickListener { view ->
             clearEditText()
             setDefaultBackgroundEditText(view.context)
+            clickButtonCancelListener()
         }
     }
 
     private fun SectionHolder.handleOnFocusEditText() {
         mEditText.setOnFocusChangeListener { view, _ ->
             setBackgroundClickEditText(view.context)
+            clickSearchBarListener()
         }
     }
 
