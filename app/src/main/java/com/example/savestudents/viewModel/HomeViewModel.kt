@@ -3,10 +3,12 @@ package com.example.savestudents.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.constants.HomeConstants
 import com.example.savestudents.dto.SubjectListDto
 import com.example.savestudents.dto.asDomainModel
 import com.example.savestudents.model.SubjectList
+import com.example.savestudents.model.error.SubjectListErrorModel
 import com.example.savestudents.model.repository.IHomeRepository
 import com.example.savestudents.model.viewModel.IHomeViewModel
 import com.example.savestudents.repository.HomeRepository
@@ -29,6 +31,9 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     private var mFilterSubjectListAllCategory = MutableLiveData<List<SubjectList>>()
     val filterSubjectListAllCategory: LiveData<List<SubjectList>> = mFilterSubjectListAllCategory
 
+    private var mSubjectListError = MutableLiveData<SubjectListErrorModel>()
+    var subjectListError: LiveData<SubjectListErrorModel> = mSubjectListError
+
     override fun getSubjectList() {
         repository.getSubjectList(object : FirebaseResponseModel<List<SubjectListDto>> {
             override fun onSuccess(model: List<SubjectListDto>) {
@@ -36,7 +41,10 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
             }
 
             override fun onFailure(error: OnFailureModel) {
-                // TODO TRATAR ERROR
+                handleError(
+                    error.code, HomeConstants.Filter.TYPE_LIST_ERROR,
+                    HomeConstants.Filter.MESSAGE_ERROR, ""
+                )
             }
         })
     }
@@ -79,7 +87,12 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                 }
 
                 override fun onFailure(error: OnFailureModel) {
-                    // TODO TRATAR ERROR
+                    handleError(
+                        error.code,
+                        HomeConstants.Filter.TYPE_FILTER_ERROR,
+                        HomeConstants.Filter.MESSAGE_ERROR,
+                        HomeConstants.Filter.DESCRIPTION_ERROR
+                    )
                 }
             })
     }
@@ -100,7 +113,12 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                     }
 
                     override fun onFailure(error: OnFailureModel) {
-                        // TODO TRATAR ERROR
+                        handleError(
+                            error.code,
+                            HomeConstants.Filter.TYPE_FILTER_ERROR,
+                            HomeConstants.Filter.MESSAGE_ERROR,
+                            HomeConstants.Filter.DESCRIPTION_ERROR
+                        )
                     }
                 })
         }
@@ -116,9 +134,21 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                     }
 
                     override fun onFailure(error: OnFailureModel) {
-                        // TODO TRATAR ERROR
+                        handleError(
+                            error.code,
+                            HomeConstants.Filter.TYPE_FILTER_ERROR,
+                            HomeConstants.Filter.MESSAGE_ERROR,
+                            HomeConstants.Filter.DESCRIPTION_ERROR
+                        )
                     }
                 })
+        }
+    }
+
+    private fun handleError(code: Int, type: String, message: String, description: String) {
+        when (code) {
+            FirestoreDbConstants.StatusCode.NOT_FOUND ->
+                mSubjectListError.value = SubjectListErrorModel(type, message, description)
         }
     }
 }
