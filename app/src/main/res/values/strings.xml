@@ -2,7 +2,7 @@
     <string name="app_name">SaveStudents</string>
 
     // Placeholders
-    <string name="search_edit_text_hint"><font size="16">Nome, periodo ou turno</font></string>
+    <string name="search_edit_text_hint"><font size="16">Digite o nome da matéria</font></string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
