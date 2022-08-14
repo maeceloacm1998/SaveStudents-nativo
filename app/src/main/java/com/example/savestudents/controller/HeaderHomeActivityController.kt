@@ -6,9 +6,10 @@ import com.example.savestudents.ui_component.header.headerHolder
 import com.example.savestudents.ui_component.search.searchEditTextHolder
 
 class HeaderHomeActivityController(private val mContract: HeaderHomeActivityContract) : EpoxyController() {
+
     override fun buildModels() {
-        handleHeader()
-        handleSearchEditText()
+            handleHeader()
+            handleSearchEditText()
     }
 
     private fun handleHeader() {

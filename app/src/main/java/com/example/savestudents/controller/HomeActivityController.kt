@@ -2,20 +2,27 @@ package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
+import com.example.savestudents.constants.HomeConstants
 import com.example.savestudents.holder.homeHorizontalCardHolder
+import com.example.savestudents.holder.responseErrorHolder
+import com.example.savestudents.holder.responseErrorTryAgainListenerHolder
 import com.example.savestudents.model.SubjectList
+import com.example.savestudents.model.contract.HomeActivityContract
+import com.example.savestudents.model.error.SubjectListErrorModel
 import com.example.savestudents.ui_component.shimmer.shimmerHolder
 import com.example.savestudents.ui_component.title.titleHolder
 
-class HomeActivityController : EpoxyController() {
+class HomeActivityController(private val mContract: HomeActivityContract) : EpoxyController() {
     private var mSubjectList: MutableList<SubjectList> = mutableListOf()
-
-    init {
-        requestModelBuild()
-    }
+    private var isResponseError: Boolean = false
+    private lateinit var mResponseError: SubjectListErrorModel
 
     override fun buildModels() {
-        handleHomeList()
+        if (isResponseError) {
+            handleResponseError()
+        } else {
+            handleHomeList()
+        }
     }
 
     private fun handleHomeList() {
@@ -47,6 +54,22 @@ class HomeActivityController : EpoxyController() {
         }
     }
 
+    private fun handleResponseError() {
+        if (mResponseError.type == HomeConstants.Filter.TYPE_FILTER_ERROR) {
+            responseErrorHolder {
+                id(HomeConstants.Filter.TYPE_FILTER_ERROR)
+                message(mResponseError.message)
+                description(mResponseError.description)
+            }
+        } else {
+            responseErrorTryAgainListenerHolder {
+                id(HomeConstants.Filter.TYPE_LIST_ERROR)
+                message(mResponseError.message)
+                tryAgainListener(mContract::tryAgainListener)
+            }
+        }
+    }
+
     fun setSubjectList(subjectList: List<SubjectList>) {
         subjectList.forEach { item ->
             mSubjectList.add(item)
@@ -56,6 +79,15 @@ class HomeActivityController : EpoxyController() {
 
     fun clearSubjectList() {
         mSubjectList.clear()
+        requestModelBuild()
+    }
+
+    fun isResponseError(error: Boolean) {
+        isResponseError = error
+    }
+
+    fun setResponseError(responseError: SubjectListErrorModel) {
+        mResponseError = responseError
         requestModelBuild()
     }
 }

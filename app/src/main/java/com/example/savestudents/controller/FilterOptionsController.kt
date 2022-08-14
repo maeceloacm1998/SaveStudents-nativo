@@ -3,7 +3,7 @@ package com.example.savestudents.controller
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
 import com.example.savestudents.constants.HomeConstants
-import com.example.savestudents.holder.responseErrorFilterOptionsHolder
+import com.example.savestudents.holder.responseErrorTryAgainListenerHolder
 import com.example.savestudents.model.FilterOption
 import com.example.savestudents.model.contract.FilterOptionsContract
 import com.example.savestudents.ui_component.checkbox.checkboxRadioHolder
@@ -31,7 +31,7 @@ class FilterOptionsController(private val mContract: FilterOptionsContract) : Ep
     }
 
     private fun handleResponseError() {
-        responseErrorFilterOptionsHolder {
+        responseErrorTryAgainListenerHolder {
             id("response_error")
             tryAgainListener { mContract.tryAgainListener() }
         }

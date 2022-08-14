@@ -17,13 +17,14 @@ import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
 import com.example.savestudents.databinding.ActivityHomeBinding
 import com.example.savestudents.model.contract.HeaderHomeActivityContract
+import com.example.savestudents.model.contract.HomeActivityContract
 import com.example.savestudents.viewModel.HomeViewModel
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
-    private val homeActivityController = HomeActivityController()
+    private val homeActivityController by lazy { HomeActivityController(homeContract) }
     private lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,20 +65,33 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observers() {
         mViewModel.subjectList.observe(this) { observe ->
+            setError(false)
             homeActivityController.setSubjectList(observe)
         }
 
         mViewModel.filterSubjectListShift.observe(this) { observe ->
+            setError(false)
             homeActivityController.setSubjectList(observe)
         }
 
         mViewModel.filterSubjectListPeriod.observe(this) { observe ->
+            setError(false)
             homeActivityController.setSubjectList(observe)
         }
 
         mViewModel.filterSubjectListAllCategory.observe(this) { observe ->
+            setError(false)
             homeActivityController.setSubjectList(observe)
         }
+
+        mViewModel.subjectListError.observe(this) { observe ->
+            setError(true)
+            homeActivityController.setResponseError(observe)
+        }
+    }
+
+    private fun setError(status: Boolean) {
+        homeActivityController.isResponseError(status)
     }
 
     private fun fetchSubjectList() {
@@ -109,6 +123,12 @@ class HomeActivity : AppCompatActivity() {
                     checkboxSelectedList.toTypedArray()
                 )
             )
+        }
+    }
+
+    private val homeContract = object : HomeActivityContract {
+        override fun tryAgainListener() {
+            fetchSubjectList()
         }
     }
 
