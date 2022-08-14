@@ -15,6 +15,7 @@ import com.example.savestudents.R
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.controller.HeaderHomeActivityController
 import com.example.savestudents.controller.HomeActivityController
+import com.example.savestudents.controller.SearchBarController
 import com.example.savestudents.databinding.ActivityHomeBinding
 import com.example.savestudents.model.contract.HeaderHomeActivityContract
 import com.example.savestudents.model.contract.HomeActivityContract
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
+    private val searchBarController = SearchBarController()
     private lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +71,14 @@ class HomeActivity : AppCompatActivity() {
             homeActivityController.setSubjectList(observe)
         }
 
+        mViewModel.searchList.observe(this) { observe ->
+            searchBarController.apply {
+                isResponseError(false)
+                setLoading(false)
+                setSubjectList(observe)
+            }
+        }
+
         mViewModel.filterSubjectListShift.observe(this) { observe ->
             setError(false)
             homeActivityController.setSubjectList(observe)
@@ -87,6 +97,13 @@ class HomeActivity : AppCompatActivity() {
         mViewModel.subjectListError.observe(this) { observe ->
             setError(true)
             homeActivityController.setResponseError(observe)
+        }
+
+        mViewModel.searchError.observe(this) { observe ->
+            searchBarController.apply {
+                isResponseError(true)
+                setResponseError(observe)
+            }
         }
     }
 
@@ -111,18 +128,6 @@ class HomeActivity : AppCompatActivity() {
             setController(homeActivityController)
             layoutManager = LinearLayoutManager(context)
             requestModelBuild()
-        }
-    }
-
-    private val headerContract = object : HeaderHomeActivityContract {
-        override fun clickFilterButton() {
-            startActivity(
-                FilterOptionsActivity.newInstance(
-                    applicationContext,
-                    checkboxRadioSelected,
-                    checkboxSelectedList.toTypedArray()
-                )
-            )
         }
     }
 
@@ -166,6 +171,41 @@ class HomeActivity : AppCompatActivity() {
         )
     }
 
+    private val headerContract = object : HeaderHomeActivityContract {
+        override fun clickFilterButtonListener() {
+            startActivity(
+                FilterOptionsActivity.newInstance(
+                    applicationContext,
+                    checkboxRadioSelected,
+                    checkboxSelectedList.toTypedArray()
+                )
+            )
+        }
+
+        override fun clickSearchBarListener() {
+            binding.homeMainView.apply {
+                setController(searchBarController)
+                layoutManager = LinearLayoutManager(context)
+                requestModelBuild()
+            }
+        }
+
+        override fun clickButtonCancelListener() {
+            homeActivityController.clearSubjectList()
+            binding.homeMainView.apply {
+                setController(homeActivityController)
+                layoutManager = LinearLayoutManager(context)
+                requestModelBuild()
+            }
+            fetchSubjectList()
+        }
+
+        override fun editTextValue(text: String) {
+            searchBarController.setLoading(true)
+            mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
+        }
+    }
+
     companion object {
         var checkboxRadioSelected: String = ""
         var checkboxSelectedList: MutableList<String> = mutableListOf()
@@ -187,4 +227,3 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 }
-

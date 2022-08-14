@@ -21,7 +21,10 @@ class HeaderHomeActivityController(private val mContract: HeaderHomeActivityCont
     private fun handleSearchEditText() {
         searchEditTextHolder {
             id("searchEditText")
-            clickFilterButton(mContract::clickFilterButton)
+            clickFilterButtonListener(mContract::clickFilterButtonListener)
+            clickSearchBarListener(mContract::clickSearchBarListener)
+            clickButtonCancelListener(mContract::clickButtonCancelListener)
+            editTextValue(mContract::editTextValue)
         }
     }
 }
