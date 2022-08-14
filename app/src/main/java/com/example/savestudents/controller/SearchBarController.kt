@@ -2,16 +2,26 @@ package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
+import com.example.savestudents.constants.HomeConstants
 import com.example.savestudents.holder.homeHorizontalCardHolder
+import com.example.savestudents.holder.responseErrorHolder
 import com.example.savestudents.model.SubjectList
+import com.example.savestudents.model.error.SubjectListErrorModel
 import com.example.savestudents.ui_component.shimmer.shimmerHolder
 import com.example.savestudents.ui_component.title.titleHolder
 
-class SearchBarController: EpoxyController() {
+class SearchBarController : EpoxyController() {
     private var mSubjectList: MutableList<SubjectList> = mutableListOf()
+    private lateinit var mResponseError: SubjectListErrorModel
+    private var isResponseError: Boolean = false
+    private var loading: Boolean = false
 
     override fun buildModels() {
-        handleSearchList()
+        if (isResponseError) {
+            handleResponseError()
+        } else {
+            handleSearchList()
+        }
     }
 
     private fun handleSearchList() {
@@ -22,7 +32,7 @@ class SearchBarController: EpoxyController() {
             marginLeft(16)
         }
 
-        if(mSubjectList.isEmpty()){
+        if (loading) {
             shimmerHolder {
                 id("shimmer")
                 layout(R.layout.home_horizontal_card_shimmer)
@@ -43,10 +53,30 @@ class SearchBarController: EpoxyController() {
         }
     }
 
-    fun setSubjectList(list: List<SubjectList>) {
-        list.forEach { item ->
-            mSubjectList.add(item)
+    private fun handleResponseError() {
+        responseErrorHolder {
+            id(HomeConstants.Filter.TYPE_SEARCH_ERROR)
+            message(mResponseError.message)
+            description(mResponseError.description)
         }
+    }
+
+    fun setSubjectList(list: List<SubjectList>) {
+        mSubjectList = list.toMutableList()
+        requestModelBuild()
+    }
+
+    fun setLoading(status: Boolean) {
+        loading = status
+        requestModelBuild()
+    }
+
+    fun isResponseError(error: Boolean) {
+        isResponseError = error
+    }
+
+    fun setResponseError(responseError: SubjectListErrorModel) {
+        mResponseError = responseError
         requestModelBuild()
     }
 }

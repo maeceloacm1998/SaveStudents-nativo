@@ -37,6 +37,9 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     private var mSubjectListError = MutableLiveData<SubjectListErrorModel>()
     var subjectListError: LiveData<SubjectListErrorModel> = mSubjectListError
 
+    private var mSearchError = MutableLiveData<SubjectListErrorModel>()
+    var searchError: LiveData<SubjectListErrorModel> = mSearchError
+
     override fun getSubjectList() {
         repository.getSubjectList(object : FirebaseResponseModel<List<SubjectListDto>> {
             override fun onSuccess(model: List<SubjectListDto>) {
@@ -44,7 +47,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
             }
 
             override fun onFailure(error: OnFailureModel) {
-                handleError(
+                handleErrorSubjectList(
                     error.code, HomeConstants.Filter.TYPE_LIST_ERROR,
                     HomeConstants.Filter.MESSAGE_ERROR, ""
                 )
@@ -65,35 +68,33 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     }
 
     override fun searchSubjectList(collectionPath: String, searchValue: String) {
-        repository.getFilterOptions(
-            collectionPath,
-            HomeConstants.Filter.TITLE_FIELD,
-            mutableListOf(searchValue),
-            object : FirebaseResponseModel<List<SubjectListDto>> {
-                override fun onSuccess(model: List<SubjectListDto>) {
-                    mSearchList.value = model.asDomainModel()
+        repository.getSubjectList(object : FirebaseResponseModel<List<SubjectListDto>> {
+            override fun onSuccess(model: List<SubjectListDto>) {
+                if (searchValue.isBlank()) {
+                    mSearchList.value = mutableListOf()
+                    return
                 }
 
-                override fun onFailure(error: OnFailureModel) {
-                    handleError(
-                        error.code,
-                        HomeConstants.Filter.TYPE_FILTER_ERROR,
+                if (!containsSearchValue(model, searchValue)) {
+                    handleErrorSearch(
+                        FirestoreDbConstants.StatusCode.NOT_FOUND,
+                        HomeConstants.Filter.TYPE_SEARCH_ERROR,
                         HomeConstants.Filter.MESSAGE_ERROR,
-                        HomeConstants.Filter.DESCRIPTION_ERROR
+                        HomeConstants.Filter.DESCRIPTION_SEARCH_ERROR
                     )
+                    return
                 }
-            })
-    }
 
-    private fun checkShiftAndPeriod(periodList: MutableList<String>?, shift: String): Boolean =
-        shift.isNotBlank() && !periodList.isNullOrEmpty()
+                mSearchList.value = filterSearchValue(model, searchValue).asDomainModel()
+            }
 
-    private fun isShift(shift: String) = shift.isNotBlank()
-
-    private fun isPeriod(periodList: MutableList<String>?) = !periodList.isNullOrEmpty()
-
-    private fun filterPerShift(model: List<SubjectListDto>, shift: String): List<SubjectList> {
-        return model.filter { result -> result.shift == shift }.asDomainModel()
+            override fun onFailure(error: OnFailureModel) {
+                handleErrorSearch(
+                    error.code, HomeConstants.Filter.TYPE_LIST_ERROR,
+                    HomeConstants.Filter.MESSAGE_ERROR, ""
+                )
+            }
+        })
     }
 
     private fun filterSubjectListAllCategory(
@@ -111,7 +112,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                 }
 
                 override fun onFailure(error: OnFailureModel) {
-                    handleError(
+                    handleErrorSubjectList(
                         error.code,
                         HomeConstants.Filter.TYPE_FILTER_ERROR,
                         HomeConstants.Filter.MESSAGE_ERROR,
@@ -137,7 +138,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                     }
 
                     override fun onFailure(error: OnFailureModel) {
-                        handleError(
+                        handleErrorSubjectList(
                             error.code,
                             HomeConstants.Filter.TYPE_FILTER_ERROR,
                             HomeConstants.Filter.MESSAGE_ERROR,
@@ -158,7 +159,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                     }
 
                     override fun onFailure(error: OnFailureModel) {
-                        handleError(
+                        handleErrorSubjectList(
                             error.code,
                             HomeConstants.Filter.TYPE_FILTER_ERROR,
                             HomeConstants.Filter.MESSAGE_ERROR,
@@ -169,10 +170,48 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
         }
     }
 
-    private fun handleError(code: Int, type: String, message: String, description: String) {
+    private fun containsSearchValue(model: List<SubjectListDto>, searchValue: String): Boolean {
+        return model.find { result ->
+            result.title.lowercase().contains(searchValue.lowercase())
+        } != null
+    }
+
+    private fun filterSearchValue(
+        model: List<SubjectListDto>,
+        searchValue: String
+    ): List<SubjectListDto> {
+        return model.filter { result ->
+            result.title.lowercase().contains(searchValue.lowercase())
+        }
+    }
+
+    private fun checkShiftAndPeriod(periodList: MutableList<String>?, shift: String): Boolean =
+        shift.isNotBlank() && !periodList.isNullOrEmpty()
+
+    private fun isShift(shift: String) = shift.isNotBlank()
+
+    private fun isPeriod(periodList: MutableList<String>?) = !periodList.isNullOrEmpty()
+
+    private fun filterPerShift(model: List<SubjectListDto>, shift: String): List<SubjectList> {
+        return model.filter { result -> result.shift == shift }.asDomainModel()
+    }
+
+    private fun handleErrorSubjectList(
+        code: Int,
+        type: String,
+        message: String,
+        description: String
+    ) {
         when (code) {
             FirestoreDbConstants.StatusCode.NOT_FOUND ->
                 mSubjectListError.value = SubjectListErrorModel(type, message, description)
+        }
+    }
+
+    private fun handleErrorSearch(code: Int, type: String, message: String, description: String) {
+        when (code) {
+            FirestoreDbConstants.StatusCode.NOT_FOUND ->
+                mSearchError.value = SubjectListErrorModel(type, message, description)
         }
     }
 }

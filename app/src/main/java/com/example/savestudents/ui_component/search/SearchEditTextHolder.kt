@@ -41,7 +41,7 @@ abstract class SearchEditTextHolder : EpoxyModelWithHolder<SearchEditTextHolder.
 
     private fun SectionHolder.handleEditTextValue() {
         mEditText.addTextChangedListener {
-            editTextValue(it.toString())
+            editTextValue(it.toString().trim())
         }
     }
 

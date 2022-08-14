@@ -72,7 +72,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         mViewModel.searchList.observe(this) { observe ->
-            searchBarController.setSubjectList(observe)
+            searchBarController.apply {
+                isResponseError(false)
+                setLoading(false)
+                setSubjectList(observe)
+            }
         }
 
         mViewModel.filterSubjectListShift.observe(this) { observe ->
@@ -93,6 +97,13 @@ class HomeActivity : AppCompatActivity() {
         mViewModel.subjectListError.observe(this) { observe ->
             setError(true)
             homeActivityController.setResponseError(observe)
+        }
+
+        mViewModel.searchError.observe(this) { observe ->
+            searchBarController.apply {
+                isResponseError(true)
+                setResponseError(observe)
+            }
         }
     }
 
@@ -190,6 +201,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         override fun editTextValue(text: String) {
+            searchBarController.setLoading(true)
             mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
         }
     }
@@ -215,4 +227,3 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 }
-
