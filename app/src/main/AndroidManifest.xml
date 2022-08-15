@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveStudents">
         <activity
+            android:name=".view.activity.TimelineActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.FilterOptionsActivity"
             android:exported="false" />
         <activity
