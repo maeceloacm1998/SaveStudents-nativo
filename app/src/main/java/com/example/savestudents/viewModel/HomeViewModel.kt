@@ -103,7 +103,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                             FirestoreDbConstants.StatusCode.NOT_FOUND,
                             HomeConstants.Filter.TYPE_FILTER_ERROR,
                             HomeConstants.Filter.MESSAGE_ERROR,
-                            HomeConstants.Filter.DESCRIPTION_SEARCH_ERROR
+                            HomeConstants.Filter.DESCRIPTION_ERROR
                         )
                         return
                     }
