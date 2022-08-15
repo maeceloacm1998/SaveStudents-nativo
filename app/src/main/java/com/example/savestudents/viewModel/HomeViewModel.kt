@@ -101,7 +101,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                     if (!containsShiftValue(model, shift)) {
                         handleErrorSubjectList(
                             FirestoreDbConstants.StatusCode.NOT_FOUND,
-                            HomeConstants.Filter.TYPE_LIST_ERROR,
+                            HomeConstants.Filter.TYPE_FILTER_ERROR,
                             HomeConstants.Filter.MESSAGE_ERROR,
                             HomeConstants.Filter.DESCRIPTION_SEARCH_ERROR
                         )
