@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/information_timeline_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/information_container"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/notification_timeline_button"
+            app:layout_constraintHorizontal_weight="8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/title"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toTopOf="@id/period"
+            app:layout_constraintStart_toStartOf="@id/information_container"
+            app:layout_constraintTop_toTopOf="@id/information_container" />
+
+        <View
+            android:id="@+id/period"
+            android:layout_width="60dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toTopOf="@id/shift"
+            app:layout_constraintStart_toStartOf="@id/information_container"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <View
+            android:id="@+id/shift"
+            android:layout_width="80dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toTopOf="@id/teacher"
+            app:layout_constraintStart_toStartOf="@id/information_container"
+            app:layout_constraintTop_toBottomOf="@id/period" />
+
+        <View
+            android:id="@+id/teacher"
+            android:layout_width="120dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toBottomOf="@id/information_container"
+            app:layout_constraintStart_toStartOf="@id/information_container"
+            app:layout_constraintTop_toBottomOf="@id/shift" />
+
+        <View
+            android:id="@+id/notification_timeline_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_transparent_with_border_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1.6"
+            app:layout_constraintStart_toEndOf="@id/information_container"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_notifications_off_17"
+            app:layout_constraintBottom_toTopOf="@id/notification_text"
+            app:layout_constraintEnd_toEndOf="@id/notification_timeline_button"
+            app:layout_constraintStart_toStartOf="@id/notification_timeline_button"
+            app:layout_constraintTop_toTopOf="@id/notification_timeline_button"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <View
+            android:id="@+id/notification_text"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
+            android:background="@color/gray_scale_400"
+            app:layout_constraintBottom_toBottomOf="@id/notification_timeline_button"
+            app:layout_constraintEnd_toEndOf="@id/notification_timeline_button"
+            app:layout_constraintStart_toStartOf="@id/notification_timeline_button"
+            app:layout_constraintTop_toBottomOf="@id/notification_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>
