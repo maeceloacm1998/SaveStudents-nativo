@@ -16,4 +16,5 @@
     <string name="filter_options_button_apply">Aplicar</string>
     <string name="button_filter_options_error">Tente novamente</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="information_timeline_notification_text">Notificar</string>
 </resources>
