@@ -60,6 +60,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        isFiltered = false
+    }
+
     private fun controllers() {
         handleHeaderController()
         handleHomeController()
@@ -77,21 +82,6 @@ class HomeActivity : AppCompatActivity() {
                 setLoading(false)
                 setSubjectList(observe)
             }
-        }
-
-        mViewModel.filterSubjectListShift.observe(this) { observe ->
-            setError(false)
-            homeActivityController.setSubjectList(observe)
-        }
-
-        mViewModel.filterSubjectListPeriod.observe(this) { observe ->
-            setError(false)
-            homeActivityController.setSubjectList(observe)
-        }
-
-        mViewModel.filterSubjectListAllCategory.observe(this) { observe ->
-            setError(false)
-            homeActivityController.setSubjectList(observe)
         }
 
         mViewModel.subjectListError.observe(this) { observe ->
@@ -128,12 +118,6 @@ class HomeActivity : AppCompatActivity() {
             setController(homeActivityController)
             layoutManager = LinearLayoutManager(context)
             requestModelBuild()
-        }
-    }
-
-    private val homeContract = object : HomeActivityContract {
-        override fun tryAgainListener() {
-            fetchSubjectList()
         }
     }
 
@@ -203,6 +187,12 @@ class HomeActivity : AppCompatActivity() {
         override fun editTextValue(text: String) {
             searchBarController.setLoading(true)
             mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
+        }
+    }
+
+    private val homeContract = object : HomeActivityContract {
+        override fun tryAgainListener() {
+            fetchSubjectList()
         }
     }
 
