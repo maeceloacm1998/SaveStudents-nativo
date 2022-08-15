@@ -16,7 +16,6 @@ import com.example.savestudents.service.model.FirebaseResponseModel
 import com.example.savestudents.service.model.OnFailureModel
 
 class HomeViewModel() : ViewModel(), IHomeViewModel {
-
     private val repository: IHomeRepository = HomeRepository()
 
     private var mSubjectList = MutableLiveData<List<SubjectList>>()
@@ -24,15 +23,6 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
 
     private var mSearchList = MutableLiveData<List<SubjectList>>()
     val searchList: LiveData<List<SubjectList>> = mSearchList
-
-    private var mFilterSubjectListShift = MutableLiveData<List<SubjectList>>()
-    val filterSubjectListShift: LiveData<List<SubjectList>> = mFilterSubjectListShift
-
-    private var mFilterSubjectListPeriod = MutableLiveData<List<SubjectList>>()
-    val filterSubjectListPeriod: LiveData<List<SubjectList>> = mFilterSubjectListPeriod
-
-    private var mFilterSubjectListAllCategory = MutableLiveData<List<SubjectList>>()
-    val filterSubjectListAllCategory: LiveData<List<SubjectList>> = mFilterSubjectListAllCategory
 
     private var mSubjectListError = MutableLiveData<SubjectListErrorModel>()
     var subjectListError: LiveData<SubjectListErrorModel> = mSubjectListError
@@ -60,7 +50,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
         periodList: MutableList<String>?,
         shift: String
     ) {
-        if (checkShiftAndPeriod(periodList, shift)) {
+        if (selectPeriodAndShift(periodList, shift)) {
             filterSubjectListAllCategory(collectionPath, periodList!!, shift)
         } else {
             filterPerCategory(collectionPath, periodList, shift)
@@ -108,7 +98,17 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
             periodList,
             object : FirebaseResponseModel<List<SubjectListDto>> {
                 override fun onSuccess(model: List<SubjectListDto>) {
-                    mFilterSubjectListAllCategory.value = filterPerShift(model, shift)
+                    if (!containsShiftValue(model, shift)) {
+                        handleErrorSubjectList(
+                            FirestoreDbConstants.StatusCode.NOT_FOUND,
+                            HomeConstants.Filter.TYPE_FILTER_ERROR,
+                            HomeConstants.Filter.MESSAGE_ERROR,
+                            HomeConstants.Filter.DESCRIPTION_ERROR
+                        )
+                        return
+                    }
+
+                    mSubjectList.value = filterPerShift(model, shift)
                 }
 
                 override fun onFailure(error: OnFailureModel) {
@@ -134,7 +134,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                 mutableListOf(shift),
                 object : FirebaseResponseModel<List<SubjectListDto>> {
                     override fun onSuccess(model: List<SubjectListDto>) {
-                        mFilterSubjectListShift.value = model.asDomainModel()
+                        mSubjectList.value = model.asDomainModel()
                     }
 
                     override fun onFailure(error: OnFailureModel) {
@@ -155,7 +155,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
                 periodList!!,
                 object : FirebaseResponseModel<List<SubjectListDto>> {
                     override fun onSuccess(model: List<SubjectListDto>) {
-                        mFilterSubjectListPeriod.value = model.asDomainModel()
+                        mSubjectList.value = model.asDomainModel()
                     }
 
                     override fun onFailure(error: OnFailureModel) {
@@ -185,12 +185,16 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
         }
     }
 
-    private fun checkShiftAndPeriod(periodList: MutableList<String>?, shift: String): Boolean =
+    private fun selectPeriodAndShift(periodList: MutableList<String>?, shift: String): Boolean =
         shift.isNotBlank() && !periodList.isNullOrEmpty()
 
     private fun isShift(shift: String) = shift.isNotBlank()
 
     private fun isPeriod(periodList: MutableList<String>?) = !periodList.isNullOrEmpty()
+
+    private fun containsShiftValue(model: List<SubjectListDto>, shift: String): Boolean {
+        return model.find { result -> result.shift == shift } != null
+    }
 
     private fun filterPerShift(model: List<SubjectListDto>, shift: String): List<SubjectList> {
         return model.filter { result -> result.shift == shift }.asDomainModel()
