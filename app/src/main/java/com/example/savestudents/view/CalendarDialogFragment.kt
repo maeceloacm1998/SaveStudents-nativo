@@ -1,4 +1,4 @@
-package com.example.savestudents.view.fragment
+package com.example.savestudents.view
 
 import android.app.Dialog
 import android.content.Context
@@ -9,18 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.savestudents.R
-import com.example.savestudents.databinding.FragmentCatalogDialogBinding
-import com.example.savestudents.view.activity.TimelineActivity
+import com.example.savestudents.databinding.FragmentCalendarDialogBinding
 
 class CalendarDialogFragment : DialogFragment() {
-    private lateinit var binding: FragmentCatalogDialogBinding
+    private lateinit var binding: FragmentCalendarDialogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCatalogDialogBinding.inflate(inflater, container, false)
+        binding = FragmentCalendarDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 

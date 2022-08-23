@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.controller.TimelineController
 import com.example.savestudents.databinding.ActivityTimelineBinding
 import com.example.savestudents.model.contract.TimelineContract
-import com.example.savestudents.view.fragment.CalendarDialogFragment
+import com.example.savestudents.view.CalendarDialogFragment
 
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
