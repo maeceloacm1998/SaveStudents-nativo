@@ -15,28 +15,12 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
 
     override fun buildModels() {
         handleTopItems()
-        handleSelectDate()
     }
 
     private fun handleTopItems() {
         handleInformationHolder()
         handleSeparator()
         handleAlert()
-    }
-
-    private fun handleSelectDate() {
-        titleHolder {
-            id("select_date")
-            title("Selecionar Datas")
-            marginLeft(16)
-            marginRight(16)
-            marginBottom(8)
-        }
-
-        calendarContainerHolder {
-            id("calendar_container")
-            clickCalendarContainerListener(mContract::clickDateContainer)
-        }
     }
 
     private fun handleInformationHolder() {
