@@ -83,8 +83,6 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
         titleHolder {
             id("list_title")
             title("Cronograma")
-            marginTop(24)
-            marginBottom(8)
             marginLeft(16)
             marginRight(16)
         }
