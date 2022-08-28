@@ -2,7 +2,6 @@ package com.example.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
-import com.example.savestudents.holder.calendarContainerHolder
 import com.example.savestudents.holder.informationHolder
 import com.example.savestudents.model.contract.TimelineContract
 import com.example.savestudents.ui_component.alert.alertHolder
@@ -15,6 +14,7 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
 
     override fun buildModels() {
         handleTopItems()
+        handleListItems()
     }
 
     private fun handleTopItems() {
@@ -75,6 +75,17 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
                 marginLeft(16)
                 marginRight(16)
             }
+        }
+    }
+
+    private fun handleListItems() {
+        titleHolder {
+            id("list_title")
+            title("Cronograma")
+            marginTop(24)
+            marginBottom(24)
+            marginLeft(16)
+            marginRight(16)
         }
     }
 
