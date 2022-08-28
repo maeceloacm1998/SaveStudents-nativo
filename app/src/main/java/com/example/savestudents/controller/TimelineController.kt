@@ -3,6 +3,7 @@ package com.example.savestudents.controller
 import com.airbnb.epoxy.EpoxyController
 import com.example.savestudents.R
 import com.example.savestudents.holder.informationHolder
+import com.example.savestudents.holder.timelineItemHolder
 import com.example.savestudents.model.contract.TimelineContract
 import com.example.savestudents.ui_component.alert.alertHolder
 import com.example.savestudents.ui_component.separator.separatorHolder
@@ -83,9 +84,18 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
             id("list_title")
             title("Cronograma")
             marginTop(24)
-            marginBottom(24)
+            marginBottom(8)
             marginLeft(16)
             marginRight(16)
+        }
+
+        timelineItemHolder {
+            id("test")
+            marginTop(16)
+            marginBottom(16)
+            marginLeft(16)
+            marginRight(16)
+            isNotificationActivated(true)
         }
     }
 

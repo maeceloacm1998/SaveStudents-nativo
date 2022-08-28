@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:id="@+id/timeline_item_container"
+    android:background="@drawable/bg_rounded_soft_background"
+    android:clickable="true"
+    android:focusable="true">
+
+    <View
+        android:id="@+id/information_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alert_button_container"
+        app:layout_constraintHorizontal_weight="8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="05/04"
+        android:textColor="@color/soft_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/information_container"
+        app:layout_constraintEnd_toStartOf="@id/title"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toTopOf="@id/information_container" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto"
+        android:maxLines="1"
+        android:paddingRight="10dp"
+        android:text="Atividade avaliativa"
+        android:textColor="@color/soft_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/information_container"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toEndOf="@id/date"
+        app:layout_constraintTop_toTopOf="@id/information_container" />
+
+    <View
+        android:id="@+id/alert_button_container"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="11dp"
+        android:background="@drawable/bg_transparent_with_border_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/information_container"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/alert_button_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_notifications_off_17"
+        app:layout_constraintBottom_toBottomOf="@id/alert_button_container"
+        app:layout_constraintEnd_toEndOf="@id/alert_button_container"
+        app:layout_constraintStart_toStartOf="@id/alert_button_container"
+        app:layout_constraintTop_toTopOf="@id/alert_button_container" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
