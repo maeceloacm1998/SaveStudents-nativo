@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.savestudents.controller.TimelineController
 import com.example.savestudents.databinding.ActivityTimelineBinding
 import com.example.savestudents.model.contract.TimelineContract
-import com.example.savestudents.view.CalendarDialogFragment
 
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
@@ -32,11 +31,7 @@ class TimelineActivity : AppCompatActivity() {
     }
 
     private val timelineContract = object : TimelineContract {
-        override fun clickDateContainer() {
-            val r = ""
-            CalendarDialogFragment.newInstance(applicationContext)
-                .show(supportFragmentManager, CalendarDialogFragment.TAG)
-        }
+
     }
 
     companion object {
