@@ -21,7 +21,6 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
         handleInformationHolder()
         handleSeparator()
         handleAlert()
-        handleListItems()
     }
 
     private fun handleInformationHolder() {
