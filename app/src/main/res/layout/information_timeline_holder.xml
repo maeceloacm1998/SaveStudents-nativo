@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/information_timeline_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/information_container"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/notification_timeline_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/soft_black"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toTopOf="@id/period"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toTopOf="@id/information_container"
+        tools:text="Algoritmos em Grafos" />
+
+    <TextView
+        android:id="@+id/period"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/shift"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="4º Período" />
+
+    <TextView
+        android:id="@+id/shift"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/teacher"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toBottomOf="@id/period"
+        tools:text="Turno: Noite" />
+
+    <TextView
+        android:id="@+id/teacher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@id/information_container"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toBottomOf="@id/shift"
+        tools:text="Docente: Rothyele" />
+
+    <View
+        android:id="@+id/notification_timeline_button"
+        android:layout_width="65dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_transparent_with_border_primary"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/information_container"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_notifications_off_17"
+        app:layout_constraintBottom_toTopOf="@id/notification_text"
+        app:layout_constraintEnd_toEndOf="@id/notification_timeline_button"
+        app:layout_constraintStart_toStartOf="@id/notification_timeline_button"
+        app:layout_constraintTop_toTopOf="@id/notification_timeline_button"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/notification_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/information_timeline_notification_text"
+        android:textSize="12sp"
+        android:fontFamily="@font/open_sans"
+        app:layout_constraintBottom_toBottomOf="@id/notification_timeline_button"
+        app:layout_constraintEnd_toEndOf="@id/notification_timeline_button"
+        app:layout_constraintStart_toStartOf="@id/notification_timeline_button"
+        app:layout_constraintTop_toBottomOf="@id/notification_icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

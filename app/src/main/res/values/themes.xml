@@ -13,4 +13,12 @@
         <item name="colorControlActivated" >@color/primary</item>
         <item name="colorControlNormal">@color/primary</item>
     </style>
+
+    <style name="CalendarModalDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorControlHighlight">@color/soft_black</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

@@ -9,11 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveStudents">
+<!--        <activity-->
+<!--            android:name=".view.activity.TimelineActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".view.activity.FilterOptionsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.HomeActivity"
+            android:name=".view.activity.TimelineActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

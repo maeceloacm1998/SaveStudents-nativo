@@ -9,6 +9,7 @@
     <string name="filter_title">Filtrar</string>
     <string name="title_filter_options_error">Ohhh… desculpe.</string>
     <string name="subtitle_filter_options_error">Ocorreu um erro ao carregar os itens</string>
+    <string name="notification_activated">Notificação Ativa! Você será notificado de todas as atividades presentes nesta matéria</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>
@@ -16,4 +17,7 @@
     <string name="filter_options_button_apply">Aplicar</string>
     <string name="button_filter_options_error">Tente novamente</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="information_timeline_notification_text">Notificar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
