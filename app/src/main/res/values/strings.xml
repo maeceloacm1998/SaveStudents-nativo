@@ -3,6 +3,8 @@
 
     // Placeholders
     <string name="search_edit_text_hint"><font size="16">Digite o nome da matéria</font></string>
+    <string name="subject_name_hint"><font size="14">Nome da matéria</font></string>
+    <string name="teacher_name_hint"><font size="14">Nome do docente</font></string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
@@ -18,6 +20,7 @@
     <string name="button_filter_options_error">Tente novamente</string>
     <string name="button_cancel">Cancelar</string>
     <string name="information_timeline_notification_text">Notificar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_period_list">Período</string>
+    <string name="select_shift_list">Turno</string>
+
 </resources>
