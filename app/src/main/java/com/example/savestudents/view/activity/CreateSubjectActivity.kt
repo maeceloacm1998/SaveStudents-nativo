@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.savestudents.R
 import com.example.savestudents.constants.CreateSubjectConstants
 import com.example.savestudents.databinding.ActivityCreateSubjectBinding
+import com.example.savestudents.model.SubjectData
 
 class CreateSubjectActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateSubjectBinding
@@ -85,7 +86,8 @@ class CreateSubjectActivity : AppCompatActivity() {
         periodSelected: String,
         shiftSelected: String
     ) {
-        val r = ""
+        val subjectData = SubjectData(subjectName, teacherName, periodSelected, shiftSelected)
+        startActivity(CreateTimelineActivity.newInstance(applicationContext, subjectData))
     }
 
     private fun disableNextButton() {

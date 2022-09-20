@@ -12,8 +12,8 @@ import com.example.savestudents.model.error.SubjectListErrorModel
 import com.example.savestudents.model.repository.IHomeRepository
 import com.example.savestudents.model.viewModel.IHomeViewModel
 import com.example.savestudents.repository.HomeRepository
-import com.example.savestudents.service.model.FirebaseResponseModel
-import com.example.savestudents.service.model.OnFailureModel
+import com.example.savestudents.service.external.model.FirebaseResponseModel
+import com.example.savestudents.service.external.model.OnFailureModel
 
 class HomeViewModel() : ViewModel(), IHomeViewModel {
     private val repository: IHomeRepository = HomeRepository()

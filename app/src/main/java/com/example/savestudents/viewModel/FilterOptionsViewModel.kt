@@ -10,8 +10,8 @@ import com.example.savestudents.model.FilterOption
 import com.example.savestudents.model.repository.IFilterOptionsRepository
 import com.example.savestudents.model.viewModel.IFilterOptionsViewModel
 import com.example.savestudents.repository.FilterOptionsRepository
-import com.example.savestudents.service.model.FirebaseResponseModel
-import com.example.savestudents.service.model.OnFailureModel
+import com.example.savestudents.service.external.model.FirebaseResponseModel
+import com.example.savestudents.service.external.model.OnFailureModel
 
 class FilterOptionsViewModel : ViewModel(), IFilterOptionsViewModel {
     private val repository: IFilterOptionsRepository = FilterOptionsRepository()

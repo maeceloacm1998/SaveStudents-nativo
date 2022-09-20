@@ -1,4 +1,4 @@
-package com.example.savestudents.service.model
+package com.example.savestudents.service.external.model
 
 interface FirebaseResponseModel<T> {
     fun onSuccess(model: T)

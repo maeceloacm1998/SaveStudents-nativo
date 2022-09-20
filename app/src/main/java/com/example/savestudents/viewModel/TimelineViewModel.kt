@@ -7,8 +7,8 @@ import com.example.savestudents.model.InformationModel
 import com.example.savestudents.model.repository.ITimelineRepository
 import com.example.savestudents.model.viewModel.ITimelineViewModel
 import com.example.savestudents.repository.TimelineRepository
-import com.example.savestudents.service.model.FirebaseResponseModel
-import com.example.savestudents.service.model.OnFailureModel
+import com.example.savestudents.service.external.model.FirebaseResponseModel
+import com.example.savestudents.service.external.model.OnFailureModel
 
 class TimelineViewModel : ViewModel(), ITimelineViewModel {
     private val repository: ITimelineRepository = TimelineRepository()
