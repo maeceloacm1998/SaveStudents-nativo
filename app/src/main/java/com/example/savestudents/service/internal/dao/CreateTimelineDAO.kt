@@ -13,4 +13,8 @@ interface CreateTimelineDAO {
 
     @Query("DELETE FROM create_timeline_table WHERE id = :id")
     fun deleteTimelineItem(id: Int)
+
+    @Query("DELETE FROM create_timeline_table")
+    fun clearTimelineItemList()
+
 }

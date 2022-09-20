@@ -3,11 +3,16 @@ package com.example.savestudents.view.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.savestudents.constants.CreateTimelineConstants
 import com.example.savestudents.controller.CreateTimelineController
 import com.example.savestudents.databinding.ActivityCreateTimelineBinding
+import com.example.savestudents.model.CreateTimelineItem
 import com.example.savestudents.model.SubjectData
+import com.example.savestudents.model.SubjectList
+import com.example.savestudents.model.TimelineItem
 import com.example.savestudents.model.contract.CreateTimelineContract
 import com.example.savestudents.model.contract.CreateTimelineItemDialogContract
 import com.example.savestudents.view.fragment.CreateTimelineItemDialog
@@ -17,6 +22,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
     private val controller by lazy { CreateTimelineController(contract) }
     private val viewModel by lazy { CreateTimelineViewModel(applicationContext) }
+    private var timelineItemsList: MutableList<CreateTimelineItem> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +35,7 @@ class CreateTimelineActivity : AppCompatActivity() {
         handleAddNewTimeline()
         handleBackButton()
         handleTimelineItemList()
+        handleSubmitButton()
     }
 
     private fun controller() {
@@ -42,6 +49,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     private fun observers() {
         viewModel.timelineItems.observe(this) {
             controller.setTimelineItemsList(it)
+            timelineItemsList = it
         }
     }
 
@@ -64,6 +72,54 @@ class CreateTimelineActivity : AppCompatActivity() {
 
     private fun handleTimelineItemList() {
         viewModel.getTimelineItems()
+    }
+
+    private fun handleSubmitButton() {
+        binding.buttonSubmit.setOnClickListener {
+            if(validateTimelineItems()) {
+                val documentId = viewModel.createDocument(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION)
+                createSubject(documentId)
+                createTimeline(documentId)
+                viewModel.clearTimelineItemList()
+                startActivity(CreateSubjectActivity.newInstance(applicationContext))
+            } else {
+                Toast.makeText(applicationContext, "Crie pelomenos uma matéria", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun validateTimelineItems(): Boolean {
+        if(timelineItemsList.isNotEmpty()) {
+            return true
+        }
+        return false
+    }
+
+    private fun createSubject(id: String) {
+        val subjectItem = createSubjectItem(id)
+        viewModel.createSubject(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION, id, subjectItem)
+    }
+
+    private fun createTimeline(id: String) {
+        val timelineItem = createTimelineItem(id)
+        viewModel.createTimeline(CreateTimelineConstants.Collection.TIMELINE_LIST_COLLECTION, id, timelineItem)
+    }
+
+    private fun createSubjectItem(id: String): SubjectList {
+        return SubjectList().apply {
+            this.id = id
+            this.period = intent?.getStringExtra(PERIOD_OPTION_NAME).toString()
+            this.shift = intent?.getStringExtra(SHIFT_OPTION_NAME).toString()
+            this.subjectName = intent?.getStringExtra(SUBJECT_NAME).toString()
+            this.teacherName = intent?.getStringExtra(TEACHER_NAME).toString()
+        }
+    }
+
+    private fun createTimelineItem(id: String): TimelineItem {
+        return TimelineItem().apply {
+            this.subjectsInformation = createSubjectItem(id)
+            this.timelineList = timelineItemsList
+        }
     }
 
     val contract = object : CreateTimelineContract {
