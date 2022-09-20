@@ -26,7 +26,7 @@ class TimelineActivity : AppCompatActivity() {
         ).get(TimelineViewModel()::class.java)
 
         controller()
-        mViewModel.getInformation("teste")
+        mViewModel.getInformation("timeline_list")
         observers()
     }
 

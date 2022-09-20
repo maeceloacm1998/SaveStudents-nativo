@@ -194,6 +194,10 @@ class HomeActivity : AppCompatActivity() {
         override fun tryAgainListener() {
             fetchSubjectList()
         }
+
+        override fun clickHorizontalCardListener(subjectId: String) {
+            startActivity(TimelineActivity.newInstance(applicationContext, subjectId))
+        }
     }
 
     companion object {

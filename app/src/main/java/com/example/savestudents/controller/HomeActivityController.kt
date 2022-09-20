@@ -44,8 +44,10 @@ class HomeActivityController(private val mContract: HomeActivityContract) : Epox
             mSubjectList.forEach { item ->
                 homeHorizontalCardHolder {
                     id(item.id)
+                    subjectId(item.id)
                     title(item.subjectName)
-                    item.period?.let { period(it) }
+                    period(item.period)
+                    clickHorizontalCardListener(mContract::clickHorizontalCardListener)
                     marginLeft(16)
                     marginRight(16)
                     marginBottom(8)
