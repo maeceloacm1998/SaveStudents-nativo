@@ -20,4 +20,8 @@ class CreateTimelineViewModel(mContext: Context) : ViewModel(), ICreateTimelineV
     override fun getTimelineItems() {
        mTimelineItems.value = timelineItemDAO.getTimelineItems().asDomainModel().toMutableList()
     }
+
+    override fun deleteTimelineItem(id: Int) {
+        timelineItemDAO.deleteTimelineItem(id)
+    }
 }

@@ -67,7 +67,14 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     val contract = object : CreateTimelineContract {
+        override fun clickEditButtonListener() {
+            CreateTimelineItemDialog(contractDialog).show(supportFragmentManager, CreateTimelineItemDialog.TAG)
+        }
 
+        override fun clickDeleteButtonListener(id: Int) {
+            viewModel.deleteTimelineItem(id)
+            handleTimelineItemList()
+        }
     }
 
     private val contractDialog = object : CreateTimelineItemDialogContract {

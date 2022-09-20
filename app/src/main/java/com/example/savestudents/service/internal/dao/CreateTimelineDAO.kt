@@ -1,9 +1,6 @@
 package com.example.savestudents.service.internal.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.savestudents.service.internal.entity.CreateTimelineItemEntity
 
 @Dao
@@ -13,4 +10,7 @@ interface CreateTimelineDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createTimelineItems(timelineItem: CreateTimelineItemEntity)
+
+    @Query("DELETE FROM create_timeline_table WHERE id = :id")
+    fun deleteTimelineItem(id: Int)
 }
