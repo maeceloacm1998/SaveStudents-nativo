@@ -172,7 +172,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
 
     private fun containsSearchValue(model: List<SubjectListDto>, searchValue: String): Boolean {
         return model.find { result ->
-            result.title.lowercase().contains(searchValue.lowercase())
+            result.subjectName.lowercase().contains(searchValue.lowercase())
         } != null
     }
 
@@ -181,7 +181,7 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
         searchValue: String
     ): List<SubjectListDto> {
         return model.filter { result ->
-            result.title.lowercase().contains(searchValue.lowercase())
+            result.subjectName.lowercase().contains(searchValue.lowercase())
         }
     }
 
