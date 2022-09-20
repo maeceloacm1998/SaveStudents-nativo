@@ -43,7 +43,7 @@ class SearchBarController : EpoxyController() {
             mSubjectList.forEach { item ->
                 homeHorizontalCardHolder {
                     id(item.id)
-                    title(item.title)
+                    title(item.subjectName)
                     item.period?.let { period(it) }
                     marginLeft(16)
                     marginRight(16)

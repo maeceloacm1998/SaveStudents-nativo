@@ -1,4 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    // STYLES AND THEMES
     <style name="Theme.SaveStudents" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_700</item>
@@ -10,7 +12,7 @@
     </style>
 
     <style name="checkbox_style">
-        <item name="colorControlActivated" >@color/primary</item>
+        <item name="colorControlActivated">@color/primary</item>
         <item name="colorControlNormal">@color/primary</item>
     </style>
 
@@ -21,4 +23,14 @@
         <item name="colorControlHighlight">@color/soft_black</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    // ATTRS
+    <declare-styleable name="SimpleEditTextCustomView">
+        <attr name="hint" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SelectItemCustomView">
+        <attr name="title" format="string" />
+    </declare-styleable>
+
 </resources>

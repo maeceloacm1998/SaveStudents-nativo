@@ -9,14 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveStudents">
-<!--        <activity-->
-<!--            android:name=".view.activity.TimelineActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".view.activity.CreateTimelineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SelectOptionActivity"
+            android:exported="false" />
+         <activity
+         android:name=".view.activity.CreateSubjectActivity"
+         android:exported="false" />
+        <activity
+            android:name=".view.activity.TimelineActivity"
+            android:exported="false" />
         <activity
             android:name=".view.activity.FilterOptionsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.TimelineActivity"
+            android:name=".view.activity.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

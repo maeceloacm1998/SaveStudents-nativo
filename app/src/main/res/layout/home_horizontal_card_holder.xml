@@ -4,32 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="92dp"
-        android:background="@drawable/bg_rounded_soft_background"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="92dp"
+    android:background="@drawable/bg_rounded_soft_background"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
         android:fontFamily="@font/roboto"
+        android:maxLines="1"
         android:textColor="@color/soft_black"
         android:textSize="16sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/subtitle"
         app:layout_constraintStart_toStartOf="@id/card_container"
         app:layout_constraintTop_toTopOf="@id/card_container"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Algoritmos em grafos" />
 
     <TextView

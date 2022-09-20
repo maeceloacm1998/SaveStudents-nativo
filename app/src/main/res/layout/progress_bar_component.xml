@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="5dp">
+
+    <View
+        android:id="@+id/progress_bar_shadow"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:background="@color/secondary_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="1" />
+
+    <View
+        android:id="@+id/progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/ball"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/bg_rounded_100_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/progress_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintBottom_toBottomOf="@id/ball"
+        app:layout_constraintEnd_toEndOf="@id/ball"
+        app:layout_constraintStart_toStartOf="@id/ball"
+        app:layout_constraintTop_toTopOf="@id/ball"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/title_stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/secondary_800"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/ball"
+        app:layout_constraintEnd_toEndOf="@id/ball"
+        app:layout_constraintStart_toStartOf="@id/ball"
+        tools:text="Etapa 1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

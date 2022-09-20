@@ -1,10 +1,10 @@
-package com.example.savestudents.service
+package com.example.savestudents.service.external
 
 import android.util.Log
 import com.example.savestudents.constants.FirestoreDbConstants
-import com.example.savestudents.service.model.FirebaseClientModel
-import com.example.savestudents.service.model.FirebaseResponseModel
-import com.example.savestudents.service.model.OnFailureModel
+import com.example.savestudents.service.external.model.FirebaseClientModel
+import com.example.savestudents.service.external.model.FirebaseResponseModel
+import com.example.savestudents.service.external.model.OnFailureModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 

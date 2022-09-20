@@ -3,9 +3,9 @@ package com.example.savestudents.repository
 import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.dto.SubjectListDto
 import com.example.savestudents.model.repository.IHomeRepository
-import com.example.savestudents.service.FirebaseClient
-import com.example.savestudents.service.model.FirebaseResponseModel
-import com.example.savestudents.service.model.OnFailureModel
+import com.example.savestudents.service.external.FirebaseClient
+import com.example.savestudents.service.external.model.FirebaseResponseModel
+import com.example.savestudents.service.external.model.OnFailureModel
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class HomeRepository : IHomeRepository {

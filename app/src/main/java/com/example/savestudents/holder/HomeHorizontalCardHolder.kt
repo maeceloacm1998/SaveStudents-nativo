@@ -15,10 +15,16 @@ abstract class HomeHorizontalCardHolder :
     EpoxyModelWithHolder<HomeHorizontalCardHolder.SectionHolder>() {
 
     @EpoxyAttribute
+    var subjectId: String = ""
+
+    @EpoxyAttribute
     lateinit var title: String
 
     @EpoxyAttribute
     lateinit var period: String
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var clickHorizontalCardListener: (subjectId: String) -> Unit
 
     @EpoxyAttribute
     var marginTop: Int = 0
@@ -37,6 +43,7 @@ abstract class HomeHorizontalCardHolder :
         setMargin(holder)
         setTitle(holder)
         setSubtitle(holder)
+        handleCLickHorizontalCard(holder)
     }
 
     private fun setMargin(holder: SectionHolder) {
@@ -57,6 +64,12 @@ abstract class HomeHorizontalCardHolder :
 
     private fun setSubtitle(holder: SectionHolder) {
         holder.mSubtitle.text = period
+    }
+
+    private fun handleCLickHorizontalCard(holder: SectionHolder) {
+        holder.mContainer.setOnClickListener {
+            clickHorizontalCardListener(subjectId)
+        }
     }
 
     private fun dpToPx(dp: Int): Int {

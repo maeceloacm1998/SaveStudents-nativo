@@ -1,4 +1,4 @@
-package com.example.savestudents.service.model
+package com.example.savestudents.service.external.model
 
 data class OnFailureModel(
     val code: Int,
