@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.EpoxyAttribute
@@ -18,7 +19,10 @@ import com.example.savestudents.R
 abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.SectionHolder>() {
 
     @EpoxyAttribute
-    open var isNotificationActivated: Boolean = false
+    lateinit var date: String
+
+    @EpoxyAttribute
+    lateinit var timelineName: String
 
     @EpoxyAttribute
     var marginTop: Int = 0
@@ -35,33 +39,19 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
     override fun bind(holder: SectionHolder) {
         super.bind(holder)
         holder.apply {
-            backgroundTransparent(mItemContainer.context)
-            clickNotificationButton()
+            setDate()
+            setTimelineName()
             setMargin()
         }
     }
 
-    private fun SectionHolder.clickNotificationButton() {
-        mContainerNotification.setOnClickListener {
-            if (!isNotificationActivated) {
-                backgroundTransparent(it.context)
-            } else {
-                backgroundActivated(it.context)
-            }
-        }
+    private fun SectionHolder.setDate() {
+        mDate.text = date
     }
 
-    private fun SectionHolder.backgroundTransparent(context: Context) {
-        mContainerNotification.setBackgroundDrawable(context.getDrawable(R.drawable.bg_transparent_with_border_primary))
-        mIconNotification.setColorFilter(ContextCompat.getColor(context, R.color.primary))
-        mIconNotification.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_notifications_off_17))
-    }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun SectionHolder.backgroundActivated(context: Context) {
-        mContainerNotification.setBackgroundDrawable(context.getDrawable(R.drawable.bg_rounded_primary))
-        mIconNotification.setColorFilter(ContextCompat.getColor(context, R.color.white))
-        mIconNotification.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_notifications_active_17))
+    private fun SectionHolder.setTimelineName() {
+        mTimelineName.text = timelineName
     }
 
     private fun SectionHolder.setMargin() {
@@ -83,13 +73,13 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
 
     inner class SectionHolder : EpoxyHolder() {
         lateinit var mItemContainer: ConstraintLayout
-        lateinit var mContainerNotification: View
-        lateinit var mIconNotification: ImageView
+        lateinit var mDate: TextView
+        lateinit var mTimelineName: TextView
 
         override fun bindView(itemView: View) {
             mItemContainer = itemView.findViewById(R.id.timeline_item_container)
-            mContainerNotification = itemView.findViewById(R.id.alert_button_container)
-            mIconNotification = itemView.findViewById(R.id.alert_button_icon)
+            mDate = itemView.findViewById(R.id.date)
+            mTimelineName = itemView.findViewById(R.id.title)
         }
     }
 
