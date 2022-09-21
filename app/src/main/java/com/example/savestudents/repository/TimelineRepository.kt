@@ -1,8 +1,8 @@
 package com.example.savestudents.repository
 
-import com.example.savestudents.dto.InformationDTO
+import com.example.savestudents.dto.TimelineDTO
 import com.example.savestudents.dto.asDomainModel
-import com.example.savestudents.model.InformationModel
+import com.example.savestudents.model.TimelineItem
 import com.example.savestudents.model.repository.ITimelineRepository
 import com.example.savestudents.service.external.FirebaseClient
 import com.example.savestudents.service.external.model.FirebaseResponseModel
@@ -14,13 +14,13 @@ class TimelineRepository : ITimelineRepository {
 
     override fun getInformation(
         collectionPath: String,
-        firebaseResponseModel: FirebaseResponseModel<List<InformationModel>>
+        firebaseResponseModel: FirebaseResponseModel<List<TimelineItem>>
     ) {
         client.getDocumentValue(
             collectionPath,
             object : FirebaseResponseModel<List<QueryDocumentSnapshot>> {
                 override fun onSuccess(model: List<QueryDocumentSnapshot>) {
-                    val res = model.map { it.toObject(InformationDTO::class.java) }
+                    val res = model.map { it.toObject(TimelineDTO::class.java) }
                     firebaseResponseModel.onSuccess(res.asDomainModel())
                 }
 

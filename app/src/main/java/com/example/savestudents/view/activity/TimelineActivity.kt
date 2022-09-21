@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.savestudents.constants.FirestoreDbConstants
 import com.example.savestudents.controller.TimelineController
 import com.example.savestudents.databinding.ActivityTimelineBinding
 import com.example.savestudents.model.contract.TimelineContract
@@ -25,8 +26,8 @@ class TimelineActivity : AppCompatActivity() {
             this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(TimelineViewModel()::class.java)
 
+        fetchTimelineList()
         controller()
-        mViewModel.getInformation("timeline_list")
         observers()
     }
 
@@ -40,8 +41,14 @@ class TimelineActivity : AppCompatActivity() {
 
     private fun observers() {
         mViewModel.informationData.observe(this) {
-            val r = ""
+            timelineController.setTimelineList(it)
+            timelineController.setLoading(false)
         }
+    }
+
+    private fun fetchTimelineList() {
+        timelineController.setLoading(true)
+        mViewModel.getTimelineList(FirestoreDbConstants.Collections.TIMELINE_LIST, intent?.getStringExtra(SUBJECT_ID).toString())
     }
 
     private val timelineContract = object : TimelineContract {

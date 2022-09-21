@@ -1,6 +1,6 @@
 package com.example.savestudents.model
 
 data class TimelineItem(
-    var subjectsInformation: SubjectList = SubjectList(),
-    var timelineList: MutableList<CreateTimelineItem> = mutableListOf(),
+    var subjectsInformation: SubjectList? = null,
+    var timelineList: MutableList<CreateTimelineItem>? = null,
 )
