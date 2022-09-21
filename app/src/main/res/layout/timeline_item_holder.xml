@@ -13,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/alert_button_container"
         app:layout_constraintHorizontal_weight="8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,29 +47,5 @@
         app:layout_constraintEnd_toEndOf="@id/information_container"
         app:layout_constraintStart_toEndOf="@id/date"
         app:layout_constraintTop_toTopOf="@id/information_container" />
-
-    <View
-        android:id="@+id/alert_button_container"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="11dp"
-        android:background="@drawable/bg_transparent_with_border_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@id/information_container"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/alert_button_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_notifications_off_17"
-        app:layout_constraintBottom_toBottomOf="@id/alert_button_container"
-        app:layout_constraintEnd_toEndOf="@id/alert_button_container"
-        app:layout_constraintStart_toStartOf="@id/alert_button_container"
-        app:layout_constraintTop_toTopOf="@id/alert_button_container" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
