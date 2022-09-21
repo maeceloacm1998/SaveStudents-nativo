@@ -62,11 +62,11 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
     }
 
     private fun SectionHolder.setShift() {
-        mShift.text = shift
+        mShift.text = "Turno: $shift"
     }
 
     private fun SectionHolder.setTeacher() {
-        mTeacher.text = teacher
+        mTeacher.text = "Docente: $teacher"
     }
 
     private fun SectionHolder.setMargin() {
