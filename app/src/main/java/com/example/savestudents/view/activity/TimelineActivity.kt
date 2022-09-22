@@ -27,6 +27,7 @@ class TimelineActivity : AppCompatActivity() {
         ).get(TimelineViewModel()::class.java)
 
         fetchTimelineList()
+        handleBackButton()
         controller()
         observers()
     }
@@ -49,6 +50,12 @@ class TimelineActivity : AppCompatActivity() {
     private fun fetchTimelineList() {
         timelineController.setLoading(true)
         mViewModel.getTimelineList(FirestoreDbConstants.Collections.TIMELINE_LIST, intent?.getStringExtra(SUBJECT_ID).toString())
+    }
+
+    private fun handleBackButton() {
+        binding.backContainer.setOnClickListener {
+            finish()
+        }
     }
 
     private val timelineContract = object : TimelineContract {

@@ -33,7 +33,7 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
             shimmerHolder {
                 id("information_shimmer")
                 layout(R.layout.information_timeline_shimmer)
-                marginTop(24)
+                marginTop(10)
                 marginRight(24)
                 marginLeft(24)
             }
@@ -45,7 +45,7 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
                     period(timelineList.subjectsInformation?.period)
                     shift(timelineList.subjectsInformation?.shift)
                     teacher(timelineList.subjectsInformation?.teacherName)
-                    marginTop(24)
+                    marginTop(10)
                     marginRight(24)
                     marginLeft(24)
                 }
