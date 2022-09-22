@@ -44,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@id/back_icon"
         app:layout_constraintTop_toTopOf="@id/back_container" />
 
-    <com.example.savestudents.ui_component.simpleEditText.ProgressBarComponent
+    <br.com.savestudents.ui_component.simpleEditText.ProgressBarComponent
         android:id="@+id/progress_bar_create_timeline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
