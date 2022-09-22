@@ -6,11 +6,12 @@ import br.com.savestudents.constants.HomeConstants
 import br.com.savestudents.holder.homeHorizontalCardHolder
 import br.com.savestudents.holder.responseErrorHolder
 import br.com.savestudents.model.SubjectList
+import br.com.savestudents.model.contract.HomeActivityContract
 import br.com.savestudents.model.error.SubjectListErrorModel
 import br.com.savestudents.ui_component.shimmer.shimmerHolder
 import br.com.savestudents.ui_component.title.titleHolder
 
-class SearchBarController : EpoxyController() {
+class SearchBarController(private val mContract: HomeActivityContract) : EpoxyController() {
     private var mSubjectList: MutableList<SubjectList> = mutableListOf()
     private lateinit var mResponseError: SubjectListErrorModel
     private var isResponseError: Boolean = false
@@ -43,8 +44,10 @@ class SearchBarController : EpoxyController() {
             mSubjectList.forEach { item ->
                 homeHorizontalCardHolder {
                     id(item.id)
+                    subjectId(item.id)
                     title(item.subjectName)
-                    item.period?.let { period(it) }
+                    period(item.period)
+                    clickHorizontalCardListener(mContract::clickHorizontalCardListener)
                     marginLeft(16)
                     marginRight(16)
                     marginBottom(8)

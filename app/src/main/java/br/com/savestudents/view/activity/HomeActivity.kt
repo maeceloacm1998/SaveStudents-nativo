@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
-    private val searchBarController = SearchBarController()
+    private val searchBarController by lazy { SearchBarController(homeContract) }
     private lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
