@@ -31,9 +31,6 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
     lateinit var teacher: String
 
     @EpoxyAttribute
-    open var isNotificationActivated: Boolean = false
-
-    @EpoxyAttribute
     var marginTop: Int = 0
 
     @EpoxyAttribute
@@ -53,8 +50,6 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
             setShift()
             setTeacher()
             setMargin()
-            backgroundTransparent(mContainer.context)
-            clickNotificationButton()
         }
     }
 
@@ -67,37 +62,11 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
     }
 
     private fun SectionHolder.setShift() {
-        mShift.text = shift
+        mShift.text = "Turno: $shift"
     }
 
     private fun SectionHolder.setTeacher() {
-        mTeacher.text = teacher
-    }
-
-    private fun SectionHolder.clickNotificationButton() {
-        mNotificationButton.setOnClickListener {
-            if (!isNotificationActivated) {
-                backgroundTransparent(it.context)
-            } else {
-                backgroundActivated(it.context)
-            }
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun SectionHolder.backgroundTransparent(context: Context) {
-        mNotificationButton.setBackgroundDrawable(context.getDrawable(R.drawable.bg_transparent_with_border_primary))
-        mNotificationText.setTextColor(ContextCompat.getColor(context, R.color.primary))
-        mNotificationIcon.setColorFilter(ContextCompat.getColor(context, R.color.primary))
-        mNotificationIcon.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_notifications_off_17))
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun SectionHolder.backgroundActivated(context: Context) {
-        mNotificationButton.setBackgroundDrawable(context.getDrawable(R.drawable.bg_rounded_primary))
-        mNotificationText.setTextColor(ContextCompat.getColor(context, R.color.white))
-        mNotificationIcon.setColorFilter(ContextCompat.getColor(context, R.color.white))
-        mNotificationIcon.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_notifications_active_17))
+        mTeacher.text = "Docente: $teacher"
     }
 
     private fun SectionHolder.setMargin() {
@@ -123,9 +92,6 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
         lateinit var mPeriod: TextView
         lateinit var mShift: TextView
         lateinit var mTeacher: TextView
-        lateinit var mNotificationButton: View
-        lateinit var mNotificationIcon: ImageView
-        lateinit var mNotificationText: TextView
 
         override fun bindView(itemView: View) {
             mContainer = itemView.findViewById(R.id.information_timeline_container)
@@ -133,9 +99,6 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
             mPeriod = itemView.findViewById(R.id.period)
             mShift = itemView.findViewById(R.id.shift)
             mTeacher = itemView.findViewById(R.id.teacher)
-            mNotificationButton = itemView.findViewById(R.id.notification_timeline_button)
-            mNotificationIcon = itemView.findViewById(R.id.notification_icon)
-            mNotificationText = itemView.findViewById(R.id.notification_text)
         }
     }
 

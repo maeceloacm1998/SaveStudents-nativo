@@ -31,7 +31,7 @@
     <color name="soft_black">#060606</color>
     <color name="white">#FFFFFF</color>
     <color name="soft_white">#FEFEFE</color>
-    <color name="ghost_black">#F5F6FB</color>
+    <color name="ghost_white">#F5F6FB</color>
     <color name="soft_background">#FDFEFF</color>
 
     // GrayScale
