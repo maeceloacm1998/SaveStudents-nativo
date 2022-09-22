@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:169237644778:android:f6570115ecadc482881e93",
+        "mobilesdk_app_id": "1:169237644778:android:c16423b54b08655e881e93",
         "android_client_info": {
-          "package_name": "com.example.savestudents"
+          "package_name": "br.com.savestudents"
         }
       },
       "oauth_client": [
