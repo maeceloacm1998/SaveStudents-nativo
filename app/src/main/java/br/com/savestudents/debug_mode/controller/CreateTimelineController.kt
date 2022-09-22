@@ -1,4 +1,4 @@
-package br.com.savestudents.controller
+package br.com.savestudents.debug_mode.controller
 
 import com.airbnb.epoxy.EpoxyController
 import br.com.savestudents.constants.HomeConstants

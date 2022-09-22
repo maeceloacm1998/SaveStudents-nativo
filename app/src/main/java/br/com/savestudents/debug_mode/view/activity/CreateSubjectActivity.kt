@@ -1,4 +1,4 @@
-package br.com.savestudents.view.activity
+package br.com.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent

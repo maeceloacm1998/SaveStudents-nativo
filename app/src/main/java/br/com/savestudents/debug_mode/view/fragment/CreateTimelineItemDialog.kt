@@ -1,4 +1,4 @@
-package br.com.savestudents.view.fragment
+package br.com.savestudents.debug_mode.view.fragment
 
 import android.annotation.SuppressLint
 import android.app.Dialog

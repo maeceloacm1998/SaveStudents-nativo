@@ -1,4 +1,4 @@
-package br.com.savestudents.view.activity
+package br.com.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.CreateSubjectConstants
 import br.com.savestudents.constants.FirestoreDbConstants
-import br.com.savestudents.controller.SelectOptionsController
+import br.com.savestudents.debug_mode.controller.SelectOptionsController
 import br.com.savestudents.databinding.ActivitySelectOptionBinding
 import br.com.savestudents.model.contract.SelectOptionsContract
 import br.com.savestudents.viewModel.FilterOptionsViewModel

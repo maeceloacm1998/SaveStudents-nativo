@@ -1,4 +1,4 @@
-package br.com.savestudents.view.activity
+package br.com.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.CreateTimelineConstants
-import br.com.savestudents.controller.CreateTimelineController
+import br.com.savestudents.debug_mode.controller.CreateTimelineController
 import br.com.savestudents.databinding.ActivityCreateTimelineBinding
 import br.com.savestudents.model.CreateTimelineItem
 import br.com.savestudents.model.SubjectData
@@ -15,8 +15,8 @@ import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem
 import br.com.savestudents.model.contract.CreateTimelineContract
 import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
-import br.com.savestudents.view.fragment.CreateTimelineItemDialog
-import br.com.savestudents.viewModel.CreateTimelineViewModel
+import br.com.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
+import br.com.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding

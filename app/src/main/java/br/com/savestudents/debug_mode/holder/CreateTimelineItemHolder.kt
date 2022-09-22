@@ -1,4 +1,4 @@
-package br.com.savestudents.holder
+package br.com.savestudents.debug_mode.holder
 
 import android.content.res.Resources
 import android.view.View

@@ -1,4 +1,4 @@
-package br.com.savestudents.viewModel
+package br.com.savestudents.debug_mode.viewModel
 
 import android.content.Context
 import androidx.lifecycle.LiveData

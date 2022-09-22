@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveStudents">
         <activity
-            android:name="br.com.savestudents.view.activity.CreateTimelineActivity"
+            android:name="br.com.savestudents.debug_mode.view.activity.CreateTimelineActivity"
             android:exported="false" />
         <activity
-            android:name="br.com.savestudents.view.activity.SelectOptionActivity"
+            android:name="br.com.savestudents.debug_mode.view.activity.SelectOptionActivity"
             android:exported="false" />
          <activity
-         android:name="br.com.savestudents.view.activity.CreateSubjectActivity"
+         android:name="br.com.savestudents.debug_mode.view.activity.CreateSubjectActivity"
          android:exported="false" />
         <activity
             android:name="br.com.savestudents.view.activity.TimelineActivity"
