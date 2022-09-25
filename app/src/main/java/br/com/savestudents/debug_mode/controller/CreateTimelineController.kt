@@ -2,7 +2,7 @@ package br.com.savestudents.debug_mode.controller
 
 import com.airbnb.epoxy.EpoxyController
 import br.com.savestudents.constants.HomeConstants
-import br.com.savestudents.holder.createTimelineItemHolder
+import br.com.savestudents.debug_mode.holder.createTimelineItemHolder
 import br.com.savestudents.holder.responseErrorHolder
 import br.com.savestudents.model.CreateTimelineItem
 import br.com.savestudents.model.contract.CreateTimelineContract

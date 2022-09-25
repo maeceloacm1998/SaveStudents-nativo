@@ -38,7 +38,9 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
         handleHint(hint)
         showPasswordButton(isPasswordEditText)
         handleClickPasswordButton()
-        setClosePassword(context)
+        if(isPasswordEditText == true) {
+            setClosePassword(context)
+        }
     }
 
     private fun setLayout(attr: AttributeSet?) {
