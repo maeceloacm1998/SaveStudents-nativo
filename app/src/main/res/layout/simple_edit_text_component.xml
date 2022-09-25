@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,23 +10,51 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/bg_rounded_blue_light"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/search_bar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@null"
-        android:inputType="text"
         android:maxLines="1"
-        android:paddingStart="15dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp"
         android:textColorHint="@color/secondary_700"
         app:layout_constraintBottom_toBottomOf="@id/search_bar_container"
-        app:layout_constraintEnd_toEndOf="@id/search_bar_container"
+        app:layout_constraintEnd_toStartOf="@id/show_password_button"
         app:layout_constraintStart_toStartOf="@id/search_bar_container"
         app:layout_constraintTop_toTopOf="@id/search_bar_container" />
+
+    <ImageView
+        android:id="@+id/show_password_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ripple_secondary_50"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="13dp"
+        app:layout_constraintBottom_toBottomOf="@id/search_bar_container"
+        app:layout_constraintEnd_toEndOf="@id/search_bar_container"
+        app:layout_constraintStart_toEndOf="@id/search_bar"
+        app:layout_constraintTop_toTopOf="@id/search_bar_container"
+        tools:src="@drawable/ic_show_eye" />
+
+    <TextView
+        android:id="@+id/text_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_container"
+        tools:text="ERROR"
+        android:textColor="@color/alert_error"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="12sp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@
     // ATTRS
     <declare-styleable name="SimpleEditTextCustomView">
         <attr name="hint" format="string" />
+        <attr name="isPasswordEditText" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SelectItemCustomView">
