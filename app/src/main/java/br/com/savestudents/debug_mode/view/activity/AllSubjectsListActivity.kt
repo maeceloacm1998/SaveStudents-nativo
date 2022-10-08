@@ -73,18 +73,18 @@ class AllSubjectsListActivity : AppCompatActivity() {
             setLoading(false)
         }
 
-        viewModel.subjectListError.observe(this) {
-            subjectListController.setResponseError(true)
+        viewModel.subjectListError.observe(this) { error ->
+            subjectListController.setResponseError(error)
         }
 
-        viewModel.searchError.observe(this) {
-            subjectListController.setResponseError(true)
+        viewModel.searchError.observe(this) { error ->
+            subjectListController.setResponseError(error)
         }
     }
     
     private fun setLoading(status: Boolean) {
         subjectListController.setLoading(status)
-        subjectListController.setResponseError(false)
+        subjectListController.setResponseError(null)
     }
 
     private val searchBarContract = object : SearchBarContract {

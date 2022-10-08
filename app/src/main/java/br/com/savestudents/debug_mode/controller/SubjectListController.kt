@@ -5,20 +5,21 @@ import br.com.savestudents.debug_mode.holder.subjectEditHorizontalCardHolder
 import br.com.savestudents.debug_mode.model.contract.SubjectListContract
 import br.com.savestudents.holder.responseErrorHolder
 import br.com.savestudents.model.SubjectList
+import br.com.savestudents.model.error.SubjectListErrorModel
 import br.com.savestudents.ui_component.shimmer.shimmerHolder
 import com.airbnb.epoxy.EpoxyController
 
 class SubjectListController(private val mContract: SubjectListContract) : EpoxyController() {
     private var subjectList: MutableList<SubjectList> = mutableListOf()
     private var loading: Boolean = false
-    private var responseError: Boolean = false
+    private var responseError: SubjectListErrorModel? = null
 
     override fun buildModels() {
-        if(responseError) {
+        if(responseError != null) {
             responseErrorHolder {
                 id("error_holder")
-                message("Ohhh não...no momento está vazio.")
-                description("Comece cadastrando uma ou mais matérias")
+                message(responseError?.message)
+                description(responseError?.description)
             }
         } else {
             handleSubjectEditCardHorizontal()
@@ -61,7 +62,7 @@ class SubjectListController(private val mContract: SubjectListContract) : EpoxyC
         requestModelBuild()
     }
 
-    fun setResponseError(error: Boolean) {
+    fun setResponseError(error: SubjectListErrorModel?) {
         this.responseError = error
         requestModelBuild()
     }
