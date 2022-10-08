@@ -3,16 +3,26 @@ package br.com.savestudents.debug_mode.controller
 import br.com.savestudents.R
 import br.com.savestudents.debug_mode.holder.subjectEditHorizontalCardHolder
 import br.com.savestudents.debug_mode.model.contract.SubjectListContract
+import br.com.savestudents.holder.responseErrorHolder
 import br.com.savestudents.model.SubjectList
 import br.com.savestudents.ui_component.shimmer.shimmerHolder
 import com.airbnb.epoxy.EpoxyController
 
 class SubjectListController(private val mContract: SubjectListContract) : EpoxyController() {
     private var subjectList: MutableList<SubjectList> = mutableListOf()
-    private var loading: Boolean = true
+    private var loading: Boolean = false
+    private var responseError: Boolean = false
 
     override fun buildModels() {
-        handleSubjectEditCardHorizontal()
+        if(responseError) {
+            responseErrorHolder {
+                id("error_holder")
+                message("Ohhh não...no momento está vazio.")
+                description("Comece cadastrando uma ou mais matérias")
+            }
+        } else {
+            handleSubjectEditCardHorizontal()
+        }
     }
 
     private fun handleSubjectEditCardHorizontal() {
@@ -43,9 +53,16 @@ class SubjectListController(private val mContract: SubjectListContract) : EpoxyC
 
     fun setSubjectList(subjectList: MutableList<SubjectList>) {
         this.subjectList = subjectList
+        requestModelBuild()
     }
 
     fun setLoading(loading: Boolean) {
         this.loading = loading
+        requestModelBuild()
+    }
+
+    fun setResponseError(error: Boolean) {
+        this.responseError = error
+        requestModelBuild()
     }
 }

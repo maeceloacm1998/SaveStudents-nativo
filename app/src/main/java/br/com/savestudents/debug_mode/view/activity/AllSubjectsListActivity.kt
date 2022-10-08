@@ -5,14 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.savestudents.constants.FirestoreDbConstants
 import br.com.savestudents.databinding.ActivityAllSubjectsListBinding
 import br.com.savestudents.debug_mode.controller.SearchBarDebugModeController
 import br.com.savestudents.debug_mode.controller.SubjectListController
 import br.com.savestudents.debug_mode.model.contract.SearchBarContract
 import br.com.savestudents.debug_mode.model.contract.SubjectListContract
+import br.com.savestudents.debug_mode.viewModel.AllSubjectsListViewModel
 
 class AllSubjectsListActivity : AppCompatActivity() {
     lateinit var binding: ActivityAllSubjectsListBinding
+    private val viewModel by lazy { AllSubjectsListViewModel(applicationContext) }
     private val searchBarController by lazy { SearchBarDebugModeController(searchBarContract) }
     private val subjectListController by lazy { SubjectListController(subjectListContract) }
 
@@ -21,7 +24,21 @@ class AllSubjectsListActivity : AppCompatActivity() {
         binding = ActivityAllSubjectsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        fetchSubjectList()
+        clickBackButton()
         controllers()
+        observers()
+    }
+
+    private fun fetchSubjectList() {
+        setLoading(true)
+        viewModel.getSubjectList()
+    }
+
+    private fun clickBackButton() {
+        binding.backContainer.setOnClickListener {
+            finish()
+        }
     }
 
     private fun controllers() {
@@ -45,6 +62,31 @@ class AllSubjectsListActivity : AppCompatActivity() {
         }
     }
 
+    private fun observers() {
+        viewModel.subjectList.observe(this) { result ->
+            subjectListController.setSubjectList(result.toMutableList())
+            setLoading(false)
+        }
+
+        viewModel.searchList.observe(this) { result ->
+            subjectListController.setSubjectList(result.toMutableList())
+            setLoading(false)
+        }
+
+        viewModel.subjectListError.observe(this) {
+            subjectListController.setResponseError(true)
+        }
+
+        viewModel.searchError.observe(this) {
+            subjectListController.setResponseError(true)
+        }
+    }
+    
+    private fun setLoading(status: Boolean) {
+        subjectListController.setLoading(status)
+        subjectListController.setResponseError(false)
+    }
+
     private val searchBarContract = object : SearchBarContract {
         override fun clickFilterButtonListener() {
             startActivity(
@@ -56,12 +98,17 @@ class AllSubjectsListActivity : AppCompatActivity() {
             )
         }
 
-        override fun clickSearchBarListener() {}
+        override fun clickSearchBarListener() {
+            subjectListController.setSubjectList(mutableListOf())
+        }
 
-        override fun clickButtonCancelListener() {}
+        override fun clickButtonCancelListener() {
+            fetchSubjectList()
+        }
 
         override fun editTextValue(text: String) {
-
+            setLoading(true)
+            viewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
         }
     }
 
