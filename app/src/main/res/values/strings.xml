@@ -29,6 +29,7 @@
     <string name="select_period_list">Período</string>
     <string name="select_shift_list">Turno</string>
     <string name="add_timeline_button_text">Criar</string>
+    <string name="title_add_timeline">Criar Materia</string>
     <string name="title_create_timeline">Adicionar Materia</string>
     <string name="back_button_text">Voltar</string>
 </resources>

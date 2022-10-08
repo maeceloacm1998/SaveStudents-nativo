@@ -41,8 +41,9 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v23/header_filter_options.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v23/search_bar_holder.xml" value="0.33" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout-v28/checkbox_select_holder.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_all_subjects_list.xml" value="0.33" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_create_subject.xml" value="0.30364583333333334" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_create_timeline.xml" value="0.3328804347826087" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_create_timeline.xml" value="0.75" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_create_timeline_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_filter_options.xml" value="0.2" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_home.xml" value="0.25" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_select_option.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_select_option_subject_type.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_timeline.xml" value="0.2703125" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/alert_holder.xml" value="0.3625" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/alert_shimmer.xml" value="0.25" />
@@ -71,9 +73,10 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_home.xml" value="0.14791666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_select_date_calendar.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_debug_mode.xml" value="0.3423913043478261" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_filter_options.xml" value="0.536" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_holder.xml" value="0.5" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_home_holder.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_home_holder.xml" value="0.67" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/header_select_options.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/home_horizontal_card_holder.xml" value="0.4819277108433735" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/home_horizontal_card_shimmer.xml" value="0.2703125" />
@@ -92,6 +95,8 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/separator_holder.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/simple_edit_text.xml" value="0.34057971014492755" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/simple_edit_text_component.xml" value="0.33" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subject_edit_horizontal_card_holder.xml" value="0.3046875" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subject_edit_horizontal_card_shimmer.xml" value="0.3046875" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_item_holder.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_item_shimmer.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_list_items_holder.xml" value="0.2703125" />

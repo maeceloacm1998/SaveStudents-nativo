@@ -7,10 +7,6 @@ import com.airbnb.epoxy.EpoxyController
 
 class SearchBarDebugModeController(private val mContract: SearchBarContract) : EpoxyController() {
     override fun buildModels() {
-        headerHolder {
-            id("header_debug_component")
-        }
-
         searchEditTextHolder {
             id("search_bar_component")
             clickButtonCancelListener(mContract::clickButtonCancelListener)
