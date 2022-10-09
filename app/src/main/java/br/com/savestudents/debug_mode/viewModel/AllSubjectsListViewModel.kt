@@ -176,7 +176,6 @@ class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel, 
 
     override fun deleteSubjectItem(id: String) {
         repositoryAllSubjectList.deleteSubjectItem(id)
-        getSubjectList()
     }
 
     private fun containsSearchValue(model: List<SubjectListDto>, searchValue: String): Boolean {

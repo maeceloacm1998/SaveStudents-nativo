@@ -135,6 +135,7 @@ class AllSubjectsListActivity : AppCompatActivity() {
     private val confirmAlertContract = object : ConfirmationAlertContract {
         override fun clickConfirmButtonListener(id: String) {
             viewModel.deleteSubjectItem(id)
+            fetchSubjectList()
         }
     }
 
