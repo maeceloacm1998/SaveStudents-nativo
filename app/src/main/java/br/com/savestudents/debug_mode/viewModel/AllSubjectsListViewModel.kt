@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.savestudents.constants.FirestoreDbConstants
 import br.com.savestudents.debug_mode.constants.AllSubjectListConstants
+import br.com.savestudents.debug_mode.model.IAllSubjectList
+import br.com.savestudents.debug_mode.repository.AllSubjectsListRepository
 import br.com.savestudents.dto.SubjectListDto
 import br.com.savestudents.dto.asDomainModel
 import br.com.savestudents.model.SubjectList
@@ -16,8 +18,9 @@ import br.com.savestudents.repository.HomeRepository
 import br.com.savestudents.service.external.model.FirebaseResponseModel
 import br.com.savestudents.service.external.model.OnFailureModel
 
-class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel {
+class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel, IAllSubjectList {
     private val repository: IHomeRepository = HomeRepository()
+    private val repositoryAllSubjectList: IAllSubjectList = AllSubjectsListRepository()
 
     private var mSubjectList = MutableLiveData<List<SubjectList>>()
     val subjectList: LiveData<List<SubjectList>> = mSubjectList
@@ -169,6 +172,11 @@ class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel {
                     }
                 })
         }
+    }
+
+    override fun deleteSubjectItem(id: String) {
+        repositoryAllSubjectList.deleteSubjectItem(id)
+        getSubjectList()
     }
 
     private fun containsSearchValue(model: List<SubjectListDto>, searchValue: String): Boolean {

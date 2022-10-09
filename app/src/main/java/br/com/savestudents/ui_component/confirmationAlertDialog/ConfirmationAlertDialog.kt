@@ -42,6 +42,7 @@ class ConfirmationAlertDialog(private val mContract: ConfirmationAlertContract) 
     private fun clickConfirmButton() {
         binding.confirmButton.setOnClickListener {
             mId?.let { id -> mContract.clickConfirmButtonListener(id) }
+            dismiss()
         }
     }
 

@@ -134,7 +134,7 @@ class AllSubjectsListActivity : AppCompatActivity() {
 
     private val confirmAlertContract = object : ConfirmationAlertContract {
         override fun clickConfirmButtonListener(id: String) {
-            TODO("Not yet implemented")
+            viewModel.deleteSubjectItem(id)
         }
     }
 
