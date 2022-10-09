@@ -40,7 +40,7 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return Dialog(requireContext(), R.style.CalendarModalDialog)
+        return Dialog(requireContext(), R.style.Theme_Dialog)
     }
 
     private fun handleSelectDateButton() {

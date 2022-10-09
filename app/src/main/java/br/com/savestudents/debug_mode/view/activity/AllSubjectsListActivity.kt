@@ -12,6 +12,8 @@ import br.com.savestudents.debug_mode.controller.SubjectListController
 import br.com.savestudents.debug_mode.model.contract.SearchBarContract
 import br.com.savestudents.debug_mode.model.contract.SubjectListContract
 import br.com.savestudents.debug_mode.viewModel.AllSubjectsListViewModel
+import br.com.savestudents.ui_component.confirmationAlertDialog.ConfirmationAlertContract
+import br.com.savestudents.ui_component.confirmationAlertDialog.ConfirmationAlertDialog
 
 class AllSubjectsListActivity : AppCompatActivity() {
     lateinit var binding: ActivityAllSubjectsListBinding
@@ -81,7 +83,7 @@ class AllSubjectsListActivity : AppCompatActivity() {
             subjectListController.setResponseError(error)
         }
     }
-    
+
     private fun setLoading(status: Boolean) {
         subjectListController.setLoading(status)
         subjectListController.setResponseError(null)
@@ -118,6 +120,20 @@ class AllSubjectsListActivity : AppCompatActivity() {
         }
 
         override fun clickDeleteSubjectListener(id: String) {
+            ConfirmationAlertDialog.saveBundle(
+                id,
+                "Excluir",
+                "Caso confirme, essa matérias será deletada permanentemente, assim perdendo todos os dados. Deseja excluir?"
+            )
+            ConfirmationAlertDialog(confirmAlertContract).show(
+                supportFragmentManager,
+                ConfirmationAlertDialog.TAG
+            )
+        }
+    }
+
+    private val confirmAlertContract = object : ConfirmationAlertContract {
+        override fun clickConfirmButtonListener(id: String) {
             TODO("Not yet implemented")
         }
     }
@@ -125,10 +141,9 @@ class AllSubjectsListActivity : AppCompatActivity() {
     companion object {
         var checkboxRadioSelected: String = ""
         var checkboxSelectedList: MutableList<String> = mutableListOf()
-        var isFiltered = false
 
         @JvmStatic
-        fun newInstance(context: Context, ): Intent {
+        fun newInstance(context: Context): Intent {
             return Intent(context, AllSubjectsListActivity::class.java)
         }
 

@@ -32,4 +32,6 @@
     <string name="title_add_timeline">Criar Materia</string>
     <string name="title_create_timeline">Adicionar Materia</string>
     <string name="back_button_text">Voltar</string>
+    <string name="text_confirm">Confirmar</string>
+    <string name="text_cancel">cancelar</string>
 </resources>
