@@ -7,16 +7,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.CreateTimelineConstants
-import br.com.savestudents.debug_mode.controller.CreateTimelineController
 import br.com.savestudents.databinding.ActivityCreateTimelineBinding
+import br.com.savestudents.debug_mode.controller.CreateTimelineController
+import br.com.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
+import br.com.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 import br.com.savestudents.model.CreateTimelineItem
 import br.com.savestudents.model.SubjectData
 import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem
 import br.com.savestudents.model.contract.CreateTimelineContract
 import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
-import br.com.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
-import br.com.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
@@ -77,15 +77,27 @@ class CreateTimelineActivity : AppCompatActivity() {
     private fun handleSubmitButton() {
         binding.buttonSubmit.setOnClickListener {
             if(validateTimelineItems()) {
-                val documentId = viewModel.createDocument(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION)
-                createSubject(documentId)
-                createTimeline(documentId)
-                viewModel.clearTimelineItemList()
-                startActivity(CreateSubjectActivity.newInstance(applicationContext))
+                createSubjectItem()
+                finishCreateSubjectItem()
             } else {
                 Toast.makeText(applicationContext, "Crie pelomenos uma matéria", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun createSubjectItem() {
+        val documentId = viewModel.createDocument(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION)
+        createSubject(documentId)
+        createTimeline(documentId)
+        viewModel.clearTimelineItemList()
+    }
+
+    private fun finishCreateSubjectItem() {
+        val intent = Intent(this, AllSubjectsListActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        startActivity(intent)
+        finish()
     }
 
     private fun validateTimelineItems(): Boolean {
