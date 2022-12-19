@@ -61,6 +61,7 @@ class SelectOptionSubjectTypeActivity : AppCompatActivity() {
     private fun saveFilters() {
         binding.applyFiltersButton.setOnClickListener {
             AllSubjectsListActivity.saveFiltersSelected(checkboxRadioSelected, checkboxSelectedList)
+            AllSubjectsListActivity.isFiltered = true
             finish()
         }
     }

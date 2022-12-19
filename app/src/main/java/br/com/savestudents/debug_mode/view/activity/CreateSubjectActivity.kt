@@ -20,6 +20,7 @@ class CreateSubjectActivity : AppCompatActivity() {
         binding = ActivityCreateSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        handleGoBackButton()
         handlePeriodSelect()
         handleShiftSelect()
         handleNextButton()
@@ -33,6 +34,12 @@ class CreateSubjectActivity : AppCompatActivity() {
         if (!shiftSelected.isNullOrBlank()) {
             binding.selectShiftList.handleTitle(shiftSelected)
             enabledNextButton()
+        }
+    }
+
+    private fun handleGoBackButton() {
+        binding.backContainer.setOnClickListener {
+            finish()
         }
     }
 

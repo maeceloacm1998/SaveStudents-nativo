@@ -11,9 +11,11 @@ import br.com.savestudents.debug_mode.controller.SearchBarDebugModeController
 import br.com.savestudents.debug_mode.controller.SubjectListController
 import br.com.savestudents.debug_mode.model.contract.SearchBarContract
 import br.com.savestudents.debug_mode.model.contract.SubjectListContract
+import br.com.savestudents.debug_mode.view.fragment.SubjectEditDialog
 import br.com.savestudents.debug_mode.viewModel.AllSubjectsListViewModel
 import br.com.savestudents.ui_component.confirmationAlertDialog.ConfirmationAlertContract
 import br.com.savestudents.ui_component.confirmationAlertDialog.ConfirmationAlertDialog
+import br.com.savestudents.view.activity.HomeActivity
 
 class AllSubjectsListActivity : AppCompatActivity() {
     lateinit var binding: ActivityAllSubjectsListBinding
@@ -27,9 +29,26 @@ class AllSubjectsListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         fetchSubjectList()
+        clickCreateSubject()
         clickBackButton()
         controllers()
         observers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isFiltered) {
+            handleFiltersSelected()
+        }
+    }
+
+    private fun handleFiltersSelected() {
+        subjectListController.clearSubjectList()
+
+        if (checkboxRadioSelected.isBlank() && checkboxSelectedList.isEmpty()) {
+            fetchSubjectList()
+        }
+        filterSubjectList()
     }
 
     private fun fetchSubjectList() {
@@ -37,9 +56,26 @@ class AllSubjectsListActivity : AppCompatActivity() {
         viewModel.getSubjectList()
     }
 
+    private fun filterSubjectList() {
+        viewModel.filterSubjectList(
+            FirestoreDbConstants.Collections.SUBJECTS_LIST,
+            checkboxSelectedList,
+            checkboxRadioSelected
+        )
+    }
+
     private fun clickBackButton() {
         binding.backContainer.setOnClickListener {
+            val intent = HomeActivity.newInstance(applicationContext)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
             finish()
+        }
+    }
+
+    private fun clickCreateSubject() {
+        binding.addTimelineButton.setOnClickListener {
+            startActivity(CreateSubjectActivity.newInstance(applicationContext))
         }
     }
 
@@ -116,7 +152,8 @@ class AllSubjectsListActivity : AppCompatActivity() {
 
     private val subjectListContract = object : SubjectListContract {
         override fun clickEditOptionListener(id: String) {
-            TODO("Not yet implemented")
+            SubjectEditDialog.saveBundle(id)
+            SubjectEditDialog().show(supportFragmentManager,SubjectEditDialog.TAG)
         }
 
         override fun clickDeleteSubjectListener(id: String) {
@@ -142,6 +179,7 @@ class AllSubjectsListActivity : AppCompatActivity() {
     companion object {
         var checkboxRadioSelected: String = ""
         var checkboxSelectedList: MutableList<String> = mutableListOf()
+        var isFiltered = false
 
         @JvmStatic
         fun newInstance(context: Context): Intent {

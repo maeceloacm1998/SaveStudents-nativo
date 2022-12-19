@@ -57,6 +57,11 @@ class SubjectListController(private val mContract: SubjectListContract) : EpoxyC
         requestModelBuild()
     }
 
+    fun clearSubjectList() {
+        subjectList.clear()
+        requestModelBuild()
+    }
+
     fun setLoading(loading: Boolean) {
         this.loading = loading
         requestModelBuild()

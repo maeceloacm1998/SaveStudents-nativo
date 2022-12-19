@@ -25,6 +25,7 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
 ) : TextInputLayout(context, attr, defStyledAttr) {
 
     private var hint: String? = null
+    private var title: String? = null
     private var isPasswordEditText: Boolean? = null
     private var statePasswordButton: PasswordState = PasswordState.CLOSE
 
@@ -36,7 +37,9 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
         setLayout(attr)
         setDefaultBackgroundEditText(context)
         handleHint(hint)
+        handleTitle(title)
         showPasswordButton(isPasswordEditText)
+        showTitle()
         handleClickPasswordButton()
         if(isPasswordEditText == true) {
             setClosePassword(context)
@@ -48,6 +51,7 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
             val attributes =
                 context.obtainStyledAttributes(attributeSet, R.styleable.SimpleEditTextCustomView)
             attributesHint(attributes)
+            attributesTitle(attributes)
             attributesIsPasswordEditText(attributes)
             attributes.recycle()
         }
@@ -61,6 +65,14 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
         }
     }
 
+    private fun attributesTitle(attributes: TypedArray) {
+        val titleResId =
+            attributes.getResourceId(R.styleable.SimpleEditTextCustomView_titleEditText, 0)
+        if (titleResId != 0) {
+            title = context.getString(titleResId)
+        }
+    }
+
     private fun attributesIsPasswordEditText(attributes: TypedArray) {
         isPasswordEditText =
             attributes.getBoolean(R.styleable.SimpleEditTextCustomView_isPasswordEditText, false)
@@ -68,6 +80,18 @@ class SimpleEditTextCustomView @JvmOverloads constructor(
 
     fun handleHint(hintValue: String?) {
         binding.searchBar.hint = hintValue
+    }
+
+    fun handleTitle(titleValue: String?) {
+        binding.title.text = titleValue
+    }
+
+    private fun showTitle() {
+        if(!title.isNullOrBlank()) {
+            binding.title.visibility = VISIBLE
+        } else {
+            binding.title.visibility = GONE
+        }
     }
 
     fun showPasswordButton(showPasswordButton: Boolean?) {
