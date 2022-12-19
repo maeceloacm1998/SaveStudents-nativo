@@ -18,6 +18,10 @@
     <string name="default_text_select_date">Selecionar data</string>
     <string name="default_text_welcome">Bem-Vindo (a)</string>
     <string name="default_text_sub_title_login">Faça o login para acessar o painel</string>
+    <string name="text_confirm">Confirmar</string>
+    <string name="text_cancel">cancelar</string>
+    <string name="text_edit_subject">Editar Matéria</string>
+    <string name="text_add_and_edit_timline">Adicionar e editar atividades</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>
@@ -29,9 +33,8 @@
     <string name="select_period_list">Período</string>
     <string name="select_shift_list">Turno</string>
     <string name="add_timeline_button_text">Criar</string>
-    <string name="title_add_timeline">Criar Materia</string>
-    <string name="title_create_timeline">Adicionar Materia</string>
+    <string name="title_add_timeline">Criar Atividade</string>
+    <string name="title_create_timeline">Adicionar Atividades</string>
     <string name="back_button_text">Voltar</string>
-    <string name="text_confirm">Confirmar</string>
-    <string name="text_cancel">cancelar</string>
+
 </resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subject_edit_container"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/close_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintBottom_toTopOf="@id/edit_subject"
+            app:layout_constraintEnd_toEndOf="@id/subject_edit_container"
+            app:layout_constraintTop_toTopOf="@id/subject_edit_container"
+            app:tint="@color/soft_black" />
+
+        <View
+            android:id="@+id/edit_subject"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_ripple_rounded_secondary_100"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@id/edit_timeline"
+            app:layout_constraintEnd_toEndOf="@id/subject_edit_container"
+            app:layout_constraintStart_toStartOf="@id/subject_edit_container"
+            app:layout_constraintTop_toBottomOf="@id/close_dialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/text_edit_subject"
+            android:textColor="@color/soft_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/edit_subject"
+            app:layout_constraintStart_toStartOf="@id/edit_subject"
+            app:layout_constraintTop_toTopOf="@id/edit_subject" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="@id/edit_subject"
+            app:layout_constraintEnd_toEndOf="@id/edit_subject"
+            app:layout_constraintTop_toTopOf="@id/edit_subject"
+            app:tint="@color/primary" />
+
+        <View
+            android:id="@+id/edit_timeline"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_ripple_rounded_secondary_100"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@id/subject_edit_container"
+            app:layout_constraintEnd_toEndOf="@id/subject_edit_container"
+            app:layout_constraintStart_toStartOf="@id/subject_edit_container"
+            app:layout_constraintTop_toBottomOf="@id/edit_subject" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/text_add_and_edit_timline"
+            android:textColor="@color/soft_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/edit_timeline"
+            app:layout_constraintStart_toStartOf="@id/edit_timeline"
+            app:layout_constraintTop_toTopOf="@id/edit_timeline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="@id/edit_timeline"
+            app:layout_constraintEnd_toEndOf="@id/edit_timeline"
+            app:layout_constraintTop_toTopOf="@id/edit_timeline"
+            app:tint="@color/primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
