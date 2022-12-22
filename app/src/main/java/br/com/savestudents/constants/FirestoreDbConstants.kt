@@ -10,13 +10,13 @@ class FirestoreDbConstants {
         const val GET_DOCUMENT_VALUE = "GET_DOCUMENT_VALUE"
         const val GET_SPECIFIC_DOCUMENT = "GET_SPECIFIC_DOCUMENT"
         const val GET_FILTER_DOCUMENT = "GET_FILTER_DOCUMENT"
-        const val SET_DOCUMENT = "SET_DOCUMENT"
-        const val PUT_DOCUMENT = "PUT_DOCUMENT"
+        const val SET_SPECIFIC_DOCUMENT = "SET_SPECIFIC_DOCUMENT"
         const val DELETE_DOCUMENT = "DELETE_DOCUMENT"
     }
 
     object MessageError {
         const val EMPTY_RESULT = "Lista vazia ou aparelho celular sem conexao."
+        const val UPDATE_ERROR = "Erro ao atualizar o item específico"
     }
 
     object Collections {

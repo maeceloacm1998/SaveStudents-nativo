@@ -1,5 +1,7 @@
 package br.com.savestudents.service.external.model
 
+import com.google.firebase.firestore.DocumentSnapshot
+
 interface FirebaseClientModel {
     fun <T> getDocumentValue(
         collectionPath: String,
@@ -19,21 +21,20 @@ interface FirebaseClientModel {
         firebaseResponseModel: FirebaseResponseModel<T>
     )
 
-    fun <T> getSpecificDocument(
+    fun getSpecificDocument(
         collectionPath: String,
         documentPath: String,
-        firebaseResponseModel: FirebaseResponseModel<T>
+        firebaseResponseModel: FirebaseResponseModel<DocumentSnapshot>,
     )
 
     fun setSpecificDocument(
         collectionPath: String,
-        documentPath: String = "",
-        data: Any
+        documentPath: String,
+        data: Any,
+        firebaseResponseModel: FirebaseResponseModel<Boolean>
     )
 
     fun createDocument(collectionPath: String): String
-
-    fun putDocument(collectionPath: String, documentPath: String, data: Any)
 
     fun deleteDocument(collectionPath: String, documentPath: String)
 }
