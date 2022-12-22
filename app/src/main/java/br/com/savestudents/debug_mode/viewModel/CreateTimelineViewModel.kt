@@ -8,7 +8,7 @@ import br.com.savestudents.model.CreateTimelineItem
 import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem
 import br.com.savestudents.model.repository.ICreateTimelineRepository
-import br.com.savestudents.model.viewModel.ICreateTimelineViewModel
+import br.com.savestudents.debug_mode.model.viewModel.ICreateTimelineViewModel
 import br.com.savestudents.repository.CreateTimelineRepository
 import br.com.savestudents.service.internal.dao.CreateTimelineDAO
 import br.com.savestudents.service.internal.database.CreateTimelineItemsDB
