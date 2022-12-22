@@ -12,15 +12,12 @@ import androidx.fragment.app.DialogFragment
 import br.com.savestudents.R
 import br.com.savestudents.databinding.DialogCreateTimelineItemBinding
 import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
-import br.com.savestudents.service.internal.dao.CreateTimelineDAO
-import br.com.savestudents.service.internal.database.CreateTimelineItemsDB
 import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogContract) : DialogFragment() {
     private lateinit var binding: DialogCreateTimelineItemBinding
-    private lateinit var timelineItemDAO: CreateTimelineDAO
     private var selectedDate: Long? = null
 
     override fun onCreateView(
@@ -28,7 +25,6 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
         savedInstanceState: Bundle?
     ): View {
         binding = DialogCreateTimelineItemBinding.inflate(inflater, container, false)
-        timelineItemDAO = CreateTimelineItemsDB.getDataBase(requireContext()).createTimelineDAO()
 
         setDefaultStyleSelectDateButton()
         handleSelectDateButton()
@@ -88,7 +84,6 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
                 date = selectedDate!!
                 subjectName = binding.subjectName.editText().text.toString()
             }
-            timelineItemDAO.createTimelineItems(timelineItem)
             mContract.createTimelineItemListener(timelineItem)
             dismiss()
         }else{

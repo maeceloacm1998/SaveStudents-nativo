@@ -17,9 +17,13 @@ import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem
 import br.com.savestudents.model.contract.CreateTimelineContract
 import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
+import br.com.savestudents.service.internal.dao.CreateTimelineDAO
+import br.com.savestudents.service.internal.database.CreateTimelineItemsDB
+import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
+    private lateinit var timelineItemDAO: CreateTimelineDAO
     private val controller by lazy { CreateTimelineController(contract) }
     private val viewModel by lazy { CreateTimelineViewModel(applicationContext) }
     private var timelineItemsList: MutableList<CreateTimelineItem> = mutableListOf()
@@ -27,6 +31,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateTimelineBinding.inflate(layoutInflater)
+        timelineItemDAO = CreateTimelineItemsDB.getDataBase(applicationContext).createTimelineDAO()
         setContentView(binding.root)
 
         controller()
@@ -146,7 +151,8 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     private val contractDialog = object : CreateTimelineItemDialogContract {
-        override fun createTimelineItemListener() {
+        override fun createTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
+            timelineItemDAO.createTimelineItems(timelineItem)
             handleTimelineItemList()
         }
     }
