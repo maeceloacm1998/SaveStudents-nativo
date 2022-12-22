@@ -68,7 +68,6 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     private fun handleSubmitButton() {
         binding.buttonSubmit.setOnClickListener {
             handleCreateTimelineItem()
-            mContract.createTimelineItemListener()
         }
     }
 
@@ -85,10 +84,12 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     private fun handleCreateTimelineItem() {
         if(isValidData()) {
             val timelineItem = CreateTimelineItemEntity().apply {
+                id = Random().nextInt()
                 date = selectedDate!!
                 subjectName = binding.subjectName.editText().text.toString()
             }
             timelineItemDAO.createTimelineItems(timelineItem)
+            mContract.createTimelineItemListener(timelineItem)
             dismiss()
         }else{
             Toast.makeText(requireContext(),"Preencha todos os campos", Toast.LENGTH_SHORT).show()

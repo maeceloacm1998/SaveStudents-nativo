@@ -18,6 +18,7 @@ class CreateTimelineItemEntity {
     var subjectName: String = ""
 }
 
+
 fun List<CreateTimelineItemEntity>.asDomainModel() : List<CreateTimelineItem> {
     return this.map { item ->
         CreateTimelineItem(

@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/text_add_and_edit_timline"
+            android:text="@string/text_add_and_edit_timeline"
             android:textColor="@color/soft_black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/edit_timeline"
