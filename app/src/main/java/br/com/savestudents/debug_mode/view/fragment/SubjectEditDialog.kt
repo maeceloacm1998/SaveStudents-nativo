@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import br.com.savestudents.R
 import br.com.savestudents.databinding.SubjectEditDialogBinding
 import br.com.savestudents.debug_mode.view.activity.EditSubjectActivity
+import br.com.savestudents.debug_mode.view.activity.EditTimelineActivity
 
 class SubjectEditDialog: DialogFragment() {
     lateinit var binding: SubjectEditDialogBinding
@@ -20,6 +21,7 @@ class SubjectEditDialog: DialogFragment() {
         binding = SubjectEditDialogBinding.inflate(inflater, container, false)
         clickCloseDialog()
         clickEditSubject()
+        clickEditTimeline()
 
         return binding.root
     }
@@ -40,8 +42,10 @@ class SubjectEditDialog: DialogFragment() {
 
 
     private fun clickEditTimeline() {
-        binding.editSubject.setOnClickListener {
-
+        binding.editTimeline.setOnClickListener {
+            val intent = EditTimelineActivity.newInstance(it.context, mId)
+            startActivity(intent)
+            dismiss()
         }
     }
 
