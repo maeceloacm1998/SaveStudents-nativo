@@ -124,17 +124,8 @@
         app:layout_constraintStart_toStartOf="@id/button_submit"
         app:layout_constraintTop_toTopOf="@id/button_submit" />
 
-    <FrameLayout
+    <include
         android:id="@+id/loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_transparent">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true" />
-    </FrameLayout>
+        layout="@layout/loading_transparent_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

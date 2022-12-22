@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.savestudents.constants.FirestoreDbConstants
 import br.com.savestudents.debug_mode.constants.AllSubjectListConstants
-import br.com.savestudents.debug_mode.model.IAllSubjectList
+import br.com.savestudents.debug_mode.model.repository.IAllSubjectList
 import br.com.savestudents.debug_mode.repository.AllSubjectsListRepository
 import br.com.savestudents.dto.SubjectListDto
 import br.com.savestudents.dto.asDomainModel

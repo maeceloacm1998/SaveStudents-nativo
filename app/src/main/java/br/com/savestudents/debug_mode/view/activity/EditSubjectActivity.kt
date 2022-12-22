@@ -181,9 +181,9 @@ class EditSubjectActivity : AppCompatActivity() {
 
     private fun loading(status: Boolean) {
         if (status) {
-            binding.loading.visibility = View.VISIBLE
+            binding.loading.frameLayout.visibility = View.VISIBLE
         } else {
-            binding.loading.visibility = View.GONE
+            binding.loading.frameLayout.visibility = View.GONE
         }
     }
 

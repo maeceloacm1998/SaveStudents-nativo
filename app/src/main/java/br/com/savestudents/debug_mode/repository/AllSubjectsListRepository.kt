@@ -1,7 +1,7 @@
 package br.com.savestudents.debug_mode.repository
 
 import br.com.savestudents.constants.FirestoreDbConstants
-import br.com.savestudents.debug_mode.model.IAllSubjectList
+import br.com.savestudents.debug_mode.model.repository.IAllSubjectList
 import br.com.savestudents.service.external.FirebaseClient
 
 class AllSubjectsListRepository: IAllSubjectList {
