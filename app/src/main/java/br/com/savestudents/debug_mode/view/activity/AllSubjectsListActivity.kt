@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.FirestoreDbConstants
 import br.com.savestudents.databinding.ActivityAllSubjectsListBinding
+import br.com.savestudents.debug_mode.constants.AllSubjectListConstants
 import br.com.savestudents.debug_mode.controller.SearchBarDebugModeController
 import br.com.savestudents.debug_mode.controller.SubjectListController
 import br.com.savestudents.debug_mode.model.contract.SearchBarContract
@@ -41,6 +42,15 @@ class AllSubjectsListActivity : AppCompatActivity() {
             handleFiltersSelected()
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == EditSubjectActivity.EDIT_SUBJECT_REQUEST_CODE) {
+            fetchSubjectList()
+        }
+    }
+
 
     private fun handleFiltersSelected() {
         subjectListController.clearSubjectList()
@@ -153,15 +163,16 @@ class AllSubjectsListActivity : AppCompatActivity() {
     private val subjectListContract = object : SubjectListContract {
         override fun clickEditOptionListener(id: String) {
             SubjectEditDialog.saveBundle(id)
-            SubjectEditDialog().show(supportFragmentManager,SubjectEditDialog.TAG)
+            SubjectEditDialog().show(supportFragmentManager, SubjectEditDialog.TAG)
         }
 
         override fun clickDeleteSubjectListener(id: String) {
             ConfirmationAlertDialog.saveBundle(
                 id,
-                "Excluir",
-                "Caso confirme, essa matérias será deletada permanentemente, assim perdendo todos os dados. Deseja excluir?"
+                AllSubjectListConstants.Dialog.DELETE_SUBJECT_TITLE,
+                AllSubjectListConstants.Dialog.DELETE_SUBJECT_DESCRIPTION
             )
+
             ConfirmationAlertDialog(confirmAlertContract).show(
                 supportFragmentManager,
                 ConfirmationAlertDialog.TAG
