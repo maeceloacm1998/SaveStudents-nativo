@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.CreateSubjectConstants
 import br.com.savestudents.constants.FirestoreDbConstants
-import br.com.savestudents.debug_mode.controller.SelectOptionsController
 import br.com.savestudents.databinding.ActivitySelectOptionBinding
+import br.com.savestudents.debug_mode.controller.SelectOptionsController
 import br.com.savestudents.model.contract.SelectOptionsContract
 import br.com.savestudents.viewModel.FilterOptionsViewModel
 
@@ -95,13 +95,21 @@ class SelectOptionActivity : AppCompatActivity() {
     private val contract = object : SelectOptionsContract {
         override fun clickedCheckboxListener(optionSelected: String) {
             val filterOption = intent?.getStringExtra(FILTER_OPTION)
-            filterOption?.let { CreateSubjectActivity.setOptionSelected(it, optionSelected) }
+            val intent = Intent()
+
+            filterOption?.let {
+                intent.putExtra(FILTER_OPTION, it)
+                intent.putExtra(FILTER_VALUE_SELECTED, optionSelected)
+            }
+            setResult(RESULT_OK, intent)
             finish()
         }
     }
 
     companion object {
-        private const val FILTER_OPTION = "filter_option"
+        const val FILTER_OPTION = "filter_option"
+        const val FILTER_VALUE_SELECTED = "filter_value_selected"
+        const val SELECT_OPTION_REQUEST_CODE = 1
 
         fun newInstance(context: Context, filterOption: String): Intent {
             val intent = Intent(context, SelectOptionActivity::class.java)
