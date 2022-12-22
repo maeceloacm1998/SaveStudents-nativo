@@ -32,7 +32,9 @@ class SubjectEditDialog: DialogFragment() {
 
     private fun clickEditSubject() {
         binding.editSubject.setOnClickListener {
-            startActivity(EditSubjectActivity.newInstance(mId, binding.subjectEditContainer.context))
+            val intent = EditSubjectActivity.newInstance(mId, binding.subjectEditContainer.context)
+            startActivityForResult(intent, EditSubjectActivity.EDIT_SUBJECT_REQUEST_CODE)
+            dismiss()
         }
     }
 
