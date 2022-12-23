@@ -11,6 +11,8 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import br.com.savestudents.R
+import br.com.savestudents.model.CreateTimelineItem
+
 @EpoxyModelClass
 abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItemHolder.SectionHolder>() {
     @EpoxyAttribute
@@ -22,8 +24,11 @@ abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItem
     @EpoxyAttribute
     lateinit var date: String
 
+    @EpoxyAttribute
+    var timestampDate: Long = 0L
+
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-    lateinit var clickEditButtonListener: () -> Unit
+    lateinit var clickEditButtonListener: (timelineItem: CreateTimelineItem) -> Unit
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickDeleteButtonListener: (id: Int) -> Unit
@@ -78,7 +83,8 @@ abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItem
 
     private fun SectionHolder.editButton() {
         mEditButton.setOnClickListener {
-            clickEditButtonListener()
+            val timelineItem = CreateTimelineItem(id = mId, subjectName = subjectName, date = timestampDate)
+            clickEditButtonListener(timelineItem)
         }
     }
 
