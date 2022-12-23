@@ -1,4 +1,4 @@
-package br.com.savestudents.model.contract
+package br.com.savestudents.debug_mode.model.contract
 
 import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 

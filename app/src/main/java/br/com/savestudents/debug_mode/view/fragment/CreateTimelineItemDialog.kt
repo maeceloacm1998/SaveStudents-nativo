@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import br.com.savestudents.R
 import br.com.savestudents.databinding.DialogCreateTimelineItemBinding
-import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
+import br.com.savestudents.debug_mode.model.contract.CreateTimelineItemDialogContract
 import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
 import java.util.*
