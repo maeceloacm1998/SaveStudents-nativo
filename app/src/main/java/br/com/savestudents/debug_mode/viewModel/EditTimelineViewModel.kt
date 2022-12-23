@@ -16,6 +16,9 @@ class EditTimelineViewModel: ViewModel() {
     private var mTimelineItem = MutableLiveData<TimelineItem>()
     var timelineItem: LiveData<TimelineItem> = mTimelineItem
 
+    private var mUpdateTimelineItem = MutableLiveData<Boolean>()
+    var updateTimelineItem: LiveData<Boolean> = mUpdateTimelineItem
+
     fun getSubjectItemPerId(id: String) {
         repository.getSubjectPerId(id, object: FirebaseResponseModel<TimelineDTO> {
             override fun onSuccess(model: TimelineDTO) {
@@ -23,6 +26,18 @@ class EditTimelineViewModel: ViewModel() {
             }
 
             override fun onFailure(error: OnFailureModel) {}
+        })
+    }
+
+    fun updateTimelineItem(timelineItem: TimelineItem) {
+        repository.updateTimelineItem(timelineItem, object : FirebaseResponseModel<Boolean> {
+            override fun onSuccess(model: Boolean) {
+                mUpdateTimelineItem.value = model
+            }
+
+            override fun onFailure(error: OnFailureModel) {
+                TODO("Not yet implemented")
+            }
         })
     }
 }
