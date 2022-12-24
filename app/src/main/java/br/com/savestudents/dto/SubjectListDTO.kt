@@ -10,6 +10,9 @@ data class SubjectListDto(
     var shift: String = ""
 )
 
+fun SubjectListDto.asModel(): SubjectList =
+    SubjectList(id, subjectName, teacherName, period, shift)
+
 fun List<SubjectListDto>.asDomainModel(): List<SubjectList> {
     return this.map {
         SubjectList(

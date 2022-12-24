@@ -5,6 +5,7 @@ import br.com.savestudents.constants.FirestoreDbConstants
 import br.com.savestudents.service.external.model.FirebaseClientModel
 import br.com.savestudents.service.external.model.FirebaseResponseModel
 import br.com.savestudents.service.external.model.OnFailureModel
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -114,10 +115,10 @@ class FirebaseClient : FirebaseClientModel {
             }
     }
 
-    override fun <T> getSpecificDocument(
+    override fun getSpecificDocument(
         collectionPath: String,
         documentPath: String,
-        firebaseResponseModel: FirebaseResponseModel<T>
+        firebaseResponseModel: FirebaseResponseModel<DocumentSnapshot>
     ) {
         database.collection(collectionPath).document(documentPath).get()
             .addOnSuccessListener { result ->
@@ -137,7 +138,7 @@ class FirebaseClient : FirebaseClientModel {
                     return@addOnSuccessListener
                 }
 
-                val res = result.data as T
+                val res = result as DocumentSnapshot
                 handleLog(
                     FirestoreDbConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
                     collectionPath,
@@ -148,8 +149,34 @@ class FirebaseClient : FirebaseClientModel {
             }
     }
 
-    override fun setSpecificDocument(collectionPath: String, documentPath: String, data: Any) {
-        database.collection(collectionPath).document(documentPath).set(data)
+    override fun setSpecificDocument(
+        collectionPath: String,
+        documentPath: String,
+        data: Any,
+        firebaseResponseModel: FirebaseResponseModel<Boolean>,
+    ) {
+        database.collection(collectionPath).document(documentPath).set(data).addOnSuccessListener {
+            handleLog(
+                FirestoreDbConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                collectionPath,
+                FirestoreDbConstants.StatusCode.SUCCESS.toString(),
+                true.toString()
+            )
+            firebaseResponseModel.onSuccess(true)
+        }.addOnFailureListener {
+            firebaseResponseModel.onFailure(
+                setErrorFailure(
+                    FirestoreDbConstants.StatusCode.NOT_FOUND,
+                    FirestoreDbConstants.MessageError.UPDATE_ERROR
+                )
+            )
+            handleLog(
+                FirestoreDbConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                collectionPath,
+                FirestoreDbConstants.StatusCode.NOT_FOUND.toString(),
+                FirestoreDbConstants.MessageError.UPDATE_ERROR
+            )
+        }
     }
 
     override fun createDocument(collectionPath: String): String {
@@ -157,10 +184,6 @@ class FirebaseClient : FirebaseClientModel {
         database.collection(collectionPath).document(id).set({})
 
         return id
-    }
-
-    override fun putDocument(collectionPath: String, documentPath: String, data: Any) {
-        database.collection(collectionPath).document(documentPath).set(data)
     }
 
     override fun deleteDocument(collectionPath: String, documentPath: String) {

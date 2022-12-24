@@ -16,7 +16,7 @@
         <item name="colorControlNormal">@color/primary</item>
     </style>
 
-    <style name="CalendarModalDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="Theme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorAccent">@color/primary</item>
@@ -26,7 +26,9 @@
 
     // ATTRS
     <declare-styleable name="SimpleEditTextCustomView">
+        <attr name="titleEditText" format="string" />
         <attr name="hint" format="string" />
+        <attr name="isPasswordEditText" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SelectItemCustomView">

@@ -1,4 +1,4 @@
-package br.com.savestudents.model.viewModel
+package br.com.savestudents.debug_mode.model.viewModel
 
 import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem

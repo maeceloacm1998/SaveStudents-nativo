@@ -1,11 +1,11 @@
-package br.com.savestudents.controller
+package br.com.savestudents.debug_mode.controller
 
 import com.airbnb.epoxy.EpoxyController
 import br.com.savestudents.constants.HomeConstants
-import br.com.savestudents.holder.createTimelineItemHolder
+import br.com.savestudents.debug_mode.holder.createTimelineItemHolder
 import br.com.savestudents.holder.responseErrorHolder
 import br.com.savestudents.model.CreateTimelineItem
-import br.com.savestudents.model.contract.CreateTimelineContract
+import br.com.savestudents.debug_mode.model.contract.CreateTimelineContract
 import br.com.savestudents.ui_component.separator.separatorHolder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +37,7 @@ class CreateTimelineController(private val mContract: CreateTimelineContract) : 
                 mId(item.id)
                 subjectName(item.subjectName)
                 date(formatDate(item.date))
+                timestampDate(item.date)
                 clickEditButtonListener(mContract::clickEditButtonListener)
                 clickDeleteButtonListener(mContract::clickDeleteButtonListener)
                 marginLeft(10)

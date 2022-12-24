@@ -17,13 +17,18 @@ import br.com.savestudents.controller.HeaderHomeActivityController
 import br.com.savestudents.controller.HomeActivityController
 import br.com.savestudents.controller.SearchBarController
 import br.com.savestudents.databinding.ActivityHomeBinding
+import br.com.savestudents.debug_mode.view.activity.AllSubjectsListActivity
+import br.com.savestudents.debug_mode.view.activity.LoginActivity
 import br.com.savestudents.model.contract.HeaderHomeActivityContract
 import br.com.savestudents.model.contract.HomeActivityContract
+import br.com.savestudents.service.internal.dao.AdminCheckDAO
+import br.com.savestudents.service.internal.database.AdminCheckDB
 import br.com.savestudents.viewModel.HomeViewModel
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var adminCheckDAO: AdminCheckDAO
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
     private val searchBarController by lazy { SearchBarController(homeContract) }
@@ -33,6 +38,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        adminCheckDAO = AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
 
         mViewModel = ViewModelProvider(
             this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -41,6 +47,8 @@ class HomeActivity : AppCompatActivity() {
         fetchSubjectList()
         controllers()
         observers()
+
+        headerHomeActivityController.isAdminMode(adminCheckDAO.getAdminModeStatus().isAdminModeOn)
     }
 
     override fun onCreateView(
@@ -55,6 +63,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        headerHomeActivityController.isAdminMode(adminCheckDAO.getAdminModeStatus().isAdminModeOn)
         if (isFiltered) {
             handleFiltersSelected()
         }
@@ -187,6 +196,15 @@ class HomeActivity : AppCompatActivity() {
         override fun editTextValue(text: String) {
             searchBarController.setLoading(true)
             mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
+        }
+
+        override fun adminModeOnActiveListener() {
+            val intent = AllSubjectsListActivity.newInstance(applicationContext)
+            startActivity(intent)
+        }
+
+        override fun joinAdminModeListener() {
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
     }
 

@@ -1,4 +1,4 @@
-package br.com.savestudents.view.activity
+package br.com.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import br.com.savestudents.constants.CreateSubjectConstants
 import br.com.savestudents.databinding.ActivityCreateSubjectBinding
 import br.com.savestudents.model.SubjectData
 
+
 class CreateSubjectActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateSubjectBinding
 
@@ -20,6 +21,7 @@ class CreateSubjectActivity : AppCompatActivity() {
         binding = ActivityCreateSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        handleGoBackButton()
         handlePeriodSelect()
         handleShiftSelect()
         handleNextButton()
@@ -27,12 +29,37 @@ class CreateSubjectActivity : AppCompatActivity() {
         handleProgressBar()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!periodSelected.isNullOrBlank()) binding.selectPeriodList.handleTitle(periodSelected)
-        if (!shiftSelected.isNullOrBlank()) {
-            binding.selectShiftList.handleTitle(shiftSelected)
-            enabledNextButton()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SelectOptionActivity.SELECT_OPTION_REQUEST_CODE) {
+            val filterOption: String =
+                data?.getStringExtra(SelectOptionActivity.FILTER_OPTION).toString()
+            val filter: String =
+                data?.getStringExtra(SelectOptionActivity.FILTER_VALUE_SELECTED).toString()
+
+            setOptionSelected(filterOption, filter)
+        }
+    }
+
+    private fun setOptionSelected(type: String, option: String) {
+        when (type) {
+            CreateSubjectConstants.Filter.PERIOD_FIELD -> {
+                binding.selectPeriodList.handleTitle(option)
+                periodSelected = option
+            }
+
+            CreateSubjectConstants.Filter.SHIFT_FIELD -> {
+                binding.selectShiftList.handleTitle(option)
+                shiftSelected = option
+                enabledNextButton()
+            }
+        }
+    }
+
+    private fun handleGoBackButton() {
+        binding.backContainer.setOnClickListener {
+            finish()
         }
     }
 
@@ -50,7 +77,7 @@ class CreateSubjectActivity : AppCompatActivity() {
 
     private fun handlePeriodSelect(filterType: String) {
         val intent = SelectOptionActivity.newInstance(applicationContext, filterType)
-        startActivity(intent)
+        startActivityForResult(intent, SelectOptionActivity.SELECT_OPTION_REQUEST_CODE)
     }
 
     private fun handleNextButton() {
@@ -123,18 +150,6 @@ class CreateSubjectActivity : AppCompatActivity() {
 
         fun newInstance(context: Context): Intent {
             return Intent(context, CreateSubjectActivity::class.java)
-        }
-
-        fun setOptionSelected(type: String, option: String) {
-            when (type) {
-                CreateSubjectConstants.Filter.PERIOD_FIELD -> {
-                    periodSelected = option
-                }
-
-                CreateSubjectConstants.Filter.SHIFT_FIELD -> {
-                    shiftSelected = option
-                }
-            }
         }
     }
 }

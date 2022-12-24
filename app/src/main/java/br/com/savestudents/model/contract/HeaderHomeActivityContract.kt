@@ -5,4 +5,6 @@ interface HeaderHomeActivityContract {
     fun clickSearchBarListener()
     fun clickButtonCancelListener()
     fun editTextValue(text: String)
+    fun adminModeOnActiveListener()
+    fun joinAdminModeListener()
 }

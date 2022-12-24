@@ -6,6 +6,8 @@
     <string name="subject_name_hint"><font size="14">Nome da matéria</font></string>
     <string name="teacher_name_hint"><font size="14">Nome do docente</font></string>
     <string name="timeline_name_hint"><font size="12">Digite o nome da atividade</font></string>
+    <string name="email_hint"><font size="12">Email</font></string>
+    <string name="password_hint"><font size="12">Senha</font></string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
@@ -14,6 +16,13 @@
     <string name="subtitle_filter_options_error">Ocorreu um erro ao carregar os itens</string>
     <string name="notification_activated">Notificação Ativa! Você será notificado de todas as atividades presentes nesta matéria</string>
     <string name="default_text_select_date">Selecionar data</string>
+    <string name="default_text_welcome">Bem-Vindo (a)</string>
+    <string name="default_text_sub_title_login">Faça o login para acessar o painel</string>
+    <string name="text_confirm">Confirmar</string>
+    <string name="text_cancel">cancelar</string>
+    <string name="text_edit_subject">Editar Matéria</string>
+    <string name="text_add_and_edit_timeline">Adicionar e editar atividades</string>
+    <string name="title_create_timeline">Adicionar Atividades</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>
@@ -25,6 +34,7 @@
     <string name="select_period_list">Período</string>
     <string name="select_shift_list">Turno</string>
     <string name="add_timeline_button_text">Criar</string>
-    <string name="title_create_timeline">Adicionar Materia</string>
+    <string name="title_add_timeline">Criar Atividade</string>
     <string name="back_button_text">Voltar</string>
+
 </resources>

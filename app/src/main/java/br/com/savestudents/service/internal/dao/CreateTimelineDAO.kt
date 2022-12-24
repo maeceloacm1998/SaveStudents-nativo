@@ -11,6 +11,9 @@ interface CreateTimelineDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createTimelineItems(timelineItem: CreateTimelineItemEntity)
 
+    @Query("UPDATE create_timeline_table SET date= :date, subject_name= :subjectName WHERE id = :id")
+    fun updateTimelineItemPerId(id: Int, date: Long, subjectName: String)
+
     @Query("DELETE FROM create_timeline_table WHERE id = :id")
     fun deleteTimelineItem(id: Int)
 

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".debug_mode.view.activity.EditSubjectActivity">
+
+    <View
+        android:id="@+id/back_container"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_ripple_rounded_secondary_100"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/back_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_left_35"
+        app:layout_constraintBottom_toBottomOf="@id/back_container"
+        app:layout_constraintEnd_toStartOf="@id/back_text"
+        app:layout_constraintStart_toStartOf="@id/back_container"
+        app:layout_constraintTop_toTopOf="@id/back_container"
+        app:tint="@color/primary" />
+
+    <TextView
+        android:id="@+id/back_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/back_button_text"
+        android:textColor="@color/primary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/back_container"
+        app:layout_constraintStart_toEndOf="@id/back_icon"
+        app:layout_constraintTop_toTopOf="@id/back_container" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Editar matéria"
+        android:textColor="@color/soft_black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_container" />
+
+    <br.com.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
+        android:id="@+id/subject_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:titleEditText="@string/subject_name_hint" />
+
+    <br.com.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
+        android:id="@+id/teacher_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subject_name"
+        app:titleEditText="@string/teacher_name_hint" />
+
+    <br.com.savestudents.ui_component.selectList.SelectItemCustomView
+        android:id="@+id/select_period_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/teacher_name"
+        app:title="@string/select_period_list" />
+
+    <br.com.savestudents.ui_component.selectList.SelectItemCustomView
+        android:id="@+id/select_shift_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_period_list"
+        app:title="@string/select_shift_list" />
+
+    <View
+        android:id="@+id/button_submit"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/bg_rounded_primary"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/text_confirm"
+        android:textColor="@color/soft_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/button_submit"
+        app:layout_constraintEnd_toEndOf="@id/button_submit"
+        app:layout_constraintStart_toStartOf="@id/button_submit"
+        app:layout_constraintTop_toTopOf="@id/button_submit" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/loading_transparent_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

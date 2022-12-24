@@ -1,4 +1,4 @@
-package br.com.savestudents.view.activity
+package br.com.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,19 +7,26 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.savestudents.constants.CreateTimelineConstants
-import br.com.savestudents.controller.CreateTimelineController
 import br.com.savestudents.databinding.ActivityCreateTimelineBinding
+import br.com.savestudents.debug_mode.controller.CreateTimelineController
+import br.com.savestudents.debug_mode.model.contract.CreateTimelineContract
+import br.com.savestudents.debug_mode.model.contract.CreateTimelineItemDialogContract
+import br.com.savestudents.debug_mode.model.contract.EditTimelineItemDialogContract
+import br.com.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
+import br.com.savestudents.debug_mode.view.fragment.EditTimelineItemDialog
+import br.com.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 import br.com.savestudents.model.CreateTimelineItem
+import br.com.savestudents.model.asDomainModel
 import br.com.savestudents.model.SubjectData
 import br.com.savestudents.model.SubjectList
 import br.com.savestudents.model.TimelineItem
-import br.com.savestudents.model.contract.CreateTimelineContract
-import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
-import br.com.savestudents.view.fragment.CreateTimelineItemDialog
-import br.com.savestudents.viewModel.CreateTimelineViewModel
+import br.com.savestudents.service.internal.dao.CreateTimelineDAO
+import br.com.savestudents.service.internal.database.CreateTimelineItemsDB
+import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
+    private lateinit var timelineItemDAO: CreateTimelineDAO
     private val controller by lazy { CreateTimelineController(contract) }
     private val viewModel by lazy { CreateTimelineViewModel(applicationContext) }
     private var timelineItemsList: MutableList<CreateTimelineItem> = mutableListOf()
@@ -27,6 +34,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateTimelineBinding.inflate(layoutInflater)
+        timelineItemDAO = CreateTimelineItemsDB.getDataBase(applicationContext).createTimelineDAO()
         setContentView(binding.root)
 
         controller()
@@ -60,7 +68,10 @@ class CreateTimelineActivity : AppCompatActivity() {
 
     private fun handleAddNewTimeline() {
         binding.addTimelineButton.setOnClickListener {
-            CreateTimelineItemDialog(contractDialog).show(supportFragmentManager, CreateTimelineItemDialog.TAG)
+            CreateTimelineItemDialog(contractDialog).show(
+                supportFragmentManager,
+                CreateTimelineItemDialog.TAG
+            )
         }
     }
 
@@ -76,20 +87,33 @@ class CreateTimelineActivity : AppCompatActivity() {
 
     private fun handleSubmitButton() {
         binding.buttonSubmit.setOnClickListener {
-            if(validateTimelineItems()) {
-                val documentId = viewModel.createDocument(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION)
-                createSubject(documentId)
-                createTimeline(documentId)
-                viewModel.clearTimelineItemList()
-                startActivity(CreateSubjectActivity.newInstance(applicationContext))
+            if (validateTimelineItems()) {
+                createSubjectItem()
+                finishCreateSubjectItem()
             } else {
-                Toast.makeText(applicationContext, "Crie pelomenos uma matéria", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Crie pelomenos uma matéria", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
+    private fun createSubjectItem() {
+        val documentId =
+            viewModel.createDocument(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION)
+        createSubject(documentId)
+        createTimeline(documentId)
+        viewModel.clearTimelineItemList()
+    }
+
+    private fun finishCreateSubjectItem() {
+        val intent = Intent(this, AllSubjectsListActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     private fun validateTimelineItems(): Boolean {
-        if(timelineItemsList.isNotEmpty()) {
+        if (timelineItemsList.isNotEmpty()) {
             return true
         }
         return false
@@ -97,12 +121,20 @@ class CreateTimelineActivity : AppCompatActivity() {
 
     private fun createSubject(id: String) {
         val subjectItem = createSubjectItem(id)
-        viewModel.createSubject(CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION, id, subjectItem)
+        viewModel.createSubject(
+            CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION,
+            id,
+            subjectItem
+        )
     }
 
     private fun createTimeline(id: String) {
         val timelineItem = createTimelineItem(id)
-        viewModel.createTimeline(CreateTimelineConstants.Collection.TIMELINE_LIST_COLLECTION, id, timelineItem)
+        viewModel.createTimeline(
+            CreateTimelineConstants.Collection.TIMELINE_LIST_COLLECTION,
+            id,
+            timelineItem
+        )
     }
 
     private fun createSubjectItem(id: String): SubjectList {
@@ -122,9 +154,20 @@ class CreateTimelineActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateTimelineItem(timeline: CreateTimelineItem) {
+        val item = timelineItemsList.find { it.id == timeline.id }
+        val index = timelineItemsList.indexOf(item)
+        timelineItemsList[index] = timeline
+
+        controller.setTimelineItemsList(timelineItemsList)
+    }
+
     val contract = object : CreateTimelineContract {
-        override fun clickEditButtonListener() {
-            CreateTimelineItemDialog(contractDialog).show(supportFragmentManager, CreateTimelineItemDialog.TAG)
+        override fun clickEditButtonListener(timelineItem: CreateTimelineItem) {
+            EditTimelineItemDialog(editContractDialog, timelineItem).show(
+                supportFragmentManager,
+                CreateTimelineItemDialog.TAG
+            )
         }
 
         override fun clickDeleteButtonListener(id: Int) {
@@ -134,8 +177,21 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     private val contractDialog = object : CreateTimelineItemDialogContract {
-        override fun createTimelineItemListener() {
+        override fun createTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
+            timelineItemDAO.createTimelineItems(timelineItem)
             handleTimelineItemList()
+        }
+    }
+
+    private val editContractDialog = object : EditTimelineItemDialogContract {
+        override fun editTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
+            timelineItemDAO.updateTimelineItemPerId(
+                timelineItem.id,
+                timelineItem.date,
+                timelineItem.subjectName
+            )
+
+            updateTimelineItem(timelineItem.asDomainModel())
         }
     }
 

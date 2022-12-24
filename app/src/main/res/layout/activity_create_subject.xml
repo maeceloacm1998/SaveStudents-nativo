@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.activity.CreateSubjectActivity">
+    tools:context=".debug_mode.view.activity.CreateSubjectActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             android:id="@+id/subject_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             app:hint="@string/subject_name_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
             android:id="@+id/teacher_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginVertical="24dp"
+            android:layout_marginVertical="16dp"
             app:hint="@string/teacher_name_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

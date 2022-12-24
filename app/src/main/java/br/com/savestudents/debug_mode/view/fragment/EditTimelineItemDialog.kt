@@ -1,4 +1,4 @@
-package br.com.savestudents.view.fragment
+package br.com.savestudents.debug_mode.view.fragment
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -8,31 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import br.com.savestudents.R
 import br.com.savestudents.databinding.DialogCreateTimelineItemBinding
-import br.com.savestudents.model.contract.CreateTimelineItemDialogContract
-import br.com.savestudents.service.internal.dao.CreateTimelineDAO
-import br.com.savestudents.service.internal.database.CreateTimelineItemsDB
+import br.com.savestudents.debug_mode.model.contract.EditTimelineItemDialogContract
+import br.com.savestudents.model.CreateTimelineItem
 import br.com.savestudents.service.internal.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogContract) : DialogFragment() {
+class EditTimelineItemDialog(
+    private val mContract: EditTimelineItemDialogContract,
+    val timelineItem: CreateTimelineItem
+) : DialogFragment() {
     private lateinit var binding: DialogCreateTimelineItemBinding
-    private lateinit var timelineItemDAO: CreateTimelineDAO
     private var selectedDate: Long? = null
+    private var modifiedItem: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DialogCreateTimelineItemBinding.inflate(inflater, container, false)
-        timelineItemDAO = CreateTimelineItemsDB.getDataBase(requireContext()).createTimelineDAO()
 
         setDefaultStyleSelectDateButton()
+        handleModifiedTimelineItem()
+        handleTimelineItemName()
         handleSelectDateButton()
         handleSelectDateInCalendar()
+        setDateSelected()
         handleSubmitButton()
         handleCloseDialog()
         closeSelectDateCalendar()
@@ -40,7 +45,7 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return Dialog(requireContext(), R.style.CalendarModalDialog)
+        return Dialog(requireContext(), R.style.Theme_Dialog)
     }
 
     private fun handleSelectDateButton() {
@@ -49,11 +54,28 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
         }
     }
 
+    private fun handleModifiedTimelineItem() {
+        binding.subjectName.editText().addTextChangedListener {
+            modifiedItem = it.toString() != timelineItem.subjectName
+        }
+    }
+
+    private fun handleTimelineItemName() {
+        binding.subjectName.editText().setText(timelineItem.subjectName)
+    }
+
+    private fun setDateSelected() {
+        binding.calendar.setDate(timelineItem.date, true, true)
+        handleSelectDateTextButton(timelineItem.date)
+        selectedDate = timelineItem.date
+    }
+
     private fun handleSelectDateInCalendar() {
         binding.calendar.setOnDateChangeListener { calendarView, year, month, day ->
             val instance = Calendar.getInstance()
             instance.set(year, month, day)
             selectedDate = instance.timeInMillis
+            modifiedItem = true
             handleSelectDateTextButton(instance.timeInMillis)
         }
     }
@@ -68,7 +90,6 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     private fun handleSubmitButton() {
         binding.buttonSubmit.setOnClickListener {
             handleCreateTimelineItem()
-            mContract.createTimelineItemListener()
         }
     }
 
@@ -78,32 +99,39 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
         }
     }
 
-    private fun isValidData(): Boolean {
-        return selectedDate != null && !binding.subjectName.editText().text.isNullOrBlank()
-    }
-
     private fun handleCreateTimelineItem() {
-        if(isValidData()) {
+        if (modifiedItem) {
             val timelineItem = CreateTimelineItemEntity().apply {
+                id = timelineItem.id
                 date = selectedDate!!
                 subjectName = binding.subjectName.editText().text.toString()
             }
-            timelineItemDAO.createTimelineItems(timelineItem)
+            mContract.editTimelineItemListener(timelineItem)
             dismiss()
-        }else{
-            Toast.makeText(requireContext(),"Preencha todos os campos", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun setDefaultStyleSelectDateButton() {
         binding.selectDateText.text = context?.getText(R.string.default_text_select_date)
-        binding.selectDateText.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
+        binding.selectDateText.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primary
+            )
+        )
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     private fun setStyledSelectedDateButton() {
         binding.selectDateButton.setBackgroundDrawable(context?.getDrawable(R.drawable.bg_rounded_blue_light_with_border_primary))
-        binding.selectDateText.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
+        binding.selectDateText.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primary
+            )
+        )
     }
 
     private fun closeSelectDateCalendar() {
@@ -115,7 +143,7 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
     }
 
     companion object {
-        const val TAG = "CreateTimelineItemDialog"
+        const val TAG = "EditTimelineItemDialog"
         const val DATE_IN_FULL = "dd 'de' MMMM"
     }
 }
