@@ -6,6 +6,7 @@ import br.com.savestudents.ui_component.header.headerHolder
 import br.com.savestudents.ui_component.search.searchEditTextHolder
 
 class HeaderHomeActivityController(private val mContract: HeaderHomeActivityContract) : EpoxyController() {
+    private var adminModeActive: Boolean = false
 
     override fun buildModels() {
             handleHeader()
@@ -15,6 +16,9 @@ class HeaderHomeActivityController(private val mContract: HeaderHomeActivityCont
     private fun handleHeader() {
         headerHolder {
             id("header")
+            adminModeOn(adminModeActive)
+            adminModeOnActiveListener(mContract::adminModeOnActiveListener)
+            joinAdminModeListener(mContract::joinAdminModeListener)
         }
     }
 
@@ -26,5 +30,10 @@ class HeaderHomeActivityController(private val mContract: HeaderHomeActivityCont
             clickButtonCancelListener(mContract::clickButtonCancelListener)
             editTextValue(mContract::editTextValue)
         }
+    }
+
+    fun isAdminMode(isAdminModeActive: Boolean) {
+        adminModeActive = isAdminModeActive
+        requestModelBuild()
     }
 }

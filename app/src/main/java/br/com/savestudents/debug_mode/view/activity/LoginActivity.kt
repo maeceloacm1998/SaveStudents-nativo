@@ -7,18 +7,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.savestudents.R
 import br.com.savestudents.databinding.ActivityLoginBinding
+import br.com.savestudents.service.internal.dao.AdminCheckDAO
+import br.com.savestudents.service.internal.database.AdminCheckDB
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
-    lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var adminCheckDAO: AdminCheckDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         auth = Firebase.auth
+        adminCheckDAO = AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
         setContentView(binding.root)
 
         handleSubmit()
@@ -42,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginAuthentication(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { response ->
+                adminCheckDAO.updateAdminModeStatus(true)
                 startActivity(Intent(applicationContext, AllSubjectsListActivity::class.java))
             }.addOnFailureListener { exception ->
                 enabledSubmitButton()
