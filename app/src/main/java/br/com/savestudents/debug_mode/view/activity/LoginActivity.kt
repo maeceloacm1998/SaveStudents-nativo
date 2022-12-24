@@ -42,8 +42,7 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginAuthentication(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { response ->
-                finish()
-                startActivity(Intent(applicationContext, CreateSubjectActivity::class.java))
+                startActivity(Intent(applicationContext, AllSubjectsListActivity::class.java))
             }.addOnFailureListener { exception ->
                 enabledSubmitButton()
                 binding.emailEditText.setError("Email incorreto, tente novamente.")
