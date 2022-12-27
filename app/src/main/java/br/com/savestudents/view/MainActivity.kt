@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.savestudents.R
 import br.com.savestudents.service.internal.database.AdminCheckDB
-import br.com.savestudents.service.internal.entity.AdminCheckEntity
 import br.com.savestudents.view.activity.HomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdminCheckDb() {
-        AdminCheckDB.getDataBase(applicationContext).adminCheckDAO().createAdminModeStatus(
-            AdminCheckEntity().apply { isAdminModeOn = false }
-        )
+        AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
     }
 
     private fun renderHomeActivity() {

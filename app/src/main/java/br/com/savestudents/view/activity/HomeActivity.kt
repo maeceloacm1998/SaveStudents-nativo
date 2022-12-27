@@ -47,8 +47,6 @@ class HomeActivity : AppCompatActivity() {
         fetchSubjectList()
         controllers()
         observers()
-
-        headerHomeActivityController.isAdminMode(adminCheckDAO.getAdminModeStatus().isAdminModeOn)
     }
 
     override fun onCreateView(
@@ -63,7 +61,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        headerHomeActivityController.isAdminMode(adminCheckDAO.getAdminModeStatus().isAdminModeOn)
+
+        adminCheckDAO.getAdminModeStatus()?.isAdminModeOn?.let {
+            headerHomeActivityController.isAdminMode(it)
+        }
+
         if (isFiltered) {
             handleFiltersSelected()
         }

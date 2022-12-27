@@ -9,6 +9,7 @@ import br.com.savestudents.R
 import br.com.savestudents.databinding.ActivityLoginBinding
 import br.com.savestudents.service.internal.dao.AdminCheckDAO
 import br.com.savestudents.service.internal.database.AdminCheckDB
+import br.com.savestudents.service.internal.entity.AdminCheckEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -46,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginAuthentication(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { response ->
-                adminCheckDAO.updateAdminModeStatus(true)
+                adminCheckDAO.createAdminModeStatus(AdminCheckEntity().apply { isAdminModeOn = true })
                 startActivity(Intent(applicationContext, AllSubjectsListActivity::class.java))
             }.addOnFailureListener { exception ->
                 enabledSubmitButton()

@@ -6,7 +6,7 @@ import br.com.savestudents.service.internal.entity.AdminCheckEntity
 @Dao
 interface AdminCheckDAO {
     @Query("SELECT * FROM admin_check_table")
-    fun getAdminModeStatus(): AdminCheckEntity
+    fun getAdminModeStatus(): AdminCheckEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createAdminModeStatus(adminCheck: AdminCheckEntity)
