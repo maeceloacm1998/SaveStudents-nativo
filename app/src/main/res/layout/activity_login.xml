@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <br.com.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
+    <br.oficial.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sub_title" />
 
-    <br.com.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
+    <br.oficial.savestudents.ui_component.simpleEditText.SimpleEditTextCustomView
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
