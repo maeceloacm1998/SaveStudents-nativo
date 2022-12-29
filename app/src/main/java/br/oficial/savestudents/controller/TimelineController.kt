@@ -3,6 +3,8 @@ package br.oficial.savestudents.controller
 import com.airbnb.epoxy.EpoxyController
 import br.oficial.savestudents.R
 import br.oficial.savestudents.constants.CreateTimelineConstants
+import br.oficial.savestudents.helper.TimelineItemType.*
+import br.oficial.savestudents.helper.TimelineItemTypeColorHelper
 import br.oficial.savestudents.holder.informationHolder
 import br.oficial.savestudents.holder.timelineItemHolder
 import br.oficial.savestudents.model.TimelineItem
@@ -85,6 +87,7 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
                     id(item.id)
                     timelineName(item.subjectName)
                     date(formatDate(item.date))
+                    backgroundType(getBackgroundType(item.type))
                     marginTop(6)
                     marginBottom(6)
                     marginLeft(16)
@@ -92,6 +95,24 @@ class TimelineController(private val mContract: TimelineContract) : EpoxyControl
                 }
             }
         }
+    }
+
+    private fun getBackgroundType(type: String): TimelineItemTypeColorHelper {
+        when(type) {
+            CLASS.type -> {
+                return TimelineItemTypeColorHelper.CLASS
+            }
+
+            EXAM.type -> {
+                return TimelineItemTypeColorHelper.EXAM
+            }
+
+            HOLIDAY.type -> {
+                return TimelineItemTypeColorHelper.HOLIDAY
+            }
+        }
+
+        return TimelineItemTypeColorHelper.CLASS
     }
 
     private fun formatDate(timestamp: Long): String {

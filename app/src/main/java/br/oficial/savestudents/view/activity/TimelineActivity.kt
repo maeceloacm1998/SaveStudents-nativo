@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.TimelineController
@@ -15,16 +14,12 @@ import br.oficial.savestudents.viewModel.TimelineViewModel
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
     private val timelineController by lazy { TimelineController(timelineContract) }
-    private lateinit var mViewModel: TimelineViewModel
+    private val mViewModel by lazy {TimelineViewModel()}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimelineBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        mViewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(TimelineViewModel()::class.java)
 
         fetchTimelineList()
         handleBackButton()
@@ -48,8 +43,9 @@ class TimelineActivity : AppCompatActivity() {
     }
 
     private fun fetchTimelineList() {
+        val subjectId = intent?.getStringExtra(SUBJECT_ID).toString()
         timelineController.setLoading(true)
-        mViewModel.getTimelineList(FirestoreDbConstants.Collections.TIMELINE_LIST, intent?.getStringExtra(SUBJECT_ID).toString())
+        mViewModel.getTimelineList(FirestoreDbConstants.Collections.TIMELINE_LIST, subjectId)
     }
 
     private fun handleBackButton() {
