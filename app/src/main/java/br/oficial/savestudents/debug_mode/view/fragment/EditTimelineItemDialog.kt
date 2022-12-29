@@ -62,7 +62,6 @@ class EditTimelineItemDialog(
         viewModel.timelineTypes.observe(this) { observer ->
             controller.apply {
                 setTimelineTypesList(observer)
-                val x = timelineItem
                 if(timelineItem.type.isEmpty()) {
                     setTimelineTypesSelected("Matéria")
                 } else {
