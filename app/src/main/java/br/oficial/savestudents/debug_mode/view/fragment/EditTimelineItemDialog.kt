@@ -27,10 +27,11 @@ class EditTimelineItemDialog(
     val timelineItem: CreateTimelineItem
 ) : DialogFragment() {
     private lateinit var binding: DialogCreateTimelineItemBinding
-    private var selectedDate: Long? = null
-    private var modifiedItem: Boolean = false
     private val controller by lazy { SelectTimelineTypeController(selectTimelineTypeContract) }
     private val viewModel by lazy { CreateTimelineViewModel(requireContext()) }
+    private var selectedDate: Long? = null
+    private var modifiedItem: Boolean = false
+    private var timelineType: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +62,12 @@ class EditTimelineItemDialog(
         viewModel.timelineTypes.observe(this) { observer ->
             controller.apply {
                 setTimelineTypesList(observer)
-                setTimelineTypesSelected("Matéria")
+                val x = timelineItem
+                if(timelineItem.type.isEmpty()) {
+                    setTimelineTypesSelected("Matéria")
+                } else {
+                    setTimelineTypesSelected(timelineItem.type)
+                }
             }
         }
     }
@@ -135,6 +141,7 @@ class EditTimelineItemDialog(
                 id = timelineItem.id
                 date = selectedDate!!
                 subjectName = binding.subjectName.editText().text.toString()
+                type = timelineType
             }
             mContract.editTimelineItemListener(timelineItem)
             dismiss()
@@ -174,6 +181,8 @@ class EditTimelineItemDialog(
 
     private fun handleTimelineTypeSelected(typeSelected: String) {
         controller.setTimelineTypesSelected(typeSelected)
+        timelineType = typeSelected
+        modifiedItem = true
     }
 
     private val selectTimelineTypeContract = object : SelectTimelineTypeContract {

@@ -16,6 +16,9 @@ class CreateTimelineItemEntity {
 
     @ColumnInfo(name = "subject_name")
     var subjectName: String = ""
+
+    @ColumnInfo(name = "type")
+    var type: String = ""
 }
 
 
