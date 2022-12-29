@@ -35,4 +35,8 @@
         <attr name="title" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="InputChipsCustomView">
+        <attr name="titleItem" format="string" />
+    </declare-styleable>
+
 </resources>

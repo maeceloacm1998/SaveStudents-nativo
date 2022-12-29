@@ -10,9 +10,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.R
 import br.oficial.savestudents.databinding.DialogCreateTimelineItemBinding
+import br.oficial.savestudents.debug_mode.controller.SelectTimelineTypeController
 import br.oficial.savestudents.debug_mode.model.contract.EditTimelineItemDialogContract
+import br.oficial.savestudents.debug_mode.model.contract.SelectTimelineTypeContract
+import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 import br.oficial.savestudents.model.CreateTimelineItem
 import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
@@ -25,13 +29,18 @@ class EditTimelineItemDialog(
     private lateinit var binding: DialogCreateTimelineItemBinding
     private var selectedDate: Long? = null
     private var modifiedItem: Boolean = false
+    private val controller by lazy { SelectTimelineTypeController(selectTimelineTypeContract) }
+    private val viewModel by lazy { CreateTimelineViewModel(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DialogCreateTimelineItemBinding.inflate(inflater, container, false)
+        observers()
+        handleSelectTimelineTypeController()
 
+        fetchTimelineTypes()
         setDefaultStyleSelectDateButton()
         handleModifiedTimelineItem()
         handleTimelineItemName()
@@ -46,6 +55,27 @@ class EditTimelineItemDialog(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(requireContext(), R.style.Theme_Dialog)
+    }
+
+    private fun observers() {
+        viewModel.timelineTypes.observe(this) { observer ->
+            controller.apply {
+                setTimelineTypesList(observer)
+                setTimelineTypesSelected("Matéria")
+            }
+        }
+    }
+
+    private fun handleSelectTimelineTypeController() {
+        binding.typesRv.apply {
+            setController(controller)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            requestModelBuild()
+        }
+    }
+
+    private fun fetchTimelineTypes() {
+        viewModel.getTimelineTypes()
     }
 
     private fun handleSelectDateButton() {
@@ -140,6 +170,16 @@ class EditTimelineItemDialog(
 
     private fun showSelectDateCalendar() {
         binding.calendar.visibility = View.VISIBLE
+    }
+
+    private fun handleTimelineTypeSelected(typeSelected: String) {
+        controller.setTimelineTypesSelected(typeSelected)
+    }
+
+    private val selectTimelineTypeContract = object : SelectTimelineTypeContract {
+        override fun clickTimelineTypeListener(typeSelected: String) {
+            handleTimelineTypeSelected(typeSelected)
+        }
     }
 
     companion object {

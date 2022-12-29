@@ -5,6 +5,7 @@ import br.oficial.savestudents.model.TimelineItem
 
 interface ICreateTimelineViewModel {
     fun getTimelineItems()
+    fun getTimelineTypes()
     fun deleteTimelineItem(id: Int)
     fun clearTimelineItemList()
     fun createDocument(collectionPath: String): String

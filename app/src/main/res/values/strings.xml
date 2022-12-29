@@ -23,6 +23,7 @@
     <string name="text_edit_subject">Editar Matéria</string>
     <string name="text_add_and_edit_timeline">Adicionar e editar atividades</string>
     <string name="title_create_timeline">Adicionar Atividades</string>
+    <string name="select_type_title">Selecione o tipo:</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>

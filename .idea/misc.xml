@@ -8,6 +8,9 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_desabled_rounded_primary.xml" value="0.2775" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_disabled_rounded_primary.xml" value="0.278" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_init_rounded_borders.xml" value="0.2555" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_not_selected.xml" value="0.1725" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_selected.xml" value="0.1695" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_shimmer.xml" value="0.17" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_primary_100.xml" value="0.278" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secondary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secundary_100.xml" value="0.1935" />
@@ -67,7 +70,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/checkbox_select_shimmer.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/confirmation_alert_dialog.xml" value="0.5" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/create_timeline_item_holder.xml" value="0.33" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/dialog_create_timeline_item.xml" value="0.5" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/dialog_create_timeline_item.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_blank.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_calendar.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_calendar_dialog.xml" value="0.264" />
@@ -88,6 +91,8 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/information_timeline_shimmer.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/informations_timeline_holder.xml" value="0.3625" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/informations_timeline_shimmer.xml" value="0.3625" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/input_chips.xml" value="0.536" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/input_chips_shimmer.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/loading_transpartent_layout.xml" value="0.3052536231884058" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/notification_alert_holder.xml" value="0.536" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/notification_alert_shimmer.xml" value="0.25" />
