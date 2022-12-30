@@ -39,4 +39,8 @@
         <attr name="titleItem" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="SubtitleToggleCustomView">
+        <attr name="type" format="string" />
+        <attr name="background_box" format="reference|color" />
+    </declare-styleable>
 </resources>

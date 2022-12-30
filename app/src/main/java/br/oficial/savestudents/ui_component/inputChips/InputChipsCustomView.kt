@@ -39,7 +39,7 @@ class InputChipsCustomView @JvmOverloads constructor(
         val titleResId =
             attributes.getResourceId(R.styleable.InputChipsCustomView_titleItem, 0)
         if (titleResId != 0) {
-            hint = context.getString(titleResId)
+            title = context.getString(titleResId)
         }
     }
 

@@ -38,4 +38,10 @@
     <string name="title_add_timeline">Criar Atividade</string>
     <string name="back_button_text">Voltar</string>
 
+    // Subtitle toggle
+    <string name="day_toggle">Dia atual</string>
+    <string name="class_toggle">Aula</string>
+    <string name="exam_toggle">Prova</string>
+    <string name="holiday_toggle">Feriado</string>
+
 </resources>

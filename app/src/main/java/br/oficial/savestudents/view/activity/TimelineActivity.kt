@@ -6,15 +6,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.constants.FirestoreDbConstants
+import br.oficial.savestudents.controller.InformationTimelineController
 import br.oficial.savestudents.controller.TimelineController
 import br.oficial.savestudents.databinding.ActivityTimelineBinding
-import br.oficial.savestudents.model.contract.TimelineContract
 import br.oficial.savestudents.viewModel.TimelineViewModel
 
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
-    private val timelineController by lazy { TimelineController(timelineContract) }
-    private val mViewModel by lazy {TimelineViewModel()}
+    private val timelineController by lazy { TimelineController() }
+    private val informationTimelineController by lazy { InformationTimelineController() }
+    private val mViewModel by lazy { TimelineViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +34,25 @@ class TimelineActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             requestModelBuild()
         }
+
+        binding.informationTimelineContainer.apply {
+            setController(informationTimelineController)
+            layoutManager = LinearLayoutManager(context)
+            requestModelBuild()
+        }
     }
 
     private fun observers() {
         mViewModel.informationData.observe(this) {
             timelineController.setTimelineList(it)
-            timelineController.setLoading(false)
+            informationTimelineController.setTimelineList(it)
+            informationTimelineController.setLoading(false)
         }
     }
 
     private fun fetchTimelineList() {
         val subjectId = intent?.getStringExtra(SUBJECT_ID).toString()
-        timelineController.setLoading(true)
+        informationTimelineController.setLoading(true)
         mViewModel.getTimelineList(FirestoreDbConstants.Collections.TIMELINE_LIST, subjectId)
     }
 
@@ -52,10 +60,6 @@ class TimelineActivity : AppCompatActivity() {
         binding.backContainer.setOnClickListener {
             finish()
         }
-    }
-
-    private val timelineContract = object : TimelineContract {
-
     }
 
     companion object {
