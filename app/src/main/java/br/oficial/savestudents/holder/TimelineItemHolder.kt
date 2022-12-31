@@ -49,9 +49,8 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
     }
 
     private fun SectionHolder.handleTimelineItemColor(context: Context){
-        mItemContainer.setBackgroundDrawable(ContextCompat.getDrawable(context ,backgroundType.drawable))
+        mTitleContainer.setBackgroundDrawable(ContextCompat.getDrawable(context ,backgroundType.drawable))
         mTimelineName.setTextColor(ContextCompat.getColor(context ,backgroundType.textColor))
-        mDate.setTextColor(ContextCompat.getColor(context ,backgroundType.textColor))
     }
 
     private fun SectionHolder.setDate() {
@@ -81,11 +80,13 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
 
     inner class SectionHolder : EpoxyHolder() {
         lateinit var mItemContainer: ConstraintLayout
+        lateinit var mTitleContainer: ConstraintLayout
         lateinit var mDate: TextView
         lateinit var mTimelineName: TextView
 
         override fun bindView(itemView: View) {
             mItemContainer = itemView.findViewById(R.id.timeline_item_container)
+            mTitleContainer = itemView.findViewById(R.id.title_container)
             mDate = itemView.findViewById(R.id.date)
             mTimelineName = itemView.findViewById(R.id.title)
         }
