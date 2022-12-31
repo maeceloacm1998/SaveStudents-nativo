@@ -32,7 +32,8 @@ class TimelineController : EpoxyController() {
                     id(item.id)
                     timelineName(item.subjectName)
                     date(DateUtils.formatDate(item.date, DateUtils.DAY_AND_MONTH_DATE))
-                    backgroundType(handleBackground(item.type, item.date))
+                    backgroundType(getBackgroundType(item.type))
+                    currentDay(isCurrentDay(item.date))
                     marginTop(6)
                     marginBottom(6)
                     marginLeft(16)
@@ -40,14 +41,6 @@ class TimelineController : EpoxyController() {
                 }
             }
         }
-    }
-
-    private fun handleBackground(type: String, date: Long): TimelineItemTypeColorHelper {
-        if (isCurrentDay(date)) {
-            return TimelineItemTypeColorHelper.CURRENT_DAY
-        }
-
-        return getBackgroundType(type)
     }
 
     private fun isCurrentDay(date: Long): Boolean {

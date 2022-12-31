@@ -16,10 +16,21 @@
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/soft_black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/type_pointer"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_container"
         tools:text="05/04" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/type_pointer"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/title_container"
+        app:layout_constraintEnd_toEndOf="@id/date"
+        app:layout_constraintStart_toStartOf="@id/date"
+        app:layout_constraintTop_toBottomOf="@id/date" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title_container"
