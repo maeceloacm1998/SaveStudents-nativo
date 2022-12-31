@@ -18,13 +18,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <br.oficial.savestudents.ui_component.subtitleToggle.SubtitleToggleCustomView
+        android:id="@+id/day_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:background_box="@drawable/bg_rounded_primary"
+        app:layout_constraintEnd_toStartOf="@id/class_toggle"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:type="@string/day_toggle" />
+
+    <br.oficial.savestudents.ui_component.subtitleToggle.SubtitleToggleCustomView
         android:id="@+id/class_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:background_box="@drawable/bg_rounded_ghost_white"
         app:layout_constraintEnd_toStartOf="@id/exam_toggle"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/day_toggle"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:type="@string/class_toggle" />
 

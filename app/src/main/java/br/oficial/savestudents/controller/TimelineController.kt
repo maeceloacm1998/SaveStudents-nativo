@@ -1,16 +1,13 @@
 package br.oficial.savestudents.controller
 
 import br.oficial.savestudents.R
-import br.oficial.savestudents.constants.CreateTimelineConstants
 import br.oficial.savestudents.helper.TimelineItemType.*
 import br.oficial.savestudents.helper.TimelineItemTypeColorHelper
 import br.oficial.savestudents.holder.timelineItemHolder
 import br.oficial.savestudents.model.TimelineItem
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
+import br.oficial.savestudents.utils.DateUtils
 import com.airbnb.epoxy.EpoxyController
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class TimelineController : EpoxyController() {
     private var timelineList: TimelineItem = TimelineItem()
@@ -34,8 +31,8 @@ class TimelineController : EpoxyController() {
                 timelineItemHolder {
                     id(item.id)
                     timelineName(item.subjectName)
-                    date(formatDate(item.date))
-                    backgroundType(getBackgroundType(item.type))
+                    date(DateUtils.formatDate(item.date, DateUtils.DAY_AND_MONTH_DATE))
+                    backgroundType(handleBackground(item.type, item.date))
                     marginTop(6)
                     marginBottom(6)
                     marginLeft(16)
@@ -43,6 +40,21 @@ class TimelineController : EpoxyController() {
                 }
             }
         }
+    }
+
+    private fun handleBackground(type: String, date: Long): TimelineItemTypeColorHelper {
+        if (isCurrentDay(date)) {
+            return TimelineItemTypeColorHelper.CURRENT_DAY
+        }
+
+        return getBackgroundType(type)
+    }
+
+    private fun isCurrentDay(date: Long): Boolean {
+        val currentDay = DateUtils.getCurrentDay()
+        return DateUtils.formatDate(
+            currentDay, DateUtils.DAY_AND_MONTH_DATE
+        ) == DateUtils.formatDate(date, DateUtils.DAY_AND_MONTH_DATE)
     }
 
     private fun getBackgroundType(type: String): TimelineItemTypeColorHelper {
@@ -61,14 +73,6 @@ class TimelineController : EpoxyController() {
         }
 
         return TimelineItemTypeColorHelper.CLASS
-    }
-
-    private fun formatDate(timestamp: Long): String {
-        val pattern = SimpleDateFormat(
-            CreateTimelineConstants.FormatDate.DAY_AND_MONTH_DATE,
-            Locale.getDefault()
-        )
-        return pattern.format(Date(timestamp))
     }
 
     fun setTimelineList(timelineList: TimelineItem) {

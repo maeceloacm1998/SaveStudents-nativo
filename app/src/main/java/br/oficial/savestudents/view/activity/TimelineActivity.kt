@@ -9,6 +9,8 @@ import br.oficial.savestudents.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.InformationTimelineController
 import br.oficial.savestudents.controller.TimelineController
 import br.oficial.savestudents.databinding.ActivityTimelineBinding
+import br.oficial.savestudents.model.CreateTimelineItem
+import br.oficial.savestudents.utils.DateUtils
 import br.oficial.savestudents.viewModel.TimelineViewModel
 
 class TimelineActivity : AppCompatActivity() {
@@ -47,6 +49,19 @@ class TimelineActivity : AppCompatActivity() {
             timelineController.setTimelineList(it)
             informationTimelineController.setTimelineList(it)
             informationTimelineController.setLoading(false)
+            scrollingToCurrentDay(it.timelineList)
+        }
+    }
+
+    private fun scrollingToCurrentDay(timelineList: List<CreateTimelineItem>?) {
+        val timestampCurrentDay =
+            DateUtils.formatDate(DateUtils.getCurrentDay(), DateUtils.DAY_AND_MONTH_DATE)
+
+        timelineList?.mapIndexed { index, createTimelineItem ->
+            val date = DateUtils.formatDate(createTimelineItem.date, DateUtils.DAY_AND_MONTH_DATE)
+            if (date == timestampCurrentDay) {
+                binding.timelineRecycleView.smoothScrollToPosition(index)
+            }
         }
     }
 
