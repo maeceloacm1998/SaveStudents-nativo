@@ -22,6 +22,7 @@ class FirestoreDbConstants {
     object Collections {
         const val SUBJECTS_LIST = "subjects_list"
         const val TIMELINE_LIST = "timeline_list"
+        const val TIMELINE_TYPES = "timeline_item_types"
         const val FILTER_OPTIONS_SHIFT = "filter_options_shift"
         const val FILTER_OPTIONS_PERIOD = "filter_options_period"
     }

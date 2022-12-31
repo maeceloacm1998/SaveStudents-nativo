@@ -16,6 +16,9 @@ class CreateTimelineItemEntity {
 
     @ColumnInfo(name = "subject_name")
     var subjectName: String = ""
+
+    @ColumnInfo(name = "type")
+    var type: String = ""
 }
 
 
@@ -24,7 +27,8 @@ fun List<CreateTimelineItemEntity>.asDomainModel() : List<CreateTimelineItem> {
         CreateTimelineItem(
             id = item.id,
             date = item.date,
-            subjectName = item.subjectName
+            subjectName = item.subjectName,
+            type = item.type
         )
     }
 }

@@ -8,6 +8,9 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_desabled_rounded_primary.xml" value="0.2775" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_disabled_rounded_primary.xml" value="0.278" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_init_rounded_borders.xml" value="0.2555" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_not_selected.xml" value="0.1725" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_selected.xml" value="0.1695" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_input_chips_shimmer.xml" value="0.17" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_primary_100.xml" value="0.278" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secondary_100.xml" value="0.1935" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_ripple_rounded_secundary_100.xml" value="0.1935" />
@@ -17,10 +20,13 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_blue_light.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_blue_light_with_border_primary.xml" value="0.201" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_error.xml" value="0.282" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_error_with_border.xml" value="0.241" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_ghost_white.xml" value="0.207" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_grayscale_200.xml" value="0.2445" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_grayscale_400.xml" value="0.168" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_green.xml" value="0.241" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_primary.xml" value="0.3415" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_red.xml" value="0.241" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_secundary_200.xml" value="0.278" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_rounded_soft_background.xml" value="0.2555" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/drawable/bg_transparent_rounded_border.xml" value="0.2555" />
@@ -55,7 +61,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_select_option.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_select_option_subject_type.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_timeline.xml" value="0.2703125" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/activity_timeline.xml" value="0.22" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/alert_holder.xml" value="0.3625" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/alert_shimmer.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/calendar_container_holder.xml" value="0.5" />
@@ -67,7 +73,7 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/checkbox_select_shimmer.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/confirmation_alert_dialog.xml" value="0.5" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/create_timeline_item_holder.xml" value="0.33" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/dialog_create_timeline_item.xml" value="0.5" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/dialog_create_timeline_item.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_blank.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_calendar.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/fragment_calendar_dialog.xml" value="0.264" />
@@ -88,6 +94,8 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/information_timeline_shimmer.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/informations_timeline_holder.xml" value="0.3625" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/informations_timeline_shimmer.xml" value="0.3625" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/input_chips.xml" value="0.536" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/input_chips_shimmer.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/loading_transpartent_layout.xml" value="0.3052536231884058" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/notification_alert_holder.xml" value="0.536" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/notification_alert_shimmer.xml" value="0.25" />
@@ -103,7 +111,9 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subject_edit_dialog.xml" value="0.33" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subject_edit_horizontal_card_holder.xml" value="0.3046875" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subject_edit_horizontal_card_shimmer.xml" value="0.3046875" />
-        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_item_holder.xml" value="0.264" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subtitle_timeline_list_holder.xml" value="0.33" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/subtitle_toggle_holder.xml" value="0.2971014492753623" />
+        <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_item_holder.xml" value="0.4" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_item_shimmer.xml" value="0.264" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/timeline_list_items_holder.xml" value="0.2703125" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/title_holder.xml" value="0.25" />

@@ -27,6 +27,9 @@ abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItem
     @EpoxyAttribute
     var timestampDate: Long = 0L
 
+    @EpoxyAttribute
+    lateinit var type: String
+
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickEditButtonListener: (timelineItem: CreateTimelineItem) -> Unit
 
@@ -83,7 +86,7 @@ abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItem
 
     private fun SectionHolder.editButton() {
         mEditButton.setOnClickListener {
-            val timelineItem = CreateTimelineItem(id = mId, subjectName = subjectName, date = timestampDate)
+            val timelineItem = CreateTimelineItem(id = mId, subjectName = subjectName, date = timestampDate, type = type)
             clickEditButtonListener(timelineItem)
         }
     }

@@ -1,15 +1,18 @@
 package br.oficial.savestudents.holder
 
+import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import br.oficial.savestudents.R
+import br.oficial.savestudents.helper.TimelineItemTypeColorHelper
 
 @EpoxyModelClass
 abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.SectionHolder>() {
@@ -19,6 +22,9 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
 
     @EpoxyAttribute
     lateinit var timelineName: String
+
+    @EpoxyAttribute
+    lateinit var backgroundType: TimelineItemTypeColorHelper
 
     @EpoxyAttribute
     var marginTop: Int = 0
@@ -35,16 +41,21 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
     override fun bind(holder: SectionHolder) {
         super.bind(holder)
         holder.apply {
+            handleTimelineItemColor(mItemContainer.context)
             setDate()
             setTimelineName()
             setMargin()
         }
     }
 
+    private fun SectionHolder.handleTimelineItemColor(context: Context){
+        mTitleContainer.setBackgroundDrawable(ContextCompat.getDrawable(context ,backgroundType.drawable))
+        mTimelineName.setTextColor(ContextCompat.getColor(context ,backgroundType.textColor))
+    }
+
     private fun SectionHolder.setDate() {
         mDate.text = date
     }
-
 
     private fun SectionHolder.setTimelineName() {
         mTimelineName.text = timelineName
@@ -69,11 +80,13 @@ abstract class TimelineItemHolder : EpoxyModelWithHolder<TimelineItemHolder.Sect
 
     inner class SectionHolder : EpoxyHolder() {
         lateinit var mItemContainer: ConstraintLayout
+        lateinit var mTitleContainer: ConstraintLayout
         lateinit var mDate: TextView
         lateinit var mTimelineName: TextView
 
         override fun bindView(itemView: View) {
             mItemContainer = itemView.findViewById(R.id.timeline_item_container)
+            mTitleContainer = itemView.findViewById(R.id.title_container)
             mDate = itemView.findViewById(R.id.date)
             mTimelineName = itemView.findViewById(R.id.title)
         }
