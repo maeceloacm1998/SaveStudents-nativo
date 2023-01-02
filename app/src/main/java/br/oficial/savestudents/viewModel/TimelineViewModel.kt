@@ -3,6 +3,7 @@ package br.oficial.savestudents.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.oficial.savestudents.model.CreateTimelineItem
 import br.oficial.savestudents.model.TimelineItem
 import br.oficial.savestudents.model.repository.ITimelineRepository
 import br.oficial.savestudents.model.viewModel.ITimelineViewModel
@@ -21,7 +22,10 @@ class TimelineViewModel : ViewModel(), ITimelineViewModel {
             collectionPath,
             object : FirebaseResponseModel<List<TimelineItem>> {
                 override fun onSuccess(model: List<TimelineItem>) {
-                    mInformationData.value = filterTimelineInformation(model, subjectId)
+                    val timelineItem = filterTimelineInformation(model, subjectId)
+                    timelineItem.timelineList?.sortBy { it.date }
+
+                    mInformationData.value = timelineItem
                 }
 
                 override fun onFailure(error: OnFailureModel) {
