@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
@@ -23,6 +24,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            firebaseAppDistribution {
+                serviceCredentialsFile="./app/src/main/savestudants-bdf1649c4815.json"
+                releaseNotes="Amostra de notas de versão"
+                testers="maeceloacm1998@gmail.com"
+            }
         }
     }
 
@@ -87,4 +96,10 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+
+    //app-distribution
+    implementation "com.google.firebase:firebase-appdistribution-gradle:3.2.0"
 }
