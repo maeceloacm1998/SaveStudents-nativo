@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
@@ -24,6 +25,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            firebaseAppDistribution {
+                serviceCredentialsFile="./app/src/main/savestudants-bdf1649c4815.json"
+                releaseNotes="Amostra de notas de versão"
+                testers="maeceloacm1998@gmail.com"
+            }
+        }
     }
 
     viewBinding {
@@ -34,6 +43,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -48,6 +62,8 @@ dependencies {
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
     def roomVersion = '2.2.5'
+    def serializeVersion = '1.2.2'
+    def appDistributionVersion = '3.2.0'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -87,4 +103,10 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
+
+    // App Distribution
+    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
 }
