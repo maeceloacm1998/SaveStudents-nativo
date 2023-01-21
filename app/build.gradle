@@ -48,6 +48,7 @@ android {
     packagingOptions {
         pickFirst 'lib/armeabi-v7a/libassmidi.so'
         pickFirst 'lib/x86/libassmidi.so'
+        exclude 'META-INF/DEPENDENCIES'
     }
 
     kotlinOptions {
