@@ -17,7 +17,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,8 +45,6 @@ android {
     }
 
     packagingOptions {
-        pickFirst 'lib/armeabi-v7a/libassmidi.so'
-        pickFirst 'lib/x86/libassmidi.so'
         exclude 'META-INF/DEPENDENCIES'
     }
 
@@ -65,6 +62,8 @@ dependencies {
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
     def roomVersion = '2.2.5'
+    def serializeVersion = '1.2.2'
+    def appDistributionVersion = '3.2.0'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -106,10 +105,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // Serialization
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
 
-    //app-distribution
-    implementation "com.google.firebase:firebase-appdistribution-gradle:3.2.0"
-
-    implementation "androidx.multidex:multidex:2.0.1"
+    // App Distribution
+    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
 }
