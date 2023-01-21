@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -102,4 +103,6 @@ dependencies {
 
     //app-distribution
     implementation "com.google.firebase:firebase-appdistribution-gradle:3.2.0"
+
+    implementation 'com.android.support:multidex:2.0.1'
 }
