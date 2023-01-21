@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/date"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toStartOf="@id/edit_button"
         app:layout_constraintStart_toEndOf="@id/date"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Atividade avaliativa" />
+        tools:text="Atividade avaliativa" />z
 
     <ImageView
         android:id="@+id/edit_button"

@@ -188,7 +188,8 @@ class CreateTimelineActivity : AppCompatActivity() {
             timelineItemDAO.updateTimelineItemPerId(
                 timelineItem.id,
                 timelineItem.date,
-                timelineItem.subjectName
+                timelineItem.subjectName,
+                timelineItem.type
             )
 
             updateTimelineItem(timelineItem.asDomainModel())

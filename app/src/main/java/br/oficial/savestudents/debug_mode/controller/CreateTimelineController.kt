@@ -38,6 +38,7 @@ class CreateTimelineController(private val mContract: CreateTimelineContract) : 
                 subjectName(item.subjectName)
                 date(formatDate(item.date))
                 timestampDate(item.date)
+                type(item.type)
                 clickEditButtonListener(mContract::clickEditButtonListener)
                 clickDeleteButtonListener(mContract::clickDeleteButtonListener)
                 marginLeft(10)

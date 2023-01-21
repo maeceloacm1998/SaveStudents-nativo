@@ -3,15 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "br.oficial.savestudents"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -23,6 +25,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            firebaseAppDistribution {
+                serviceCredentialsFile="./app/src/main/savestudants-bdf1649c4815.json"
+                releaseNotes="Amostra de notas de versão"
+                testers="maeceloacm1998@gmail.com"
+            }
+        }
     }
 
     viewBinding {
@@ -33,8 +43,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -43,24 +62,33 @@ dependencies {
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
     def roomVersion = '2.2.5'
+    def serializeVersion = '1.2.2'
+    def appDistributionVersion = '3.2.0'
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
-    implementation 'com.google.firebase:firebase-common-ktx:20.1.1'
+    implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // Firebase-auth
     implementation platform('com.google.firebase:firebase-bom:30.4.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
+
+    // Firebase BOM
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+
+    // Firebase Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Material Design
     implementation "com.google.android.material:material:$material_version"
@@ -75,4 +103,10 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
+
+    // App Distribution
+    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
 }

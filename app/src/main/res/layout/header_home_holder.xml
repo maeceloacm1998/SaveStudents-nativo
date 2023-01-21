@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:background="@color/ghost_white">
+    android:background="@color/primary">
 
     <!--    <ImageButton-->
     <!--        android:id="@+id/menu_button"-->
@@ -17,22 +17,32 @@
     <!--        app:layout_constraintTop_toTopOf="parent"-->
     <!--        app:tint="@color/soft_black" />-->
 
-    <TextView
-        android:id="@+id/admin_mode_flag"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/alert_success"
-        android:fontFamily="@font/roboto_medium"
-        android:padding="5dp"
-        android:text="Modo Admin Ativado"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/admin_mode_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/alert_success"
+            android:fontFamily="@font/roboto_medium"
+            android:padding="5dp"
+            android:text="Admin"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:src="@drawable/save_studants"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +59,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/primary" />
+        app:tint="@color/soft_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
