@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import br.oficial.savestudents.R
 import br.oficial.savestudents.service.internal.database.AdminCheckDB
 import br.oficial.savestudents.view.activity.HomeActivity
+import com.br.core.workers.NotificationWorkerBuilder
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        NotificationWorkerBuilder(applicationContext).workerEnqueue()
         initAdminCheckDb()
         renderHomeActivity()
     }
