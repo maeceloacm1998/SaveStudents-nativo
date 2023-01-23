@@ -119,6 +119,11 @@
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/layout/title_holder.xml" value="0.25" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3415" />
         <entry key="..\:/Users/marce/AndroidStudioProjects/SaveStudents/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
+        <entry key="app/core/src/main/res/layout/activity_main.xml" value="0.1859375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1859375" />
+        <entry key="app/src/main/res/layout/subject_edit_horizontal_card_shimmer.xml" value="0.1859375" />
+        <entry key="app/src/main/res/layout/timeline_item_holder.xml" value="0.1859375" />
+        <entry key="app/src/main/res/layout/timeline_item_shimmer.xml" value="0.5290232511605406" />
       </map>
     </option>
   </component>

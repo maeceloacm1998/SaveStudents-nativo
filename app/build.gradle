@@ -58,6 +58,8 @@ android {
 }
 
 dependencies {
+    api project(path: ':app:core')
+
     def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
@@ -75,7 +77,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:30.3.1')
     implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
@@ -109,4 +110,7 @@ dependencies {
 
     // App Distribution
     implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
+
+    // required to avoid crash on Android 12 API 31
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }
