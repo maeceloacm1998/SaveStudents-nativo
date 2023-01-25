@@ -66,6 +66,9 @@ dependencies {
     def roomVersion = '2.2.5'
     def serializeVersion = '1.2.2'
     def appDistributionVersion = '3.2.0'
+    def workerVersion = "2.7.1"
+    def firebaseCommon = "20.3.0"
+    def firebaseBom = "31.1.1"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -77,15 +80,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
+    implementation "com.google.firebase:firebase-common-ktx:$firebaseCommon"
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // Firebase-auth
-    implementation platform('com.google.firebase:firebase-bom:30.4.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
 
     // Firebase BOM
-    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation platform("com.google.firebase:firebase-bom:$firebaseBom")
 
     // Firebase Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
@@ -111,6 +113,6 @@ dependencies {
     // App Distribution
     implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
 
-    // required to avoid crash on Android 12 API 31
-    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:$workerVersion"
 }
