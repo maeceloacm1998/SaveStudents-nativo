@@ -1,6 +1,8 @@
 package com.br.core.workers
 
 import android.content.Context
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.br.core.workers.worker.NotificationWorker
@@ -10,9 +12,14 @@ class NotificationWorkerBuilder(private var context: Context) {
     fun workerEnqueue() {
         val workManager = WorkManager.getInstance(context)
 
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
+            .build()
+
         val saveRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            15, TimeUnit.MINUTES
-        ).build()
+            1, TimeUnit.DAYS
+        ).setConstraints(constraints).build()
 
 
         workManager.enqueue(saveRequest)

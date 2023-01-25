@@ -11,10 +11,9 @@ import kotlinx.coroutines.delay
 class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
-        for (task in 1..900) {
-            delay(SIX_HOURS_INTERVAL)
+        for (task in 1..30) {
             createNotification("Algoritmos", "teste ${task}", task)
-
+            delay(TWO_HOURS_INTERVAL)
         }
         return Result.success()
     }
@@ -35,6 +34,6 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     }
 
     companion object {
-        const val SIX_HOURS_INTERVAL: Long = 21600000L
+        const val TWO_HOURS_INTERVAL: Long = 7200000
     }
 }
