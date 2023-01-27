@@ -5,6 +5,7 @@ import br.oficial.savestudents.debug_mode.model.repository.IEditSubjectRepositor
 import com.example.data_transfer.dto.asModel
 import com.br.core.service.external.FirebaseClient
 import com.example.data_transfer.dto.SubjectListDto
+import com.example.data_transfer.model.OnFailureModel
 import com.example.data_transfer.model.SubjectList
 import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.google.firebase.firestore.DocumentSnapshot
@@ -26,7 +27,7 @@ class EditSubjectRepository() : IEditSubjectRepository {
                 }
 
 
-                override fun onFailure(error: com.example.data_transfer.model.OnFailureModel) {
+                override fun onFailure(error: OnFailureModel) {
                     firebaseResponseModel.onFailure(error)
                 }
             })
@@ -35,15 +36,15 @@ class EditSubjectRepository() : IEditSubjectRepository {
     override fun updateSubjectItem(
         id: String,
         data: SubjectList,
-        firebaseResponseModel: com.example.data_transfer.model.repository.FirebaseResponseModel<Boolean>
+        firebaseResponseModel: FirebaseResponseModel<Boolean>
     ) {
         client.setSpecificDocument(FirestoreDbConstants.Collections.SUBJECTS_LIST, id, data, object :
-            com.example.data_transfer.model.repository.FirebaseResponseModel<Boolean> {
+            FirebaseResponseModel<Boolean> {
             override fun onSuccess(model: Boolean) {
                 firebaseResponseModel.onSuccess(model)
             }
 
-            override fun onFailure(error: com.example.data_transfer.model.OnFailureModel) {
+            override fun onFailure(error: OnFailureModel) {
                 firebaseResponseModel.onFailure(error)
             }
         })
