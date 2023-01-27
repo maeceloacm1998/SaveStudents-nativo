@@ -9,7 +9,7 @@ import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.InformationTimelineController
 import br.oficial.savestudents.controller.TimelineController
 import br.oficial.savestudents.databinding.ActivityTimelineBinding
-import br.oficial.savestudents.utils.DateUtils
+import com.br.core.utils.DateUtils
 import br.oficial.savestudents.viewModel.TimelineViewModel
 import com.example.data_transfer.model.CreateTimelineItem
 
