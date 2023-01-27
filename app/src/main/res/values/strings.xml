@@ -24,6 +24,8 @@
     <string name="text_add_and_edit_timeline">Adicionar e editar atividades</string>
     <string name="title_create_timeline">Adicionar Atividades</string>
     <string name="select_type_title">Selecione o tipo:</string>
+    <string name="enabled_notification_title">Habilitar Notificação</string>
+    <string name="enabled_notification_description">Essa opção serve para você começar a receber notificação no seu celular. Caso queira receber mensagens diárias das aulas que você tem, ative essa opção.</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>

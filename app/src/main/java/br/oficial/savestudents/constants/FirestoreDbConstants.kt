@@ -15,7 +15,7 @@ class FirestoreDbConstants {
     }
 
     object MessageError {
-        const val EMPTY_RESULT = "Lista vazia ou aparelho celular sem conexao."
+        const val EMPTY_RESULT = "Lista vazia ou aparelho celular sem conexão."
         const val UPDATE_ERROR = "Erro ao atualizar o item específico"
     }
 
@@ -25,5 +25,6 @@ class FirestoreDbConstants {
         const val TIMELINE_TYPES = "timeline_item_types"
         const val FILTER_OPTIONS_SHIFT = "filter_options_shift"
         const val FILTER_OPTIONS_PERIOD = "filter_options_period"
+        const val NOTIFICATION_TIMELINE_LIST = "notification_timeline_list"
     }
 }
