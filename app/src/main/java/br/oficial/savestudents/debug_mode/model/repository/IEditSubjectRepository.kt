@@ -1,7 +1,7 @@
 package br.oficial.savestudents.debug_mode.model.repository
 
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 
 interface IEditSubjectRepository {
     fun getSubjectPerId(id: String, firebaseResponseModel: FirebaseResponseModel<SubjectList>)

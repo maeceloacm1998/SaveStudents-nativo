@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.oficial.savestudents.debug_mode.repository.EditTimelineRepository
-import br.oficial.savestudents.dto.TimelineDTO
-import br.oficial.savestudents.dto.asModel
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.dto.TimelineDTO
+import com.example.data_transfer.dto.asModel
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.TimelineItem
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 
 class EditTimelineViewModel: ViewModel() {
     private val repository = EditTimelineRepository()

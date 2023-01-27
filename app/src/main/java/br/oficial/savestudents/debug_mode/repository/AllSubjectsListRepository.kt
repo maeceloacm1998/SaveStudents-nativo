@@ -1,8 +1,8 @@
 package br.oficial.savestudents.debug_mode.repository
 
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.model.repository.IAllSubjectList
-import br.oficial.savestudents.service.external.FirebaseClient
+import com.br.core.service.external.FirebaseClient
 
 class AllSubjectsListRepository: IAllSubjectList {
     private val client = FirebaseClient()

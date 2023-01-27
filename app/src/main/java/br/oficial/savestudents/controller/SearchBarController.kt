@@ -5,11 +5,11 @@ import br.oficial.savestudents.R
 import br.oficial.savestudents.constants.HomeConstants
 import br.oficial.savestudents.holder.homeHorizontalCardHolder
 import br.oficial.savestudents.holder.responseErrorHolder
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.contract.HomeActivityContract
-import br.oficial.savestudents.model.error.SubjectListErrorModel
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
 import br.oficial.savestudents.ui_component.title.titleHolder
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.contract.HomeActivityContract
+import com.example.data_transfer.model.error.SubjectListErrorModel
 
 class SearchBarController(private val mContract: HomeActivityContract) : EpoxyController() {
     private var mSubjectList: MutableList<SubjectList> = mutableListOf()

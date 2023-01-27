@@ -1,7 +1,7 @@
 package br.oficial.savestudents.debug_mode.model.repository
 
-import br.oficial.savestudents.model.TimelineType
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
+import com.example.data_transfer.model.TimelineType
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 
 interface ICreateTimelineRepository {
     fun getTimelineTypes(firebaseResponseModel: FirebaseResponseModel<List<TimelineType>>)

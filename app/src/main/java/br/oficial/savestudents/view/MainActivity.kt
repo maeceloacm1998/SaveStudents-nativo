@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.oficial.savestudents.R
-import br.oficial.savestudents.service.internal.database.AdminCheckDB
 import br.oficial.savestudents.view.activity.HomeActivity
+import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.workers.NotificationWorkerBuilder
 
 class MainActivity : AppCompatActivity() {

@@ -15,14 +15,9 @@ import br.oficial.savestudents.debug_mode.model.contract.EditTimelineItemDialogC
 import br.oficial.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
 import br.oficial.savestudents.debug_mode.view.fragment.EditTimelineItemDialog
 import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.model.asDomainModel
-import br.oficial.savestudents.model.SubjectData
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.service.internal.dao.CreateTimelineDAO
-import br.oficial.savestudents.service.internal.database.CreateTimelineItemsDB
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
+import com.br.core.service.internal.dao.CreateTimelineDAO
+import com.br.core.service.internal.database.CreateTimelineItemsDB
+import com.example.data_transfer.model.*
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
@@ -177,14 +172,14 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     private val contractDialog = object : CreateTimelineItemDialogContract {
-        override fun createTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
+        override fun createTimelineItemListener(timelineItem: com.example.data_transfer.model.entity.CreateTimelineItemEntity) {
             timelineItemDAO.createTimelineItems(timelineItem)
             handleTimelineItemList()
         }
     }
 
     private val editContractDialog = object : EditTimelineItemDialogContract {
-        override fun editTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
+        override fun editTimelineItemListener(timelineItem: com.example.data_transfer.model.entity.CreateTimelineItemEntity) {
             timelineItemDAO.updateTimelineItemPerId(
                 timelineItem.id,
                 timelineItem.date,

@@ -7,11 +7,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.FilterOptionsController
 import br.oficial.savestudents.databinding.ActivityFilterOptionsBinding
-import br.oficial.savestudents.model.contract.FilterOptionsContract
 import br.oficial.savestudents.viewModel.FilterOptionsViewModel
+import com.example.data_transfer.model.contract.FilterOptionsContract
 
 class FilterOptionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterOptionsBinding

@@ -4,13 +4,13 @@ import com.airbnb.epoxy.EpoxyController
 import br.oficial.savestudents.R
 import br.oficial.savestudents.constants.HomeConstants
 import br.oficial.savestudents.holder.responseErrorTryAgainListenerHolder
-import br.oficial.savestudents.model.FilterOption
-import br.oficial.savestudents.model.contract.FilterOptionsContract
 import br.oficial.savestudents.ui_component.checkbox.checkboxRadioHolder
 import br.oficial.savestudents.ui_component.checkbox.checkboxSelectHolder
 import br.oficial.savestudents.ui_component.separator.separatorHolder
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
 import br.oficial.savestudents.ui_component.title.titleHolder
+import com.example.data_transfer.model.FilterOption
+import com.example.data_transfer.model.contract.FilterOptionsContract
 
 class FilterOptionsController(private val mContract: FilterOptionsContract) : EpoxyController() {
     private var responseError: Boolean = false

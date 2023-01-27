@@ -5,15 +5,21 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.br.core.R
 import com.br.core.notifications.NotificationsManager
+import com.br.core.service.external.FirebaseClient
 import com.br.core.workers.NotificationWorkerBuilder
-import kotlinx.coroutines.delay
 
 class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
+    private val firebaseClient = FirebaseClient()
+
     override suspend fun doWork(): Result {
         createNotification("Algoritmos", "Testei", 1)
 
         return Result.success()
+    }
+
+    private fun getNotificationTimeline() {
+
     }
 
     private fun createNotification(title: String, description: String, idNotification: Int) {

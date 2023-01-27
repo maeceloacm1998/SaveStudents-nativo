@@ -4,9 +4,9 @@ import com.airbnb.epoxy.EpoxyController
 import br.oficial.savestudents.constants.HomeConstants
 import br.oficial.savestudents.debug_mode.holder.createTimelineItemHolder
 import br.oficial.savestudents.holder.responseErrorHolder
-import br.oficial.savestudents.model.CreateTimelineItem
 import br.oficial.savestudents.debug_mode.model.contract.CreateTimelineContract
 import br.oficial.savestudents.ui_component.separator.separatorHolder
+import com.example.data_transfer.model.CreateTimelineItem
 import java.text.SimpleDateFormat
 import java.util.*
 

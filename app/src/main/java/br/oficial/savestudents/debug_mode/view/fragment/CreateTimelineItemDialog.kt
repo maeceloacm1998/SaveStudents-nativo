@@ -16,7 +16,6 @@ import br.oficial.savestudents.debug_mode.controller.SelectTimelineTypeControlle
 import br.oficial.savestudents.debug_mode.model.contract.CreateTimelineItemDialogContract
 import br.oficial.savestudents.debug_mode.model.contract.SelectTimelineTypeContract
 import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -111,7 +110,7 @@ class CreateTimelineItemDialog(private val mContract: CreateTimelineItemDialogCo
 
     private fun handleCreateTimelineItem() {
         if(isValidData()) {
-            val timelineItem = CreateTimelineItemEntity().apply {
+            val timelineItem = com.example.data_transfer.model.entity.CreateTimelineItemEntity().apply {
                 id = Random().nextInt()
                 date = selectedDate!!
                 subjectName = binding.subjectName.editText().text.toString()

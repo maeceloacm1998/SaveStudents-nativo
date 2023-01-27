@@ -3,17 +3,17 @@ package br.oficial.savestudents.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.constants.HomeConstants
-import br.oficial.savestudents.dto.SubjectListDto
-import br.oficial.savestudents.dto.asDomainModel
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.error.SubjectListErrorModel
-import br.oficial.savestudents.model.repository.IHomeRepository
-import br.oficial.savestudents.model.viewModel.IHomeViewModel
+import com.example.data_transfer.dto.SubjectListDto
+import com.example.data_transfer.dto.asDomainModel
 import br.oficial.savestudents.repository.HomeRepository
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.model.repository.FirebaseResponseModel
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.error.SubjectListErrorModel
+import com.example.data_transfer.model.repository.IHomeRepository
+import com.example.data_transfer.model.viewModel.IHomeViewModel
 
 class HomeViewModel() : ViewModel(), IHomeViewModel {
     private val repository: IHomeRepository = HomeRepository()
@@ -31,7 +31,8 @@ class HomeViewModel() : ViewModel(), IHomeViewModel {
     var searchError: LiveData<SubjectListErrorModel> = mSearchError
 
     override fun getSubjectList() {
-        repository.getSubjectList(object : FirebaseResponseModel<List<SubjectListDto>> {
+        repository.getSubjectList(object :
+            FirebaseResponseModel<List<SubjectListDto>> {
             override fun onSuccess(model: List<SubjectListDto>) {
                 mSubjectList.value = model.asDomainModel()
             }

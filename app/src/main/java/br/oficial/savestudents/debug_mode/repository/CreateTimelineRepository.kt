@@ -1,13 +1,13 @@
 package br.oficial.savestudents.debug_mode.repository
 
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.model.repository.ICreateTimelineRepository
-import br.oficial.savestudents.dto.TimelineTypeDTO
-import br.oficial.savestudents.model.TimelineType
-import br.oficial.savestudents.model.asDomainModel
-import br.oficial.savestudents.service.external.FirebaseClient
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.br.core.service.external.FirebaseClient
+import com.example.data_transfer.dto.TimelineTypeDTO
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.TimelineType
+import com.example.data_transfer.model.asDomainModel
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class CreateTimelineRepository : ICreateTimelineRepository {

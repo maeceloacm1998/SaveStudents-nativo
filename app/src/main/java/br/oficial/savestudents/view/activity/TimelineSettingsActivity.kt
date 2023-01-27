@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.databinding.ActivityTimelineSettingsBinding
-import br.oficial.savestudents.model.NotificationTimeline
-import br.oficial.savestudents.model.TimelineItem
 import br.oficial.savestudents.viewModel.TimelineSettingsViewModel
 import br.oficial.savestudents.viewModel.TimelineViewModel
 import com.br.core.notifications.NotificationsManager
+import com.example.data_transfer.model.NotificationTimeline
+import com.example.data_transfer.model.TimelineItem
 
 class TimelineSettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineSettingsBinding

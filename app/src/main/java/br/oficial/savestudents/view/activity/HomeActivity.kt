@@ -12,18 +12,18 @@ import androidx.core.view.doOnLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.R
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.HeaderHomeActivityController
 import br.oficial.savestudents.controller.HomeActivityController
 import br.oficial.savestudents.controller.SearchBarController
 import br.oficial.savestudents.databinding.ActivityHomeBinding
 import br.oficial.savestudents.debug_mode.view.activity.AllSubjectsListActivity
 import br.oficial.savestudents.debug_mode.view.activity.LoginActivity
-import br.oficial.savestudents.model.contract.HeaderHomeActivityContract
-import br.oficial.savestudents.model.contract.HomeActivityContract
-import br.oficial.savestudents.service.internal.dao.AdminCheckDAO
-import br.oficial.savestudents.service.internal.database.AdminCheckDB
+import com.br.core.service.internal.dao.AdminCheckDAO
 import br.oficial.savestudents.viewModel.HomeViewModel
+import com.br.core.service.internal.database.AdminCheckDB
+import com.example.data_transfer.model.contract.HeaderHomeActivityContract
+import com.example.data_transfer.model.contract.HomeActivityContract
 
 
 class HomeActivity : AppCompatActivity() {

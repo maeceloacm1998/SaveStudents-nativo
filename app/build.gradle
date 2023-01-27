@@ -59,6 +59,8 @@ android {
 
 dependencies {
     api project(path: ':app:core')
+    implementation project(path: ':app:data_transfer')
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
 
     def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
@@ -79,15 +81,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    // Firebase
-    implementation "com.google.firebase:firebase-common-ktx:$firebaseCommon"
-    implementation 'com.google.firebase:firebase-firestore-ktx'
-
     // Firebase-auth
     implementation 'com.google.firebase:firebase-auth-ktx'
-
-    // Firebase BOM
-    implementation platform("com.google.firebase:firebase-bom:$firebaseBom")
 
     // Firebase Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
@@ -103,10 +98,6 @@ dependencies {
     // Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 
-    // Room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-
     // Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
 
@@ -115,4 +106,8 @@ dependencies {
 
     // WorkManager
     implementation "androidx.work:work-runtime-ktx:$workerVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

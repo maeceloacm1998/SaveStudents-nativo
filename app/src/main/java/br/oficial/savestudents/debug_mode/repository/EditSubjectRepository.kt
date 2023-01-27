@@ -1,13 +1,12 @@
 package br.oficial.savestudents.debug_mode.repository
 
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.model.repository.IEditSubjectRepository
-import br.oficial.savestudents.dto.SubjectListDto
-import br.oficial.savestudents.dto.asModel
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.service.external.FirebaseClient
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.dto.asModel
+import com.br.core.service.external.FirebaseClient
+import com.example.data_transfer.dto.SubjectListDto
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.google.firebase.firestore.DocumentSnapshot
 
 class EditSubjectRepository() : IEditSubjectRepository {
@@ -27,7 +26,7 @@ class EditSubjectRepository() : IEditSubjectRepository {
                 }
 
 
-                override fun onFailure(error: OnFailureModel) {
+                override fun onFailure(error: com.example.data_transfer.model.OnFailureModel) {
                     firebaseResponseModel.onFailure(error)
                 }
             })
@@ -36,14 +35,15 @@ class EditSubjectRepository() : IEditSubjectRepository {
     override fun updateSubjectItem(
         id: String,
         data: SubjectList,
-        firebaseResponseModel: FirebaseResponseModel<Boolean>
+        firebaseResponseModel: com.example.data_transfer.model.repository.FirebaseResponseModel<Boolean>
     ) {
-        client.setSpecificDocument(FirestoreDbConstants.Collections.SUBJECTS_LIST, id, data, object : FirebaseResponseModel<Boolean> {
+        client.setSpecificDocument(FirestoreDbConstants.Collections.SUBJECTS_LIST, id, data, object :
+            com.example.data_transfer.model.repository.FirebaseResponseModel<Boolean> {
             override fun onSuccess(model: Boolean) {
                 firebaseResponseModel.onSuccess(model)
             }
 
-            override fun onFailure(error: OnFailureModel) {
+            override fun onFailure(error: com.example.data_transfer.model.OnFailureModel) {
                 firebaseResponseModel.onFailure(error)
             }
         })

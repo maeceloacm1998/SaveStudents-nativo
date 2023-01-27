@@ -2,10 +2,10 @@ package br.oficial.savestudents.debug_mode.controller
 
 import br.oficial.savestudents.R
 import br.oficial.savestudents.debug_mode.model.contract.SelectTimelineTypeContract
-import br.oficial.savestudents.model.TimelineType
 import br.oficial.savestudents.ui_component.inputChips.inputChipsHolder
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
 import com.airbnb.epoxy.EpoxyController
+import com.example.data_transfer.model.TimelineType
 
 class SelectTimelineTypeController(private val contract: SelectTimelineTypeContract) :
     EpoxyController() {
