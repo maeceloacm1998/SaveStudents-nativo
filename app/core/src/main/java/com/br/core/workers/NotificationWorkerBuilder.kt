@@ -18,8 +18,8 @@ class NotificationWorkerBuilder(private var context: Context) {
             .build()
 
         val saveRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            1, TimeUnit.DAYS
-        ).setConstraints(constraints).build()
+            20, TimeUnit.MINUTES
+        ).build()
 
 
         workManager.enqueue(saveRequest)

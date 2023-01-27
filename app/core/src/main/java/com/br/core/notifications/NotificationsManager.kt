@@ -24,16 +24,10 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
     }
 
     override fun builderNotification(
-        idChannel: String,
-        title: String,
-        description: String,
-        drawable: Int,
-        idNotification: Int
+        idChannel: String, title: String, description: String, drawable: Int, idNotification: Int
     ) {
-        val builder = NotificationCompat.Builder(context, idChannel)
-            .setSmallIcon(drawable)
-            .setContentTitle(title)
-            .setContentText(description)
+        val builder = NotificationCompat.Builder(context, idChannel).setSmallIcon(drawable)
+            .setContentTitle(title).setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(context)) {
@@ -62,5 +56,9 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    override fun isNotificationEnabled(): Boolean {
+        return NotificationManagerCompat.from(context).areNotificationsEnabled()
     }
 }
