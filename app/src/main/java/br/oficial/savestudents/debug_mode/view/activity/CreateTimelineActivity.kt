@@ -18,6 +18,7 @@ import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 import com.br.core.service.internal.dao.CreateTimelineDAO
 import com.br.core.service.internal.database.CreateTimelineItemsDB
 import com.example.data_transfer.model.*
+import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
@@ -172,7 +173,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     private val contractDialog = object : CreateTimelineItemDialogContract {
-        override fun createTimelineItemListener(timelineItem: com.example.data_transfer.model.entity.CreateTimelineItemEntity) {
+        override fun createTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
             timelineItemDAO.createTimelineItems(timelineItem)
             handleTimelineItemList()
         }

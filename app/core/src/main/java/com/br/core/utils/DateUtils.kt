@@ -1,4 +1,4 @@
-package br.oficial.savestudents.utils
+package com.br.core.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -19,6 +19,14 @@ class DateUtils {
                 getDefault()
             )
             return pattern.format(Date(timestamp))
+        }
+        fun isCurrentDate(dateToCompare: Long): Boolean {
+            val timestampCurrentDay =
+                formatDate(getCurrentDay(), DAY_AND_MONTH_DATE)
+
+            val date = formatDate(dateToCompare, DAY_AND_MONTH_DATE)
+
+            return date == timestampCurrentDay
         }
     }
 }
