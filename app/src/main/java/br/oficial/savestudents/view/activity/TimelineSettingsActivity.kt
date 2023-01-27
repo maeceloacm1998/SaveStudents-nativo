@@ -30,6 +30,7 @@ class TimelineSettingsActivity : AppCompatActivity() {
         fetchTimelineItem()
         handleSettingsEnabled()
         handleTimelineNotificationEnabled()
+        handleBackButton()
     }
 
     override fun onResume() {
@@ -56,6 +57,12 @@ class TimelineSettingsActivity : AppCompatActivity() {
             FirestoreDbConstants.Collections.TIMELINE_LIST, timelineId
         )
         viewModel.existNotificationTimeline(timelineId)
+    }
+
+    private fun handleBackButton() {
+        binding.backContainer.setOnClickListener {
+            finish()
+        }
     }
 
     private fun handleSettingsEnabled() {
