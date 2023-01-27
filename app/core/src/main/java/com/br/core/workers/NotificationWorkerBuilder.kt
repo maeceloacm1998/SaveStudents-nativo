@@ -18,7 +18,7 @@ class NotificationWorkerBuilder(private var context: Context) {
             .build()
 
         val saveRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            20, TimeUnit.MINUTES
+            2, TimeUnit.HOURS
         ).build()
 
 
