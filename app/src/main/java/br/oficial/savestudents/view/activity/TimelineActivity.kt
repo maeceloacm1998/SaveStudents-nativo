@@ -26,6 +26,7 @@ class TimelineActivity : AppCompatActivity() {
 
         fetchTimelineList()
         handleBackButton()
+        handleSettings()
         controller()
         observers()
     }
@@ -74,6 +75,13 @@ class TimelineActivity : AppCompatActivity() {
     private fun handleBackButton() {
         binding.backContainer.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun handleSettings() {
+        binding.settings.setOnClickListener {
+            val subjectId = intent?.getStringExtra(SUBJECT_ID).toString()
+            startActivity(TimelineSettingsActivity.newInstance(applicationContext, subjectId))
         }
     }
 
