@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.oficial.savestudents.R
 import br.oficial.savestudents.view.activity.HomeActivity
+import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
 import com.br.core.workers.NotificationWorkerBuilder
 
 class MainActivity : AppCompatActivity() {
@@ -14,12 +16,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         NotificationWorkerBuilder(applicationContext).workerEnqueue()
+        getPushToken()
         initAdminCheckDb()
         renderHomeActivity()
     }
 
     private fun initAdminCheckDb() {
         AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
+    }
+
+    private fun getPushToken() {
+        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+            .getString(NotificationsManager.PUSH_TOKEN_KEY)
+
+        if(pushToken.isNullOrBlank()) {
+            NotificationsManager(applicationContext).getPushToken()
+        }
     }
 
     private fun renderHomeActivity() {

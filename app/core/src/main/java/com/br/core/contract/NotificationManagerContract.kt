@@ -5,4 +5,5 @@ interface NotificationManagerContract {
     fun builderNotification(idChannel: String, title: String, description: String, drawable: Int, idNotification: Int)
     fun openAppNotificationSettings()
     fun isNotificationEnabled(): Boolean
+    fun getPushToken()
 }

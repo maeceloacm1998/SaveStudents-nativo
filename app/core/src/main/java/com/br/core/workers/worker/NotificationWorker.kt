@@ -7,6 +7,7 @@ import com.br.core.R
 import com.br.core.constants.FirestoreDbConstants
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.external.FirebaseClient
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
 import com.br.core.utils.DateUtils
 import com.br.core.workers.NotificationWorkerBuilder
 import com.example.data_transfer.dto.NotificationTimelineDTO
@@ -58,7 +59,10 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
 
     private fun handleNotification(notification: NotificationTimeline) {
         notification.timelineList?.mapIndexed { index, timelineItem ->
-            if (DateUtils.isCurrentDate(timelineItem.date)) {
+            val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+                .getString(NotificationsManager.PUSH_TOKEN_KEY)
+
+            if (DateUtils.isCurrentDate(timelineItem.date) && notification.pushToken == pushToken) {
                 when (timelineItem.type) {
                     TIMELINE_TYPE_HOLIDAY -> {
                         createNotification(

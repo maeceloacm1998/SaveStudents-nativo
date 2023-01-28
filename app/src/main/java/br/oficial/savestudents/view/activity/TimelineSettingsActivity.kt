@@ -9,6 +9,7 @@ import br.oficial.savestudents.databinding.ActivityTimelineSettingsBinding
 import br.oficial.savestudents.viewModel.TimelineSettingsViewModel
 import br.oficial.savestudents.viewModel.TimelineViewModel
 import com.br.core.notifications.NotificationsManager
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
 import com.example.data_transfer.model.NotificationTimeline
 import com.example.data_transfer.model.TimelineItem
 
@@ -53,10 +54,13 @@ class TimelineSettingsActivity : AppCompatActivity() {
 
     private fun fetchTimelineItem() {
         val timelineId = intent?.getStringExtra(TIMELINE_ID).toString()
+        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+            .getString(NotificationsManager.PUSH_TOKEN_KEY)
+
         timelineViewModel.getTimelineList(
             FirestoreDbConstants.Collections.TIMELINE_LIST, timelineId
         )
-        viewModel.existNotificationTimeline(timelineId)
+        viewModel.existNotificationTimeline(generateNotificationItemId(timelineId, pushToken))
     }
 
     private fun handleBackButton() {
@@ -80,11 +84,14 @@ class TimelineSettingsActivity : AppCompatActivity() {
 
     private fun handleChangeTimelineNotification() {
         val timelineNotification = binding.notificationTimelineSwitch
+        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+            .getString(NotificationsManager.PUSH_TOKEN_KEY)
+
         if (timelineNotification.isChecked) {
             timelineItem?.subjectsInformation?.let {
                 val notificationTimeline = NotificationTimeline(
-                    id = it.id,
-                    pushToken = "Dale dale",
+                    id = it.id + pushToken,
+                    pushToken = pushToken!!,
                     subjectName = it.subjectName,
                     shift = it.shift,
                     timelineList = timelineItem!!.timelineList
@@ -94,6 +101,10 @@ class TimelineSettingsActivity : AppCompatActivity() {
         } else {
             timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification(it.id) }
         }
+    }
+
+    private fun generateNotificationItemId(id: String, pushToken: String?): String {
+        return "${id}${pushToken}"
     }
 
     companion object {

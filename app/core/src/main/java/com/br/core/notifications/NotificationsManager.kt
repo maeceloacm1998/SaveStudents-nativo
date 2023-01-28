@@ -7,10 +7,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.br.core.contract.NotificationManagerContract
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.google.firebase.messaging.FirebaseMessaging
 
 class NotificationsManager(private var context: Context) : NotificationManagerContract {
     override fun createChannel(idChannel: String, name: String) {
@@ -60,5 +63,25 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
 
     override fun isNotificationEnabled(): Boolean {
         return NotificationManagerCompat.from(context).areNotificationsEnabled()
+    }
+
+    override fun getPushToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(
+                    "Error get pushToken",
+                    "Fetching FCM registration token failed",
+                    task.exception
+                )
+                return@addOnCompleteListener
+            }
+
+            val token = task.result
+            SharedPreferencesBuilder.GetInstance(context).putString(PUSH_TOKEN_KEY, token)
+        }
+    }
+
+    companion object {
+        const val PUSH_TOKEN_KEY = "@push_token"
     }
 }
