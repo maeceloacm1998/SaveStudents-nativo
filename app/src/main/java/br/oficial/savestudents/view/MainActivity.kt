@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
-        if(pushToken.isNullOrBlank()) {
+        if (pushToken.isNullOrBlank()) {
             NotificationsManager(applicationContext).getPushToken()
         }
     }
