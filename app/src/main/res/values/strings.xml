@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SaveStudents</string>
+    <string name="deeplink_default">savestudents.page.link</string>
+    <string name="scheme_deeplink_default">https</string>
 
     // Placeholders
     <string name="search_edit_text_hint"><font size="16">Digite o nome da matéria</font></string>

@@ -96,7 +96,7 @@ class TimelineSettingsActivity : AppCompatActivity() {
                     shift = it.shift,
                     timelineList = timelineItem!!.timelineList
                 )
-                viewModel.setTimelineNotification(it.id, notificationTimeline)
+                viewModel.setTimelineNotification(generateNotificationItemId(it.id, pushToken), notificationTimeline)
             }
         } else {
             timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification(it.id) }
