@@ -10,6 +10,7 @@ import br.oficial.savestudents.viewModel.TimelineSettingsViewModel
 import br.oficial.savestudents.viewModel.TimelineViewModel
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.br.core.workers.NotificationWorkerBuilder
 import com.example.data_transfer.model.NotificationTimeline
 import com.example.data_transfer.model.TimelineItem
 
@@ -88,19 +89,29 @@ class TimelineSettingsActivity : AppCompatActivity() {
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
         if (timelineNotification.isChecked) {
-            timelineItem?.subjectsInformation?.let {
-                val notificationTimeline = NotificationTimeline(
-                    id = it.id + pushToken,
-                    pushToken = pushToken!!,
-                    subjectName = it.subjectName,
-                    shift = it.shift,
-                    timelineList = timelineItem!!.timelineList
-                )
-                viewModel.setTimelineNotification(generateNotificationItemId(it.id, pushToken), notificationTimeline)
-            }
+            addNewNotification(pushToken)
         } else {
-            timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification(it.id) }
+            deleteNotification()
         }
+    }
+
+    private fun addNewNotification(pushToken: String?) {
+        NotificationWorkerBuilder(applicationContext).workerEnqueue()
+        timelineItem?.subjectsInformation?.let {
+            val notificationTimeline = NotificationTimeline(
+                id = generateNotificationItemId(it.id, pushToken),
+                deeplink = it.deeplink,
+                pushToken = pushToken!!,
+                subjectName = it.subjectName,
+                shift = it.shift,
+                timelineList = timelineItem!!.timelineList
+            )
+            viewModel.setTimelineNotification(generateNotificationItemId(it.id, pushToken), notificationTimeline)
+        }
+    }
+
+    private fun deleteNotification() {
+        timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification(it.id) }
     }
 
     private fun generateNotificationItemId(id: String, pushToken: String?): String {

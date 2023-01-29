@@ -8,14 +8,12 @@ import br.oficial.savestudents.view.activity.HomeActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
-import com.br.core.workers.NotificationWorkerBuilder
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        NotificationWorkerBuilder(applicationContext).workerEnqueue()
         getPushToken()
         initAdminCheckDb()
         renderHomeActivity()

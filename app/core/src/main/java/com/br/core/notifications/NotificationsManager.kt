@@ -2,6 +2,7 @@ package com.br.core.notifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -27,11 +28,19 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
     }
 
     override fun builderNotification(
-        idChannel: String, title: String, description: String, drawable: Int, idNotification: Int
+        idChannel: String,
+        title: String,
+        deepLink: String,
+        description: String,
+        drawable: Int,
+        idNotification: Int
     ) {
+        val pendingIntent = handleNotificationClick(deepLink)
         val builder = NotificationCompat.Builder(context, idChannel).setSmallIcon(drawable)
             .setContentTitle(title).setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent);
 
         with(NotificationManagerCompat.from(context)) {
             notify(idNotification, builder.build())
@@ -79,6 +88,21 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
             val token = task.result
             SharedPreferencesBuilder.GetInstance(context).putString(PUSH_TOKEN_KEY, token)
         }
+    }
+
+    private fun handleNotificationClick(deeplink: String): PendingIntent? {
+        val intent = Intent()
+
+        intent.action = Intent.ACTION_VIEW
+        intent.data = Uri.parse(deeplink)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        return PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_MUTABLE
+        )
     }
 
     companion object {
