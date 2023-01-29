@@ -20,7 +20,7 @@ import br.oficial.savestudents.view.activity.HomeActivity
 
 class AllSubjectsListActivity : AppCompatActivity() {
     lateinit var binding: ActivityAllSubjectsListBinding
-    private val viewModel by lazy { AllSubjectsListViewModel(applicationContext) }
+    private val viewModel by lazy { AllSubjectsListViewModel() }
     private val searchBarController by lazy { SearchBarDebugModeController(searchBarContract) }
     private val subjectListController by lazy { SubjectListController(subjectListContract) }
 

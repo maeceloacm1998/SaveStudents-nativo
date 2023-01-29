@@ -2,11 +2,11 @@ package br.oficial.savestudents.debug_mode.repository
 
 import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.model.repository.IEditSubjectRepository
-import com.example.data_transfer.dto.asModel
 import com.br.core.service.external.FirebaseClient
 import com.example.data_transfer.dto.SubjectListDto
 import com.example.data_transfer.model.OnFailureModel
 import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.asModel
 import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.google.firebase.firestore.DocumentSnapshot
 

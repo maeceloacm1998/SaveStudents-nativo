@@ -1,6 +1,5 @@
 package br.oficial.savestudents.debug_mode.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,17 +7,17 @@ import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.constants.AllSubjectListConstants
 import br.oficial.savestudents.debug_mode.model.repository.IAllSubjectList
 import br.oficial.savestudents.debug_mode.repository.AllSubjectsListRepository
-import com.example.data_transfer.dto.asDomainModel
 import br.oficial.savestudents.repository.HomeRepository
 import com.example.data_transfer.dto.SubjectListDto
 import com.example.data_transfer.model.OnFailureModel
 import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.asDomainModel
 import com.example.data_transfer.model.error.SubjectListErrorModel
 import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.example.data_transfer.model.repository.IHomeRepository
 import com.example.data_transfer.model.viewModel.IHomeViewModel
 
-class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel, IAllSubjectList {
+class AllSubjectsListViewModel(): ViewModel(), IHomeViewModel, IAllSubjectList {
     private val repository: IHomeRepository = HomeRepository()
     private val repositoryAllSubjectList: IAllSubjectList = AllSubjectsListRepository()
 

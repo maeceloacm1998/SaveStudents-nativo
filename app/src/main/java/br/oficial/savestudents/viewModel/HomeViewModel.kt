@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.constants.HomeConstants
 import com.example.data_transfer.dto.SubjectListDto
-import com.example.data_transfer.dto.asDomainModel
 import br.oficial.savestudents.repository.HomeRepository
 import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.example.data_transfer.model.OnFailureModel
 import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.asDomainModel
 import com.example.data_transfer.model.error.SubjectListErrorModel
 import com.example.data_transfer.model.repository.IHomeRepository
 import com.example.data_transfer.model.viewModel.IHomeViewModel
