@@ -11,7 +11,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import br.oficial.savestudents.R
-import br.oficial.savestudents.model.CreateTimelineItem
+import com.example.data_transfer.model.CreateTimelineItem
 
 @EpoxyModelClass
 abstract class CreateTimelineItemHolder: EpoxyModelWithHolder<CreateTimelineItemHolder.SectionHolder>() {

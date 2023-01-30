@@ -1,10 +1,9 @@
 package br.oficial.savestudents.repository
 
-import br.oficial.savestudents.dto.FilterOptionDTO
-import br.oficial.savestudents.model.repository.IFilterOptionsRepository
-import br.oficial.savestudents.service.external.FirebaseClient
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.br.core.service.external.FirebaseClient
+import com.example.data_transfer.dto.FilterOptionDTO
+import com.example.data_transfer.model.repository.FirebaseResponseModel
+import com.example.data_transfer.model.repository.IFilterOptionsRepository
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class FilterOptionsRepository : IFilterOptionsRepository {
@@ -22,7 +21,7 @@ class FilterOptionsRepository : IFilterOptionsRepository {
                 firebaseResponseModel.onSuccess(res)
             }
 
-            override fun onFailure(error: OnFailureModel) {
+            override fun onFailure(error: com.example.data_transfer.model.OnFailureModel) {
                 firebaseResponseModel.onFailure(error)
             }
         })

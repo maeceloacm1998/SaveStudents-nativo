@@ -7,15 +7,11 @@ import androidx.lifecycle.ViewModel
 import br.oficial.savestudents.debug_mode.model.repository.ICreateTimelineRepository
 import br.oficial.savestudents.debug_mode.model.viewModel.ICreateTimelineViewModel
 import br.oficial.savestudents.debug_mode.repository.CreateTimelineRepository
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.model.TimelineType
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
-import br.oficial.savestudents.service.internal.dao.CreateTimelineDAO
-import br.oficial.savestudents.service.internal.database.CreateTimelineItemsDB
-import br.oficial.savestudents.service.internal.entity.asDomainModel
+import com.br.core.service.internal.dao.CreateTimelineDAO
+import com.br.core.service.internal.database.CreateTimelineItemsDB
+import com.example.data_transfer.model.*
+import com.example.data_transfer.model.entity.asDomainModel
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 
 class CreateTimelineViewModel(mContext: Context) : ViewModel(), ICreateTimelineViewModel {
     private var timelineItemDAO: CreateTimelineDAO =

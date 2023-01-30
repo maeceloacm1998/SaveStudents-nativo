@@ -11,7 +11,7 @@ import br.oficial.savestudents.constants.CreateSubjectConstants
 import br.oficial.savestudents.databinding.ActivityEditSubjectBinding
 import br.oficial.savestudents.debug_mode.constants.EditSubjectConstants
 import br.oficial.savestudents.debug_mode.viewModel.EditSubjectViewModel
-import br.oficial.savestudents.model.SubjectList
+import com.example.data_transfer.model.SubjectList
 
 class EditSubjectActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditSubjectBinding

@@ -3,10 +3,10 @@ package br.oficial.savestudents.controller
 import br.oficial.savestudents.R
 import br.oficial.savestudents.holder.informationHolder
 import br.oficial.savestudents.holder.subtitleTimelineListHolder
-import br.oficial.savestudents.model.TimelineItem
 import br.oficial.savestudents.ui_component.separator.separatorHolder
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
 import com.airbnb.epoxy.EpoxyController
+import com.example.data_transfer.model.TimelineItem
 
 class InformationTimelineController: EpoxyController() {
     private var timelineList: TimelineItem = TimelineItem()

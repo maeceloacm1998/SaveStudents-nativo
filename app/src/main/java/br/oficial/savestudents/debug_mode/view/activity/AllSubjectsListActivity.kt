@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.databinding.ActivityAllSubjectsListBinding
 import br.oficial.savestudents.debug_mode.constants.AllSubjectListConstants
 import br.oficial.savestudents.debug_mode.controller.SearchBarDebugModeController
@@ -20,7 +20,7 @@ import br.oficial.savestudents.view.activity.HomeActivity
 
 class AllSubjectsListActivity : AppCompatActivity() {
     lateinit var binding: ActivityAllSubjectsListBinding
-    private val viewModel by lazy { AllSubjectsListViewModel(applicationContext) }
+    private val viewModel by lazy { AllSubjectsListViewModel() }
     private val searchBarController by lazy { SearchBarDebugModeController(searchBarContract) }
     private val subjectListController by lazy { SubjectListController(subjectListContract) }
 

@@ -1,6 +1,6 @@
 package br.oficial.savestudents.debug_mode.model.contract
 
-import br.oficial.savestudents.model.CreateTimelineItem
+import com.example.data_transfer.model.CreateTimelineItem
 
 interface CreateTimelineContract {
     fun clickEditButtonListener(timelineItem: CreateTimelineItem)

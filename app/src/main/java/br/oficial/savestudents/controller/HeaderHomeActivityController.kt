@@ -1,9 +1,9 @@
 package br.oficial.savestudents.controller
 
 import com.airbnb.epoxy.EpoxyController
-import br.oficial.savestudents.model.contract.HeaderHomeActivityContract
 import br.oficial.savestudents.ui_component.header.headerHolder
 import br.oficial.savestudents.ui_component.search.searchEditTextHolder
+import com.example.data_transfer.model.contract.HeaderHomeActivityContract
 
 class HeaderHomeActivityController(private val mContract: HeaderHomeActivityContract) : EpoxyController() {
     private var adminModeActive: Boolean = false

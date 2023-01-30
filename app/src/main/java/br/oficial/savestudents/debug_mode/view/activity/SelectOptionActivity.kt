@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.constants.CreateSubjectConstants
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.databinding.ActivitySelectOptionBinding
 import br.oficial.savestudents.debug_mode.controller.SelectOptionsController
-import br.oficial.savestudents.model.contract.SelectOptionsContract
 import br.oficial.savestudents.viewModel.FilterOptionsViewModel
+import com.example.data_transfer.model.contract.SelectOptionsContract
 
 class SelectOptionActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectOptionBinding

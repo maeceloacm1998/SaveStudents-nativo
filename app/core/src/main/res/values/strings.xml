@@ -1,0 +1,12 @@
+<resources>
+    // Notificação
+    <string name="title_notification_holiday">Hoje é %s 🥳</string>
+    <string name="description_notification_holiday">Aproveite e descanse bastante, amanhã volto para te avisar qual aula você tem :)</string>
+
+
+    <string name="title_notification_exam">Hoje de %s você tem %s de %s 😱</string>
+    <string name="description_notification_exam">O assunto é %s. Estude e se prepare para hoje.</string>
+
+    <string name="title_notification_class">Hoje de %s você tem aula de %s</string>
+    <string name="description_notification_class">O assunto é %s. Estude e se prepare para hoje.</string>
+</resources>

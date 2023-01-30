@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import br.oficial.savestudents.R
 import br.oficial.savestudents.constants.CreateSubjectConstants
 import br.oficial.savestudents.databinding.ActivityCreateSubjectBinding
-import br.oficial.savestudents.model.SubjectData
+import com.example.data_transfer.model.SubjectData
 
 
 class CreateSubjectActivity : AppCompatActivity() {

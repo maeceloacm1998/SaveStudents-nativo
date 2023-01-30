@@ -1,12 +1,12 @@
 package br.oficial.savestudents.debug_mode.repository
 
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.model.repository.IEditTimelineRepository
-import br.oficial.savestudents.dto.TimelineDTO
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.service.external.FirebaseClient
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.br.core.service.external.FirebaseClient
+import com.example.data_transfer.dto.TimelineDTO
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.TimelineItem
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 import com.google.firebase.firestore.DocumentSnapshot
 
 class EditTimelineRepository : IEditTimelineRepository {

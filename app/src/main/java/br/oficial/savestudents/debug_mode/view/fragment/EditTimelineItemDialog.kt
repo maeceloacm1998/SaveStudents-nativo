@@ -17,8 +17,8 @@ import br.oficial.savestudents.debug_mode.controller.SelectTimelineTypeControlle
 import br.oficial.savestudents.debug_mode.model.contract.EditTimelineItemDialogContract
 import br.oficial.savestudents.debug_mode.model.contract.SelectTimelineTypeContract
 import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
+import com.example.data_transfer.model.CreateTimelineItem
+import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
 import java.util.*
 

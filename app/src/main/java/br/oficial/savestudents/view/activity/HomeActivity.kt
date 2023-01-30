@@ -2,8 +2,10 @@ package br.oficial.savestudents.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +14,20 @@ import androidx.core.view.doOnLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.oficial.savestudents.R
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.HeaderHomeActivityController
 import br.oficial.savestudents.controller.HomeActivityController
 import br.oficial.savestudents.controller.SearchBarController
 import br.oficial.savestudents.databinding.ActivityHomeBinding
 import br.oficial.savestudents.debug_mode.view.activity.AllSubjectsListActivity
 import br.oficial.savestudents.debug_mode.view.activity.LoginActivity
-import br.oficial.savestudents.model.contract.HeaderHomeActivityContract
-import br.oficial.savestudents.model.contract.HomeActivityContract
-import br.oficial.savestudents.service.internal.dao.AdminCheckDAO
-import br.oficial.savestudents.service.internal.database.AdminCheckDB
+import com.br.core.service.internal.dao.AdminCheckDAO
 import br.oficial.savestudents.viewModel.HomeViewModel
+import com.br.core.service.internal.database.AdminCheckDB
+import com.example.data_transfer.model.contract.HeaderHomeActivityContract
+import com.example.data_transfer.model.contract.HomeActivityContract
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.ktx.Firebase
 
 
 class HomeActivity : AppCompatActivity() {
@@ -47,6 +51,7 @@ class HomeActivity : AppCompatActivity() {
         fetchSubjectList()
         controllers()
         observers()
+        handleFirebaseDynamicLinks(intent)
     }
 
     override fun onCreateView(
@@ -105,6 +110,26 @@ class HomeActivity : AppCompatActivity() {
                 isResponseError(true)
                 setResponseError(observe)
             }
+        }
+    }
+
+    private fun handleFirebaseDynamicLinks(intent: Intent) {
+        Firebase.dynamicLinks
+            .getDynamicLink(intent)
+            .addOnSuccessListener { dynamicLinkData ->
+                if (dynamicLinkData != null) {
+                    showDynamicLinkOffer(dynamicLinkData.link)
+                }
+            }
+            .addOnFailureListener(this) { e ->
+                Log.d("DynamicLinkError", e.localizedMessage)
+            }
+    }
+
+    private fun showDynamicLinkOffer(uri: Uri?) {
+        val promotionCode = uri?.getQueryParameter("id")
+        if (promotionCode.isNullOrBlank().not()) {
+            startActivity(TimelineActivity.newInstance(applicationContext, promotionCode.toString()))
         }
     }
 

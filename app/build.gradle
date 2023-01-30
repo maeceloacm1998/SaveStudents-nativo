@@ -58,12 +58,18 @@ android {
 }
 
 dependencies {
+    api project(path: ':app:core')
+    api project(path: ':app:data_transfer')
+
     def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
     def roomVersion = '2.2.5'
     def serializeVersion = '1.2.2'
     def appDistributionVersion = '3.2.0'
+    def workerVersion = "2.7.1"
+    def dynamicLinkVersion = "21.1.0"
+    def firebaseBom = "31.1.1"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -74,21 +80,21 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    // Firebase
-    implementation platform('com.google.firebase:firebase-bom:30.3.1')
-    implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx'
+    // Firebase BOM
+    implementation platform("com.google.firebase:firebase-bom:$firebaseBom")
 
     // Firebase-auth
-    implementation platform('com.google.firebase:firebase-bom:30.4.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
-
-    // Firebase BOM
-    implementation platform('com.google.firebase:firebase-bom:31.1.1')
 
     // Firebase Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+
+    //Firebase Dynamic link
+    implementation "com.google.firebase:firebase-dynamic-links-ktx:$dynamicLinkVersion"
 
     // Material Design
     implementation "com.google.android.material:material:$material_version"
@@ -100,13 +106,16 @@ dependencies {
     // Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 
-    // Room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-
     // Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
 
     // App Distribution
     implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:$workerVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

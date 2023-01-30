@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SaveStudents</string>
+    <string name="deeplink_default">savestudents.page.link</string>
+    <string name="scheme_deeplink_default">https</string>
 
     // Placeholders
     <string name="search_edit_text_hint"><font size="16">Digite o nome da matéria</font></string>
@@ -24,6 +26,8 @@
     <string name="text_add_and_edit_timeline">Adicionar e editar atividades</string>
     <string name="title_create_timeline">Adicionar Atividades</string>
     <string name="select_type_title">Selecione o tipo:</string>
+    <string name="enabled_notification_title">Habilitar Notificação</string>
+    <string name="enabled_notification_description">Essa opção serve para você começar a receber notificação no seu celular. Caso queira receber mensagens diárias das aulas que você tem, ative essa opção.</string>
 
     // Button Title
     <string name="filter_button_title">filtrar</string>

@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.InformationTimelineController
 import br.oficial.savestudents.controller.TimelineController
 import br.oficial.savestudents.databinding.ActivityTimelineBinding
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.utils.DateUtils
+import com.br.core.utils.DateUtils
 import br.oficial.savestudents.viewModel.TimelineViewModel
+import com.example.data_transfer.model.CreateTimelineItem
 
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
@@ -26,6 +26,7 @@ class TimelineActivity : AppCompatActivity() {
 
         fetchTimelineList()
         handleBackButton()
+        handleSettings()
         controller()
         observers()
     }
@@ -74,6 +75,13 @@ class TimelineActivity : AppCompatActivity() {
     private fun handleBackButton() {
         binding.backContainer.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun handleSettings() {
+        binding.settings.setOnClickListener {
+            val subjectId = intent?.getStringExtra(SUBJECT_ID).toString()
+            startActivity(TimelineSettingsActivity.newInstance(applicationContext, subjectId))
         }
     }
 

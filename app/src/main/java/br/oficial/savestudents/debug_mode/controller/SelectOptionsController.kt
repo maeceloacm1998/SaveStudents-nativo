@@ -2,10 +2,10 @@ package br.oficial.savestudents.debug_mode.controller
 
 import com.airbnb.epoxy.EpoxyController
 import br.oficial.savestudents.R
-import br.oficial.savestudents.model.FilterOption
-import br.oficial.savestudents.model.contract.SelectOptionsContract
 import br.oficial.savestudents.ui_component.checkbox.checkboxRadioHolder
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
+import com.example.data_transfer.model.FilterOption
+import com.example.data_transfer.model.contract.SelectOptionsContract
 
 class SelectOptionsController(private val contract: SelectOptionsContract) : EpoxyController() {
     private var loading: Boolean = true
