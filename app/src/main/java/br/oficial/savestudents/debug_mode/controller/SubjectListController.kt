@@ -4,10 +4,10 @@ import br.oficial.savestudents.R
 import br.oficial.savestudents.debug_mode.holder.subjectEditHorizontalCardHolder
 import br.oficial.savestudents.debug_mode.model.contract.SubjectListContract
 import br.oficial.savestudents.holder.responseErrorHolder
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.error.SubjectListErrorModel
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
 import com.airbnb.epoxy.EpoxyController
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.error.SubjectListErrorModel
 
 class SubjectListController(private val mContract: SubjectListContract) : EpoxyController() {
     private var subjectList: MutableList<SubjectList> = mutableListOf()

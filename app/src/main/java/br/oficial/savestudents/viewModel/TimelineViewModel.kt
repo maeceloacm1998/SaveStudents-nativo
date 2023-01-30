@@ -3,13 +3,12 @@ package br.oficial.savestudents.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.model.repository.ITimelineRepository
-import br.oficial.savestudents.model.viewModel.ITimelineViewModel
 import br.oficial.savestudents.repository.TimelineRepository
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.TimelineItem
+import com.example.data_transfer.model.repository.FirebaseResponseModel
+import com.example.data_transfer.model.repository.ITimelineRepository
+import com.example.data_transfer.model.viewModel.ITimelineViewModel
 
 class TimelineViewModel : ViewModel(), ITimelineViewModel {
     private val repository: ITimelineRepository = TimelineRepository()

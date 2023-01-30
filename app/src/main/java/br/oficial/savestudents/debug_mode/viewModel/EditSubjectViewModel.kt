@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.oficial.savestudents.debug_mode.model.repository.IEditSubjectRepository
 import br.oficial.savestudents.debug_mode.repository.EditSubjectRepository
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.repository.FirebaseResponseModel
 
 class EditSubjectViewModel: ViewModel() {
     private val repository: IEditSubjectRepository = EditSubjectRepository()

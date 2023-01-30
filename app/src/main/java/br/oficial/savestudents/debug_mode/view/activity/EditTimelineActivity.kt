@@ -14,10 +14,10 @@ import br.oficial.savestudents.debug_mode.model.contract.EditTimelineItemDialogC
 import br.oficial.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
 import br.oficial.savestudents.debug_mode.view.fragment.EditTimelineItemDialog
 import br.oficial.savestudents.debug_mode.viewModel.EditTimelineViewModel
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.model.asDomainModel
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
+import com.example.data_transfer.model.CreateTimelineItem
+import com.example.data_transfer.model.TimelineItem
+import com.example.data_transfer.model.asDomainModel
+import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 
 class EditTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditTimelineBinding

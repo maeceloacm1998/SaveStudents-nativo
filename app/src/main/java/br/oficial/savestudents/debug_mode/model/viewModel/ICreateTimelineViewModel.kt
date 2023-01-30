@@ -1,7 +1,8 @@
 package br.oficial.savestudents.debug_mode.model.viewModel
 
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.TimelineItem
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.TimelineItem
+
 
 interface ICreateTimelineViewModel {
     fun getTimelineItems()

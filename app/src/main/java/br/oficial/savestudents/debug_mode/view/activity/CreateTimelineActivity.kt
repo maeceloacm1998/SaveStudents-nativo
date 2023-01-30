@@ -2,6 +2,7 @@ package br.oficial.savestudents.debug_mode.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,14 +16,10 @@ import br.oficial.savestudents.debug_mode.model.contract.EditTimelineItemDialogC
 import br.oficial.savestudents.debug_mode.view.fragment.CreateTimelineItemDialog
 import br.oficial.savestudents.debug_mode.view.fragment.EditTimelineItemDialog
 import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
-import br.oficial.savestudents.model.CreateTimelineItem
-import br.oficial.savestudents.model.asDomainModel
-import br.oficial.savestudents.model.SubjectData
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.TimelineItem
-import br.oficial.savestudents.service.internal.dao.CreateTimelineDAO
-import br.oficial.savestudents.service.internal.database.CreateTimelineItemsDB
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
+import com.br.core.service.internal.dao.CreateTimelineDAO
+import com.br.core.service.internal.database.CreateTimelineItemsDB
+import com.example.data_transfer.model.*
+import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 
 class CreateTimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimelineBinding
@@ -69,8 +66,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     private fun handleAddNewTimeline() {
         binding.addTimelineButton.setOnClickListener {
             CreateTimelineItemDialog(contractDialog).show(
-                supportFragmentManager,
-                CreateTimelineItemDialog.TAG
+                supportFragmentManager, CreateTimelineItemDialog.TAG
             )
         }
     }
@@ -122,29 +118,35 @@ class CreateTimelineActivity : AppCompatActivity() {
     private fun createSubject(id: String) {
         val subjectItem = createSubjectItem(id)
         viewModel.createSubject(
-            CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION,
-            id,
-            subjectItem
+            CreateTimelineConstants.Collection.SUBJECT_LIST_COLLECTION, id, subjectItem
         )
     }
 
     private fun createTimeline(id: String) {
         val timelineItem = createTimelineItem(id)
         viewModel.createTimeline(
-            CreateTimelineConstants.Collection.TIMELINE_LIST_COLLECTION,
-            id,
-            timelineItem
+            CreateTimelineConstants.Collection.TIMELINE_LIST_COLLECTION, id, timelineItem
         )
     }
 
     private fun createSubjectItem(id: String): SubjectList {
         return SubjectList().apply {
             this.id = id
+            this.deeplink = getTimelineDeeplink(
+                "https://savestudents.page.link/?link=https://savestudents.page.link/home", id
+            )
             this.period = intent?.getStringExtra(PERIOD_OPTION_NAME).toString()
             this.shift = intent?.getStringExtra(SHIFT_OPTION_NAME).toString()
             this.subjectName = intent?.getStringExtra(SUBJECT_NAME).toString()
             this.teacherName = intent?.getStringExtra(TEACHER_NAME).toString()
         }
+    }
+
+    private fun getTimelineDeeplink(path: String, id: String): String {
+        val uri = Uri.Builder().encodedPath(path)
+        uri.appendQueryParameter("id", id)
+        uri.appendQueryParameter("apn", "br.oficial.savestudents")
+        return uri.build().toString()
     }
 
     private fun createTimelineItem(id: String): TimelineItem {
@@ -165,8 +167,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     val contract = object : CreateTimelineContract {
         override fun clickEditButtonListener(timelineItem: CreateTimelineItem) {
             EditTimelineItemDialog(editContractDialog, timelineItem).show(
-                supportFragmentManager,
-                CreateTimelineItemDialog.TAG
+                supportFragmentManager, CreateTimelineItemDialog.TAG
             )
         }
 
@@ -186,10 +187,7 @@ class CreateTimelineActivity : AppCompatActivity() {
     private val editContractDialog = object : EditTimelineItemDialogContract {
         override fun editTimelineItemListener(timelineItem: CreateTimelineItemEntity) {
             timelineItemDAO.updateTimelineItemPerId(
-                timelineItem.id,
-                timelineItem.date,
-                timelineItem.subjectName,
-                timelineItem.type
+                timelineItem.id, timelineItem.date, timelineItem.subjectName, timelineItem.type
             )
 
             updateTimelineItem(timelineItem.asDomainModel())

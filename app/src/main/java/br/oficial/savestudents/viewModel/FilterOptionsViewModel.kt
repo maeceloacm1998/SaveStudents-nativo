@@ -3,15 +3,15 @@ package br.oficial.savestudents.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.oficial.savestudents.constants.FirestoreDbConstants
-import br.oficial.savestudents.dto.FilterOptionDTO
-import br.oficial.savestudents.dto.asDomainModel
-import br.oficial.savestudents.model.FilterOption
-import br.oficial.savestudents.model.repository.IFilterOptionsRepository
-import br.oficial.savestudents.model.viewModel.IFilterOptionsViewModel
+import com.br.core.constants.FirestoreDbConstants
+import com.example.data_transfer.dto.asDomainModel
 import br.oficial.savestudents.repository.FilterOptionsRepository
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.dto.FilterOptionDTO
+import com.example.data_transfer.model.FilterOption
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.repository.FirebaseResponseModel
+import com.example.data_transfer.model.repository.IFilterOptionsRepository
+import com.example.data_transfer.model.viewModel.IFilterOptionsViewModel
 
 class FilterOptionsViewModel : ViewModel(), IFilterOptionsViewModel {
     private val repository: IFilterOptionsRepository = FilterOptionsRepository()

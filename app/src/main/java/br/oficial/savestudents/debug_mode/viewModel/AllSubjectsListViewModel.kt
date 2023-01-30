@@ -1,24 +1,23 @@
 package br.oficial.savestudents.debug_mode.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.oficial.savestudents.constants.FirestoreDbConstants
+import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.debug_mode.constants.AllSubjectListConstants
 import br.oficial.savestudents.debug_mode.model.repository.IAllSubjectList
 import br.oficial.savestudents.debug_mode.repository.AllSubjectsListRepository
-import br.oficial.savestudents.dto.SubjectListDto
-import br.oficial.savestudents.dto.asDomainModel
-import br.oficial.savestudents.model.SubjectList
-import br.oficial.savestudents.model.error.SubjectListErrorModel
-import br.oficial.savestudents.model.repository.IHomeRepository
-import br.oficial.savestudents.model.viewModel.IHomeViewModel
 import br.oficial.savestudents.repository.HomeRepository
-import br.oficial.savestudents.service.external.model.FirebaseResponseModel
-import br.oficial.savestudents.service.external.model.OnFailureModel
+import com.example.data_transfer.dto.SubjectListDto
+import com.example.data_transfer.model.OnFailureModel
+import com.example.data_transfer.model.SubjectList
+import com.example.data_transfer.model.asDomainModel
+import com.example.data_transfer.model.error.SubjectListErrorModel
+import com.example.data_transfer.model.repository.FirebaseResponseModel
+import com.example.data_transfer.model.repository.IHomeRepository
+import com.example.data_transfer.model.viewModel.IHomeViewModel
 
-class AllSubjectsListViewModel(mContext: Context): ViewModel(), IHomeViewModel, IAllSubjectList {
+class AllSubjectsListViewModel(): ViewModel(), IHomeViewModel, IAllSubjectList {
     private val repository: IHomeRepository = HomeRepository()
     private val repositoryAllSubjectList: IAllSubjectList = AllSubjectsListRepository()
 

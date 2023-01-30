@@ -1,6 +1,6 @@
 package br.oficial.savestudents.debug_mode.model.contract
 
-import br.oficial.savestudents.service.internal.entity.CreateTimelineItemEntity
+import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 
 interface EditTimelineItemDialogContract {
     fun editTimelineItemListener(timelineItem: CreateTimelineItemEntity)

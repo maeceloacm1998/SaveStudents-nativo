@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.oficial.savestudents.R
 import br.oficial.savestudents.databinding.ActivityLoginBinding
-import br.oficial.savestudents.service.internal.dao.AdminCheckDAO
-import br.oficial.savestudents.service.internal.database.AdminCheckDB
-import br.oficial.savestudents.service.internal.entity.AdminCheckEntity
+import com.br.core.service.internal.dao.AdminCheckDAO
+import com.br.core.service.internal.database.AdminCheckDB
+import com.example.data_transfer.model.entity.AdminCheckEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

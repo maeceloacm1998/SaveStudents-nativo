@@ -4,10 +4,10 @@ import br.oficial.savestudents.R
 import br.oficial.savestudents.helper.TimelineItemType.*
 import br.oficial.savestudents.helper.TimelineItemTypeColorHelper
 import br.oficial.savestudents.holder.timelineItemHolder
-import br.oficial.savestudents.model.TimelineItem
 import br.oficial.savestudents.ui_component.shimmer.shimmerHolder
-import br.oficial.savestudents.utils.DateUtils
+import com.br.core.utils.DateUtils
 import com.airbnb.epoxy.EpoxyController
+import com.example.data_transfer.model.TimelineItem
 
 class TimelineController : EpoxyController() {
     private var timelineList: TimelineItem = TimelineItem()
