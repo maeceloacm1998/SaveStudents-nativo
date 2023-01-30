@@ -48,13 +48,6 @@ dependencies {
     // WorkerManager
     implementation "androidx.work:work-runtime-ktx:$workerManagerVersion"
 
-    // Firebase-auth
-    implementation 'com.google.firebase:firebase-auth-ktx'
-
-    // Firebase Crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
     // Firebase
     implementation "com.google.firebase:firebase-common-ktx:$firebaseCommon"
     implementation 'com.google.firebase:firebase-firestore-ktx'
