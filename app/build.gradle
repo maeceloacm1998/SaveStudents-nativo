@@ -59,8 +59,7 @@ android {
 
 dependencies {
     api project(path: ':app:core')
-    implementation project(path: ':app:data_transfer')
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+    api project(path: ':app:data_transfer')
 
     def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
@@ -89,6 +88,9 @@ dependencies {
 
     //Firebase Dynamic link
     implementation "com.google.firebase:firebase-dynamic-links-ktx:$dynamicLinkVersion"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
 
     // Material Design
     implementation "com.google.android.material:material:$material_version"
