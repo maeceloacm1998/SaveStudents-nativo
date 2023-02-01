@@ -5,28 +5,37 @@
     android:id="@+id/card_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="20dp"
     android:background="@drawable/bg_rounded_soft_background"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:paddingVertical="20dp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:ellipsize="end"
         android:fontFamily="@font/roboto"
         android:maxLines="2"
         android:textColor="@color/soft_black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/subtitle"
+        app:layout_constraintEnd_toStartOf="@id/next_icon"
         app:layout_constraintStart_toStartOf="@id/card_container"
         app:layout_constraintTop_toTopOf="@id/card_container"
-        app:layout_constraintEnd_toStartOf="@id/next_icon"
-        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Algoritmos em grafos" />
+
+    <TextView
+        android:id="@+id/teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/card_container"
+        app:layout_constraintStart_toStartOf="@id/card_container"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:text="Prof. Marcelo" />
 
     <TextView
         android:id="@+id/subtitle"
@@ -38,7 +47,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/card_container"
         app:layout_constraintStart_toStartOf="@id/card_container"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/teacher"
         tools:text="4º Período" />
 
     <ImageView

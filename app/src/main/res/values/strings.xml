@@ -49,4 +49,6 @@
     <string name="exam_toggle">Prova</string>
     <string name="holiday_toggle">Feriado</string>
 
+
+    <string name="teacher_name">Prof. %s</string>
 </resources>

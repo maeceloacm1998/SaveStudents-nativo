@@ -23,6 +23,9 @@ abstract class HomeHorizontalCardHolder :
     @EpoxyAttribute
     lateinit var period: String
 
+    @EpoxyAttribute
+    lateinit var teacher: String
+
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickHorizontalCardListener: (subjectId: String) -> Unit
 
@@ -43,6 +46,7 @@ abstract class HomeHorizontalCardHolder :
         setMargin(holder)
         setTitle(holder)
         setSubtitle(holder)
+        setTeacher(holder)
         handleCLickHorizontalCard(holder)
     }
 
@@ -66,6 +70,10 @@ abstract class HomeHorizontalCardHolder :
         holder.mSubtitle.text = period
     }
 
+    private fun setTeacher(holder: SectionHolder) {
+        holder.mTeacher.text = holder.mTeacher.context.getString(R.string.teacher_name, teacher)
+    }
+
     private fun handleCLickHorizontalCard(holder: SectionHolder) {
         holder.mContainer.setOnClickListener {
             clickHorizontalCardListener(subjectId)
@@ -81,11 +89,13 @@ abstract class HomeHorizontalCardHolder :
         lateinit var mContainer: View
         lateinit var mTitle: TextView
         lateinit var mSubtitle: TextView
+        lateinit var mTeacher: TextView
 
         override fun bindView(itemView: View) {
             mContainer = itemView.findViewById(R.id.card_container)
             mTitle = itemView.findViewById(R.id.title)
             mSubtitle = itemView.findViewById(R.id.subtitle)
+            mTeacher = itemView.findViewById(R.id.teacher)
         }
     }
 
