@@ -24,6 +24,9 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
     lateinit var shift: String
 
     @EpoxyAttribute
+    lateinit var subjectModel: String
+
+    @EpoxyAttribute
     lateinit var teacher: String
 
     @EpoxyAttribute
@@ -45,6 +48,7 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
             setPeriod()
             setShift()
             setTeacher()
+            setSubjectModel()
             setMargin()
         }
     }
@@ -63,6 +67,10 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
 
     private fun SectionHolder.setTeacher() {
         mTeacher.text = "Docente: $teacher"
+    }
+
+    private fun SectionHolder.setSubjectModel() {
+        mSubjectModel.text = "Modelo: $subjectModel"
     }
 
     private fun SectionHolder.setMargin() {
@@ -88,6 +96,7 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
         lateinit var mPeriod: TextView
         lateinit var mShift: TextView
         lateinit var mTeacher: TextView
+        lateinit var mSubjectModel: TextView
 
         override fun bindView(itemView: View) {
             mContainer = itemView.findViewById(R.id.information_timeline_container)
@@ -95,6 +104,7 @@ abstract class InformationHolder : EpoxyModelWithHolder<InformationHolder.Sectio
             mPeriod = itemView.findViewById(R.id.period)
             mShift = itemView.findViewById(R.id.shift)
             mTeacher = itemView.findViewById(R.id.teacher)
+            mSubjectModel = itemView.findViewById(R.id.subject_model)
         }
     }
 

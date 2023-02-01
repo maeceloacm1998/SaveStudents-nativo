@@ -34,6 +34,7 @@ class InformationTimelineController: EpoxyController() {
                     period(timelineList.subjectsInformation?.period)
                     shift(timelineList.subjectsInformation?.shift)
                     teacher(timelineList.subjectsInformation?.teacherName)
+                    subjectModel(timelineList.subjectsInformation?.subjectModel)
                     marginTop(10)
                     marginRight(24)
                     marginLeft(24)
