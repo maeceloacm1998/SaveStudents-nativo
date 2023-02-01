@@ -67,6 +67,14 @@ class SelectOptionActivity : AppCompatActivity() {
                     "order"
                 )
             }
+
+            CreateSubjectConstants.Filter.SUBJECT_MODEL_FIELD -> {
+                setTitle("Selecione Modelo")
+                mViewModel.getShiftOptions(
+                    FirestoreDbConstants.Collections.FILTER_SUBJECT_MODEL,
+                    "order"
+                )
+            }
         }
     }
 

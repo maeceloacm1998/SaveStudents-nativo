@@ -24,6 +24,7 @@ class CreateSubjectActivity : AppCompatActivity() {
         handleGoBackButton()
         handlePeriodSelect()
         handleShiftSelect()
+        handleSubjectModelSelect()
         handleNextButton()
         disableNextButton()
         handleProgressBar()
@@ -52,6 +53,11 @@ class CreateSubjectActivity : AppCompatActivity() {
             CreateSubjectConstants.Filter.SHIFT_FIELD -> {
                 binding.selectShiftList.handleTitle(option)
                 shiftSelected = option
+            }
+
+            CreateSubjectConstants.Filter.SUBJECT_MODEL_FIELD -> {
+                binding.selectModelSubject.handleTitle(option)
+                subjectModelSelected = option
                 enabledNextButton()
             }
         }
@@ -75,6 +81,12 @@ class CreateSubjectActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleSubjectModelSelect() {
+        binding.selectModelSubject.view().setOnClickListener {
+            handlePeriodSelect(CreateSubjectConstants.Filter.SUBJECT_MODEL_FIELD)
+        }
+    }
+
     private fun handlePeriodSelect(filterType: String) {
         val intent = SelectOptionActivity.newInstance(applicationContext, filterType)
         startActivityForResult(intent, SelectOptionActivity.SELECT_OPTION_REQUEST_CODE)
@@ -85,8 +97,8 @@ class CreateSubjectActivity : AppCompatActivity() {
             val subjectName = binding.subjectName.editText().text.toString().trim()
             val teacherName = binding.teacherName.editText().text.toString().trim()
 
-            if (validationData(subjectName, teacherName, periodSelected, shiftSelected)) {
-                saveData(subjectName, teacherName, periodSelected!!, shiftSelected!!)
+            if (validationData(subjectName, teacherName, periodSelected, shiftSelected, subjectModelSelected)) {
+                saveData(subjectName, teacherName, periodSelected!!, shiftSelected!!, subjectModelSelected!!)
             }
         }
     }
@@ -95,9 +107,10 @@ class CreateSubjectActivity : AppCompatActivity() {
         subjectName: String?,
         teacherName: String?,
         periodSelected: String?,
-        shiftSelected: String?
+        shiftSelected: String?,
+        subjectModelSelected: String?
     ): Boolean {
-        if (!subjectName.isNullOrBlank() && !teacherName.isNullOrBlank() && !periodSelected.isNullOrBlank() && !shiftSelected.isNullOrBlank()) {
+        if (!subjectName.isNullOrBlank() && !teacherName.isNullOrBlank() && !periodSelected.isNullOrBlank() && !shiftSelected.isNullOrBlank() && !subjectModelSelected.isNullOrBlank()) {
             return true
         } else {
             Toast.makeText(applicationContext, "Preencha todos os campos", Toast.LENGTH_SHORT)
@@ -111,9 +124,10 @@ class CreateSubjectActivity : AppCompatActivity() {
         subjectName: String,
         teacherName: String,
         periodSelected: String,
-        shiftSelected: String
+        shiftSelected: String,
+        subjectModelSelected: String
     ) {
-        val subjectData = SubjectData(subjectName, teacherName, periodSelected, shiftSelected)
+        val subjectData = SubjectData(subjectName, teacherName, periodSelected, shiftSelected, subjectModelSelected)
         startActivity(CreateTimelineActivity.newInstance(applicationContext, subjectData))
     }
 
@@ -145,6 +159,7 @@ class CreateSubjectActivity : AppCompatActivity() {
     companion object {
         private var periodSelected: String? = null
         private var shiftSelected: String? = null
+        private var subjectModelSelected: String? = null
         private const val PROGRESS_BAR_WIDTH: Float = 0.5F
         private var STAGE_TITLE: String = "Etapa 1"
 

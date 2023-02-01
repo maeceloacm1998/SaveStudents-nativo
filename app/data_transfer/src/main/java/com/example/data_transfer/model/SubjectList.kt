@@ -9,6 +9,7 @@ data class SubjectList(
     var teacherName: String = "",
     var period: String = "",
     var shift: String = "",
+    var subjectModel: String = ""
 )
 
 fun SubjectListDto.asModel(): SubjectList =

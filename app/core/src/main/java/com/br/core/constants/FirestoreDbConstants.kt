@@ -25,6 +25,7 @@ class FirestoreDbConstants {
         const val TIMELINE_TYPES = "timeline_item_types"
         const val FILTER_OPTIONS_SHIFT = "filter_options_shift"
         const val FILTER_OPTIONS_PERIOD = "filter_options_period"
+        const val FILTER_SUBJECT_MODEL = "filter_subject_model"
         const val NOTIFICATION_TIMELINE_LIST = "notification_timeline_list"
     }
 }
