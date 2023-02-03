@@ -10,6 +10,7 @@
     <string name="timeline_name_hint"><font size="12">Digite o nome da atividade</font></string>
     <string name="email_hint"><font size="12">Email</font></string>
     <string name="password_hint"><font size="12">Senha</font></string>
+    <string name="teacher_name">Prof. %s</string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
@@ -49,6 +50,9 @@
     <string name="exam_toggle">Prova</string>
     <string name="holiday_toggle">Feriado</string>
 
+    // Erros
+    <string name="email_error">"Email incorreto, tente novamente.</string>
+    <string name="password_error">Passoword incorreto, tente novamente.</string>
+    <string name="incorrect_fields">"Preencha todos os campos"</string>
 
-    <string name="teacher_name">Prof. %s</string>
 </resources>

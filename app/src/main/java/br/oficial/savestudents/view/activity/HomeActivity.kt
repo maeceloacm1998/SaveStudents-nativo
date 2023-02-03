@@ -26,6 +26,8 @@ import br.oficial.savestudents.viewModel.HomeViewModel
 import com.br.core.service.internal.database.AdminCheckDB
 import com.example.data_transfer.model.contract.HeaderHomeActivityContract
 import com.example.data_transfer.model.contract.HomeActivityContract
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 
@@ -52,13 +54,11 @@ class HomeActivity : AppCompatActivity() {
         controllers()
         observers()
         handleFirebaseDynamicLinks(intent)
+        handleCheckUser()
     }
 
     override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
+        parent: View?, name: String, context: Context, attrs: AttributeSet
     ): View? {
         handleCalculateTallestHeader()
         return super.onCreateView(parent, name, context, attrs)
@@ -66,10 +66,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        adminCheckDAO.getAdminModeStatus()?.isAdminModeOn?.let {
-            headerHomeActivityController.isAdminMode(it)
-        }
+        checkAdminEnabled()
 
         if (isFiltered) {
             handleFiltersSelected()
@@ -114,22 +111,46 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleFirebaseDynamicLinks(intent: Intent) {
-        Firebase.dynamicLinks
-            .getDynamicLink(intent)
-            .addOnSuccessListener { dynamicLinkData ->
-                if (dynamicLinkData != null) {
-                    showDynamicLinkOffer(dynamicLinkData.link)
-                }
+        Firebase.dynamicLinks.getDynamicLink(intent).addOnSuccessListener { dynamicLinkData ->
+            if (dynamicLinkData != null) {
+                showDynamicLinkOffer(dynamicLinkData.link)
             }
-            .addOnFailureListener(this) { e ->
-                Log.d("DynamicLinkError", e.localizedMessage)
-            }
+        }.addOnFailureListener(this) { e ->
+            Log.d("DynamicLinkError", e.localizedMessage)
+        }
+    }
+
+    private fun handleCheckUser() {
+        val userDB = adminCheckDAO.getAdminModeStatus()
+        val user = FirebaseAuth.getInstance().currentUser
+        val credential = EmailAuthProvider.getCredential(
+            userDB?.email.toString(),
+            userDB?.id.toString()
+        )
+
+        user?.reauthenticate(credential)?.addOnFailureListener {
+            userDB?.let { it -> adminCheckDAO.deleteAdminModeStatus(it.id) }
+            headerHomeActivityController.isAdminMode(false)
+        }
+    }
+
+    private fun checkAdminEnabled() {
+        val userDB = adminCheckDAO.getAdminModeStatus()
+        if (userDB == null) {
+            headerHomeActivityController.isAdminMode(false)
+        } else {
+            headerHomeActivityController.isAdminMode(true)
+        }
     }
 
     private fun showDynamicLinkOffer(uri: Uri?) {
         val promotionCode = uri?.getQueryParameter("id")
         if (promotionCode.isNullOrBlank().not()) {
-            startActivity(TimelineActivity.newInstance(applicationContext, promotionCode.toString()))
+            startActivity(
+                TimelineActivity.newInstance(
+                    applicationContext, promotionCode.toString()
+                )
+            )
         }
     }
 
@@ -161,8 +182,7 @@ class HomeActivity : AppCompatActivity() {
         val layoutTallest = R.layout.activity_home_header_tallest
 
         (parent?.parent as? ViewGroup)?.let {
-            val headerTallest =
-                LayoutInflater.from(applicationContext).inflate(layoutTallest, null)
+            val headerTallest = LayoutInflater.from(applicationContext).inflate(layoutTallest, null)
             headerTallest.visibility = View.VISIBLE
             it.addView(headerTallest)
             headerTallest.doOnLayout { view ->
@@ -195,9 +215,7 @@ class HomeActivity : AppCompatActivity() {
         override fun clickFilterButtonListener() {
             startActivity(
                 FilterOptionsActivity.newInstance(
-                    applicationContext,
-                    checkboxRadioSelected,
-                    checkboxSelectedList.toTypedArray()
+                    applicationContext, checkboxRadioSelected, checkboxSelectedList.toTypedArray()
                 )
             )
         }
@@ -258,8 +276,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         fun saveFiltersSelected(
-            checkboxRadioSelected: String,
-            checkboxSelectedList: MutableList<String>
+            checkboxRadioSelected: String, checkboxSelectedList: MutableList<String>
         ) {
             this.checkboxRadioSelected = checkboxRadioSelected
             this.checkboxSelectedList = checkboxSelectedList

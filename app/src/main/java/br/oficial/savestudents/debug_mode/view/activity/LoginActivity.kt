@@ -11,6 +11,7 @@ import com.br.core.service.internal.dao.AdminCheckDAO
 import com.br.core.service.internal.database.AdminCheckDB
 import com.example.data_transfer.model.entity.AdminCheckEntity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -38,8 +39,11 @@ class LoginActivity : AppCompatActivity() {
                 handleLoginAuthentication(email, password)
             } else {
                 enabledSubmitButton()
-                Toast.makeText(applicationContext, "Preencha todos os campos", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(
+                    applicationContext,
+                    applicationContext.getString(R.string.incorrect_fields),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -47,15 +51,23 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginAuthentication(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { response ->
-                adminCheckDAO.createAdminModeStatus(AdminCheckEntity().apply { isAdminModeOn = true })
+                response.user?.apply {
+                    handleSaveUser(email, password)
+                }
                 startActivity(Intent(applicationContext, AllSubjectsListActivity::class.java))
             }.addOnFailureListener { exception ->
                 enabledSubmitButton()
-                binding.emailEditText.setError("Email incorreto, tente novamente.")
-                binding.passwordEditText.setError("Passoword incorreto, tente novamente.")
+                binding.emailEditText.setError(applicationContext.getString(R.string.email_error))
+                binding.passwordEditText.setError(applicationContext.getString(R.string.password_error))
             }
     }
 
+    private fun handleSaveUser(email: String, id: String) {
+        adminCheckDAO.createAdminModeStatus(AdminCheckEntity().apply {
+            this.id = id
+            this.email = email
+        })
+    }
 
     private fun disabledSubmitButton() {
         binding.buttonSubmit.isEnabled = false
@@ -76,5 +88,4 @@ class LoginActivity : AppCompatActivity() {
             )
         )
     }
-
 }
