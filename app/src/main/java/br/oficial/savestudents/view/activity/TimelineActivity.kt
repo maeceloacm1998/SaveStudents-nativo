@@ -5,19 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.InformationTimelineController
 import br.oficial.savestudents.controller.TimelineController
 import br.oficial.savestudents.databinding.ActivityTimelineBinding
-import com.br.core.utils.DateUtils
 import br.oficial.savestudents.viewModel.TimelineViewModel
+import com.br.core.constants.FirestoreDbConstants
+import com.br.core.share.ShareManager
+import com.br.core.utils.DateUtils
 import com.example.data_transfer.model.CreateTimelineItem
+import com.example.data_transfer.model.SubjectList
 
 class TimelineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimelineBinding
     private val timelineController by lazy { TimelineController() }
     private val informationTimelineController by lazy { InformationTimelineController() }
     private val mViewModel by lazy { TimelineViewModel() }
+    private var subjectInformation: SubjectList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,7 @@ class TimelineActivity : AppCompatActivity() {
         fetchTimelineList()
         handleBackButton()
         handleSettings()
+        handleShare()
         controller()
         observers()
     }
@@ -49,6 +53,7 @@ class TimelineActivity : AppCompatActivity() {
         mViewModel.informationData.observe(this) {
             timelineController.setTimelineList(it)
             informationTimelineController.setTimelineList(it)
+            subjectInformation = it.subjectsInformation
             informationTimelineController.setLoading(false)
             scrollingToCurrentDay(it.timelineList)
         }
@@ -82,6 +87,18 @@ class TimelineActivity : AppCompatActivity() {
         binding.settings.setOnClickListener {
             val subjectId = intent?.getStringExtra(SUBJECT_ID).toString()
             startActivity(TimelineSettingsActivity.newInstance(applicationContext, subjectId))
+        }
+    }
+
+    private fun handleShare() {
+        binding.share.setOnClickListener {
+            val text = applicationContext.getString(
+                com.br.core.R.string.share_text,
+                subjectInformation?.subjectName,
+                subjectInformation?.deeplink
+            )
+            val shareIntent = ShareManager().androidShareSheet(text)
+            startActivity(shareIntent)
         }
     }
 

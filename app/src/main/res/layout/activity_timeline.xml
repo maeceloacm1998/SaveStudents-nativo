@@ -56,6 +56,21 @@
         app:layout_constraintTop_toTopOf="@id/back_container"
         app:tint="@color/primary" />
 
+    <ImageView
+        android:id="@+id/share"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/bg_ripple_rounded_secondary_100"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_round_share"
+        app:layout_constraintBottom_toBottomOf="@id/back_container"
+        app:layout_constraintEnd_toStartOf="@id/settings"
+        app:layout_constraintTop_toTopOf="@id/back_container"
+        app:tint="@color/primary" />
+
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/information_timeline_container"
         android:layout_width="match_parent"
