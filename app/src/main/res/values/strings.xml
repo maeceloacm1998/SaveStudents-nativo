@@ -43,6 +43,9 @@
     <string name="add_timeline_button_text">Criar</string>)
     <string name="title_add_timeline">Criar Atividade</string>
     <string name="back_button_text">Voltar</string>
+    <string name="jump_step">pular</string>
+    <string name="next_step">Próximo</string>
+    <string name="finish_step">Ir para o app :)</string>
 
     // Subtitle toggle
     <string name="day_toggle">Dia atual</string>
@@ -54,5 +57,4 @@
     <string name="email_error">"Email incorreto, tente novamente.</string>
     <string name="password_error">Passoword incorreto, tente novamente.</string>
     <string name="incorrect_fields">"Preencha todos os campos"</string>
-
 </resources>
