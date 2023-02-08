@@ -3,14 +3,16 @@ package br.oficial.savestudents.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.oficial.savestudents.R
+import com.example.data_transfer.model.OnboardModel
 import com.example.data_transfer.model.contract.CarouselRVContract
 
 class CarouselRVAdapter(
-    private val carouselDataList: ArrayList<String>,
+    private val carouselDataList: List<OnboardModel>,
     private val contract: CarouselRVContract
 ) :
     RecyclerView.Adapter<CarouselRVAdapter.CarouselItemViewHolder>() {
@@ -28,7 +30,8 @@ class CarouselRVAdapter(
         holder.apply {
             clickNextStep(position)
             clickJumpStep()
-            setText(item, item)
+            setText(item.title, item.description)
+            setImage(item.image)
             handleButtonLayout(position)
         }
     }
@@ -48,7 +51,8 @@ class CarouselRVAdapter(
             }
         } else {
             button.setBackgroundDrawable(
-                ContextCompat.getDrawable(button.context,
+                ContextCompat.getDrawable(
+                    button.context,
                     R.drawable.bg_rounded_blue_light_with_border_primary
                 )
             )
@@ -61,17 +65,14 @@ class CarouselRVAdapter(
     }
 
     private fun CarouselItemViewHolder.setImage(image: Int) {
-        val button = itemView.findViewById<View>(R.id.button)
-
-        button.setOnClickListener {
-            contract.clickNextButtonListener(position)
-        }
+        val imageView = itemView.findViewById<ImageView>(R.id.image)
+        imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, image))
     }
 
     private fun CarouselItemViewHolder.clickJumpStep() {
-        val button = itemView.findViewById<View>(R.id.jump_step)
+        val jumpButton = itemView.findViewById<View>(R.id.jump_step)
 
-        button.setOnClickListener {
+        jumpButton.setOnClickListener {
             contract.clickFinishButtonListener()
         }
     }
@@ -82,9 +83,9 @@ class CarouselRVAdapter(
     }
 
     private fun CarouselItemViewHolder.clickNextStep(position: Int) {
-        val button = itemView.findViewById<View>(R.id.button)
+        val nextStepButton = itemView.findViewById<View>(R.id.button)
 
-        button.setOnClickListener {
+        nextStepButton.setOnClickListener {
             if (isLastItem(position)) {
                 contract.clickFinishButtonListener()
             }

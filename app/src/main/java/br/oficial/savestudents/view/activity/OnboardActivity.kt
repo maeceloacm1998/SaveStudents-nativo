@@ -1,12 +1,12 @@
 package br.oficial.savestudents.view.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.oficial.savestudents.adapter.CarouselRVAdapter
 import br.oficial.savestudents.databinding.ActivityOnboardBinding
+import br.oficial.savestudents.utils.OnboardMock
 import com.example.data_transfer.model.contract.CarouselRVContract
 
 
@@ -26,22 +26,7 @@ class OnboardActivity : AppCompatActivity() {
                 RecyclerView.OVER_SCROLL_NEVER
         }
 
-        val demoData = arrayListOf(
-            "Curabitur sit amet rutrum enim, sit amet commodo urna. Nullam nec nisl eget purus vulputate ultrices nec sit amet est. Sed sodales maximus risus sit amet placerat.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet lectus a mi lobortis iaculis. Mauris odio tortor, accumsan vel gravida sit amet, malesuada a tortor.",
-            "Praesent efficitur eleifend eros quis elementum. Vivamus eget nunc ante. Sed sed sodales libero. Nam ipsum lorem, consequat at ipsum sit amet, tempor vulputate nibh.",
-            "Aliquam sodales imperdiet augue at consectetur. Suspendisse dui mauris, tincidunt non auctor quis, facilisis et tellus.",
-            "Ut non tincidunt neque, et sodales ligula. Quisque interdum in dui sit amet sagittis. Curabitur erat magna, maximus quis libero quis, dapibus eleifend orci."
-        )
-
-        binding.viewPager.setLayoutParams(
-            LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        )
-
-        binding.viewPager.adapter = CarouselRVAdapter(demoData, contract)
+        binding.viewPager.adapter = CarouselRVAdapter(OnboardMock.getOnboardItems(), contract)
     }
 
     val contract = object : CarouselRVContract {
@@ -50,7 +35,14 @@ class OnboardActivity : AppCompatActivity() {
         }
 
         override fun clickFinishButtonListener() {
-            TODO("Not yet implemented")
+            renderHomeActivity()
         }
+    }
+
+    private fun renderHomeActivity() {
+        val intent = HomeActivity.newInstance(applicationContext)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
     }
 }
