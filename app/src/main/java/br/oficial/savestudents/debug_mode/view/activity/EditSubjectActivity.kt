@@ -33,6 +33,7 @@ class EditSubjectActivity : AppCompatActivity() {
         handleGoBackListener()
         handleClickPeriodSelectListener()
         handleClickShiftSelectListener()
+        handleSubjectModelSelectListener()
         handleSubmitListener()
         checkModifiedSubjectAndTeacher()
     }
@@ -64,6 +65,12 @@ class EditSubjectActivity : AppCompatActivity() {
                 val newSubjectItem = subjectItem.copy(shift = option)
                 subjectItem = newSubjectItem
             }
+
+            CreateSubjectConstants.Filter.SUBJECT_MODEL_FIELD -> {
+                binding.selectModelSubject.handleTitle(option)
+                val newSubjectItem = subjectItem.copy(subjectModel = option)
+                subjectItem = newSubjectItem
+            }
         }
     }
 
@@ -86,6 +93,7 @@ class EditSubjectActivity : AppCompatActivity() {
             handleTeacherName(subjectItem.teacherName)
             handlePeriodSelectList(subjectItem.period)
             handleShiftSelectList(subjectItem.shift)
+            handleSubjectModelSelectList(subjectItem.subjectModel)
             loading(false)
         }
 
@@ -118,6 +126,12 @@ class EditSubjectActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleSubjectModelSelectListener() {
+        binding.selectModelSubject.view().setOnClickListener {
+            handlePeriodSelect(CreateSubjectConstants.Filter.SUBJECT_MODEL_FIELD)
+        }
+    }
+
     private fun handlePeriodSelect(filterType: String) {
         val intent = SelectOptionActivity.newInstance(applicationContext, filterType)
         startActivityForResult(intent, SelectOptionActivity.SELECT_OPTION_REQUEST_CODE)
@@ -137,6 +151,10 @@ class EditSubjectActivity : AppCompatActivity() {
 
     private fun handleShiftSelectList(shift: String) {
         binding.selectShiftList.handleTitle(shift)
+    }
+
+    private fun handleSubjectModelSelectList(subjectModel: String) {
+        binding.selectModelSubject.handleTitle(subjectModel)
     }
 
     private fun checkModifiedSubjectAndTeacher() {

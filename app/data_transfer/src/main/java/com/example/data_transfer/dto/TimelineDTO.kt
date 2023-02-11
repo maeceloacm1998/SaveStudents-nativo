@@ -5,7 +5,7 @@ import com.example.data_transfer.model.SubjectList
 import com.example.data_transfer.model.TimelineItem
 
 data class TimelineDTO(
-    var subjectsInformation: SubjectList = SubjectList(),
+    var subjectsInformation: SubjectList,
     var timelineList: MutableList<CreateTimelineItem> = mutableListOf(CreateTimelineItem()),
 )
 
