@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         getPushToken()
         initAdminCheckDb()
-        renderHomeActivity()
+        handleInitialActivity()
     }
 
     private fun initAdminCheckDb() {
@@ -33,11 +33,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderHomeActivity() {
+    private fun handleInitialActivity() {
+        val shouldShowOnboard = SharedPreferencesBuilder.GetInstance(applicationContext)
+            .getBoolean(OnboardActivity.ONBOARD_KEY, true)
+
+        if (shouldShowOnboard) {
+            renderOnboard()
+        } else {
+            renderHome()
+        }
+    }
+
+    private fun renderHome() {
         val intent = HomeActivity.newInstance(applicationContext)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-        val intentTest = Intent(applicationContext, OnboardActivity::class.java)
-        startActivity(intentTest)
+        startActivity(intent)
+    }
+
+    private fun renderOnboard() {
+        val intent = OnboardActivity.newInstance(applicationContext)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
     }
 }
