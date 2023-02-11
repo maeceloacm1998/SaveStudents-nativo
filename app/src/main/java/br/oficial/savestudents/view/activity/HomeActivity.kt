@@ -4,16 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.oficial.savestudents.R
 import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.HeaderHomeActivityController
 import br.oficial.savestudents.controller.HomeActivityController
@@ -31,14 +24,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 
-
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var adminCheckDAO: AdminCheckDAO
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
     private val searchBarController by lazy { SearchBarController(homeContract) }
-    private lateinit var mViewModel: HomeViewModel
+    private val viewModel by lazy { HomeViewModel()}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,22 +38,11 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         adminCheckDAO = AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
 
-        mViewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(HomeViewModel()::class.java)
-
         fetchSubjectList()
         controllers()
         observers()
         handleFirebaseDynamicLinks(intent)
         handleCheckUser()
-    }
-
-    override fun onCreateView(
-        parent: View?, name: String, context: Context, attrs: AttributeSet
-    ): View? {
-        handleCalculateTallestHeader()
-        return super.onCreateView(parent, name, context, attrs)
     }
 
     override fun onResume() {
@@ -84,12 +65,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun observers() {
-        mViewModel.subjectList.observe(this) { observe ->
+        viewModel.subjectList.observe(this) { observe ->
             setError(false)
             homeActivityController.setSubjectList(observe)
         }
 
-        mViewModel.searchList.observe(this) { observe ->
+        viewModel.searchList.observe(this) { observe ->
             searchBarController.apply {
                 isResponseError(false)
                 setLoading(false)
@@ -97,12 +78,12 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        mViewModel.subjectListError.observe(this) { observe ->
+        viewModel.subjectListError.observe(this) { observe ->
             setError(true)
             homeActivityController.setResponseError(observe)
         }
 
-        mViewModel.searchError.observe(this) { observe ->
+        viewModel.searchError.observe(this) { observe ->
             searchBarController.apply {
                 isResponseError(true)
                 setResponseError(observe)
@@ -159,7 +140,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun fetchSubjectList() {
-        mViewModel.getSubjectList()
+        viewModel.getSubjectList()
     }
 
     private fun handleHeaderController() {
@@ -178,22 +159,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleCalculateTallestHeader() {
-        val layoutTallest = R.layout.activity_home_header_tallest
-
-        (parent?.parent as? ViewGroup)?.let {
-            val headerTallest = LayoutInflater.from(applicationContext).inflate(layoutTallest, null)
-            headerTallest.visibility = View.VISIBLE
-            it.addView(headerTallest)
-            headerTallest.doOnLayout { view ->
-                binding.headerMainView.apply {
-                    this.layoutParams.height = view.measuredHeight
-                }
-                headerTallest.visibility = View.GONE
-            }
-        }
-    }
-
     private fun handleFiltersSelected() {
         homeActivityController.clearSubjectList()
 
@@ -204,7 +169,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun filterSubjectList() {
-        mViewModel.filterSubjectList(
+        viewModel.filterSubjectList(
             FirestoreDbConstants.Collections.SUBJECTS_LIST,
             checkboxSelectedList,
             checkboxRadioSelected
@@ -240,7 +205,7 @@ class HomeActivity : AppCompatActivity() {
 
         override fun editTextValue(text: String) {
             searchBarController.setLoading(true)
-            mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
+            viewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
         }
 
         override fun adminModeOnActiveListener() {
