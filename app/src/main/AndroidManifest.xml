@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveStudents">
         <activity
+            android:name=".view.activity.FAQActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.OnboardActivity"
             android:exported="false" />
         <activity

@@ -43,6 +43,7 @@ class HomeActivity : AppCompatActivity() {
         observers()
         handleFirebaseDynamicLinks(intent)
         handleCheckUser()
+        handleClickFaqButtonListener()
     }
 
     override fun onResume() {
@@ -112,6 +113,13 @@ class HomeActivity : AppCompatActivity() {
         user?.reauthenticate(credential)?.addOnFailureListener {
             userDB?.let { it -> adminCheckDAO.deleteAdminModeStatus(it.id) }
             headerHomeActivityController.isAdminMode(false)
+        }
+    }
+
+    private fun handleClickFaqButtonListener() {
+        binding.FAQ.setOnClickListener {
+            val intent = FAQActivity.newInstance(applicationContext)
+            startActivity(intent)
         }
     }
 

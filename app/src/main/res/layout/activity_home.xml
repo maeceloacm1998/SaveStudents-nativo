@@ -26,4 +26,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_main_view" />
 
+    <View
+        android:id="@+id/FAQ"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_rounded_100_primary"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@id/home_main_view"
+        app:layout_constraintEnd_toEndOf="@id/home_main_view" />
+
+    <ImageView
+        android:id="@+id/back_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_question_baseline"
+        app:layout_constraintBottom_toBottomOf="@+id/FAQ"
+        app:layout_constraintEnd_toEndOf="@id/FAQ"
+        app:layout_constraintStart_toStartOf="@+id/FAQ"
+        app:layout_constraintTop_toTopOf="@+id/FAQ"
+        app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>
