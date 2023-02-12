@@ -3,13 +3,13 @@ package com.example.data_transfer.model
 import com.example.data_transfer.dto.SubjectListDto
 
 data class SubjectList(
-    var id: String,
-    var deeplink: String,
-    var subjectName: String,
-    var teacherName: String,
-    var period: String,
-    var shift: String,
-    var subjectModel: String
+    var id: String = "",
+    var deeplink: String = "",
+    var subjectName: String = "",
+    var teacherName: String = "",
+    var period: String = "",
+    var shift: String = "",
+    var subjectModel: String = ""
 )
 
 fun SubjectListDto.asModel(): SubjectList =

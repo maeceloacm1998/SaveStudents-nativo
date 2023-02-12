@@ -130,17 +130,17 @@ class CreateTimelineActivity : AppCompatActivity() {
     }
 
     private fun createSubjectItem(id: String): SubjectList {
-        return SubjectList().apply {
-            this.id = id
-            this.deeplink = getTimelineDeeplink(
+        return SubjectList(
+            id = id,
+            deeplink = getTimelineDeeplink(
                 "https://savestudents.page.link/?link=https://savestudents.page.link/home", id
-            )
-            this.period = intent?.getStringExtra(PERIOD_OPTION_NAME).toString()
-            this.shift = intent?.getStringExtra(SHIFT_OPTION_NAME).toString()
-            this.subjectModel = intent?.getStringExtra(SUBJECT_MODEL_OPTION_NAME).toString()
-            this.subjectName = intent?.getStringExtra(SUBJECT_NAME).toString()
-            this.teacherName = intent?.getStringExtra(TEACHER_NAME).toString()
-        }
+            ),
+            period = intent?.getStringExtra(PERIOD_OPTION_NAME).toString(),
+            shift = intent?.getStringExtra(SHIFT_OPTION_NAME).toString(),
+            subjectModel = intent?.getStringExtra(SUBJECT_MODEL_OPTION_NAME).toString(),
+            subjectName = intent?.getStringExtra(SUBJECT_NAME).toString(),
+            teacherName = intent?.getStringExtra(TEACHER_NAME).toString(),
+        )
     }
 
     private fun getTimelineDeeplink(path: String, id: String): String {
