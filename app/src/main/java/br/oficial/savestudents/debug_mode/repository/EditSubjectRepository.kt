@@ -48,5 +48,7 @@ class EditSubjectRepository() : IEditSubjectRepository {
                 firebaseResponseModel.onFailure(error)
             }
         })
+
+        client.updateDocument(FirestoreDbConstants.Collections.TIMELINE_LIST,id, "subjectsInformation", data)
     }
 }

@@ -190,6 +190,15 @@ class FirebaseClient : FirebaseClientModel {
         database.collection(collectionPath).document(documentPath).delete()
     }
 
+    override fun updateDocument(
+        collectionPath: String,
+        documentPath: String,
+        field: String,
+        value: Any
+    ) {
+        database.collection(collectionPath).document(documentPath).update(field,value)
+    }
+
     private fun setErrorFailure(code: Int, message: String): OnFailureModel {
         return OnFailureModel(code, message)
     }
