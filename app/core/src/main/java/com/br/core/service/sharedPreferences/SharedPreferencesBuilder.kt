@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-data class SharedPreferencesBuilder(val context: Context){
+object SharedPreferencesBuilder {
 
-    companion object {
-        const val SHARED_PREFERENCES_KEY = "@save_students"
-    }
+    const val SHARED_PREFERENCES_KEY = "@save_students"
 
-    class GetInstance(val context: Context)  {
-        private val sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_KEY ,Context.MODE_PRIVATE)
+    class GetInstance(val context: Context) {
+        private val sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
         private val editor: SharedPreferences.Editor = sharedPref.edit()
 
         fun putString(key: String, data: String) {

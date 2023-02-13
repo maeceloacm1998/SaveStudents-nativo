@@ -47,6 +47,7 @@ class HomeActivityController(private val mContract: HomeActivityContract) : Epox
                     subjectId(item.id)
                     title(item.subjectName)
                     period(item.period)
+                    teacher(item.teacherName)
                     clickHorizontalCardListener(mContract::clickHorizontalCardListener)
                     marginLeft(16)
                     marginRight(16)

@@ -37,4 +37,6 @@ interface FirebaseClientModel {
     fun createDocument(collectionPath: String): String
 
     fun deleteDocument(collectionPath: String, documentPath: String)
+
+    fun updateDocument(collectionPath: String, documentPath: String, field: String, value: Any)
 }

@@ -9,4 +9,7 @@
 
     <string name="title_notification_class">Hoje de %s você tem aula de %s</string>
     <string name="description_notification_class">O assunto é %s. Estude e se prepare para hoje.</string>
+
+    // Texto de compartilhamento
+    <string name="share_text">Estou compartilhando a grade da matéria de %s. Dê uma conferida nas aulas dessa materia 🤓🚀 %s</string>
 </resources>

@@ -3,6 +3,17 @@
     <string name="deeplink_default">savestudents.page.link</string>
     <string name="scheme_deeplink_default">https</string>
 
+    // FAQ
+    <string name="FAQ_save_students">Sobre o SaveStudents</string>
+    <string name="FAQ_save_students_text">Pensando em melhorar ainda mais a visualização das matérias e atividades diárias, semanais e mensais da faculdade, surgiu a ideia do aplicativo Save Students. Sabemos o quanto pode ser exaustivo a procura e leitura de matérias e suas respectivas atividades por PDF, pois normalmente são muitos documentos e várias matérias, então, porque não ter acesso mais rápido com notificações para se programar e poder estudar com mais tranquilidade? O app te ajuda a lembrar daquela atividade da semana ou mesmo daquela prova agendada para a última aula, contando ainda com a visualização de todas as matérias do seu turno ou mesmo do período no qual esteja estudando no momento. Espero que ele te ajude durante toda a sua trajetória. Esse aplicativo foi feito sem fins lucrativos, por um aluno da PUC São Gabriel, caso precise tirar alguma dúvida ou adicionar alguma matérias, entre em contato.</string>
+    <string name="FAQ_contact_title">Contatos</string>
+    <string name="default_title_email">Dúvidas, Sugestões ou Cadastro de matéria</string>
+    <string name="default_text_email">Caso tenha alguma matéria que não esteja cadastrada no aplicativo, mande os seguintes dados: Nome da matéria, período, turno, modelo(Presencial ou Remoto), nome do professor e o PDF com as aulas dessa matérias.</string>
+
+    // Profile
+    <string name="profile_name">Marcelo Antônio</string>
+    <string name="profile_work">Desenvolvedor Android | Kotlin | @americanas s.a</string>
+
     // Placeholders
     <string name="search_edit_text_hint"><font size="16">Digite o nome da matéria</font></string>
     <string name="subject_name_hint"><font size="14">Nome da matéria</font></string>
@@ -10,6 +21,7 @@
     <string name="timeline_name_hint"><font size="12">Digite o nome da atividade</font></string>
     <string name="email_hint"><font size="12">Email</font></string>
     <string name="password_hint"><font size="12">Senha</font></string>
+    <string name="teacher_name">Prof. %s</string>
 
     // Titles
     <string name="tittle_search_holder">Buscar Materiais</string>
@@ -38,14 +50,23 @@
     <string name="information_timeline_notification_text">Notificar</string>
     <string name="select_period_list">Período</string>
     <string name="select_shift_list">Turno</string>
-    <string name="add_timeline_button_text">Criar</string>
+    <string name="select_model_shift_list">Modelo (Ex: Presencial)</string>
+    <string name="add_timeline_button_text">Criar</string>)
     <string name="title_add_timeline">Criar Atividade</string>
     <string name="back_button_text">Voltar</string>
+    <string name="jump_step">pular</string>
+    <string name="next_step">Próximo</string>
+    <string name="finish_step">Ir para o app :)</string>
 
     // Subtitle toggle
     <string name="day_toggle">Dia atual</string>
     <string name="class_toggle">Aula</string>
     <string name="exam_toggle">Prova</string>
     <string name="holiday_toggle">Feriado</string>
+
+    // Erros
+    <string name="email_error">"Email incorreto, tente novamente.</string>
+    <string name="password_error">Passoword incorreto, tente novamente.</string>
+    <string name="incorrect_fields">"Preencha todos os campos"</string>
 
 </resources>

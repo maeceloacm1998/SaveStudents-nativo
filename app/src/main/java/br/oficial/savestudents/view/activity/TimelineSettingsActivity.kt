@@ -111,7 +111,9 @@ class TimelineSettingsActivity : AppCompatActivity() {
     }
 
     private fun deleteNotification() {
-        timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification(it.id) }
+        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+            .getString(NotificationsManager.PUSH_TOKEN_KEY)
+        timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification("${it.id}${pushToken}") }
     }
 
     private fun generateNotificationItemId(id: String, pushToken: String?): String {

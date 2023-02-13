@@ -34,8 +34,11 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
                         it.toObject(NotificationTimelineDTO::class.java).asDomainModel()
                     }
 
-                    notificationList.map { notification ->
-                        handleNotification(notification)
+                    notificationList.mapIndexed { index, notification ->
+                        handleNotification(
+                            notification,
+                            index
+                        )
                     }
                 }
 
@@ -43,7 +46,12 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
             })
     }
 
-    private fun createNotification(title: String, description: String, deeplink: String, idNotification: Int) {
+    private fun createNotification(
+        title: String,
+        description: String,
+        deeplink: String,
+        idNotification: Int
+    ) {
         val notificationBuilder = NotificationsManager(applicationContext)
         notificationBuilder.createChannel(
             NotificationWorkerBuilder.ID_CHANNEL, NotificationWorkerBuilder.NAME_CHANNEL
@@ -58,8 +66,8 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
         )
     }
 
-    private fun handleNotification(notification: NotificationTimeline) {
-        notification.timelineList?.mapIndexed { index, timelineItem ->
+    private fun handleNotification(notification: NotificationTimeline, index: Int) {
+        notification.timelineList?.map { timelineItem ->
             val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
                 .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
@@ -67,7 +75,10 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
                 when (timelineItem.type) {
                     TIMELINE_TYPE_HOLIDAY -> {
                         createNotification(
-                            applicationContext.getString(R.string.title_notification_holiday, timelineItem.type.uppercase()),
+                            applicationContext.getString(
+                                R.string.title_notification_holiday,
+                                timelineItem.type.uppercase()
+                            ),
                             applicationContext.getString(R.string.description_notification_holiday),
                             notification.deeplink,
                             index
@@ -75,16 +86,31 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
                     }
                     TIMELINE_TYPE_EXAM -> {
                         createNotification(
-                            applicationContext.getString(R.string.title_notification_exam, notification.shift, timelineItem.type.uppercase(), notification.subjectName),
-                            applicationContext.getString(R.string.description_notification_exam, timelineItem.subjectName),
+                            applicationContext.getString(
+                                R.string.title_notification_exam,
+                                notification.shift,
+                                timelineItem.type.uppercase(),
+                                notification.subjectName
+                            ),
+                            applicationContext.getString(
+                                R.string.description_notification_exam,
+                                timelineItem.subjectName
+                            ),
                             notification.deeplink,
                             index
                         )
                     }
                     else -> {
                         createNotification(
-                            applicationContext.getString(R.string.title_notification_class, notification.shift, notification.subjectName),
-                            applicationContext.getString(R.string.description_notification_class, timelineItem.subjectName),
+                            applicationContext.getString(
+                                R.string.title_notification_class,
+                                notification.shift,
+                                notification.subjectName
+                            ),
+                            applicationContext.getString(
+                                R.string.description_notification_class,
+                                timelineItem.subjectName
+                            ),
                             notification.deeplink,
                             index
                         )

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.br.core.service.internal.dao.AdminCheckDAO
 import com.example.data_transfer.model.entity.AdminCheckEntity
 
-@Database(entities = [AdminCheckEntity::class], version = 1)
+@Database(entities = [AdminCheckEntity::class], version = 2)
 abstract class AdminCheckDB : RoomDatabase() {
     abstract fun adminCheckDAO(): AdminCheckDAO
 

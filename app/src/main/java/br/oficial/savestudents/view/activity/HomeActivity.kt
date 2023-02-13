@@ -4,16 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.oficial.savestudents.R
 import com.br.core.constants.FirestoreDbConstants
 import br.oficial.savestudents.controller.HeaderHomeActivityController
 import br.oficial.savestudents.controller.HomeActivityController
@@ -26,9 +19,10 @@ import br.oficial.savestudents.viewModel.HomeViewModel
 import com.br.core.service.internal.database.AdminCheckDB
 import com.example.data_transfer.model.contract.HeaderHomeActivityContract
 import com.example.data_transfer.model.contract.HomeActivityContract
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
-
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -36,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
     private val headerHomeActivityController by lazy { HeaderHomeActivityController(headerContract) }
     private val homeActivityController by lazy { HomeActivityController(homeContract) }
     private val searchBarController by lazy { SearchBarController(homeContract) }
-    private lateinit var mViewModel: HomeViewModel
+    private val viewModel by lazy { HomeViewModel()}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,32 +38,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         adminCheckDAO = AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
 
-        mViewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(HomeViewModel()::class.java)
-
         fetchSubjectList()
         controllers()
         observers()
         handleFirebaseDynamicLinks(intent)
-    }
-
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        handleCalculateTallestHeader()
-        return super.onCreateView(parent, name, context, attrs)
+        handleCheckUser()
+        handleClickFaqButtonListener()
     }
 
     override fun onResume() {
         super.onResume()
-
-        adminCheckDAO.getAdminModeStatus()?.isAdminModeOn?.let {
-            headerHomeActivityController.isAdminMode(it)
-        }
+        checkAdminEnabled()
 
         if (isFiltered) {
             handleFiltersSelected()
@@ -87,12 +66,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun observers() {
-        mViewModel.subjectList.observe(this) { observe ->
+        viewModel.subjectList.observe(this) { observe ->
             setError(false)
             homeActivityController.setSubjectList(observe)
         }
 
-        mViewModel.searchList.observe(this) { observe ->
+        viewModel.searchList.observe(this) { observe ->
             searchBarController.apply {
                 isResponseError(false)
                 setLoading(false)
@@ -100,12 +79,12 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        mViewModel.subjectListError.observe(this) { observe ->
+        viewModel.subjectListError.observe(this) { observe ->
             setError(true)
             homeActivityController.setResponseError(observe)
         }
 
-        mViewModel.searchError.observe(this) { observe ->
+        viewModel.searchError.observe(this) { observe ->
             searchBarController.apply {
                 isResponseError(true)
                 setResponseError(observe)
@@ -114,22 +93,53 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleFirebaseDynamicLinks(intent: Intent) {
-        Firebase.dynamicLinks
-            .getDynamicLink(intent)
-            .addOnSuccessListener { dynamicLinkData ->
-                if (dynamicLinkData != null) {
-                    showDynamicLinkOffer(dynamicLinkData.link)
-                }
+        Firebase.dynamicLinks.getDynamicLink(intent).addOnSuccessListener { dynamicLinkData ->
+            if (dynamicLinkData != null) {
+                showDynamicLinkOffer(dynamicLinkData.link)
             }
-            .addOnFailureListener(this) { e ->
-                Log.d("DynamicLinkError", e.localizedMessage)
-            }
+        }.addOnFailureListener(this) { e ->
+            Log.d("DynamicLinkError", e.localizedMessage)
+        }
+    }
+
+    private fun handleCheckUser() {
+        val userDB = adminCheckDAO.getAdminModeStatus()
+        val user = FirebaseAuth.getInstance().currentUser
+        val credential = EmailAuthProvider.getCredential(
+            userDB?.email.toString(),
+            userDB?.id.toString()
+        )
+
+        user?.reauthenticate(credential)?.addOnFailureListener {
+            userDB?.let { it -> adminCheckDAO.deleteAdminModeStatus(it.id) }
+            headerHomeActivityController.isAdminMode(false)
+        }
+    }
+
+    private fun handleClickFaqButtonListener() {
+        binding.FAQ.setOnClickListener {
+            val intent = FAQActivity.newInstance(applicationContext)
+            startActivity(intent)
+        }
+    }
+
+    private fun checkAdminEnabled() {
+        val userDB = adminCheckDAO.getAdminModeStatus()
+        if (userDB == null) {
+            headerHomeActivityController.isAdminMode(false)
+        } else {
+            headerHomeActivityController.isAdminMode(true)
+        }
     }
 
     private fun showDynamicLinkOffer(uri: Uri?) {
         val promotionCode = uri?.getQueryParameter("id")
         if (promotionCode.isNullOrBlank().not()) {
-            startActivity(TimelineActivity.newInstance(applicationContext, promotionCode.toString()))
+            startActivity(
+                TimelineActivity.newInstance(
+                    applicationContext, promotionCode.toString()
+                )
+            )
         }
     }
 
@@ -138,7 +148,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun fetchSubjectList() {
-        mViewModel.getSubjectList()
+        viewModel.getSubjectList()
     }
 
     private fun handleHeaderController() {
@@ -157,23 +167,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleCalculateTallestHeader() {
-        val layoutTallest = R.layout.activity_home_header_tallest
-
-        (parent?.parent as? ViewGroup)?.let {
-            val headerTallest =
-                LayoutInflater.from(applicationContext).inflate(layoutTallest, null)
-            headerTallest.visibility = View.VISIBLE
-            it.addView(headerTallest)
-            headerTallest.doOnLayout { view ->
-                binding.headerMainView.apply {
-                    this.layoutParams.height = view.measuredHeight
-                }
-                headerTallest.visibility = View.GONE
-            }
-        }
-    }
-
     private fun handleFiltersSelected() {
         homeActivityController.clearSubjectList()
 
@@ -184,7 +177,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun filterSubjectList() {
-        mViewModel.filterSubjectList(
+        viewModel.filterSubjectList(
             FirestoreDbConstants.Collections.SUBJECTS_LIST,
             checkboxSelectedList,
             checkboxRadioSelected
@@ -195,9 +188,7 @@ class HomeActivity : AppCompatActivity() {
         override fun clickFilterButtonListener() {
             startActivity(
                 FilterOptionsActivity.newInstance(
-                    applicationContext,
-                    checkboxRadioSelected,
-                    checkboxSelectedList.toTypedArray()
+                    applicationContext, checkboxRadioSelected, checkboxSelectedList.toTypedArray()
                 )
             )
         }
@@ -222,7 +213,7 @@ class HomeActivity : AppCompatActivity() {
 
         override fun editTextValue(text: String) {
             searchBarController.setLoading(true)
-            mViewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
+            viewModel.searchSubjectList(FirestoreDbConstants.Collections.SUBJECTS_LIST, text)
         }
 
         override fun adminModeOnActiveListener() {
@@ -258,8 +249,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         fun saveFiltersSelected(
-            checkboxRadioSelected: String,
-            checkboxSelectedList: MutableList<String>
+            checkboxRadioSelected: String, checkboxSelectedList: MutableList<String>
         ) {
             this.checkboxRadioSelected = checkboxRadioSelected
             this.checkboxSelectedList = checkboxSelectedList

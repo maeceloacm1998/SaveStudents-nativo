@@ -5,4 +5,5 @@ data class SubjectData(
     var teacherName: String? = "",
     var period: String? = "",
     var shift: String? = "",
+    var subjectModel: String? = "",
 )

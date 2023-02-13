@@ -24,24 +24,11 @@
         android:textSize="16sp"
         android:maxLines="1"
         android:ellipsize="end"
-        app:layout_constraintBottom_toTopOf="@id/period"
+        app:layout_constraintBottom_toTopOf="@id/shift"
         app:layout_constraintEnd_toEndOf="@id/information_container"
         app:layout_constraintStart_toStartOf="@id/information_container"
         app:layout_constraintTop_toTopOf="@id/information_container"
         tools:text="Algoritmos em Grafos" />
-
-    <TextView
-        android:id="@+id/period"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
-        android:textColor="@color/soft_black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/shift"
-        app:layout_constraintEnd_toEndOf="@id/information_container"
-        app:layout_constraintStart_toStartOf="@id/information_container"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        tools:text="4º Período" />
 
     <TextView
         android:id="@+id/shift"
@@ -50,11 +37,24 @@
         android:fontFamily="@font/open_sans"
         android:textColor="@color/soft_black"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/subject_model"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Turno: Noite" />
+
+    <TextView
+        android:id="@+id/subject_model"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/teacher"
         app:layout_constraintEnd_toEndOf="@id/information_container"
         app:layout_constraintStart_toStartOf="@id/information_container"
-        app:layout_constraintTop_toBottomOf="@id/period"
-        tools:text="Turno: Noite" />
+        app:layout_constraintTop_toBottomOf="@id/shift"
+        tools:text="Modelo: Presencial" />
 
     <TextView
         android:id="@+id/teacher"
@@ -65,10 +65,21 @@
         android:textSize="14sp"
         android:maxLines="1"
         android:ellipsize="end"
-        app:layout_constraintBottom_toBottomOf="@id/information_container"
         app:layout_constraintEnd_toEndOf="@id/information_container"
         app:layout_constraintStart_toStartOf="@id/information_container"
-        app:layout_constraintTop_toBottomOf="@id/shift"
+        app:layout_constraintTop_toBottomOf="@id/subject_model"
         tools:text="Docente: Rothyele" />
+
+    <TextView
+        android:id="@+id/period"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/soft_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/information_container"
+        app:layout_constraintStart_toStartOf="@id/information_container"
+        app:layout_constraintTop_toBottomOf="@id/teacher"
+        tools:text="4º Período" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
