@@ -1,6 +1,6 @@
 package br.oficial.savestudents.utils
 
-import br.oficial.savestudents.R
+import com.br.core.R
 import com.example.data_transfer.model.OnboardModel
 
 class OnboardMock {
