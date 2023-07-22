@@ -24,7 +24,7 @@ abstract class HomeHorizontalCardHolder :
     lateinit var period: String
 
     @EpoxyAttribute
-    lateinit var teacher: String
+    var teacher: String = ""
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickHorizontalCardListener: (subjectId: String) -> Unit
