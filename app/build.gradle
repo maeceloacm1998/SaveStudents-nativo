@@ -55,6 +55,7 @@ android {
     lintOptions {
         abortOnError false
     }
+    namespace 'br.oficial.savestudents'
 }
 
 dependencies {

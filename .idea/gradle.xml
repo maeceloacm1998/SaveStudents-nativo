@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app/core" />
             <option value="$PROJECT_DIR$/app/data_transfer" />
+            <option value="$PROJECT_DIR$/features" />
           </set>
         </option>
       </GradleProjectSettings>
