@@ -29,6 +29,14 @@ androidXLifecycleVersion = "2.5.1"
 googleServicesVersion = "4.3.13"
 firebaseCrashVersion = "2.9.2"
 firebaseDistributionVersion = "3.2.0"
+epoxyVersion = "4.2.0"
+shimmerVersion = '0.5.0'
+serializeVersion = '1.2.2'
+workerVersion = "2.7.1"
+dynamicLinkVersion = "21.1.0"
+firebaseBom = "31.1.1"
+firebaseFirestoreVersion = "24.4.2"
+viewPagerVersion = "1.0.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidXAppcompatVersion" }
@@ -65,6 +73,12 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 koin = { module = "io.insert-koin:koin-android", version.ref = "koinVersion"}
 retrofit-android = { module = 'com.squareup.retrofit2:retrofit', version.ref = "retrofitVersion" }
 retrofit-gson-android = { module = 'com.squareup.retrofit2:converter-gson', version.ref = "retrofitVersion" }
+firebase-bom = { module = 'com.google.firebase:firebase-bom', version.ref = "firebaseBom" }
+firebase-auth = { module = 'com.google.firebase:firebase-auth-ktx' }
+firebase-crash = { module = 'com.google.firebase:firebase-crashlytics-ktx' }
+firebase-analytics= { module = 'com.google.firebase:firebase-analytics-ktx' }
+firebase-firestore= { module = 'com.google.firebase:firebase-firestore-ktx', version.ref = "firebaseFirestoreVersion" }
+firebase-link= { module = 'com.google.firebase:firebase-dynamic-links-ktx', version.ref = "dynamicLinkVersion" }
 
 [bundles]
 navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]

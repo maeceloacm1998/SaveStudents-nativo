@@ -62,44 +62,32 @@ dependencies {
     api project(path: ':app:core')
     api project(path: ':app:data_transfer')
 
-    def material_version = "1.6.0"
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'
-    def roomVersion = '2.2.5'
     def serializeVersion = '1.2.2'
     def appDistributionVersion = '3.2.0'
     def workerVersion = "2.7.1"
-    def dynamicLinkVersion = "21.1.0"
-    def firebaseBom = "31.1.1"
     def viewPagerVersion = "1.0.0"
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    // Firebase BOM
-    implementation platform("com.google.firebase:firebase-bom:$firebaseBom")
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.core.ktx
 
-    // Firebase-auth
-    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.legacy
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    kapt libs.androidx.room.compiler
 
-    // Firebase Crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation libs.material
+    implementation libs.firebase.bom
+    implementation libs.firebase.auth
+    implementation libs.firebase.crash
+    implementation libs.firebase.analytics
+    implementation libs.firebase.firestore
+    implementation libs.firebase.link
 
-    // Firebase
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
-
-    //Firebase Dynamic link
-    implementation "com.google.firebase:firebase-dynamic-links-ktx:$dynamicLinkVersion"
-
-    // Material Design
-    implementation "com.google.android.material:material:$material_version"
 
     // Epoxy
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
@@ -116,10 +104,6 @@ dependencies {
 
     // WorkManager
     implementation "androidx.work:work-runtime-ktx:$workerVersion"
-
-    // Room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
 
     // ViewPager
     implementation "androidx.viewpager2:viewpager2:$viewPagerVersion"
