@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.oficial.savestudents.R
-import br.oficial.savestudents.view.activity.HomeActivity
 import br.oficial.savestudents.view.activity.OnboardActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.savestudents.features.login.ui.LoginV2Activity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderHome() {
-        val intent = HomeActivity.newInstance(applicationContext)
+//        val intent = HomeActivity.newInstance(applicationContext)
+        val intent = Intent(applicationContext, LoginV2Activity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
         startActivity(intent)
