@@ -8,6 +8,7 @@ import br.oficial.savestudents.view.activity.OnboardActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
 import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.login.ui.LoginV2Activity
@@ -26,8 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun koinInjection() {
         KoinUtils.createInstance(applicationContext)
-        KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*FirebaseDependencyInjection.modules)
+        KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
+        KoinUtils.addModules(*LoginDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {

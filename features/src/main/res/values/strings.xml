@@ -4,5 +4,9 @@
     <string name="register_text">Não tem conta? Registra-se</string>
     <string name="submit_text">Entrar</string>
     <string name="account_validation_error">Seu e-mail ou senha estão incorretos</string>
+    <string name="account_validation_empty_email">Digite seu e-mail nesse campo.</string>
+    <string name="account_validation_empty_password">Digite sua senha nesse campo.</string>
+    <string name="account_validation_incorrect_email">E-mail no formato incorreto. Ex: exemplo@gmail.com</string>
     <string name="not_text_error">  </string>
+
 </resources>

@@ -5,13 +5,18 @@ import com.savestudents.features.mvp.BaseView
 
 interface LoginContract {
 
-    interface View: BaseView<Presenter> {
+    interface View : BaseView<Presenter> {
         fun loadingValidateAccount(loading: Boolean)
+        fun showEmptyEmailError()
+        fun showIncorrectEmailError()
+        fun showEmptyPasswordError()
+
         fun showValidateAccountError()
+        fun hideValidateAccountError()
         fun successValidateAccount()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun validateAccount()
+        fun validateAccount(email: String, password: String)
     }
 }
