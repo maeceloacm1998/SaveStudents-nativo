@@ -9,7 +9,7 @@ import org.koin.dsl.module
 object LoginDependencyInjection {
     private val loginModules = module {
         factory { LoginFragment() }
-        factory<LoginContract.Presenter> { LoginPresenter() }
+        factory<LoginContract.Presenter> { LoginPresenter(get()) }
     }
 
     val modules = arrayOf(loginModules)
