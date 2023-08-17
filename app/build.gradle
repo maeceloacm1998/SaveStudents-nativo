@@ -63,6 +63,7 @@ dependencies {
     api project(path: ':app:data_transfer')
     implementation project(path: ':features')
     implementation project(path: ':components')
+    implementation project(path: ':core')
 
     def epoxyVersion = "4.2.0"
     def shimmerVersion = '0.5.0'

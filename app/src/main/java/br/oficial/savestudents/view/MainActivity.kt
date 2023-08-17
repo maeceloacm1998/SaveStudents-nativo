@@ -8,7 +8,10 @@ import br.oficial.savestudents.view.activity.OnboardActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.savestudents.core.firebase.FirebaseDependencyInjection
+import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.login.ui.LoginV2Activity
+import com.savestudents.features.shared.utils.KoinUtils
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,8 +19,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         getPushToken()
+        koinInjection()
         initAdminCheckDb()
         handleInitialActivity()
+    }
+
+    private fun koinInjection() {
+        KoinUtils.createInstance(applicationContext)
+        KoinUtils.addModules(*LoginDependencyInjection.modules)
+        KoinUtils.addModules(*FirebaseDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {

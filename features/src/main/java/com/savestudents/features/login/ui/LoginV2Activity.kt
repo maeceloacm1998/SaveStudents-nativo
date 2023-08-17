@@ -14,8 +14,5 @@ class LoginV2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginV2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        KoinUtils.createInstance(applicationContext)
-        addModules(*LoginDependencyInjection.modules)
     }
 }
