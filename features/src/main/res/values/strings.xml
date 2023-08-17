@@ -1,0 +1,8 @@
+<resources>
+    <string name="hint_email_account">E-mail</string>
+    <string name="hint_password_account">Senha</string>
+    <string name="register_text">Não tem conta? Registra-se</string>
+    <string name="submit_text">Entrar</string>
+    <string name="account_validation_error">Seu e-mail ou senha estão incorretos</string>
+    <string name="not_text_error">  </string>
+</resources>

@@ -8,50 +8,63 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.SaveStudents">
+        android:supportsRtl="true">
         <activity
             android:name=".view.activity.FAQActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".view.activity.OnboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".view.activity.TimelineSettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.EditTimelineActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.EditSubjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.SelectOptionSubjectTypeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.CreateTimelineActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.AllSubjectsListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.SelectOptionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".debug_mode.view.activity.CreateSubjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".view.activity.TimelineActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".view.activity.FilterOptionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SaveStudents" />
         <activity
             android:name=".view.activity.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SaveStudents">
             <intent-filter android:label="home_deeplink">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -66,7 +79,8 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SaveStudents">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +90,8 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts"
+            android:theme="@style/Theme.SaveStudents" />
     </application>
 
 </manifest>

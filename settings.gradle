@@ -18,4 +18,4 @@ include ':app'
 include ':app:core'
 include ':app:data_transfer'
 include ':features'
-
+include ':components'
