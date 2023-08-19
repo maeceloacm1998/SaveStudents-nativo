@@ -13,6 +13,7 @@
     <color name="gray_scale_50">#F2F3FD</color>
 
     <color name="primary">#2130BE</color>
+    <color name="primary_disabled">#959CD6</color>
 
     // Neutral
     <color name="black">#000000</color>

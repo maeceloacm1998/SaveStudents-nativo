@@ -25,9 +25,8 @@ class LoginPresenter(private val accountManager: AccountManager) : LoginContract
                     if (!isValidEmail(email)) view.showIncorrectEmailError()
                 }
             }
+            view.loadingValidateAccount(false)
         }
-
-        view.loadingValidateAccount(false)
     }
 
     private fun handleLogin(email: String, password: String) {
@@ -35,11 +34,15 @@ class LoginPresenter(private val accountManager: AccountManager) : LoginContract
             override fun onSuccess(model: FirebaseUser) {
                 view.run {
                     successValidateAccount()
+                    loadingValidateAccount(false)
                 }
             }
 
             override fun onFailure(error: OnFailureModel) {
-                view.showValidateAccountError()
+                view.run {
+                    showValidateAccountError()
+                    loadingValidateAccount(false)
+                }
             }
         })
     }
@@ -48,7 +51,7 @@ class LoginPresenter(private val accountManager: AccountManager) : LoginContract
         return email.isNotBlank() && password.isNotBlank()
     }
 
-    fun isValidEmail(email: String): Boolean {
+    private fun isValidEmail(email: String): Boolean {
         val emailPattern = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}")
         return emailPattern.matches(email)
     }

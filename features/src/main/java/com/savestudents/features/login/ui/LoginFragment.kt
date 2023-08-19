@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.transition.MaterialSharedAxis
+import com.savestudents.components.button.disabled
 import com.savestudents.features.R
 import com.savestudents.features.databinding.FragmentLoginBinding
 import com.savestudents.features.login.model.LoginContract
@@ -49,6 +49,7 @@ class LoginFragment : Fragment(), LoginContract.View {
                 binding.run {
                     val email = emailTextLayout.editText?.text.toString()
                     val password = passwordTextLayout.editText?.text.toString()
+
                     presenter.validateAccount(email, password)
                 }
             }
@@ -56,7 +57,7 @@ class LoginFragment : Fragment(), LoginContract.View {
     }
 
     override fun loadingValidateAccount(loading: Boolean) {
-        // TODO criar um componente de botao e colocar dentro
+        binding.submitButton.disabled(loading)
     }
 
     override fun showEmptyEmailError() {

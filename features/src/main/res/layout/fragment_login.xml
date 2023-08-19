@@ -64,7 +64,6 @@
             android:id="@+id/submit_button"
             style="@style/Theme.Ui.Button"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
             android:layout_marginTop="15dp"
             android:text="@string/submit_text"
             app:layout_constraintTop_toBottomOf="@id/register_button" />
