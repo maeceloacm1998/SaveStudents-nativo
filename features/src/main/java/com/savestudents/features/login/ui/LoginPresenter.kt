@@ -21,9 +21,7 @@ class LoginPresenter(private val accountManager: AccountManager) : LoginContract
             when {
                 email.isBlank() -> view.showEmptyEmailError()
                 password.isBlank() -> view.showEmptyPasswordError()
-                else -> {
-                    if (!isValidEmail(email)) view.showIncorrectEmailError()
-                }
+                else -> view.showIncorrectEmailError()
             }
             view.loadingValidateAccount(false)
         }
@@ -48,7 +46,7 @@ class LoginPresenter(private val accountManager: AccountManager) : LoginContract
     }
 
     private fun isValidFields(email: String, password: String): Boolean {
-        return email.isNotBlank() && password.isNotBlank()
+        return email.isNotBlank() && password.isNotBlank() && isValidEmail(email)
     }
 
     private fun isValidEmail(email: String): Boolean {
