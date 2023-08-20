@@ -16,6 +16,6 @@ interface LoginContract {
     }
 
     interface Presenter : BasePresenter {
-        fun validateAccount(email: String, password: String)
+        suspend fun validateAccount(email: String, password: String)
     }
 }

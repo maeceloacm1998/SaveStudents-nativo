@@ -15,7 +15,7 @@ coroutinesTestVersion = "1.6.4"
 gradleVersion = "8.0.0"
 gsonVersion = "2.10.1"
 junitVersion = "4.13.2"
-kotlinxVersion = "1.3.9"
+kotlinxVersion = "1.6.4"
 mockitoCoreVersion = "4.8.0"
 mockitoKotlinVersion = "4.0.0"
 mockkVersion = "1.13.3"
@@ -36,6 +36,7 @@ workerVersion = "2.7.1"
 dynamicLinkVersion = "21.1.0"
 firebaseBom = "31.1.1"
 firebaseFirestoreVersion = "24.4.2"
+firebaseAuthVersion = "22.1.1"
 viewPagerVersion = "1.0.0"
 
 [libraries]
@@ -74,7 +75,7 @@ koin = { module = "io.insert-koin:koin-android", version.ref = "koinVersion"}
 retrofit-android = { module = 'com.squareup.retrofit2:retrofit', version.ref = "retrofitVersion" }
 retrofit-gson-android = { module = 'com.squareup.retrofit2:converter-gson', version.ref = "retrofitVersion" }
 firebase-bom = { module = 'com.google.firebase:firebase-bom', version.ref = "firebaseBom" }
-firebase-auth = { module = 'com.google.firebase:firebase-auth-ktx' }
+firebase-auth = { module = 'com.google.firebase:firebase-auth-ktx', version.ref = "firebaseAuthVersion"}
 firebase-crash = { module = 'com.google.firebase:firebase-crashlytics-ktx' }
 firebase-analytics= { module = 'com.google.firebase:firebase-analytics-ktx' }
 firebase-firestore= { module = 'com.google.firebase:firebase-firestore-ktx', version.ref = "firebaseFirestoreVersion" }

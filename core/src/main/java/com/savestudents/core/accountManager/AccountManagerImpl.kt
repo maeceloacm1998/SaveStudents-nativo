@@ -3,35 +3,32 @@ package com.savestudents.core.accountManager
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.savestudents.core.firebase.FirebaseConstants
-import com.savestudents.core.firebase.FirebaseResponseModel
-import com.savestudents.core.firebase.OnFailureModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class AccountManagerImpl(private val auth: FirebaseAuth) : AccountManager {
     private lateinit var firebaseUser: FirebaseUser
 
-    override fun login(
+    override suspend fun login(
         email: String,
         password: String,
-        firebaseResponseModel: FirebaseResponseModel<FirebaseUser>
-    ) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { res ->
-                checkNotNull(res.user).run {
-                    Log.d("SUCCESS LOGIN", displayName.toString())
-                    firebaseUser = this
-                    firebaseResponseModel.onSuccess(this)
-                }
+    ): Result<FirebaseUser> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                auth.signInWithEmailAndPassword(email, password).await()
             }
-            .addOnFailureListener { error ->
-                Log.e("ERROR LOGIN", error.cause.toString())
-                firebaseResponseModel.onFailure(
-                    OnFailureModel(
-                        code = FirebaseConstants.StatusCode.NOT_FOUND,
-                        message = checkNotNull(error.message)
-                    )
-                )
-            }
-    }
 
+            checkNotNull(res.user).run {
+                Log.d("SUCCESS LOGIN", res.user?.displayName.toString())
+                firebaseUser = checkNotNull(res.user)
+                Result.success(checkNotNull(res.user))
+            }
+        } catch (e: Exception) {
+            Log.e("ERROR LOGIN", e.cause.toString())
+            Result.failure(Throwable(e.message, e.cause))
+
+        }
+    }
 }

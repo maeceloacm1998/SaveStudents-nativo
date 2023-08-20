@@ -1,9 +1,6 @@
 package com.savestudents.features.login.ui
 
-import com.google.firebase.auth.FirebaseUser
 import com.savestudents.core.accountManager.AccountManager
-import com.savestudents.core.firebase.FirebaseResponseModel
-import com.savestudents.core.firebase.OnFailureModel
 import com.savestudents.features.login.model.LoginContract
 
 class LoginPresenter(
@@ -12,7 +9,7 @@ class LoginPresenter(
 ) : LoginContract.Presenter {
     override fun start() {}
 
-    override fun validateAccount(email: String, password: String) {
+    override suspend fun validateAccount(email: String, password: String) {
         view.loadingValidateAccount(true)
 
         if (isValidFields(email, password)) {
@@ -28,22 +25,20 @@ class LoginPresenter(
         }
     }
 
-    private fun handleLogin(email: String, password: String) {
-        accountManager.login(email, password, object : FirebaseResponseModel<FirebaseUser> {
-            override fun onSuccess(model: FirebaseUser) {
-                view.run {
-                    successValidateAccount()
-                    loadingValidateAccount(false)
-                }
-            }
+    private suspend fun handleLogin(email: String, password: String) {
+        val res = accountManager.login(email, password)
 
-            override fun onFailure(error: OnFailureModel) {
-                view.run {
-                    showValidateAccountError()
-                    loadingValidateAccount(false)
-                }
+        if (res.isFailure) {
+            view.run {
+                showValidateAccountError()
+                loadingValidateAccount(false)
             }
-        })
+        } else {
+            view.run {
+                successValidateAccount()
+                loadingValidateAccount(false)
+            }
+        }
     }
 
     private fun isValidFields(email: String, password: String): Boolean {

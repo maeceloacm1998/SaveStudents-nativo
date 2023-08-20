@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.savestudents.components.button.disabled
 import com.savestudents.features.R
 import com.savestudents.features.databinding.FragmentLoginBinding
 import com.savestudents.features.login.model.LoginContract
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -47,7 +49,9 @@ class LoginFragment : Fragment(), LoginContract.View {
                     val email = emailTextLayout.editText?.text.toString()
                     val password = passwordTextLayout.editText?.text.toString()
 
-                    presenter.validateAccount(email, password)
+                    lifecycleScope.launch {
+                        presenter.validateAccount(email, password)
+                    }
                 }
             }
         }
