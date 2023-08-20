@@ -1,6 +1,5 @@
 package com.savestudents.features.mvp
 
-interface BasePresenter<T> {
+interface BasePresenter {
     fun start()
-    var view: T
 }

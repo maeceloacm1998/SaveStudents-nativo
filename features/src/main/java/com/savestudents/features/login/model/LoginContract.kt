@@ -10,13 +10,12 @@ interface LoginContract {
         fun showEmptyEmailError()
         fun showIncorrectEmailError()
         fun showEmptyPasswordError()
-
         fun showValidateAccountError()
         fun hideValidateAccountError()
         fun successValidateAccount()
     }
 
-    interface Presenter : BasePresenter<View> {
+    interface Presenter : BasePresenter {
         fun validateAccount(email: String, password: String)
     }
 }

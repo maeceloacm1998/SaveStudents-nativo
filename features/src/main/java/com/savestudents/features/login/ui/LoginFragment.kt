@@ -12,10 +12,12 @@ import com.savestudents.features.R
 import com.savestudents.features.databinding.FragmentLoginBinding
 import com.savestudents.features.login.model.LoginContract
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class LoginFragment : Fragment(), LoginContract.View {
     private lateinit var binding: FragmentLoginBinding
-    override val presenter by inject<LoginContract.Presenter>()
+
+    override val presenter: LoginContract.Presenter by inject{ parametersOf(this)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,11 +26,6 @@ class LoginFragment : Fragment(), LoginContract.View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         setupViews()
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.view = this
     }
 
     private fun setupViews() {

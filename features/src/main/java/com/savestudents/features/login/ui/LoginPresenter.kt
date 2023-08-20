@@ -6,9 +6,10 @@ import com.savestudents.core.firebase.FirebaseResponseModel
 import com.savestudents.core.firebase.OnFailureModel
 import com.savestudents.features.login.model.LoginContract
 
-class LoginPresenter(private val accountManager: AccountManager) : LoginContract.Presenter {
-    override lateinit var view: LoginContract.View
-
+class LoginPresenter(
+    private val view: LoginContract.View,
+    private val accountManager: AccountManager
+) : LoginContract.Presenter {
     override fun start() {}
 
     override fun validateAccount(email: String, password: String) {
