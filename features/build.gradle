@@ -52,20 +52,16 @@ dependencies {
     implementation libs.androidx.legacy
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
-    implementation 'androidx.test:monitor:1.6.1'
-    implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    implementation libs.androidx.monitor.ktx
+    implementation libs.androidx.junit.ktx
     kapt libs.androidx.room.compiler
 
     implementation libs.material
     implementation libs.koin
-    testImplementation("io.insert-koin:koin-test:3.1.6")
     implementation libs.firebase.auth
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.kotlinx.coroutines.test
+    testImplementation libs.bundles.test
 
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:4.4.0'
-    testImplementation "org.robolectric:robolectric:4.7.3"
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
-    testImplementation("io.mockk:mockk:1.11.0")
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation libs.bundles.test.ui
 }
