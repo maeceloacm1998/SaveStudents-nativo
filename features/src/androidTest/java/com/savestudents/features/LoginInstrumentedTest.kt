@@ -1,7 +1,9 @@
 package com.savestudents.features
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -18,7 +20,7 @@ import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class ExampleInstrumentedTest {
+class LoginInstrumentedTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(LoginV2Activity::class.java)
@@ -55,5 +57,23 @@ class ExampleInstrumentedTest {
     fun showEmptyEmailError() {
         onView(withId(R.id.submit_button)).perform(click())
         onView(withText(R.string.account_validation_empty_email)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun showEmptyPasswordError() {
+        val email = "teste@teste.com"
+        onView(withId(R.id.email_edit_text)).perform(typeText(email), ViewActions.closeSoftKeyboard())
+        onView(withId(R.id.submit_button)).perform(click())
+        onView(withText(R.string.account_validation_empty_password)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun showIncorrectEmailFormatError() {
+        val email = "teste"
+        val password = "123456"
+        onView(withId(R.id.email_edit_text)).perform(typeText(email), ViewActions.closeSoftKeyboard())
+        onView(withId(R.id.password_edit_text)).perform(typeText(password), ViewActions.closeSoftKeyboard())
+        onView(withId(R.id.submit_button)).perform(click())
+        onView(withText(R.string.account_validation_incorrect_email)).check(matches(isDisplayed()))
     }
 }
