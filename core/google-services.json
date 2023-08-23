@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "169237644778",
+    "project_id": "savestudants",
+    "storage_bucket": "savestudants.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169237644778:android:6b361fd742fe26bd881e93",
+        "android_client_info": {
+          "package_name": "br.oficial.savestudents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLqVTTPNu5sDRlVwa5yrhy0R-L8RaxGlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169237644778-b6b7fc1l343j57l3sa9341mgd34m9d7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saveStudents"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169237644778:android:6a0a06834c18b130881e93",
+        "android_client_info": {
+          "package_name": "com.savestudents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLqVTTPNu5sDRlVwa5yrhy0R-L8RaxGlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169237644778-b6b7fc1l343j57l3sa9341mgd34m9d7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saveStudents"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169237644778:android:a7d0d4a292dc512f881e93",
+        "android_client_info": {
+          "package_name": "com.savestudents.core"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLqVTTPNu5sDRlVwa5yrhy0R-L8RaxGlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169237644778-igjl3gp1ccpg45n62mp2lo1k2r1jcrn9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169237644778-b6b7fc1l343j57l3sa9341mgd34m9d7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saveStudents"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

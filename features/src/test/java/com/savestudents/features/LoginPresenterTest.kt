@@ -31,9 +31,6 @@ class LoginPresenterTest : KoinTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    val koinTestRule = KoinTestRule()
-
     @Mock
     private lateinit var view: LoginContract.View
 
