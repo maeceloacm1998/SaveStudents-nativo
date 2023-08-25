@@ -8,5 +8,5 @@
     <string name="account_validation_empty_password">Digite sua senha nesse campo.</string>
     <string name="account_validation_incorrect_email">E-mail no formato incorreto. Ex: exemplo@gmail.com</string>
     <string name="not_text_error">  </string>
-
+    <string name="register_title">Registrar</string>
 </resources>

@@ -19,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 class LoginFragment : Fragment(), LoginContract.View {
     private lateinit var binding: FragmentLoginBinding
 
-    override val presenter: LoginContract.Presenter by inject{ parametersOf(this)}
+    override val presenter: LoginContract.Presenter by inject { parametersOf(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +32,11 @@ class LoginFragment : Fragment(), LoginContract.View {
 
     private fun setupViews() {
         binding.apply {
-            emailEditText.addTextChangedListener {
+            emailTextLayout.editTextDefault.addTextChangedListener {
                 hideValidateAccountError()
             }
 
-            passwordEditText.addTextChangedListener {
+            passwordTextLayout.editTextDefault.addTextChangedListener {
                 hideValidateAccountError()
             }
 
@@ -46,8 +46,8 @@ class LoginFragment : Fragment(), LoginContract.View {
 
             submitButton.setOnClickListener {
                 binding.run {
-                    val email = emailTextLayout.editText?.text.toString()
-                    val password = passwordTextLayout.editText?.text.toString()
+                    val email = emailTextLayout.editTextDefault.text.toString()
+                    val password = passwordTextLayout.editTextDefault.text.toString()
 
                     lifecycleScope.launch {
                         presenter.validateAccount(email, password)
@@ -100,8 +100,8 @@ class LoginFragment : Fragment(), LoginContract.View {
 
     private fun errorFields(emailMessage: String? = "", passwordMessage: String? = "") {
         binding.apply {
-            emailTextLayout.error = emailMessage
-            passwordTextLayout.error = passwordMessage
+            emailTextLayout.error = checkNotNull(emailMessage)
+            passwordTextLayout.error = checkNotNull(passwordMessage)
         }
     }
 }

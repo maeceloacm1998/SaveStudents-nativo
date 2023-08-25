@@ -20,38 +20,24 @@
             android:src="@drawable/saveicon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.savestudents.components.textInput.TextInputCustomView
             android:id="@+id/email_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:hint="@string/hint_email_account"
-            app:errorEnabled="true"
-            app:layout_constraintTop_toBottomOf="@id/save_icon">
+            android:inputType="textEmailAddress"
+            app:layout_constraintTop_toBottomOf="@id/save_icon" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <com.savestudents.components.textInput.TextInputCustomView
             android:id="@+id/password_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/hint_password_account"
-            app:errorEnabled="true"
+            android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@id/email_text_layout"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:passwordToggleEnabled="true" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_button"
