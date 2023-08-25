@@ -4,4 +4,23 @@
         <attr name="android:title" format="string" />
         <attr name="withNotification" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="TextInputCustomView">
+        <attr name="android:hint" format="string" />
+        <attr name="passwordToggleEnabled" format="boolean" />
+        <attr name="android:inputType">
+            <flag name="text" value="0x00000001" />
+            <flag name="textAutoComplete" value="0x00010001" />
+            <flag name="textMultiLine" value="0x00020001" />
+            <flag name="textEmailAddress" value="0x00000021" />
+            <flag name="textPassword" value="0x00000081" />
+            <flag name="number" value="0x00000002" />
+            <flag name="phone" value="0x00000003" />
+            <flag name="date" value="0x00000014" />
+        </attr>
+        <attr name="layoutType">
+            <enum name="normal" value="1" />
+            <enum name="autocomplete" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>
