@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.AutoCompleteTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputEditText
@@ -17,6 +18,7 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
     )
 
     val editTextDefault: TextInputEditText = binding.editTextDefault
+    val editTextAutocomplete: AutoCompleteTextView = binding.editTextAutocomplete
 
     var layoutType: Int = TextInputLayoutType.DEFAULT.value
         set(value) {
@@ -96,8 +98,10 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
 
     private fun setupViews() {
         binding.editTextAutocomplete.run {
-            setOnItemClickListener { parent, view, position, id ->
-                onAutoCompleteItemSelected(text.toString())
+            setOnItemClickListener { _, _, _, _ ->
+                if (::onAutoCompleteItemSelected.isInitialized) {
+                    onAutoCompleteItemSelected(text.toString())
+                }
             }
         }
     }
