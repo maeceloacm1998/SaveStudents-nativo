@@ -1,4 +1,4 @@
-package com.savestudents.features.login.model
+package com.savestudents.features.login.ui
 
 import com.savestudents.features.mvp.BasePresenter
 import com.savestudents.features.mvp.BaseView

@@ -4,7 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build
 import com.google.firebase.auth.FirebaseUser
 import com.savestudents.core.accountManager.AccountManager
-import com.savestudents.features.login.model.LoginContract
+import com.savestudents.features.login.ui.LoginContract
 import com.savestudents.features.login.ui.LoginPresenter
 import io.mockk.MockKAnnotations
 import kotlinx.coroutines.ExperimentalCoroutinesApi

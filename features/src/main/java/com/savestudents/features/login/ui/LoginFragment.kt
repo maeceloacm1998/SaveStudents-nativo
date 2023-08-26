@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.savestudents.components.button.disabled
 import com.savestudents.features.R
 import com.savestudents.features.databinding.FragmentLoginBinding
-import com.savestudents.features.login.model.LoginContract
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf

@@ -1,6 +1,6 @@
 package com.savestudents.features.login.di
 
-import com.savestudents.features.login.model.LoginContract
+import com.savestudents.features.login.ui.LoginContract
 import com.savestudents.features.login.ui.LoginFragment
 import com.savestudents.features.login.ui.LoginPresenter
 import org.koin.dsl.module

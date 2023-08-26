@@ -1,7 +1,6 @@
 package com.savestudents.features.login.ui
 
 import com.savestudents.core.accountManager.AccountManager
-import com.savestudents.features.login.model.LoginContract
 
 class LoginPresenter(
     private val view: LoginContract.View,
