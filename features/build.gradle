@@ -59,6 +59,8 @@ dependencies {
     implementation libs.material
     implementation libs.koin
     implementation libs.firebase.auth
+    implementation libs.firebase.bom
+    implementation libs.firebase.firestore
     implementation libs.kotlinx.coroutines.android
     implementation libs.kotlinx.coroutines.test
     testImplementation libs.bundles.test

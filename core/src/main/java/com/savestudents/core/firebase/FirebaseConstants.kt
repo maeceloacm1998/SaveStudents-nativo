@@ -7,10 +7,12 @@ class FirebaseConstants {
     }
 
     object MethodsFirebaseClient {
+        const val POST_DOCUMENT = "POST_DOCUMENT"
         const val GET_DOCUMENT_VALUE = "GET_DOCUMENT_VALUE"
         const val GET_SPECIFIC_DOCUMENT = "GET_SPECIFIC_DOCUMENT"
         const val GET_FILTER_DOCUMENT = "GET_FILTER_DOCUMENT"
         const val SET_SPECIFIC_DOCUMENT = "SET_SPECIFIC_DOCUMENT"
+        const val UPDATE_DOCUMENT = "UPDATE_DOCUMENT"
         const val DELETE_DOCUMENT = "DELETE_DOCUMENT"
     }
 

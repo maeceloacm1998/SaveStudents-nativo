@@ -3,40 +3,36 @@ package com.savestudents.core.firebase
 import com.google.firebase.firestore.DocumentSnapshot
 
 interface FirebaseClient {
-    fun <T> getDocumentValue(
-        collectionPath: String,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    )
-
-    fun <T> getDocumentWithOrderByValue(
+    suspend fun getDocumentValue(collectionPath: String): Result<List<DocumentSnapshot>>
+    suspend fun <T> getDocumentWithOrderByValue(
         collectionPath: String,
         orderByName: String?,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    )
+    ): Result<T>
 
-    fun <T> getFilterDocuments(
+    suspend fun <T> getFilterDocuments(
         collectionPath: String,
         field: String,
         values: MutableList<String>,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    )
+    ): Result<T>
 
-    fun getSpecificDocument(
+    suspend fun <T> getSpecificDocument(
         collectionPath: String,
-        documentPath: String,
-        firebaseResponseModel: FirebaseResponseModel<DocumentSnapshot>,
-    )
+        documentPath: String
+    ): Result<T>
 
-    fun setSpecificDocument(
+    suspend fun setSpecificDocument(
         collectionPath: String,
         documentPath: String,
         data: Any,
-        firebaseResponseModel: FirebaseResponseModel<Boolean>
-    )
+    ): Result<Boolean>
 
-    fun createDocument(collectionPath: String): String
+    suspend fun updateDocument(
+        collectionPath: String,
+        documentPath: String,
+        field: String,
+        value: Any
+    ): Result<Boolean>
 
-    fun deleteDocument(collectionPath: String, documentPath: String)
-
-    fun updateDocument(collectionPath: String, documentPath: String, field: String, value: Any)
+    suspend fun createDocument(collectionPath: String): Result<String>
+    suspend fun deleteDocument(collectionPath: String, documentPath: String): Result<Boolean>
 }

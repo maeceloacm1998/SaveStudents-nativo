@@ -4,201 +4,245 @@ import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import kotlin.Exception
 
-class FirebaseClientImpl(private val database: FirebaseFirestore): FirebaseClient {
-    override fun <T> getDocumentValue(
-        collectionPath: String,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    ) {
-        database.collection(collectionPath).get().addOnSuccessListener { result ->
-            if (result.documents.isEmpty()) {
-                firebaseResponseModel.onFailure(
-                    setErrorFailure(
-                        FirebaseConstants.StatusCode.NOT_FOUND,
-                        FirebaseConstants.MessageError.EMPTY_RESULT
-                    )
-                )
-                handleLog(
-                    FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                    collectionPath,
-                    FirebaseConstants.StatusCode.NOT_FOUND.toString(),
-                    FirebaseConstants.MessageError.EMPTY_RESULT
-                )
-                return@addOnSuccessListener
+class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClient {
+    @Throws(Exception::class)
+    override suspend fun getDocumentValue(collectionPath: String): Result<List<DocumentSnapshot>> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                database.collection(collectionPath).get().await()
+            }
+            val documents = res.documents
+
+            if(documents.isEmpty()) {
+                throw Exception()
             }
 
-            val res = result.documents as T
             handleLog(
-                FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                collectionPath,
-                FirebaseConstants.StatusCode.SUCCESS.toString(),
-                res.toString()
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = documents.toString()
             )
-
-            firebaseResponseModel.onSuccess(res)
+            Result.success(documents)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = e.message.toString()
+            )
+            Result.failure(Throwable(e.message, e.cause))
         }
     }
 
-    override fun <T> getDocumentWithOrderByValue(
+    override suspend fun <T> getDocumentWithOrderByValue(
         collectionPath: String,
         orderByName: String?,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    ) {
-        database.collection(collectionPath).orderBy(orderByName ?: "", Query.Direction.ASCENDING)
-            .get().addOnSuccessListener { result ->
-                if (result.documents.isEmpty()) {
-                    firebaseResponseModel.onFailure(
-                        setErrorFailure(
-                            FirebaseConstants.StatusCode.NOT_FOUND,
-                            FirebaseConstants.MessageError.EMPTY_RESULT
-                        )
-                    )
-                    handleLog(
-                        FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                        collectionPath,
-                        FirebaseConstants.StatusCode.NOT_FOUND.toString(),
-                        FirebaseConstants.MessageError.EMPTY_RESULT
-                    )
-                    return@addOnSuccessListener
-                }
-
-                val res = result.documents as T
-                handleLog(
-                    FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                    collectionPath,
-                    FirebaseConstants.StatusCode.SUCCESS.toString(),
-                    res.toString()
-                )
-
-                firebaseResponseModel.onSuccess(res)
+    ): Result<T> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                database.collection(collectionPath)
+                    .orderBy(orderByName ?: "", Query.Direction.ASCENDING).get().await()
             }
+            val documents = res.documents as T
+
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = documents.toString()
+            )
+            Result.success(documents)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
     }
 
-    override fun <T> getFilterDocuments(
+    override suspend fun <T> getFilterDocuments(
         collectionPath: String,
         field: String,
         values: MutableList<String>,
-        firebaseResponseModel: FirebaseResponseModel<T>
-    ) {
-        database.collection(collectionPath).whereIn(field, values).get()
-            .addOnSuccessListener { result ->
-                if (result.documents.isEmpty()) {
-                    firebaseResponseModel.onFailure(
-                        setErrorFailure(
-                            FirebaseConstants.StatusCode.NOT_FOUND,
-                            FirebaseConstants.MessageError.EMPTY_RESULT
-                        )
-                    )
-                    handleLog(
-                        FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
-                        collectionPath,
-                        FirebaseConstants.StatusCode.NOT_FOUND.toString(),
-                        FirebaseConstants.MessageError.EMPTY_RESULT
-                    )
-                    return@addOnSuccessListener
-                }
-
-                val res = result.documents as T
-                handleLog(
-                    FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
-                    collectionPath,
-                    FirebaseConstants.StatusCode.SUCCESS.toString(),
-                    res.toString()
-                )
-
-                firebaseResponseModel.onSuccess(res)
+    ): Result<T> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                database.collection(collectionPath).whereIn(field, values).get().await()
             }
-    }
+            val documents = res.documents as T
 
-    override fun getSpecificDocument(
-        collectionPath: String,
-        documentPath: String,
-        firebaseResponseModel: FirebaseResponseModel<DocumentSnapshot>
-    ) {
-        database.collection(collectionPath).document(documentPath).get()
-            .addOnSuccessListener { result ->
-                if (result.data?.isEmpty() == true) {
-                    firebaseResponseModel.onFailure(
-                        setErrorFailure(
-                            FirebaseConstants.StatusCode.NOT_FOUND,
-                            FirebaseConstants.MessageError.EMPTY_RESULT
-                        )
-                    )
-                    handleLog(
-                        FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
-                        collectionPath,
-                        FirebaseConstants.StatusCode.NOT_FOUND.toString(),
-                        FirebaseConstants.MessageError.EMPTY_RESULT
-                    )
-                    return@addOnSuccessListener
-                }
-
-                val res = result as DocumentSnapshot
-                handleLog(
-                    FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
-                    collectionPath,
-                    FirebaseConstants.StatusCode.SUCCESS.toString(),
-                    res.toString()
-                )
-                firebaseResponseModel.onSuccess(res)
-            }
-    }
-
-    override fun setSpecificDocument(
-        collectionPath: String,
-        documentPath: String,
-        data: Any,
-        firebaseResponseModel: FirebaseResponseModel<Boolean>,
-    ) {
-        database.collection(collectionPath).document(documentPath).set(data).addOnSuccessListener {
             handleLog(
-                FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
-                collectionPath,
-                FirebaseConstants.StatusCode.SUCCESS.toString(),
-                true.toString()
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = documents.toString()
             )
-            firebaseResponseModel.onSuccess(true)
-        }.addOnFailureListener {
-            firebaseResponseModel.onFailure(
-                setErrorFailure(
-                    FirebaseConstants.StatusCode.NOT_FOUND,
-                    FirebaseConstants.MessageError.UPDATE_ERROR
-                )
-            )
+            Result.success(documents)
+        } catch (e: Exception) {
             handleLog(
-                FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
-                collectionPath,
-                FirebaseConstants.StatusCode.NOT_FOUND.toString(),
-                FirebaseConstants.MessageError.UPDATE_ERROR
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
             )
+            Result.failure(Throwable(e.message, e.cause))
         }
     }
 
-    override fun createDocument(collectionPath: String): String {
-        val id = database.collection(collectionPath).document().id
-        database.collection(collectionPath).document(id).set({})
+    override suspend fun <T> getSpecificDocument(
+        collectionPath: String,
+        documentPath: String
+    ): Result<T> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document(documentPath).get().await()
+            }
+            val documents = res.data as T
 
-        return id
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = documents.toString()
+            )
+            Result.success(documents)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
     }
 
-    override fun deleteDocument(collectionPath: String, documentPath: String) {
-        database.collection(collectionPath).document(documentPath).delete()
+    override suspend fun setSpecificDocument(
+        collectionPath: String,
+        documentPath: String,
+        data: Any,
+    ): Result<Boolean> {
+        return try {
+            withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document(documentPath).set(data).await()
+            }
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = "SUCCESS SET DOCUMENT"
+            )
+            Result.success(true)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
     }
 
-    override fun updateDocument(
+    override suspend fun createDocument(collectionPath: String): Result<String> {
+        return try {
+            val id = withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document().id
+            }
+            withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document(id).set({}).await()
+            }
+
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.POST_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = "SUCCESS SET DOCUMENT"
+            )
+            Result.success(id)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.POST_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
+    }
+
+    override suspend fun deleteDocument(
+        collectionPath: String,
+        documentPath: String
+    ): Result<Boolean> {
+        return try {
+            withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document(documentPath).delete().await()
+            }
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.DELETE_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = "SUCCESS DELETE DOCUMENT"
+            )
+            Result.success(true)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.DELETE_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
+    }
+
+    override suspend fun updateDocument(
         collectionPath: String,
         documentPath: String,
         field: String,
         value: Any
+    ) : Result<Boolean> {
+        return try {
+            withContext(Dispatchers.IO) {
+                database.collection(collectionPath).document(documentPath).update(field, value).await()
+            }
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.UPDATE_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
+                data = "SUCCESS UPDATE DOCUMENT"
+            )
+            Result.success(true)
+        } catch (e: Exception) {
+            handleLog(
+                typeRequisition = FirebaseConstants.MethodsFirebaseClient.UPDATE_DOCUMENT,
+                collectionPath = collectionPath,
+                statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
+                data = FirebaseConstants.MessageError.EMPTY_RESULT
+            )
+            Result.failure(Throwable(e.message, e.cause))
+        }
+    }
+
+    private fun handleLog(
+        typeRequisition: String,
+        collectionPath: String,
+        statusCode: String,
+        data: String
     ) {
-        database.collection(collectionPath).document(documentPath).update(field,value)
-    }
-
-    private fun setErrorFailure(code: Int, message: String): OnFailureModel {
-        return OnFailureModel(code, message)
-    }
-
-    private fun handleLog(typeRequisition: String, collectionPath: String, statusCode: String, data: String) {
-        Log.d("=================> $typeRequisition",  "PATH:$collectionPath -- STATUS_CODE:$statusCode -- DATA:$data")
+        Log.d(
+            "=================> $typeRequisition",
+            "PATH:$collectionPath -- STATUS_CODE:$statusCode -- DATA:$data"
+        )
     }
 }
