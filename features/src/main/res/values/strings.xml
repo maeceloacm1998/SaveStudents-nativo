@@ -1,12 +1,27 @@
 <resources>
-    <string name="hint_email_account">E-mail</string>
-    <string name="hint_password_account">Senha</string>
     <string name="register_text">Não tem conta? Registra-se</string>
     <string name="submit_text">Entrar</string>
-    <string name="account_validation_error">Seu e-mail ou senha estão incorretos</string>
+    <string name="register_account">Cadastrar</string>
+    <string name="register_title">Registrar</string>
+
+    <string name="hint_email_account">E-mail</string>
+    <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
+    <string name="hint_password_account">Senha</string>
+    <string name="hint_name_account">Nome</string>
+    <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
+    <string name="hint_date_account">Data de nascimento</string>
+    <string name="helper_date_account">Digite sua data de nascimento</string>
+    <string name="hint_institution_account">Faculdade</string>
+    <string name="helper_institution_account">Digite a faculdade que você estuda</string>
+
     <string name="account_validation_empty_email">Digite seu e-mail nesse campo.</string>
     <string name="account_validation_empty_password">Digite sua senha nesse campo.</string>
+    <string name="account_validation_empty_birth_date">Preencha sua data de nascimento.</string>
+    <string name="account_validation_empty_name">Digite seu nome nesse campo.</string>
+    <string name="account_validation_empty_institution">Selecione a faculdade que você estuda.</string>
+
+    <string name="account_validation_error">Seu e-mail ou senha estão incorretos</string>
     <string name="account_validation_incorrect_email">E-mail no formato incorreto. Ex: exemplo@gmail.com</string>
+    <string name="account_validation_incorrect_birth_date">A sua data de nascimento precisa ter esse formato, por exemplo: 00/00/0000</string>
     <string name="not_text_error">  </string>
-    <string name="register_title">Registrar</string>
 </resources>

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
+        app:helperTextEnabled="true"
         app:layout_constraintTop_toTopOf="parent"
         tools:hint="exemple">
 
@@ -29,10 +30,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:hint="list">
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/edit_text_autocomplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:dropDownHeight="150dp"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 

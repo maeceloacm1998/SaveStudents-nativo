@@ -8,6 +8,7 @@
     <declare-styleable name="TextInputCustomView">
         <attr name="android:hint" format="string" />
         <attr name="passwordToggleEnabled" format="boolean" />
+        <attr name="helperText" format="string" />
         <attr name="android:inputType">
             <flag name="text" value="0x00000001" />
             <flag name="textAutoComplete" value="0x00010001" />

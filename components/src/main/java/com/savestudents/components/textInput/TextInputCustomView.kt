@@ -39,6 +39,13 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             binding.textInputDefault.error = value
         }
 
+    var helper: String = ""
+        set(value) {
+            field = value
+            binding.textInputDefault.helperText = value
+            binding.textInputAutocomplete.helperText = value
+        }
+
     var inputType: Int = InputType.TYPE_CLASS_TEXT
         set(value) {
             field = value
@@ -53,8 +60,19 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             }
         }
 
+    var setAutocompleteItems: List<String> = mutableListOf()
+        set(value) {
+            field = value
+            binding.editTextAutocomplete.setSimpleItems(value.toTypedArray())
+            binding.editTextAutocomplete
+        }
+
+
+    private lateinit var onAutoCompleteItemSelected: (item: String) -> Unit?
+
     init {
         setLayout(attrs)
+        setupViews()
     }
 
     private fun setLayout(attr: AttributeSet?) {
@@ -65,9 +83,22 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
                 R.styleable.TextInputCustomView_layoutType, TextInputLayoutType.DEFAULT.value
             )
             hint = attributes.getString(R.styleable.TextInputCustomView_android_hint) ?: ""
-            inputType = attributes.getInt(R.styleable.TextInputCustomView_android_inputType, InputType.TYPE_CLASS_TEXT)
-            passwordToggleEnabled = attributes.getBoolean(R.styleable.TextInputCustomView_passwordToggleEnabled, false)
+            helper = attributes.getString(R.styleable.TextInputCustomView_helperText) ?: ""
+            inputType = attributes.getInt(
+                R.styleable.TextInputCustomView_android_inputType,
+                InputType.TYPE_CLASS_TEXT
+            )
+            passwordToggleEnabled =
+                attributes.getBoolean(R.styleable.TextInputCustomView_passwordToggleEnabled, false)
             attributes.recycle()
+        }
+    }
+
+    private fun setupViews() {
+        binding.editTextAutocomplete.run {
+            setOnItemClickListener { parent, view, position, id ->
+                onAutoCompleteItemSelected(text.toString())
+            }
         }
     }
 
@@ -91,5 +122,9 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             textInputDefault.isVisible = true
             textInputAutocomplete.isVisible = false
         }
+    }
+
+    fun onItemSelected(listener: (item: String) -> Unit) {
+        onAutoCompleteItemSelected = listener
     }
 }
