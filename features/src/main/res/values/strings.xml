@@ -23,5 +23,6 @@
     <string name="account_validation_error">Seu e-mail ou senha estão incorretos</string>
     <string name="account_validation_incorrect_email">E-mail no formato incorreto. Ex: exemplo@gmail.com</string>
     <string name="account_validation_incorrect_birth_date">A sua data de nascimento precisa ter esse formato, por exemplo: 00/00/0000</string>
+    <string name="account_validation_create_error">Erro ao criar conta. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="not_text_error">  </string>
 </resources>

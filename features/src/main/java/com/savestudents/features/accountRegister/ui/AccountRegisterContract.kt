@@ -1,6 +1,6 @@
 package com.savestudents.features.accountRegister.ui
 
-import com.savestudents.features.accountRegister.model.UserAccount
+import com.savestudents.core.accountManager.model.UserAccount
 import com.savestudents.features.mvp.BasePresenter
 import com.savestudents.features.mvp.BaseView
 
@@ -16,12 +16,14 @@ interface AccountRegisterContract {
         fun showEmptyBirthDateField()
         fun showEmptyPasswordField()
         fun clearFieldsError()
+        fun goToConfirmationEmail()
+        fun errorRegisterUser(error: Boolean)
         fun loading(loading: Boolean)
     }
 
     interface Presenter : BasePresenter {
         suspend fun fetchInstitution()
-        fun validateFields(user: UserAccount, password: String)
-        fun saveData(user: UserAccount, password: String)
+        suspend fun validateFields(user: UserAccount, password: String)
+        suspend fun saveData(user: UserAccount, password: String)
     }
 }

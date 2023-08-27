@@ -2,7 +2,7 @@ package com.savestudents.features.accountRegister.ui
 
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.features.accountRegister.model.UserAccount
+import com.savestudents.core.accountManager.model.UserAccount
 
 data class Institution(
     var institution: String = ""
@@ -23,8 +23,9 @@ class AccountRegisterPresenter(
         }
     }
 
-    override fun validateFields(user: UserAccount, password: String) {
+    override suspend fun validateFields(user: UserAccount, password: String) {
         view.loading(true)
+        view.errorRegisterUser(false)
         when {
             user.name.isEmpty() -> view.showEmptyNameField()
             user.email.isEmpty() -> view.showEmptyEmailField()
@@ -39,8 +40,12 @@ class AccountRegisterPresenter(
         }
     }
 
-    override fun saveData(user: UserAccount, password: String) {
-
+    override suspend fun saveData(user: UserAccount, password: String) {
+        accountManager.register(user, password).onSuccess {
+            view.goToConfirmationEmail()
+        }.onFailure {
+            view.errorRegisterUser(true)
+        }
     }
 
     private fun isValidEmail(email: String): Boolean {

@@ -3,6 +3,7 @@ package com.savestudents.core.accountManager
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.savestudents.core.accountManager.model.UserAccount
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -28,7 +29,23 @@ class AccountManagerImpl(private val auth: FirebaseAuth) : AccountManager {
         } catch (e: Exception) {
             Log.e("ERROR LOGIN", e.cause.toString())
             Result.failure(Throwable(e.message, e.cause))
+        }
+    }
 
+    override suspend fun register(user: UserAccount, password: String): Result<FirebaseUser> {
+        return try {
+            val res = withContext(Dispatchers.IO) {
+                auth.createUserWithEmailAndPassword(user.email, password).await()
+            }
+
+            checkNotNull(res.user).run {
+                Log.d("SUCCESS REGISTER USER", res.user?.displayName.toString())
+                firebaseUser = checkNotNull(res.user)
+                Result.success(checkNotNull(res.user))
+            }
+        } catch (e: Exception) {
+            Log.e("ERROR REGISTER USER", e.cause.toString())
+            Result.failure(Throwable(e.message, e.cause))
         }
     }
 }

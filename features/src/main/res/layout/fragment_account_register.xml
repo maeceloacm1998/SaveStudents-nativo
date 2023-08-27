@@ -76,6 +76,17 @@
                 app:layout_constraintTop_toBottomOf="@id/institution_text_input"
                 app:passwordToggleEnabled="true" />
 
+            <TextView
+                android:id="@+id/error_register_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/account_validation_create_error"
+                android:textColor="@color/error_primary"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/password_text_layout" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submit_button"
                 style="@style/Theme.Ui.Button"
@@ -83,7 +94,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="15dp"
                 android:text="@string/register_account"
-                app:layout_constraintTop_toBottomOf="@id/password_text_layout" />
+                app:layout_constraintTop_toBottomOf="@id/error_register_user" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

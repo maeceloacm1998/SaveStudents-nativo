@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.savestudents.components.button.disabled
 import com.savestudents.features.R
-import com.savestudents.features.accountRegister.model.UserAccount
+import com.savestudents.core.accountManager.model.UserAccount
 import com.savestudents.features.databinding.FragmentAccountRegisterBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -41,10 +42,12 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
                     birthDate = dateTextInput.editTextDefault.text.toString()
                 )
 
-                presenter.validateFields(
-                    userAccount,
-                    passwordTextLayout.editTextDefault.text.toString()
-                )
+                lifecycleScope.launch {
+                    presenter.validateFields(
+                        userAccount,
+                        passwordTextLayout.editTextDefault.text.toString()
+                    )
+                }
             }
         }
     }
@@ -96,6 +99,14 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
         binding.nameTextInput.error = ""
         binding.emailTextInput.error = ""
         binding.dateTextInput.error = ""
+    }
+
+    override fun goToConfirmationEmail() {
+        // TODO implementar proxima tela
+    }
+
+    override fun errorRegisterUser(error: Boolean) {
+        binding.errorRegisterUser.isVisible = error
     }
 
     override fun loading(loading: Boolean) {

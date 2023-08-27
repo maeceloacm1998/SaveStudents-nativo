@@ -42,6 +42,7 @@ dynamicLinkVersion = "21.1.0"
 firebaseBom = "32.2.2"
 firebaseFirestoreVersion = "24.4.2"
 firebaseAuthVersion = "22.1.1"
+firebaseServiceAuthVersion = "20.6.0"
 viewPagerVersion = "1.0.0"
 
 [libraries]
@@ -86,6 +87,7 @@ retrofit-android = { module = 'com.squareup.retrofit2:retrofit', version.ref = "
 retrofit-gson-android = { module = 'com.squareup.retrofit2:converter-gson', version.ref = "retrofitVersion" }
 firebase-bom = { module = 'com.google.firebase:firebase-bom', version.ref = "firebaseBom" }
 firebase-auth = { module = 'com.google.firebase:firebase-auth-ktx', version.ref = "firebaseAuthVersion" }
+firebase-play-service-auth = { module = 'com.google.android.gms:play-services-auth', version.ref = "firebaseServiceAuthVersion" }
 firebase-crash = { module = 'com.google.firebase:firebase-crashlytics-ktx' }
 firebase-analytics = { module = 'com.google.firebase:firebase-analytics-ktx' }
 firebase-firestore = { module = 'com.google.firebase:firebase-firestore-ktx', version.ref = "firebaseFirestoreVersion" }

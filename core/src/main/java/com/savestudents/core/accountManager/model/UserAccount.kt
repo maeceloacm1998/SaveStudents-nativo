@@ -1,4 +1,4 @@
-package com.savestudents.features.accountRegister.model
+package com.savestudents.core.accountManager.model
 
 data class UserAccount(
     val name: String,
