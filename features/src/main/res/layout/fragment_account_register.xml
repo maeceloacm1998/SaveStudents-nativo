@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="20dp"
+                app:mask="##/##/####"
                 android:hint="@string/hint_date_account"
                 app:helperText="@string/helper_date_account"
                 app:layout_constraintTop_toBottomOf="@id/email_text_input" />

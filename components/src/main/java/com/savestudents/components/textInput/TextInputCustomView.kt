@@ -68,6 +68,19 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             binding.editTextAutocomplete.setSimpleItems(value.toTypedArray())
             binding.editTextAutocomplete
         }
+    var mask: String = ""
+        set(value) {
+            field = value
+            binding.textInputDefault.editText?.addTextChangedListener(
+                MaskEditUtil.mask(checkNotNull(binding.textInputDefault.editText), value)
+            )
+        }
+
+    var unmask: String = ""
+        set(value) {
+            field = value
+            MaskEditUtil.unmask(binding.textInputDefault.editText?.text.toString())
+        }
 
 
     private lateinit var onAutoCompleteItemSelected: (item: String) -> Unit?
@@ -92,6 +105,9 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             )
             passwordToggleEnabled =
                 attributes.getBoolean(R.styleable.TextInputCustomView_passwordToggleEnabled, false)
+
+            val attributeMask = attributes.getString(R.styleable.TextInputCustomView_mask) ?: ""
+            if (attributeMask != "") mask = attributeMask
             attributes.recycle()
         }
     }
