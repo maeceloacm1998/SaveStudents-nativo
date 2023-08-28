@@ -33,6 +33,6 @@ interface FirebaseClient {
         value: Any
     ): Result<Boolean>
 
-    suspend fun createDocument(collectionPath: String): Result<String>
+    suspend fun createDocument(collectionPath: String, data: Any): Result<String>
     suspend fun deleteDocument(collectionPath: String, documentPath: String): Result<Boolean>
 }

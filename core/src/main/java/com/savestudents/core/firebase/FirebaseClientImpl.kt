@@ -153,13 +153,13 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
         }
     }
 
-    override suspend fun createDocument(collectionPath: String): Result<String> {
+    override suspend fun createDocument(collectionPath: String, data: Any): Result<String> {
         return try {
             val id = withContext(Dispatchers.IO) {
                 database.collection(collectionPath).document().id
             }
             withContext(Dispatchers.IO) {
-                database.collection(collectionPath).document(id).set({}).await()
+                database.collection(collectionPath).document(id).set(data).await()
             }
 
             handleLog(

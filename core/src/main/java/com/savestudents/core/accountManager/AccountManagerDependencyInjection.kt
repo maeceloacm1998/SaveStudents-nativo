@@ -9,7 +9,7 @@ import org.koin.dsl.module
 object AccountManagerDependencyInjection {
     val modules = arrayOf(module {
         factory { provideFirebaseAuth() }
-        single<AccountManager> { AccountManagerImpl(get()) }
+        single<AccountManager> { AccountManagerImpl(get(), get()) }
     })
 
     private fun provideFirebaseAuth(): FirebaseAuth {

@@ -4,12 +4,16 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.savestudents.core.accountManager.model.UserAccount
+import com.savestudents.core.firebase.FirebaseClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class AccountManagerImpl(private val auth: FirebaseAuth) : AccountManager {
+class AccountManagerImpl(
+    private val auth: FirebaseAuth,
+    private val client: FirebaseClient
+) : AccountManager {
     private lateinit var firebaseUser: FirebaseUser
 
     override suspend fun login(
@@ -36,6 +40,18 @@ class AccountManagerImpl(private val auth: FirebaseAuth) : AccountManager {
         return try {
             val res = withContext(Dispatchers.IO) {
                 auth.createUserWithEmailAndPassword(user.email, password).await()
+            }
+
+            val id = withContext(Dispatchers.IO) {
+                client.createDocument("user", user)
+            }
+
+            withContext(Dispatchers.IO) {
+                client.setSpecificDocument(
+                    "user",
+                    checkNotNull(id.getOrNull()),
+                    user.copy(id = checkNotNull(id.getOrNull()))
+                )
             }
 
             checkNotNull(res.user).run {

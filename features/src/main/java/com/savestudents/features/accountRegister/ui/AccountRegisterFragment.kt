@@ -36,6 +36,7 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
         binding.run {
             submitButton.setOnClickListener {
                 val userAccount = UserAccount(
+                    id = "",
                     name = nameTextInput.editTextDefault.text.toString(),
                     email = emailTextInput.editTextDefault.text.toString(),
                     institution = institutionTextInput.editTextAutocomplete.text.toString(),
@@ -58,38 +59,38 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
 
     override fun showEmailFormatError() {
         binding.emailTextInput.error = getString(R.string.account_validation_incorrect_email)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showBirthdateFormatError() {
         binding.dateTextInput.error = getString(R.string.account_validation_incorrect_birth_date)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showEmptyNameField() {
         binding.nameTextInput.error = getString(R.string.account_validation_empty_name)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showEmptyEmailField() {
         binding.emailTextInput.error = getString(R.string.account_validation_empty_email)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showEmptyInstitutionField() {
         binding.institutionTextInput.error =
             getString(R.string.account_validation_empty_institution)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showEmptyBirthDateField() {
         binding.dateTextInput.error = getString(R.string.account_validation_empty_birth_date)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun showEmptyPasswordField() {
         binding.passwordTextLayout.error = getString(R.string.account_validation_empty_password)
-        binding.submitButton.isEnabled = true
+        binding.submitButton.disabled(false)
     }
 
     override fun clearFieldsError() {
@@ -107,6 +108,7 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
 
     override fun errorRegisterUser(error: Boolean) {
         binding.errorRegisterUser.isVisible = error
+        binding.submitButton.disabled(false)
     }
 
     override fun loading(loading: Boolean) {
