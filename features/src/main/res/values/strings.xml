@@ -25,6 +25,10 @@
     <string name="account_validation_incorrect_birth_date">A sua data de nascimento precisa ter esse formato, por exemplo: 00/00/0000</string>
     <string name="account_validation_create_error">Erro ao criar conta. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="not_text_error">  </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="menu_item_schedule">Grade currícular</string>
+    <string name="menu_item_notification">Notificações</string>
+    <string name="menu_item_config">Configuração</string>
+
 </resources>

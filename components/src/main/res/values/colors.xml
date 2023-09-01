@@ -18,7 +18,7 @@
 
     // Neutral
     <color name="black">#000000</color>
-    <color name="soft_black">#060606</color>
+    <color name="soft_black">#0A0A0A</color>
     <color name="white">#FFFFFF</color>
     <color name="background_transparent">#77FFFFFF</color>
     <color name="soft_white">#FEFEFE</color>
