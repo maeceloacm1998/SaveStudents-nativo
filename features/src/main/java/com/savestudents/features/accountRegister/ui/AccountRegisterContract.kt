@@ -16,7 +16,7 @@ interface AccountRegisterContract {
         fun showEmptyBirthDateField()
         fun showEmptyPasswordField()
         fun clearFieldsError()
-        fun goToConfirmationEmail()
+        fun goToHomeFragment()
         fun errorRegisterUser(error: Boolean)
         fun loading(loading: Boolean)
     }

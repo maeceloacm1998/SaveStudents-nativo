@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.savestudents.components.button.disabled
 import com.savestudents.features.R
 import com.savestudents.core.accountManager.model.UserAccount
@@ -102,8 +103,11 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
         binding.dateTextInput.error = ""
     }
 
-    override fun goToConfirmationEmail() {
-        // TODO implementar proxima tela
+    override fun goToHomeFragment() {
+        findNavController().run {
+            navigate(R.id.action_accountRegisterFragment_to_homeFragment)
+            backQueue.clear()
+        }
     }
 
     override fun errorRegisterUser(error: Boolean) {

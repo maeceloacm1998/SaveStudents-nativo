@@ -94,7 +94,10 @@ class LoginFragment : Fragment(), LoginContract.View {
     }
 
     override fun successValidateAccount() {
-        // TODO colocar a tela que vamos redirecionar apos o login com sucesso
+        findNavController().run {
+            navigate(R.id.action_loginFragment_to_homeFragment)
+            backQueue.clear()
+        }
     }
 
     private fun errorFields(emailMessage: String? = "", passwordMessage: String? = "") {

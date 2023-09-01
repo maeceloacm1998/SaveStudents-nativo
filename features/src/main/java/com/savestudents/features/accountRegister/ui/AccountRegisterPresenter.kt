@@ -39,7 +39,7 @@ class AccountRegisterPresenter(
 
     override suspend fun saveData(user: UserAccount, password: String) {
         accountManager.register(user, password).onSuccess {
-            view.goToConfirmationEmail()
+            view.goToHomeFragment()
         }.onFailure {
             view.errorRegisterUser(true)
         }
