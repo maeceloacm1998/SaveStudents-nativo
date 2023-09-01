@@ -1,4 +1,4 @@
-package com.savestudents.features
+package com.savestudents.features.login
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build

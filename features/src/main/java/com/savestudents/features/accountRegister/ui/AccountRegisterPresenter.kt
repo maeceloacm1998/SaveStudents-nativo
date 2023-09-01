@@ -3,10 +3,7 @@ package com.savestudents.features.accountRegister.ui
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
 import com.savestudents.core.accountManager.model.UserAccount
-
-data class Institution(
-    var institution: String = ""
-)
+import com.savestudents.features.accountRegister.model.Institution
 
 class AccountRegisterPresenter(
     private val view: AccountRegisterContract.View,
