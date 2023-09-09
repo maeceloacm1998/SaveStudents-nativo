@@ -3,8 +3,11 @@ package com.savestudents.components.appbar
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.savestudents.components.R
 import com.savestudents.components.databinding.AppBarCustomBinding
@@ -43,6 +46,18 @@ class AppBarCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout
             }
 
             attributes.recycle()
+        }
+    }
+
+    fun handleDrawer(activity: FragmentActivity?) {
+        val actionBarToggle = ActionBarDrawerToggle(activity, binding.drawerLayout, 0, 0)
+        binding.drawerLayout.addDrawerListener(actionBarToggle)
+        actionBarToggle.syncState()
+
+        binding.topAppBar.setNavigationOnClickListener {
+            it.setOnClickListener {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
         }
     }
 

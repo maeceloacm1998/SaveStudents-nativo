@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import com.savestudents.features.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -17,16 +15,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        val actionBarToggle = ActionBarDrawerToggle(this.activity, binding.drawerLayout, 0, 0)
-        binding.drawerLayout.addDrawerListener(actionBarToggle)
-        actionBarToggle.syncState()
-
-        binding.toolbar.root.setNavigationOnClickListener {
-            it.setOnClickListener {
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-            }
-        }
+        binding.toolbar.handleDrawer(this.activity)
 
         return binding.root
     }
