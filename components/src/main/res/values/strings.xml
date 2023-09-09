@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="content_description_notification">notificação</string>
+
+    <string name="menu_item_schedule">Grade currícular</string>
+    <string name="menu_item_notification">Notificações</string>
+    <string name="menu_item_config">Configuração</string>
 </resources>

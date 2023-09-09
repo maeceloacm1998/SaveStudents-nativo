@@ -5,20 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.savestudents.features.R
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import com.savestudents.features.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val actionBarToggle = ActionBarDrawerToggle(this.activity, binding.drawerLayout, 0, 0)
+        binding.drawerLayout.addDrawerListener(actionBarToggle)
+        actionBarToggle.syncState()
+
+        binding.toolbar.root.setNavigationOnClickListener {
+            it.setOnClickListener {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
+        return binding.root
     }
 
     companion object {

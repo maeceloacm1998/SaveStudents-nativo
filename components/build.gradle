@@ -40,5 +40,6 @@ dependencies {
     implementation libs.androidx.legacy
     implementation libs.androidx.lifecycle.livedata.ktx
 
+    implementation libs.bundles.navigation
     implementation libs.material
 }

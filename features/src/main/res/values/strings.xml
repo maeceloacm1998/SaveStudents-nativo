@@ -26,9 +26,4 @@
     <string name="account_validation_create_error">Erro ao criar conta. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="not_text_error">  </string>
 
-
-    <string name="menu_item_schedule">Grade currícular</string>
-    <string name="menu_item_notification">Notificações</string>
-    <string name="menu_item_config">Configuração</string>
-
 </resources>
