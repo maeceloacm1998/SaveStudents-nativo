@@ -45,4 +45,5 @@ dependencies {
     implementation libs.firebase.play.service.auth
     implementation libs.koin
     implementation libs.kotlinx.coroutines.android
+    implementation 'androidx.databinding:viewbinding:8.1.1'
 }

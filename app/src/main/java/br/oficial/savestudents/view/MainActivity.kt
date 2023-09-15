@@ -12,7 +12,7 @@ import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
 import com.savestudents.features.login.di.LoginDependencyInjection
-import com.savestudents.features.login.ui.LoginV2Activity
+import com.savestudents.features.NavigationActivity
 import com.savestudents.features.shared.utils.KoinUtils
 
 class MainActivity : AppCompatActivity() {
@@ -59,8 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderHome() {
-//        val intent = HomeActivity.newInstance(applicationContext)
-        val intent = Intent(applicationContext, LoginV2Activity::class.java)
+        val intent = Intent(applicationContext, NavigationActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
         startActivity(intent)

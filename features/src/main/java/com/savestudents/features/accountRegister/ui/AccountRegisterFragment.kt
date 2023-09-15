@@ -1,36 +1,32 @@
 package com.savestudents.features.accountRegister.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.savestudents.components.button.disabled
 import com.savestudents.features.R
 import com.savestudents.core.accountManager.model.UserAccount
+import com.savestudents.core.utils.BaseFragment
+import com.savestudents.features.NavigationActivity
 import com.savestudents.features.databinding.FragmentAccountRegisterBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
-    private lateinit var binding: FragmentAccountRegisterBinding
+class AccountRegisterFragment :  BaseFragment<FragmentAccountRegisterBinding, NavigationActivity>(
+    FragmentAccountRegisterBinding::inflate), AccountRegisterContract.View {
 
     override val presenter: AccountRegisterContract.Presenter by inject { parametersOf(this) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAccountRegisterBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        parentActivity?.handleTitleToolbar(getString(R.string.register_title))
         lifecycleScope.launch {
             presenter.fetchInstitution()
         }
         setupViews()
-        return binding.root
     }
 
     private fun setupViews() {
@@ -50,6 +46,10 @@ class AccountRegisterFragment : Fragment(), AccountRegisterContract.View {
                         passwordTextLayout.editTextDefault.text.toString()
                     )
                 }
+            }
+
+            parentActivity?.goBackPressed {
+                findNavController().navigateUp()
             }
         }
     }

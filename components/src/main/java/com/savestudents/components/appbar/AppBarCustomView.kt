@@ -3,11 +3,8 @@ package com.savestudents.components.appbar
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.FragmentActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.savestudents.components.R
 import com.savestudents.components.databinding.AppBarCustomBinding
@@ -23,6 +20,17 @@ class AppBarCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout
             binding.topAppBar.title = value
         }
 
+    var withNotification: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                setToolbarWithNotification()
+            } else {
+                setNavigation()
+                binding.topAppBar.title = title
+            }
+        }
+
     var root: MaterialToolbar = binding.topAppBar
 
     private lateinit var clickNotificationListener: () -> Unit?
@@ -35,35 +43,21 @@ class AppBarCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout
         attr?.let { attributeSet: AttributeSet ->
             val attributes =
                 context.obtainStyledAttributes(attributeSet, R.styleable.AppBarCustomView)
-            val isToolbarWithNotification =
+            withNotification =
                 attributes.getBoolean(R.styleable.AppBarCustomView_withNotification, false)
-
-            if (isToolbarWithNotification) {
-                setToolbarWithNotification()
-            } else {
-                binding.topAppBar.title =
-                    attributes.getString(R.styleable.AppBarCustomView_android_title)
-            }
-
+            title = attributes.getString(R.styleable.AppBarCustomView_android_title).orEmpty()
             attributes.recycle()
-        }
-    }
-
-    fun handleDrawer(activity: FragmentActivity?) {
-        val actionBarToggle = ActionBarDrawerToggle(activity, binding.drawerLayout, 0, 0)
-        binding.drawerLayout.addDrawerListener(actionBarToggle)
-        actionBarToggle.syncState()
-
-        binding.topAppBar.setNavigationOnClickListener {
-            it.setOnClickListener {
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-            }
         }
     }
 
     private fun setToolbarWithNotification() {
         binding.topAppBar.inflateMenu(R.menu.menu_app_bar_custom_view)
         binding.topAppBar.navigationIcon = getDrawable(context, R.drawable.ic_menu_24)
+        handleNotificationListener()
+    }
+
+    private fun setNavigation() {
+        binding.topAppBar.navigationIcon = getDrawable(context, R.drawable.ic_arrow_back_24)
         handleNotificationListener()
     }
 
