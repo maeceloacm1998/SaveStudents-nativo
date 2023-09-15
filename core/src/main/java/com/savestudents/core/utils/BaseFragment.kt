@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<T : ViewBinding, R>(
@@ -35,5 +36,16 @@ abstract class BaseFragment<T : ViewBinding, R>(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+}
+
+inline fun <reified T> Fragment.arguments(
+    key: String,
+): Lazy<T> = lazy {
+    val value = arguments?.get(key)
+    if (value is T) {
+        value
+    } else {
+        throw IllegalArgumentException("Couldn`t find argument for key $key of type ${T::class.java.canonicalName}")
     }
 }
