@@ -9,7 +9,8 @@ import br.oficial.savestudents.databinding.ActivityTimelineSettingsBinding
 import br.oficial.savestudents.viewModel.TimelineSettingsViewModel
 import br.oficial.savestudents.viewModel.TimelineViewModel
 import com.br.core.notifications.NotificationsManager
-import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
+import com.savestudents.core.sharedPreferences.SharedPreferencesBuilder
 import com.br.core.workers.NotificationWorkerBuilder
 import com.example.data_transfer.model.NotificationTimeline
 import com.example.data_transfer.model.TimelineItem
@@ -55,7 +56,7 @@ class TimelineSettingsActivity : AppCompatActivity() {
 
     private fun fetchTimelineItem() {
         val timelineId = intent?.getStringExtra(TIMELINE_ID).toString()
-        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+        val pushToken = SharedPreferencesBuilderR1.GetInstance(applicationContext)
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
         timelineViewModel.getTimelineList(
@@ -85,7 +86,7 @@ class TimelineSettingsActivity : AppCompatActivity() {
 
     private fun handleChangeTimelineNotification() {
         val timelineNotification = binding.notificationTimelineSwitch
-        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+        val pushToken = SharedPreferencesBuilderR1.GetInstance(applicationContext)
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
         if (timelineNotification.isChecked) {
@@ -111,7 +112,7 @@ class TimelineSettingsActivity : AppCompatActivity() {
     }
 
     private fun deleteNotification() {
-        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+        val pushToken = SharedPreferencesBuilderR1.GetInstance(applicationContext)
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
         timelineItem?.subjectsInformation?.let { viewModel.deleteTimelineNotification("${it.id}${pushToken}") }
     }

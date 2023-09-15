@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.oficial.savestudents.adapter.CarouselRVAdapter
 import br.oficial.savestudents.databinding.ActivityOnboardBinding
 import br.oficial.savestudents.utils.OnboardMock
-import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
 import com.example.data_transfer.model.contract.CarouselRVContract
 
 
@@ -32,7 +32,7 @@ class OnboardActivity : AppCompatActivity() {
     }
 
     private fun handleFinishButton() {
-        SharedPreferencesBuilder.GetInstance(applicationContext).putBoolean(ONBOARD_KEY, false)
+        SharedPreferencesBuilderR1.GetInstance(applicationContext).putBoolean(ONBOARD_KEY, false)
         renderHome()
     }
 

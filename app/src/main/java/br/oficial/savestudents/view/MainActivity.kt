@@ -7,15 +7,17 @@ import br.oficial.savestudents.R
 import br.oficial.savestudents.view.activity.OnboardActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
-import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
+import com.savestudents.core.sharedPreferences.SharedPreferencesDependencyInjection
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
 import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.shared.utils.KoinUtils
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.createInstance(applicationContext)
         KoinUtils.addModules(*FirebaseDependencyInjection.modules)
         KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
+        KoinUtils.addModules(*SharedPreferencesDependencyInjection.modules)
         KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
     }
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPushToken() {
-        val pushToken = SharedPreferencesBuilder.GetInstance(applicationContext)
+        val pushToken = SharedPreferencesBuilderR1.GetInstance(applicationContext)
             .getString(NotificationsManager.PUSH_TOKEN_KEY)
 
         if (pushToken.isNullOrBlank()) {
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleInitialActivity() {
-        val shouldShowOnboard = SharedPreferencesBuilder.GetInstance(applicationContext)
+        val shouldShowOnboard = SharedPreferencesBuilderR1.GetInstance(applicationContext)
             .getBoolean(OnboardActivity.ONBOARD_KEY, true)
 
         if (shouldShowOnboard) {

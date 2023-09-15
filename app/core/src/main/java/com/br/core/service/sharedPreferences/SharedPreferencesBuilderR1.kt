@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-object SharedPreferencesBuilder {
+object SharedPreferencesBuilderR1 {
 
     const val SHARED_PREFERENCES_KEY = "@save_students"
 

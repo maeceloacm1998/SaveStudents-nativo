@@ -12,8 +12,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.br.core.R
 import com.br.core.contract.NotificationManagerContract
-import com.br.core.service.sharedPreferences.SharedPreferencesBuilder
+import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
 import com.google.firebase.messaging.FirebaseMessaging
 
 class NotificationsManager(private var context: Context) : NotificationManagerContract {
@@ -40,6 +41,7 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
             .setContentTitle(title).setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
+            .setSmallIcon(R.drawable.notification_logo)
             .setContentIntent(pendingIntent);
 
         with(NotificationManagerCompat.from(context)) {
@@ -86,7 +88,7 @@ class NotificationsManager(private var context: Context) : NotificationManagerCo
             }
 
             val token = task.result
-            SharedPreferencesBuilder.GetInstance(context).putString(PUSH_TOKEN_KEY, token)
+            SharedPreferencesBuilderR1.GetInstance(context).putString(PUSH_TOKEN_KEY, token)
         }
     }
 
