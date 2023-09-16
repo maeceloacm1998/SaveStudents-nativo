@@ -15,10 +15,10 @@ interface FirebaseClient {
         values: MutableList<String>,
     ): Result<T>
 
-    suspend fun <T> getSpecificDocument(
+    suspend fun getSpecificDocument(
         collectionPath: String,
         documentPath: String
-    ): Result<T>
+    ): Result<DocumentSnapshot>
 
     suspend fun setSpecificDocument(
         collectionPath: String,

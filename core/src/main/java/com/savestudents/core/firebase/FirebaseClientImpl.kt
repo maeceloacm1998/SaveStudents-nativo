@@ -98,23 +98,24 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
         }
     }
 
-    override suspend fun <T> getSpecificDocument(
+    override suspend fun getSpecificDocument(
         collectionPath: String,
         documentPath: String
-    ): Result<T> {
+    ): Result<DocumentSnapshot> {
         return try {
             val res = withContext(Dispatchers.IO) {
                 database.collection(collectionPath).document(documentPath).get().await()
             }
-            val documents = res.data as T
+
+            val document = res as DocumentSnapshot
 
             handleLog(
                 typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
-                data = documents.toString()
+                data = document.toString()
             )
-            Result.success(documents)
+            Result.success(document)
         } catch (e: Exception) {
             handleLog(
                 typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,

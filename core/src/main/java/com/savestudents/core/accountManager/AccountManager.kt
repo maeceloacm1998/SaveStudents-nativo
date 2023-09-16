@@ -8,5 +8,9 @@ interface AccountManager {
         email: String,
         password: String,
     ): Result<FirebaseUser>
-    suspend fun register(user: UserAccount, password: String): Result<FirebaseUser>
+    suspend fun register(user: UserAccount): Result<FirebaseUser>
+    fun logoutUser()
+    fun isLoggedUser(): Boolean
+    fun getFirebaseUser(): FirebaseUser?
+    fun getUserAccount(): UserAccount?
 }

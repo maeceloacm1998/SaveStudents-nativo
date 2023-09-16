@@ -1,22 +1,26 @@
 package br.oficial.savestudents.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import br.oficial.savestudents.R
-import br.oficial.savestudents.view.activity.OnboardActivity
 import com.br.core.notifications.NotificationsManager
 import com.br.core.service.internal.database.AdminCheckDB
 import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
+import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
 import com.savestudents.core.sharedPreferences.SharedPreferencesDependencyInjection
+import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
 import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.shared.utils.KoinUtils
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+    private val accountRegister: AccountManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,27 +55,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleInitialActivity() {
-        val shouldShowOnboard = SharedPreferencesBuilderR1.GetInstance(applicationContext)
-            .getBoolean(OnboardActivity.ONBOARD_KEY, true)
+        if (accountRegister.isLoggedUser()) {
+            val user = accountRegister.getUserAccount()
+            lifecycleScope.launch {
+                checkNotNull(user).run {
+                    val login = accountRegister.login(user.email, user.password)
 
-        if (shouldShowOnboard) {
-            renderOnboard()
+                    login.onSuccess {
+                        startActivity(
+                            NavigationActivity.newInstance(applicationContext, InitialScreenTypes.HOME)
+                        )
+                    }
+                }
+            }
         } else {
-            renderHome()
+            startActivity(
+                NavigationActivity.newInstance(
+                    applicationContext,
+                    InitialScreenTypes.LOGIN
+                )
+            )
         }
-    }
-
-    private fun renderHome() {
-        val intent = Intent(applicationContext, NavigationActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-        startActivity(intent)
-    }
-
-    private fun renderOnboard() {
-        val intent = OnboardActivity.newInstance(applicationContext)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-        startActivity(intent)
     }
 }

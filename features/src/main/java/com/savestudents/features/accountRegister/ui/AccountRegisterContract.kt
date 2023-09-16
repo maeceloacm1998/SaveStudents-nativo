@@ -23,7 +23,7 @@ interface AccountRegisterContract {
 
     interface Presenter : BasePresenter {
         suspend fun fetchInstitution()
-        suspend fun validateFields(user: UserAccount, password: String)
-        suspend fun saveData(user: UserAccount, password: String)
+        suspend fun validateFields(user: UserAccount)
+        suspend fun saveData(user: UserAccount)
     }
 }

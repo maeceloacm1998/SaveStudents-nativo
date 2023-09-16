@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class AccountRegisterFragment :  BaseFragment<FragmentAccountRegisterBinding, NavigationActivity>(
+class AccountRegisterFragment : BaseFragment<FragmentAccountRegisterBinding, NavigationActivity>(
     FragmentAccountRegisterBinding::inflate), AccountRegisterContract.View {
 
     override val presenter: AccountRegisterContract.Presenter by inject { parametersOf(this) }
@@ -37,15 +37,11 @@ class AccountRegisterFragment :  BaseFragment<FragmentAccountRegisterBinding, Na
                     name = nameTextInput.editTextDefault.text.toString(),
                     email = emailTextInput.editTextDefault.text.toString(),
                     institution = institutionTextInput.editTextAutocomplete.text.toString(),
-                    birthDate = dateTextInput.editTextDefault.text.toString()
+                    birthDate = dateTextInput.editTextDefault.text.toString(),
+                    password = passwordTextLayout.editTextDefault.text.toString()
                 )
 
-                lifecycleScope.launch {
-                    presenter.validateFields(
-                        userAccount,
-                        passwordTextLayout.editTextDefault.text.toString()
-                    )
-                }
+                lifecycleScope.launch { presenter.validateFields(userAccount) }
             }
 
             parentActivity?.goBackPressed {

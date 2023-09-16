@@ -20,7 +20,7 @@ class AccountRegisterPresenter(
         }
     }
 
-    override suspend fun validateFields(user: UserAccount, password: String) {
+    override suspend fun validateFields(user: UserAccount) {
         view.loading(true)
         view.errorRegisterUser(false)
         when {
@@ -29,16 +29,16 @@ class AccountRegisterPresenter(
             !isValidEmail(user.email) -> view.showEmailFormatError()
             user.birthDate.isEmpty() -> view.showEmptyBirthDateField()
             user.institution.isEmpty() -> view.showEmptyInstitutionField()
-            password.isEmpty() -> view.showEmptyPasswordField()
+            user.password.isEmpty() -> view.showEmptyPasswordField()
             else -> {
                 view.clearFieldsError()
-                saveData(user, password)
+                saveData(user)
             }
         }
     }
 
-    override suspend fun saveData(user: UserAccount, password: String) {
-        accountManager.register(user, password).onSuccess {
+    override suspend fun saveData(user: UserAccount) {
+        accountManager.register(user).onSuccess {
             view.goToHomeFragment()
         }.onFailure {
             view.errorRegisterUser(true)
