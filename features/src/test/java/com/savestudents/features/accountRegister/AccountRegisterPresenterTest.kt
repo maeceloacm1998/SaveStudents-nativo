@@ -59,9 +59,10 @@ class AccountRegisterPresenterTest {
             name = "",
             email = "",
             institution = "",
-            birthDate = ""
+            birthDate = "",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
+        presenter.validateFields(user)
         verify(view, Mockito.times(1)).showEmptyNameField()
     }
 
@@ -72,9 +73,10 @@ class AccountRegisterPresenterTest {
             name = "teste",
             email = "",
             institution = "",
-            birthDate = ""
+            birthDate = "",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
+        presenter.validateFields(user)
         verify(view, Mockito.times(1)).showEmptyEmailField()
     }
 
@@ -85,9 +87,10 @@ class AccountRegisterPresenterTest {
             name = "teste",
             email = "teste",
             institution = "",
-            birthDate = ""
+            birthDate = "",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
+        presenter.validateFields(user)
         verify(view, Mockito.times(1)).showEmailFormatError()
     }
 
@@ -97,10 +100,11 @@ class AccountRegisterPresenterTest {
             id = "",
             name = "teste",
             email = "teste@teste.com",
-            institution = "",
-            birthDate = ""
+            institution = "PUCMINAS - São Gabriel",
+            birthDate = "",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
+        presenter.validateFields(user)
         verify(view, Mockito.times(1)).showEmptyBirthDateField()
     }
 
@@ -110,10 +114,11 @@ class AccountRegisterPresenterTest {
             id = "",
             name = "teste",
             email = "teste@teste.com",
-            institution = "PUCMINAS - São Gabriel",
-            birthDate = "02/02/02"
+            institution = "",
+            birthDate = "",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
+        presenter.validateFields(user)
         verify(view, Mockito.times(1)).showEmptyBirthDateField()
     }
 
@@ -124,10 +129,11 @@ class AccountRegisterPresenterTest {
             name = "teste",
             email = "teste@teste.com",
             institution = "PUCMINAS - São Gabriel",
-            birthDate = "02/02/02"
+            birthDate = "02/02/02",
+            password = ""
         )
-        presenter.validateFields(user, password = "")
-        verify(view, Mockito.times(1)).showEmptyBirthDateField()
+        presenter.validateFields(user)
+        verify(view, Mockito.times(1)).showEmptyPasswordField()
     }
 
     @Test
@@ -137,16 +143,16 @@ class AccountRegisterPresenterTest {
             name = "teste",
             email = "teste@teste.com",
             institution = "PUCMINAS - São Gabriel",
-            birthDate = "02/02/02"
+            birthDate = "02/02/02",
+            password = "123456"
         )
-        val password = "123456"
         val firebaseUser: FirebaseUser = mockk(relaxed = true)
-        Mockito.`when`(accountManager.register(user, password))
+        Mockito.`when`(accountManager.register(user))
             .thenReturn(Result.success(firebaseUser))
 
-        presenter.validateFields(user, password)
+        presenter.validateFields(user)
 
-        verify(view, Mockito.times(1)).goToConfirmationEmail()
+        verify(view, Mockito.times(1)).goToHomeFragment()
     }
 
     @Test
@@ -156,14 +162,14 @@ class AccountRegisterPresenterTest {
             name = "teste",
             email = "teste@teste.com",
             institution = "PUCMINAS - São Gabriel",
-            birthDate = "02/02/02"
+            birthDate = "02/02/02",
+            password = "123456"
         )
-        val password = "123456"
         val error = mock(Throwable::class.java)
-        Mockito.`when`(accountManager.register(user, password))
+        Mockito.`when`(accountManager.register(user))
             .thenReturn(Result.failure(error))
 
-        presenter.validateFields(user, password)
+        presenter.validateFields(user)
 
         verify(view, Mockito.times(1)).errorRegisterUser(true)
     }
