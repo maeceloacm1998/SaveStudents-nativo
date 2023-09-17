@@ -8,7 +8,8 @@ import com.savestudents.features.databinding.FragmentHomeBinding
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.home.models.Event
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, NavigationActivity>(FragmentHomeBinding::inflate) {
+class HomeFragment :
+    BaseFragment<FragmentHomeBinding, NavigationActivity>(FragmentHomeBinding::inflate) {
 
     private val adapterHome by lazy { HomeAdapter() }
 
@@ -20,10 +21,121 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, NavigationActivity>(Fragm
             layoutManager = LinearLayoutManager(context)
         }
         val x = mutableListOf(
-            Event("Deu certo"),
-            Event("Deu certo1"),
-            Event("Deu cert2"),
-            Event("Deu certo4")
+            Event(
+                "Deu certo",
+                mutableListOf(
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    )
+                )
+            ),
+            Event(
+                "Deu certo1",
+                mutableListOf(
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    )
+                )
+            ),
+            Event(
+                "Deu cert2", mutableListOf(
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    )
+                )
+            ),
+            Event(
+                "Deu certo4",
+                mutableListOf(
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    ),
+                    Event.EventItem(
+                        "02",
+                        "Aula de grafos",
+                        "Hoje você tem aula de Introdução de grafos ",
+                        "15:00"
+                    )
+                )
+            )
         )
         adapterHome.submitList(x)
     }
