@@ -3,6 +3,7 @@ buildscript {
     ext.kotlin_version = '1.7.20'
     repositories {
         google()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath libs.androidx.lifecycle.navigation.navigationSafeArgs

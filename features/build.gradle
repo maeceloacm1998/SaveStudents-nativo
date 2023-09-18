@@ -62,8 +62,9 @@ dependencies {
     implementation libs.firebase.bom
     implementation libs.firebase.firestore
     implementation libs.kotlinx.coroutines.android
+    implementation 'com.github.shrikanth7698:Collapsible-Calendar-View-Android:v1.0.0'
+
     implementation libs.kotlinx.coroutines.test
     testImplementation libs.bundles.test
-
     androidTestImplementation libs.bundles.test.ui
 }

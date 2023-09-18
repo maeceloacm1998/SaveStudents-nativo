@@ -3,6 +3,7 @@
     <string name="submit_text">Entrar</string>
     <string name="register_account">Cadastrar</string>
     <string name="register_title">Registrar</string>
+    <string name="curriculum_title">Eventos</string>
 
     <string name="hint_email_account">E-mail</string>
     <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>

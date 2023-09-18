@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".curriculum.ui.CurriculumFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="true"
+            app:expandIconColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:primaryColor="@color/black"
+            app:selectedItem_background="@drawable/bg_circle_soft_black"
+            app:textColor="@android:color/white"
+            app:todayItem_background="@drawable/bg_circle_blue"
+            app:todayItem_textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/Theme.Ui.Text.Bold.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/curriculum_title"
+            app:layout_constraintTop_toBottomOf="@id/calendar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -24,13 +24,15 @@ class NavigationActivity : AppCompatActivity() {
     private fun handleUserLogger() {
         val intent = intent.extras
         val initialScreen = intent?.getSerializable(INITIAL_SCREEN_TYPES) as InitialScreenTypes
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view_login) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view_login) as NavHostFragment
         val controller = navHostFragment.navController
 
-        when(initialScreen) {
+        when (initialScreen) {
             InitialScreenTypes.HOME -> {
-                controller.navigate(R.id.homeFragment)
+                controller.navigate(R.id.curriculumFragment)
             }
+
             InitialScreenTypes.LOGIN -> {
                 controller.navigate(R.id.loginFragment)
             }

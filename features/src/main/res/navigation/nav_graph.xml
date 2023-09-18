@@ -48,4 +48,10 @@
         android:name="com.savestudents.features.home.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/curriculumFragment"
+        android:name="com.savestudents.features.curriculum.ui.CurriculumFragment"
+        android:label="fragment_curriculum"
+        tools:layout="@layout/fragment_curriculum" />
 </navigation>
