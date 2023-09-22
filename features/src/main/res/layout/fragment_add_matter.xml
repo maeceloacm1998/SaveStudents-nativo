@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:smoothScrollbar="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="730dp">
+
+            <com.savestudents.components.textInput.TextInputCustomView
+                android:id="@+id/matter_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/hint_search_matter"
+                app:helperText="@string/helper_search_matter"
+                app:layoutType="autocomplete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/matter_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/matter_text_input">
+
+                <TextView
+                    android:id="@+id/matter_name_and_period"
+                    style="@style/Theme.Ui.Text.Bold.Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Grafos - 3 período" />
+
+                <TextView
+                    android:id="@+id/turn"
+                    style="@style/Theme.Ui.Text.Bold.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Turno: noite" />
+
+                <TextView
+                    android:id="@+id/teacher"
+                    style="@style/Theme.Ui.Text.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Professor: Antonio" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/select_day_title"
+                style="@style/Theme.Ui.Text.Bold.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/add_matter_select_matter_title"
+                app:layout_constraintTop_toBottomOf="@id/matter_information" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                app:layout_constraintTop_toBottomOf="@id/select_day_title">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_monday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_tuesday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_wednesday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_thursday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_friday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_matter_chip_saturday" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/select_hour_title"
+                style="@style/Theme.Ui.Text.Bold.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/add_matter_select_hour_title"
+                app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+
+            <com.savestudents.components.textInput.TextInputCustomView
+                android:id="@+id/initial_hour_text_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/add_matter_initial_hour"
+                app:iconRight="@drawable/ic_clock"
+                app:layout_constraintEnd_toStartOf="@id/final_hour_text_layout"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select_hour_title"
+                app:mask="##:##" />
+
+            <com.savestudents.components.textInput.TextInputCustomView
+                android:id="@+id/final_hour_text_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/add_matter_final_hour"
+                app:iconRight="@drawable/ic_clock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/initial_hour_text_layout"
+                app:layout_constraintTop_toBottomOf="@id/select_hour_title"
+                app:mask="##:##" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submit_button"
+                style="@style/Theme.Ui.Button"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/register_account"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+

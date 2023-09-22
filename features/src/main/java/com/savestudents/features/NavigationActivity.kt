@@ -30,7 +30,7 @@ class NavigationActivity : AppCompatActivity() {
 
         when (initialScreen) {
             InitialScreenTypes.HOME -> {
-                controller.navigate(R.id.curriculumFragment)
+                controller.navigate(R.id.addMatterFragment)
             }
 
             InitialScreenTypes.LOGIN -> {

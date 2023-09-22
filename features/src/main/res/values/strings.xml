@@ -9,7 +9,9 @@
     <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
     <string name="hint_password_account">Senha</string>
     <string name="hint_name_account">Nome</string>
+    <string name="hint_search_matter">Digite a matéria</string>
     <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
+    <string name="helper_search_matter">Digite a matéria que deseja adicionar</string>
     <string name="hint_date_account">Data de nascimento</string>
     <string name="helper_date_account">Digite sua data de nascimento</string>
     <string name="hint_institution_account">Faculdade</string>
@@ -26,5 +28,18 @@
     <string name="account_validation_incorrect_birth_date">A sua data de nascimento precisa ter esse formato, por exemplo: 00/00/0000</string>
     <string name="account_validation_create_error">Erro ao criar conta. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="not_text_error">  </string>
+
+    <string name="add_matter_chip_monday">Segunda</string>
+    <string name="add_matter_chip_tuesday">Terça</string>
+    <string name="add_matter_chip_wednesday">Quarta</string>
+    <string name="add_matter_chip_thursday">Quinta</string>
+    <string name="add_matter_chip_friday">Sexta</string>
+    <string name="add_matter_chip_saturday">Sabado</string>
+    <string name="add_matter_select_matter_title">Seleciona o dia dessa matéria</string>
+    <string name="add_matter_select_hour_title">Selecionar Horário da aula</string>
+    <string name="add_matter_select_initial_hour">Escolha um horario para o inicia da aula</string>
+    <string name="add_matter_select_final_hour">Escolha um horario para o término da aula</string>
+    <string name="add_matter_initial_hour">Inicio</string>
+    <string name="add_matter_final_hour">Fim</string>
 
 </resources>

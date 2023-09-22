@@ -1,6 +1,7 @@
 package com.savestudents.components.textInput
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -70,10 +71,10 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
         }
     var mask: String = ""
         set(value) {
-            field = value
             binding.textInputDefault.editText?.addTextChangedListener(
                 MaskEditUtil.mask(checkNotNull(binding.textInputDefault.editText), value)
             )
+            field = binding.textInputDefault.editText?.text.toString()
         }
 
     var unmask: String = ""
@@ -82,6 +83,14 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             MaskEditUtil.unmask(binding.textInputDefault.editText?.text.toString())
         }
 
+    var iconRight: Drawable? = null
+        set(value) {
+            field = value
+            binding.run {
+                textInputDefault.isPasswordVisibilityToggleEnabled = true
+                textInputDefault.endIconDrawable = value
+            }
+        }
 
     private lateinit var onAutoCompleteItemSelected: (item: String) -> Unit?
 
@@ -105,7 +114,7 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
             )
             passwordToggleEnabled =
                 attributes.getBoolean(R.styleable.TextInputCustomView_passwordToggleEnabled, false)
-
+            iconRight = attributes.getDrawable(R.styleable.TextInputCustomView_iconRight)
             val attributeMask = attributes.getString(R.styleable.TextInputCustomView_mask) ?: ""
             if (attributeMask != "") mask = attributeMask
             attributes.recycle()
@@ -113,10 +122,12 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
     }
 
     private fun setupViews() {
-        binding.editTextAutocomplete.run {
-            setOnItemClickListener { _, _, _, _ ->
-                if (::onAutoCompleteItemSelected.isInitialized) {
-                    onAutoCompleteItemSelected(text.toString())
+        binding.run {
+            editTextAutocomplete.run {
+                setOnItemClickListener { _, _, _, _ ->
+                    if (::onAutoCompleteItemSelected.isInitialized) {
+                        onAutoCompleteItemSelected(text.toString())
+                    }
                 }
             }
         }
@@ -146,5 +157,16 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
 
     fun onItemSelected(listener: (item: String) -> Unit) {
         onAutoCompleteItemSelected = listener
+    }
+
+    fun onClickInputNotKeyboard(function: () -> Unit) {
+        binding.editTextDefault.inputType = InputType.TYPE_NULL
+        binding.editTextDefault.isFocusable = false
+        binding.textInputDefault.setEndIconOnClickListener {
+            function()
+        }
+        binding.editTextDefault.setOnClickListener {
+            function()
+        }
     }
 }
