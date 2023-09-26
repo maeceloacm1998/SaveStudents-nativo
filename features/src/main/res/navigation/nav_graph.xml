@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_curriculum" />
     <fragment
         android:id="@+id/addMatterFragment"
-        android:name="com.savestudents.features.addMatter.AddMatterFragment"
+        android:name="com.savestudents.features.addMatter.ui.AddMatterFragment"
         android:label="fragment_add_matter"
         tools:layout="@layout/fragment_add_matter" />
 </navigation>

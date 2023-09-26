@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_woman_question"
+        app:layout_constraintBottom_toTopOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Theme.Ui.Text.Bold.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@id/message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:text="Problema para conectar" />
+
+    <TextView
+        android:id="@+id/message"
+        style="@style/Theme.Ui.Text.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Deu problema para conectar, tente novamente mais tarde" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        style="@style/Theme.Ui.Button"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/try_again_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
