@@ -2,13 +2,17 @@ package com.savestudents.features.addMatter.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.chip.Chip
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
 import com.google.android.material.timepicker.TimeFormat
+import com.savestudents.components.button.disabled
 import com.savestudents.components.textInput.TextInputCustomView
 import com.savestudents.core.utils.BaseFragment
+import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.Matter
@@ -40,7 +44,10 @@ class AddMatterFragment :
 
                 picker.run {
                     addOnPositiveButtonClickListener {
-                        setTimeInEditText(binding.initialHourTextLayout, hour, minute)
+                        val time: String =
+                            DateUtils.formatTime(this.hour.toString(), this.minute.toString())
+                        presenter.saveInitialHourSelected(time)
+                        setTimeInEditText(binding.initialHourTextLayout, time)
                     }
                 }
             }
@@ -51,7 +58,10 @@ class AddMatterFragment :
 
                 picker.run {
                     addOnPositiveButtonClickListener {
-                        setTimeInEditText(binding.finalHourTextLayout, hour, minute)
+                        val time: String =
+                            DateUtils.formatTime(this.hour.toString(), this.minute.toString())
+                        presenter.saveFinalHourSelected(time)
+                        setTimeInEditText(binding.finalHourTextLayout, time)
                     }
                 }
             }
@@ -59,11 +69,23 @@ class AddMatterFragment :
             matterTextInput.onItemSelected { item ->
                 presenter.matterSelect(item)
             }
+
+            submitButton.setOnClickListener {
+                val daysSelected: List<String> = chipGroup.children
+                    .toList()
+                    .filter { (it as Chip).isChecked }
+                    .map { (it as Chip).text.toString() }
+
+                submitButton.disabled(true)
+                lifecycleScope.launch {
+                    presenter.registerMatter(daysSelected)
+                }
+            }
         }
     }
 
-    private fun setTimeInEditText(editable: TextInputCustomView, hour: Int, minutes: Int) {
-        editable.editTextDefault.setText(getString(R.string.add_matter_hour_selected, hour, minutes))
+    private fun setTimeInEditText(editable: TextInputCustomView, time: String) {
+        editable.editTextDefault.setText(time)
     }
 
     private fun handleTimePicker(title: String): MaterialTimePicker {

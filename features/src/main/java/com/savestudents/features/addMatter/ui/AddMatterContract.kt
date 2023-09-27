@@ -11,10 +11,14 @@ interface AddMatterContract {
         fun handleMatterSelect(matter: Matter)
         fun loading(loading: Boolean)
         fun showError()
+
     }
 
     interface Presenter : BasePresenter {
         suspend fun fetchMatters()
         fun matterSelect(option: String)
+        fun saveInitialHourSelected(time: String)
+        fun saveFinalHourSelected(time: String)
+        suspend fun registerMatter(daysSelected: List<String>)
     }
 }

@@ -19,4 +19,14 @@ object DateUtils {
             throw RuntimeException("Erro ao analisar a data: ${error.message}", error)
         }
     }
+
+    fun formatTime(hour: String, minutes: String): String {
+        val hour = hour.toInt()
+        val minute = minutes.toInt()
+
+        val formattedHour = String.format("%02d", hour)
+        val formattedMinutes = String.format("%02d", minute)
+
+        return "$formattedHour:$formattedMinutes"
+    }
 }
