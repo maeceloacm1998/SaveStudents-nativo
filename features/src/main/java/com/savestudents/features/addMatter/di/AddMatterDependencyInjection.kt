@@ -8,7 +8,7 @@ import org.koin.dsl.module
 object AddMatterDependencyInjection {
     private val accountRegisterModules = module {
         factory<AddMatterContract.Presenter> { (view: AddMatterFragment) ->
-            AddMatterPresenter(view, get())
+            AddMatterPresenter(view, get(), get())
         }
     }
 

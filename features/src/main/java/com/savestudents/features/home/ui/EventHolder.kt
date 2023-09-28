@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.savestudents.features.databinding.EventHolderBinding
 import com.savestudents.features.databinding.EventItemBinding
-import com.savestudents.features.home.models.Event
+import com.savestudents.features.addMatter.models.Event
 
 class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -30,11 +30,11 @@ class EventItemHolder(private val binding: EventItemBinding) :
 
     fun bind(item: Event.EventItem) {
         binding.apply {
-            day.text = item.date
+            day.text = item.date.toString()
             month.text = "maio"
-            eventTitle.text = item.eventName
-            eventDescription.text = item.description
-            hour.text = item.hours
+            eventTitle.text = item.matter?.matterName
+            eventDescription.text = ""
+            hour.text = item.initialTime
         }
     }
 }

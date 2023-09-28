@@ -1,11 +1,17 @@
 package com.savestudents.features.addMatter.ui
 
+import com.google.firebase.firestore.ktx.toObject
+import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
 import com.savestudents.features.addMatter.models.Matter
+import com.savestudents.features.addMatter.models.Schedule
+import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.addMatter.models.EventType
 
 class AddMatterPresenter(
     val view: AddMatterContract.View,
-    private val client: FirebaseClient
+    private val client: FirebaseClient,
+    private val accountManager: AccountManager
 ) : AddMatterContract.Presenter {
     private var matterList: List<Matter> = mutableListOf()
     private var matterSelected: Matter? = null
@@ -79,13 +85,46 @@ class AddMatterPresenter(
                     errorFinalHourNotSelected(false)
                     errorInitialHourNotSelected(false)
                 }
-                register()
+                register(daysSelected)
             }
         }
     }
 
-    suspend fun register() {
-        // TODO fazer request e salvar isso.
+    suspend fun register(daysSelected: List<String>) {
+        val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
+        client.getSpecificDocument("scheduleUser", userId).onSuccess {
+            val schedule = it.toObject<Schedule>()
+            val eventList: List<Event> = addEvents(schedule = schedule, daysSelected = daysSelected)
+
+            client.setSpecificDocument(
+                "scheduleUser",
+                userId,
+                schedule?.copy(data = eventList)
+            )
+        }
+    }
+
+    private fun addEvents(schedule: Schedule?, daysSelected: List<String>): List<Event> {
+        val eventList: List<Event> = requireNotNull(schedule?.data)
+
+        eventList.map { event ->
+            if (isDaySelected(event, daysSelected)) {
+                val eventItem: Event.EventItem = Event.EventItem(
+                    date = 1, // TODO pegar a data em timestemp, ja existe no app
+                    type = EventType.MATTER.value,
+                    matter = matterSelected,
+                    initialTime = initialTime.toString(),
+                    finalTime = finalTime.toString()
+                )
+                event.events.add(eventItem)
+            }
+        }
+
+        return eventList
+    }
+
+    private fun isDaySelected(event: Event, daysSelected: List<String>): Boolean {
+        return daysSelected.contains(event.dayName)
     }
 }
 

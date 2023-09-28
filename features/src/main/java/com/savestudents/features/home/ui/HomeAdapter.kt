@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.savestudents.features.databinding.EventHolderBinding
-import com.savestudents.features.home.models.Event
+import com.savestudents.features.addMatter.models.Event
 
 class HomeAdapter() : ListAdapter<Event, EventHolder>(HomeDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {

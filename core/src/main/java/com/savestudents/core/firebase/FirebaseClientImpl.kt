@@ -127,14 +127,14 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
         }
     }
 
-    override suspend fun setSpecificDocument(
+    override suspend fun <T> setSpecificDocument(
         collectionPath: String,
         documentPath: String,
-        data: Any,
+        data: T,
     ): Result<Boolean> {
         return try {
             withContext(Dispatchers.IO) {
-                database.collection(collectionPath).document(documentPath).set(data).await()
+                database.collection(collectionPath).document(documentPath).set(data as Any).await()
             }
             handleLog(
                 typeRequisition = FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,

@@ -20,10 +20,10 @@ interface FirebaseClient {
         documentPath: String
     ): Result<DocumentSnapshot>
 
-    suspend fun setSpecificDocument(
+    suspend fun <T> setSpecificDocument(
         collectionPath: String,
         documentPath: String,
-        data: Any,
+        data: T,
     ): Result<Boolean>
 
     suspend fun updateDocument(
