@@ -39,7 +39,11 @@ class TextInputCustomView(context: Context, attrs: AttributeSet) :
     var error: String = ""
         set(value) {
             field = value
-            binding.textInputDefault.error = value
+
+            binding.run {
+                textInputDefault.error = value
+                textInputAutocomplete.error = value
+            }
         }
 
     var helper: String = ""

@@ -10,8 +10,12 @@ interface AddMatterContract {
         fun setMatterOptions(matterList: List<String>)
         fun handleMatterSelect(matter: Matter)
         fun loading(loading: Boolean)
+        fun loadingRegister(loading: Boolean)
         fun showError()
-
+        fun errorMatterNotSelected(visibility: Boolean)
+        fun errorDaysNotSelected(visibility: Boolean)
+        fun errorInitialHourNotSelected(visibility: Boolean)
+        fun errorFinalHourNotSelected(visibility: Boolean)
     }
 
     interface Presenter : BasePresenter {

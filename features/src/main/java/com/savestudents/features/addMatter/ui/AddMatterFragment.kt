@@ -76,7 +76,7 @@ class AddMatterFragment :
                     .filter { (it as Chip).isChecked }
                     .map { (it as Chip).text.toString() }
 
-                submitButton.disabled(true)
+                loadingRegister(true)
                 lifecycleScope.launch {
                     presenter.registerMatter(daysSelected)
                 }
@@ -113,8 +113,49 @@ class AddMatterFragment :
         }
     }
 
+    override fun loadingRegister(loading: Boolean) {
+        binding.submitButton.disabled(loading)
+    }
+
     override fun showError() {
         binding.error.root.isVisible = true
+    }
+
+    override fun errorMatterNotSelected(visibility: Boolean) {
+       binding.run {
+           if(visibility) {
+               binding.matterTextInput.error = getString(R.string.add_matter_select_matter_error)
+           } else {
+               binding.matterTextInput.error = ""
+           }
+       }
+    }
+
+    override fun errorDaysNotSelected(visibility: Boolean) {
+        binding.selectDaysError.run {
+            isVisible = visibility
+            text = getString(R.string.add_matter_select_days_error)
+        }
+    }
+
+    override fun errorInitialHourNotSelected(visibility: Boolean) {
+        binding.run {
+            if(visibility) {
+                binding.initialHourTextLayout.error = getString(R.string.add_matter_select_days_error)
+            } else {
+                binding.initialHourTextLayout.error = ""
+            }
+        }
+    }
+
+    override fun errorFinalHourNotSelected(visibility: Boolean) {
+        binding.run {
+            if(visibility) {
+                binding.finalHourTextLayout.error = getString(R.string.add_matter_select_days_error)
+            } else {
+                binding.finalHourTextLayout.error = ""
+            }
+        }
     }
 
     override fun setMatterOptions(matterList: List<String>) {

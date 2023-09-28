@@ -35,9 +35,13 @@
     <string name="add_matter_chip_thursday">Quinta</string>
     <string name="add_matter_chip_friday">Sexta</string>
     <string name="add_matter_chip_saturday">Sabado</string>
-    <string name="add_matter_select_matter_title">Seleciona o dia dessa matéria</string>
-    <string name="add_matter_select_hour_title">Selecionar Horário da aula</string>
+    <string name="add_matter_select_matter_error">Selecione uma matéria</string>
+    <string name="add_matter_select_days_title">Seleciona o dia dessa matéria</string>
+    <string name="add_matter_select_days_error">Selecione pelomenos um dia para essa matéria</string>
+    <string name="add_matter_select_hour_title">Selecionar horario da aula</string>
+    <string name="add_matter_select_hour_error">Nenhum dia selecionado</string>
     <string name="add_matter_select_initial_hour">Escolha um horario para o inicia da aula</string>
+    <string name="add_matter_hour_error">Selecionar horário</string>
     <string name="add_matter_select_final_hour">Escolha um horario para o término da aula</string>
     <string name="add_matter_initial_hour">Inicio</string>
     <string name="add_matter_final_hour">Fim</string>

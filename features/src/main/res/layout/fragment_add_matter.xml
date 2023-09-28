@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/add_matter_select_matter_title"
+                android:text="@string/add_matter_select_days_title"
                 app:layout_constraintTop_toBottomOf="@id/matter_information" />
 
             <com.google.android.material.chip.ChipGroup
@@ -138,6 +138,17 @@
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
+                android:id="@+id/select_days_error"
+                style="@style/Theme.Ui.Text.Error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:text="@string/add_matter_select_hour_title"
+                app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+
+            <TextView
                 android:id="@+id/select_hour_title"
                 style="@style/Theme.Ui.Text.Bold.Medium"
                 android:layout_width="match_parent"
@@ -145,7 +156,7 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/add_matter_select_hour_title"
-                app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+                app:layout_constraintTop_toBottomOf="@id/select_days_error" />
 
             <com.savestudents.components.textInput.TextInputCustomView
                 android:id="@+id/initial_hour_text_layout"

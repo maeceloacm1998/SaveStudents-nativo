@@ -18,7 +18,8 @@ class AddMatterPresenter(
 
     override suspend fun fetchMatters() {
         client.getDocumentValue("matterList").onSuccess {
-            val matterListItems = it.map { item -> checkNotNull(item.toObject(Matter::class.java)?.matterName) }
+            val matterListItems =
+                it.map { item -> checkNotNull(item.toObject(Matter::class.java)?.matterName) }
             matterList = it.map { item -> checkNotNull(item.toObject(Matter::class.java)) }
             view.setMatterOptions(matterListItems)
             view.loading(false)
@@ -43,12 +44,43 @@ class AddMatterPresenter(
 
     override suspend fun registerMatter(daysSelected: List<String>) {
         when {
-            // TODO implemenmtar cada validacao na camada de view
-            matterSelected == null -> {}
-            initialTime == null -> {}
-            finalTime == null -> {}
-            daysSelected.isEmpty() -> {}
-            else -> {}
+            matterSelected == null -> {
+                view.run {
+                    errorMatterNotSelected(true)
+                    loadingRegister(false)
+                }
+            }
+
+            daysSelected.isEmpty() -> {
+                view.run {
+                    errorDaysNotSelected(true)
+                    loadingRegister(false)
+                }
+            }
+
+            initialTime == null -> {
+                view.run {
+                    errorInitialHourNotSelected(true)
+                    loadingRegister(false)
+                }
+            }
+
+            finalTime == null -> {
+                view.run {
+                    errorFinalHourNotSelected(true)
+                    loadingRegister(false)
+                }
+            }
+
+            else -> {
+                view.run {
+                    errorMatterNotSelected(false)
+                    errorDaysNotSelected(false)
+                    errorFinalHourNotSelected(false)
+                    errorInitialHourNotSelected(false)
+                }
+                register()
+            }
         }
     }
 
