@@ -39,6 +39,20 @@ class AccountRegisterPresenter(
 
     override suspend fun saveData(user: UserAccount) {
         accountManager.register(user).onSuccess {
+            createScheduleUser()
+        }.onFailure {
+            view.errorRegisterUser(true)
+        }
+    }
+
+    private suspend fun createScheduleUser() {
+        val userId: String = accountManager.getUserAccount()?.id.toString()
+
+        firebaseClient.setSpecificDocument(
+            "scheduleUser",
+            userId,
+            ScheduleData.schedule.copy(userId = userId)
+        ).onSuccess {
             view.goToHomeFragment()
         }.onFailure {
             view.errorRegisterUser(true)
