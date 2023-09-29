@@ -7,7 +7,6 @@ import com.savestudents.features.addMatter.models.Matter
 import com.savestudents.features.addMatter.models.Schedule
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
-import java.util.Calendar
 
 class AddMatterPresenter(
     val view: AddMatterContract.View,
@@ -111,7 +110,6 @@ class AddMatterPresenter(
         eventList.map { event ->
             if (isDaySelected(event, daysSelected)) {
                 val eventItem: Event.EventItem = Event.EventItem(
-                    date = Calendar.getInstance().timeInMillis,
                     type = EventType.MATTER.value,
                     matter = matterSelected,
                     initialTime = initialTime.toString(),

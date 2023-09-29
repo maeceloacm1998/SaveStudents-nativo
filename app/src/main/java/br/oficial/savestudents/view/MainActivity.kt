@@ -16,6 +16,7 @@ import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInj
 import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.di.AddMatterDependencyInjection
+import com.savestudents.features.curriculum.di.CurriculumDependencyInjection
 import com.savestudents.features.shared.utils.KoinUtils
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
         KoinUtils.addModules(*AddMatterDependencyInjection.modules)
+        KoinUtils.addModules(*CurriculumDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {

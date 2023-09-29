@@ -46,6 +46,17 @@ object DateUtils {
         )
         return pattern.format(Date(timestamp))
     }
+
+    fun extractYearMonthDay(timestamp: Long): Triple<Int, Int, Int> {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+        return Triple(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+    }
+
     fun isCurrentDate(dateToCompare: Long): Boolean {
         val timestampCurrentDay =
             formatDate(getCurrentDay(), DAY_AND_MONTH_DATE)

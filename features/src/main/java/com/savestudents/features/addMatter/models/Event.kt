@@ -5,7 +5,6 @@ data class Event(
     val events: MutableList<EventItem> = mutableListOf()
 ) {
     data class EventItem(
-        val date: Long = 0,
         val type: String = "",
         val matter: Matter? = null,
         val initialTime: String = "",
