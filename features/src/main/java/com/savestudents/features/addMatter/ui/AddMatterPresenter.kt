@@ -7,6 +7,7 @@ import com.savestudents.features.addMatter.models.Matter
 import com.savestudents.features.addMatter.models.Schedule
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
+import java.util.Calendar
 
 class AddMatterPresenter(
     val view: AddMatterContract.View,
@@ -110,7 +111,7 @@ class AddMatterPresenter(
         eventList.map { event ->
             if (isDaySelected(event, daysSelected)) {
                 val eventItem: Event.EventItem = Event.EventItem(
-                    date = 1, // TODO pegar a data em timestemp, ja existe no app
+                    date = Calendar.getInstance().timeInMillis,
                     type = EventType.MATTER.value,
                     matter = matterSelected,
                     initialTime = initialTime.toString(),
@@ -126,16 +127,4 @@ class AddMatterPresenter(
     private fun isDaySelected(event: Event, daysSelected: List<String>): Boolean {
         return daysSelected.contains(event.dayName)
     }
-}
-
-data class Exemple(
-    val subjectsInformation: Subject? = null,
-    val timelineList: List<Matter.Timeline> = mutableListOf()
-) {
-    data class Subject(
-        val id: String = "",
-        val period: String = "",
-        val teacherName: String = "",
-        val subjectName: String = ""
-    )
 }
