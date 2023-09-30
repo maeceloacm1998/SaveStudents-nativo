@@ -3,10 +3,10 @@ package com.savestudents.features.addMatter.ui
 import com.google.firebase.firestore.ktx.toObject
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.features.addMatter.models.Matter
 import com.savestudents.features.addMatter.models.Schedule
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
+import com.savestudents.features.addMatter.models.Matter
 
 class AddMatterPresenter(
     val view: AddMatterContract.View,
@@ -109,13 +109,17 @@ class AddMatterPresenter(
 
         eventList.map { event ->
             if (isDaySelected(event, daysSelected)) {
-                val eventItem: Event.EventItem = Event.EventItem(
-                    type = EventType.MATTER.value,
-                    matter = matterSelected,
-                    initialTime = initialTime.toString(),
-                    finalTime = finalTime.toString()
-                )
-                event.events.add(eventItem)
+                checkNotNull(matterSelected).let {
+                    val eventItem: Event.EventItem = Event.EventItem(
+                        id = it.id,
+                        type = EventType.MATTER.value,
+                        matterName = it.matterName,
+                        period = it.period,
+                        initialTime = initialTime.toString(),
+                        finalTime = finalTime.toString()
+                    )
+                    event.events.add(eventItem)
+                }
             }
         }
 

@@ -5,9 +5,11 @@ data class Event(
     val events: MutableList<EventItem> = mutableListOf()
 ) {
     data class EventItem(
+        val id: String = "",
         val type: String = "",
-        val matter: Matter? = null,
+        val matterName: String = "",
+        val period: String = "",
         val initialTime: String = "",
-        val finalTime: String = "",
+        val finalTime: String = ""
     )
 }
