@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/day"
+            android:id="@+id/day_text"
             style="@style/Theme.Ui.Text.Bold.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             tools:text="02" />
 
         <TextView
-            android:id="@+id/month"
+            android:id="@+id/month_text"
             style="@style/Theme.Ui.Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

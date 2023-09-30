@@ -2,11 +2,13 @@ package br.oficial.savestudents.debug_mode.view.fragment
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
@@ -20,8 +22,11 @@ import br.oficial.savestudents.debug_mode.viewModel.CreateTimelineViewModel
 import com.example.data_transfer.model.CreateTimelineItem
 import com.example.data_transfer.model.entity.CreateTimelineItemEntity
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneOffset
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 class EditTimelineItemDialog(
     private val mContract: EditTimelineItemDialogContract,
     val timelineItem: CreateTimelineItem
@@ -107,12 +112,15 @@ class EditTimelineItemDialog(
 
     private fun handleSelectDateInCalendar() {
         binding.calendar.setOnDateChangeListener { calendarView, year, month, day ->
-            val instance = Calendar.getInstance()
-            instance.set(year, month, day)
-            selectedDate = instance.timeInMillis
+            selectedDate = getTimestamp(day, month, year)
             modifiedItem = true
-            handleSelectDateTextButton(instance.timeInMillis)
+            handleSelectDateTextButton(getTimestamp(day, month, year))
         }
+    }
+
+    fun getTimestamp(day: Int, month: Int, year: Int): Long {
+        val date = LocalDate.of(year, month + 1, day)
+        return date.atStartOfDay(ZoneOffset.UTC).toEpochSecond()
     }
 
     private fun handleSelectDateTextButton(timestamp: Long) {

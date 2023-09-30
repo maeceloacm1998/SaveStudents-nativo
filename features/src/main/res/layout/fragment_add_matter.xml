@@ -30,6 +30,7 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:minHeight="730dp">
 
             <com.savestudents.components.textInput.TextInputCustomView
