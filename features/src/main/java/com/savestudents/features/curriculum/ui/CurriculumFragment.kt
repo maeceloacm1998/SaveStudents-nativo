@@ -8,10 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.savestudents.components.R
 import com.savestudents.core.utils.BaseFragment
-import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.NavigationActivity
-import com.savestudents.features.addMatter.models.EventType
-import com.savestudents.features.addMatter.models.Matter
+import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
 import com.savestudents.features.home.ui.EventItemAdapter
 import com.shrikanthravi.collapsiblecalendarview.data.Day
@@ -52,15 +50,12 @@ class CurriculumFragment :
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onDaySelect() {
                     val daySelected: Day = calendar.selectedDay
-                    adapterCurriculum.emptyTimelineList()
 
                     lifecycleScope.launch {
                         presenter.fetchEventsWithDate(
-                            DateUtils.getTimestamp(
-                                day = daySelected.day,
-                                month = daySelected.month,
-                                year = daySelected.year
-                            )
+                            day = daySelected.day,
+                            month = daySelected.month,
+                            year = daySelected.year
                         )
                     }
                 }
@@ -81,17 +76,7 @@ class CurriculumFragment :
         )
     }
 
-    override fun updateEventList(
-        matterName: String,
-        eventType: EventType,
-        initialTime: String,
-        timelineList: Matter.Timeline
-    ) {
-        adapterCurriculum.updateData(
-            newMatterName = matterName,
-            newEventType = eventType,
-            newInitialTime = initialTime,
-            newTimeline = timelineList
-        )
+    override fun updateEventList(eventList: List<Event.EventItem>, day: Int, month: Int) {
+        adapterCurriculum.updateData(eventList, day, month)
     }
 }

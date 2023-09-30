@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingVertical="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/day_container"
@@ -21,7 +21,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/bg_circle_blue"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/month_text"
+            app:layout_constraintStart_toStartOf="@id/month_text"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -40,7 +41,7 @@
             style="@style/Theme.Ui.Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/day_bg"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/day_bg"
             tools:text="maio" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -65,24 +66,24 @@
             tools:text="Aula de Grafos" />
 
         <TextView
-            android:id="@+id/event_description"
+            android:id="@+id/event_period"
             style="@style/Theme.Ui.Text.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/hour"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/event_title"
-            app:layout_constraintEnd_toStartOf="@id/hour"
-            tools:text="Hoje você tem aula de Introdução de grafos" />
+            tools:text="6 Periodo" />
 
         <TextView
             android:id="@+id/hour"
             style="@style/Theme.Ui.Text.Bold.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/event_description"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/event_period"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="16:00" />
     </androidx.constraintlayout.widget.ConstraintLayout>

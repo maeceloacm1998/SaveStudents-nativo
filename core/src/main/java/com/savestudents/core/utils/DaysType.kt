@@ -1,4 +1,4 @@
-package com.savestudents.features.addMatter.models
+package com.savestudents.core.utils
 
 enum class DaysType(val value: String) {
     MONDAY("Segunda"),

@@ -1,6 +1,6 @@
 package com.savestudents.features.accountRegister.ui
 
-import com.savestudents.features.addMatter.models.DaysType
+import com.savestudents.core.utils.DaysType
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.Schedule
 

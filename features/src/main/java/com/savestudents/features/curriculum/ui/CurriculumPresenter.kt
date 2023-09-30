@@ -1,15 +1,13 @@
 package com.savestudents.features.curriculum.ui
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.ktx.toObject
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.core.utils.DateUtils.extractYearMonthDay
-import com.savestudents.core.utils.DateUtils.timestampsEquals
+import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.addMatter.models.Event
-import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CurriculumPresenter(
     private val view: CurriculumContract.View,
@@ -27,9 +25,12 @@ class CurriculumPresenter(
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                event.events.forEach { eventItem ->
-                    eventItem.matter?.timelineList?.forEach { timelineItem ->
-                        val (year, month, day) = extractYearMonthDay(timelineItem.date)
+                event.events.forEach { _ ->
+                    val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
+                        DateUtils.getWeeksList(event.dayName)
+                    }
+
+                    weekList.forEach { (day, month, year) ->
                         view.setEvent(year, month, day)
                     }
                 }
@@ -38,19 +39,15 @@ class CurriculumPresenter(
         }.onFailure { }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun fetchEventsWithDate(timestamp: Long) {
+    override suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int) {
         eventList.forEach { event ->
-            event.events.forEach { eventItem ->
-                eventItem.matter?.timelineList?.forEach { timelineItem ->
-                    if (timestampsEquals(timelineItem.date, timestamp)) {
-                        view.updateEventList(
-                            matterName = eventItem.matter.matterName,
-                            eventType = EventType.valueOf(eventItem.type),
-                            initialTime = eventItem.initialTime,
-                            timelineList = timelineItem
-                        )
-                    }
+            val allDaysOfWeek: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
+                DateUtils.getWeeksList(event.dayName)
+            }
+
+            allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
+                if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
+                    view.updateEventList(event.events, day, month)
                 }
             }
         }
