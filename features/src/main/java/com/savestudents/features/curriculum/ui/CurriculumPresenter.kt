@@ -16,9 +16,11 @@ class CurriculumPresenter(
 ) : CurriculumContract.Presenter {
     private var eventList: List<Event> = mutableListOf()
 
-    override fun start() {}
+    override fun start() {
+        view.loadingScreen(true)
+    }
 
-    override suspend fun fetchMatters() {
+    override suspend fun fetchMatters(month: Int) {
         val userId: String = accountManager.getUserAccount()?.id.toString()
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule: Schedule = checkNotNull(it.toObject())
@@ -30,13 +32,16 @@ class CurriculumPresenter(
                         DateUtils.getWeeksList(event.dayName)
                     }
 
-                    weekList.forEach { (day, month, year) ->
-                        view.setEvent(year, month, day)
+                    weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
+                        if(monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
                     }
                 }
             }
 
-        }.onFailure { }
+            view.loadingScreen(false)
+        }.onFailure {
+            view.error(true)
+        }
     }
 
     override suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int) {
@@ -48,6 +53,12 @@ class CurriculumPresenter(
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
                 if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
                     view.updateEventList(event.events, day, month)
+
+                    if(event.events.isEmpty()) {
+                        view.showNotEvents(true)
+                    } else {
+                        view.showNotEvents(false)
+                    }
                 }
             }
         }

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".curriculum.ui.CurriculumFragment">
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/fragment_curriculum_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/error"
+        layout="@layout/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
             android:id="@+id/calendar"
@@ -21,6 +35,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:primaryColor="@color/black"
             app:selectedItem_background="@drawable/bg_circle_soft_black"
+            app:state="collapsed"
             app:textColor="@android:color/white"
             app:todayItem_background="@drawable/bg_circle_blue"
             app:todayItem_textColor="@color/white" />
@@ -35,6 +50,15 @@
             android:text="@string/curriculum_title"
             app:layout_constraintTop_toBottomOf="@id/calendar" />
 
+        <include
+            android:id="@+id/calendar_error"
+            layout="@layout/error_not_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/events_rv"
             android:layout_width="match_parent"
@@ -44,4 +68,4 @@
             app:layout_constraintTop_toBottomOf="@id/title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

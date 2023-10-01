@@ -6,4 +6,6 @@
     <string name="menu_item_notification">Notificações</string>
     <string name="menu_item_config">Configuração</string>
     <string name="try_again_button">Tentar novamente</string>
+
+    <string name="error_title">Ops, ocorreu um problema!</string>
 </resources>

@@ -22,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:text="@string/error_title"
         app:layout_constraintBottom_toTopOf="@id/message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image"
-        tools:text="Problema para conectar" />
+        app:layout_constraintTop_toBottomOf="@id/image" />
 
     <TextView
         android:id="@+id/message"

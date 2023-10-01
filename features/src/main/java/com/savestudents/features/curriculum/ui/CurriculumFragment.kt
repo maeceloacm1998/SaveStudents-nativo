@@ -1,13 +1,14 @@
 package com.savestudents.features.curriculum.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.savestudents.components.R
+import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
+import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
@@ -28,14 +29,16 @@ class CurriculumFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentActivity?.title = "Grade Currícular"
+        parentActivity?.handleTitleToolbar("Grade Currícular")
         init()
         setupViews()
     }
 
     private fun init() {
+        val (day, month, year) = DateUtils.getCurrentDate()
         lifecycleScope.launch {
-            presenter.fetchMatters()
+            presenter.fetchMatters(binding.calendar.month)
+            presenter.fetchEventsWithDate(day, month, year)
         }
     }
 
@@ -47,7 +50,6 @@ class CurriculumFragment :
             }
 
             calendar.setCalendarListener(object : CollapsibleCalendar.CalendarListener {
-                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onDaySelect() {
                     val daySelected: Day = calendar.selectedDay
 
@@ -59,12 +61,44 @@ class CurriculumFragment :
                         )
                     }
                 }
+
                 override fun onItemClick(v: View?) {}
                 override fun onDataUpdate() {}
-                override fun onMonthChange() {}
+                override fun onMonthChange() {
+                    lifecycleScope.launch {
+                        presenter.fetchMatters(calendar.month)
+                    }
+                }
                 override fun onWeekChange(position: Int) {}
             })
         }
+    }
+
+    override fun error(visibility: Boolean) {
+        binding.run {
+            error.root.isVisible = visibility
+            container.isVisible = false
+
+            error.message.text = getString(string.curriculum_error_message)
+            error.button.setOnClickListener { init() }
+
+        }
+    }
+
+    override fun loadingScreen(visibility: Boolean) {
+        binding.run {
+            if (visibility) {
+                loading.root.isVisible = true
+                container.isVisible = false
+            } else {
+                loading.root.isVisible = false
+                container.isVisible = true
+            }
+        }
+    }
+
+    override fun showNotEvents(visibility: Boolean) {
+        binding.calendarError.root.isVisible = visibility
     }
 
     override fun setEvent(year: Int, month: Int, day: Int) {
