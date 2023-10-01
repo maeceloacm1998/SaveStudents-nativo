@@ -1,14 +1,17 @@
 package com.savestudents.core.utils
 
 import java.text.DateFormatSymbols
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 object DateUtils {
-    private const val DAY_AND_MONTH_DATE = "dd/MM"
 
+    /**
+     * Função para formatar horas e minutos com algarismo unico.
+     * Ex: 9:00 para 09:00
+     * @param hour
+     * @param minutes
+     */
     fun formatTime(hour: String, minutes: String): String {
         val hour = hour.toInt()
         val minute = minutes.toInt()
@@ -19,18 +22,25 @@ object DateUtils {
         return "$formattedHour:$formattedMinutes"
     }
 
-    fun getCurrentDay(): Long {
-        return Calendar.getInstance().timeInMillis
-    }
-
-    fun formatDate(timestamp: Long, patternType: String): String {
-        val pattern = SimpleDateFormat(
-            patternType,
-            Locale.getDefault()
+    /**
+     * Função para pegar o dia, mês e ano do dia atual.
+     *
+     * Ex: val (day, month, year) = DateUtils.getCurrentDate()
+     * @return Triple(day, month, year)
+     */
+    fun getCurrentDate(): Triple<Int, Int, Int> {
+        val calendar = Calendar.getInstance()
+        return Triple(
+            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.YEAR)
         )
-        return pattern.format(Date(timestamp))
     }
 
+    /**
+     * Retorna o nome em Português do mês passado por parâmetro
+     * @param month
+     */
     fun getMonthName(month: Int): String {
         val locale = Locale("pt", "BR")
         val symbols = DateFormatSymbols(locale)
@@ -42,19 +52,25 @@ object DateUtils {
         }
     }
 
-    fun isCurrentDate(dateToCompare: Long): Boolean {
-        val timestampCurrentDay =
-            formatDate(getCurrentDay(), DAY_AND_MONTH_DATE)
-
-        val date = formatDate(dateToCompare, DAY_AND_MONTH_DATE)
-
-        return date == timestampCurrentDay
-    }
-
+    /**
+     * Retorna data no formato dd/MM/YYYY
+     * @param day
+     * @param month
+     * @param year
+     */
     fun formatDate(day: Int, month: Int, year: Int): String {
         return "$day/$month/$year"
     }
 
+    /**
+     * Pegar todos os dias do ano que caem no dia da semana
+     *
+     *
+     * Para usar, basta passar por parametros algum desses nomes da semana, sendo eles:
+     *
+     * Segunda, Terça, Quarta, Quinta e Sexta.
+     * @param weekName
+     */
     fun getWeeksList(weekName: String): List<Triple<Int, Int, Int>> {
         return when (weekName) {
             DaysType.MONDAY.value -> getDataListPerWeek(WeekType.MONDAY)
