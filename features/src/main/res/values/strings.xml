@@ -50,4 +50,6 @@
 
     <string name="curriculum_error_message">Ocorreu problema ao baixar a cronograma, tente novamente mais tarde.</string>
     <string name="curriculum_calendar_error_message">Nenhum evento registrado</string>
+    <string name="curriculum_calendar_fab_matter">Adicionar matéria</string>
+    <string name="curriculum_calendar_fab_event">Adicionar evento</string>
 </resources>

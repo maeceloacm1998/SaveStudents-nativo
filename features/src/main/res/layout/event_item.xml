@@ -41,6 +41,7 @@
             style="@style/Theme.Ui.Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/day_bg"
             tools:text="maio" />
@@ -63,6 +64,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/hour"
             tools:text="Aula de Grafos" />
 
         <TextView

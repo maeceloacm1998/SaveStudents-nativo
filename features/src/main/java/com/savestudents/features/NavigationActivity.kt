@@ -30,7 +30,10 @@ class NavigationActivity : AppCompatActivity() {
 
         when (initialScreen) {
             InitialScreenTypes.HOME -> {
-                controller.navigate(R.id.curriculumFragment)
+                controller.run {
+                    navigate(R.id.curriculumFragment)
+                    backQueue.clear()
+                }
             }
 
             InitialScreenTypes.LOGIN -> {
