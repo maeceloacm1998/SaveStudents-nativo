@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
@@ -30,6 +31,9 @@ class AddMatterFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleTitleToolbar("Adicionar Matéria")
+        parentActivity?.goBackPressed {
+            findNavController().popBackStack()
+        }
         lifecycleScope.launch {
             presenter.fetchMatters()
         }
@@ -122,13 +126,13 @@ class AddMatterFragment :
     }
 
     override fun errorMatterNotSelected(visibility: Boolean) {
-       binding.run {
-           if(visibility) {
-               binding.matterTextInput.error = getString(R.string.add_matter_select_matter_error)
-           } else {
-               binding.matterTextInput.error = ""
-           }
-       }
+        binding.run {
+            if (visibility) {
+                binding.matterTextInput.error = getString(R.string.add_matter_select_matter_error)
+            } else {
+                binding.matterTextInput.error = ""
+            }
+        }
     }
 
     override fun errorDaysNotSelected(visibility: Boolean) {
@@ -140,8 +144,9 @@ class AddMatterFragment :
 
     override fun errorInitialHourNotSelected(visibility: Boolean) {
         binding.run {
-            if(visibility) {
-                binding.initialHourTextLayout.error = getString(R.string.add_matter_select_days_error)
+            if (visibility) {
+                binding.initialHourTextLayout.error =
+                    getString(R.string.add_matter_select_days_error)
             } else {
                 binding.initialHourTextLayout.error = ""
             }
@@ -150,7 +155,7 @@ class AddMatterFragment :
 
     override fun errorFinalHourNotSelected(visibility: Boolean) {
         binding.run {
-            if(visibility) {
+            if (visibility) {
                 binding.finalHourTextLayout.error = getString(R.string.add_matter_select_days_error)
             } else {
                 binding.finalHourTextLayout.error = ""
