@@ -34,6 +34,7 @@ class CurriculumFragment :
         parentActivity?.goBackPressed {
             findNavController().navigateUp()
         }
+
         init()
         setupViews()
         handleFabButton()
@@ -42,6 +43,7 @@ class CurriculumFragment :
     private fun init() {
         val (day, month, year) = DateUtils.getCurrentDate()
         lifecycleScope.launch {
+            presenter.start()
             presenter.fetchMatters(binding.calendar.month)
             presenter.fetchEventsWithDate(day, month, year)
         }
@@ -99,7 +101,7 @@ class CurriculumFragment :
                     lifecycleScope.launch {
                         presenter.fetchEventsWithDate(
                             day = daySelected.day,
-                            month = daySelected.month,
+                            month = daySelected.month + 1,
                             year = daySelected.year
                         )
                     }
@@ -118,9 +120,10 @@ class CurriculumFragment :
         }
     }
 
-    override fun error(visibility: Boolean) {
+    override fun error() {
         binding.run {
-            error.root.isVisible = visibility
+            error.root.isVisible = true
+            loading.root.isVisible = false
             container.isVisible = false
 
             error.message.text = getString(string.curriculum_error_message)
@@ -133,9 +136,11 @@ class CurriculumFragment :
         binding.run {
             if (visibility) {
                 loading.root.isVisible = true
+                error.root.isVisible = false
                 container.isVisible = false
             } else {
                 loading.root.isVisible = false
+                error.root.isVisible = false
                 container.isVisible = true
             }
         }
