@@ -40,14 +40,14 @@ class CurriculumPresenter(
 
             view.loadingScreen(false)
         }.onFailure {
-            view.error(true)
+            view.error()
         }
     }
 
     override suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int) {
         eventList.forEach { event ->
             val allDaysOfWeek: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
-                DateUtils.getWeeksList(event.dayName)
+                DateUtils.getWeeksList(event.dayName).map { (day, month, year) -> Triple(day, month + 1, year) }
             }
 
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
