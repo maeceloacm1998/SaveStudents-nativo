@@ -6,7 +6,7 @@ import com.savestudents.features.mvp.BaseView
 
 interface CurriculumContract {
     interface View : BaseView<Presenter> {
-        fun error(visibility: Boolean)
+        fun error()
         fun loadingScreen(visibility: Boolean)
         fun showNotEvents(visibility: Boolean)
         fun setEvent(year: Int, month: Int, day: Int)
