@@ -42,8 +42,15 @@ class AddMatterFragment :
 
     private fun setupViews() {
         binding.run {
+            initialHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_initial_hour)
+            finalHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_final_hour)
+
             initialHourTextLayout.onClickInputNotKeyboard {
-                val picker = handleTimePicker(getString(R.string.add_matter_select_initial_hour))
+                val picker = handleTimePicker(
+                    getString(R.string.add_matter_select_initial_hour),
+                    presenter.getInitialHour(),
+                    presenter.getInitialMinutes()
+                )
                 picker.show(parentFragmentManager, "")
 
                 picker.run {
@@ -57,7 +64,11 @@ class AddMatterFragment :
             }
 
             finalHourTextLayout.onClickInputNotKeyboard {
-                val picker = handleTimePicker(getString(R.string.add_matter_select_final_hour))
+                val picker = handleTimePicker(
+                    getString(R.string.add_matter_select_final_hour),
+                    presenter.getFinalHour(),
+                    presenter.getFinalMinutes()
+                )
                 picker.show(parentFragmentManager, "")
 
                 picker.run {
@@ -89,14 +100,14 @@ class AddMatterFragment :
     }
 
     private fun setTimeInEditText(editable: TextInputCustomView, time: String) {
-        editable.editTextDefault.setText(time)
+        editable.editTextDefault.hint = time
     }
 
-    private fun handleTimePicker(title: String): MaterialTimePicker {
+    private fun handleTimePicker(title: String, hour: Int, minute: Int): MaterialTimePicker {
         return MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(8)
-            .setMinute(0)
+            .setHour(hour)
+            .setMinute(minute)
             .setInputMode(INPUT_MODE_CLOCK)
             .setTitleText(title)
             .build()

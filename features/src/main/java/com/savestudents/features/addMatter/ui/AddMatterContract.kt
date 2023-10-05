@@ -24,5 +24,9 @@ interface AddMatterContract {
         fun saveInitialHourSelected(time: String)
         fun saveFinalHourSelected(time: String)
         suspend fun registerMatter(daysSelected: List<String>)
+        fun getInitialHour(): Int
+        fun getInitialMinutes(): Int
+        fun getFinalHour(): Int
+        fun getFinalMinutes(): Int
     }
 }

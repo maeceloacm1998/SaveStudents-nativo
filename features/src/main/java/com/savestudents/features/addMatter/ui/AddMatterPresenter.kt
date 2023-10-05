@@ -90,6 +90,22 @@ class AddMatterPresenter(
         }
     }
 
+    override fun getInitialHour(): Int {
+        return initialTime?.split(":")?.get(0)?.toInt() ?: 0
+    }
+
+    override fun getInitialMinutes(): Int {
+        return initialTime?.split(":")?.get(1)?.toInt() ?: 0
+    }
+
+    override fun getFinalHour(): Int {
+        return finalTime?.split(":")?.get(0)?.toInt() ?: 0
+    }
+
+    override fun getFinalMinutes(): Int {
+        return finalTime?.split(":")?.get(1)?.toInt() ?: 0
+    }
+
     suspend fun register(daysSelected: List<String>) {
         val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
