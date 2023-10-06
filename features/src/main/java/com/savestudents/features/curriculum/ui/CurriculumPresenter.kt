@@ -53,12 +53,10 @@ class CurriculumPresenter(
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
                 if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
                     view.updateEventList(event.events, day, month)
-
-                    if(event.events.isEmpty()) {
-                        view.showNotEvents(true)
-                    } else {
-                        view.showNotEvents(false)
-                    }
+                    view.showNotEvents(false)
+                    return
+                } else {
+                    view.showNotEvents(true)
                 }
             }
         }

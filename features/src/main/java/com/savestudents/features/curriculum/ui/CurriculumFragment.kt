@@ -147,7 +147,8 @@ class CurriculumFragment :
     }
 
     override fun showNotEvents(visibility: Boolean) {
-        binding.calendarError.root.isVisible = visibility
+        binding.calendarError.container.isVisible = visibility
+        binding.eventsRv.isVisible = !visibility
     }
 
     override fun setEvent(year: Int, month: Int, day: Int) {
