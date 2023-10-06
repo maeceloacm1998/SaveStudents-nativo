@@ -1,5 +1,6 @@
 package com.savestudents.features.addMatter.ui
 
+import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.addMatter.models.Matter
 import com.savestudents.features.mvp.BasePresenter
 import com.savestudents.features.mvp.BaseView
@@ -16,6 +17,8 @@ interface AddMatterContract {
         fun errorDaysNotSelected(visibility: Boolean)
         fun errorInitialHourNotSelected(visibility: Boolean)
         fun errorFinalHourNotSelected(visibility: Boolean)
+        fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType)
+        fun goToCurriculum()
     }
 
     interface Presenter : BasePresenter {

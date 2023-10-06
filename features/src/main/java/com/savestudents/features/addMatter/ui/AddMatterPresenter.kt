@@ -1,6 +1,7 @@
 package com.savestudents.features.addMatter.ui
 
 import com.google.firebase.firestore.ktx.toObject
+import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
 import com.savestudents.features.addMatter.models.Schedule
@@ -116,7 +117,19 @@ class AddMatterPresenter(
                 "scheduleUser",
                 userId,
                 schedule?.copy(data = eventList)
-            )
+            ).onSuccess {
+                view.showSnackbarStatus(
+                    matterName = matterSelected?.matterName,
+                    snackBarCustomType = SnackBarCustomType.SUCCESS
+                )
+                view.goToCurriculum()
+            }.onFailure {
+                view.showSnackbarStatus(
+                    matterName = null,
+                    snackBarCustomType = SnackBarCustomType.ERROR
+                )
+                view.loadingRegister(false)
+            }
         }
     }
 

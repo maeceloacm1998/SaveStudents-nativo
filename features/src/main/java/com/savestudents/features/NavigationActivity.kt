@@ -8,6 +8,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
+import com.savestudents.components.snackbar.SnackBarCustomType
+import com.savestudents.components.snackbar.SnackBarCustomView
 import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.databinding.ActivityNavigationBinding
 
@@ -71,6 +73,14 @@ class NavigationActivity : AppCompatActivity() {
 
     fun visibleToolbar(visible: Boolean) {
         binding.toolbar.isVisible = visible
+    }
+
+    fun showSnackBar(title: String, snackBarCustomType: SnackBarCustomType) {
+        SnackBarCustomView.show(
+            view = binding.navView,
+            title = title,
+            snackBarCustomType = snackBarCustomType
+        )
     }
 
     companion object {

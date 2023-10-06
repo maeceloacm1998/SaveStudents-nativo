@@ -11,6 +11,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
 import com.google.android.material.timepicker.TimeFormat
 import com.savestudents.components.button.disabled
+import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.components.textInput.TextInputCustomView
 import com.savestudents.core.utils.BaseFragment
 import com.savestudents.core.utils.DateUtils
@@ -172,6 +173,21 @@ class AddMatterFragment :
                 binding.finalHourTextLayout.error = ""
             }
         }
+    }
+
+    override fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType) {
+        when(snackBarCustomType) {
+            SnackBarCustomType.SUCCESS -> {
+                parentActivity?.showSnackBar(getString(R.string.add_matter_success_register_alert, matterName), snackBarCustomType)
+            }
+            else -> {
+                parentActivity?.showSnackBar(getString(R.string.add_matter_error_register_alert), snackBarCustomType)
+            }
+        }
+    }
+
+    override fun goToCurriculum() {
+        findNavController().popBackStack()
     }
 
     override fun setMatterOptions(matterList: List<String>) {

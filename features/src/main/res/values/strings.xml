@@ -47,6 +47,8 @@
     <string name="add_matter_final_hour">Fim</string>
     <string name="add_matter_period">Período: %s</string>
     <string name="add_matter_teacher">Professor(a): %s</string>
+    <string name="add_matter_success_register_alert">"A Materia %s foi cadastrada.</string>
+    <string name="add_matter_error_register_alert">Erro ao cadastrar a materia.</string>
 
     <string name="curriculum_error_message">Ocorreu problema ao baixar a cronograma, tente novamente mais tarde.</string>
     <string name="curriculum_calendar_error_message">Nenhum evento registrado</string>
