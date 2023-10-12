@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.savestudents.components.R.id
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.components.snackbar.SnackBarCustomView
@@ -15,10 +17,15 @@ import com.savestudents.features.databinding.ActivityNavigationBinding
 
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
+    private var controller: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNavigationBinding.inflate(layoutInflater)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navController) as NavHostFragment
+        controller = navHostFragment.navController
+
         handleUserLogger()
         setContentView(binding.root)
     }
@@ -26,25 +33,53 @@ class NavigationActivity : AppCompatActivity() {
     private fun handleUserLogger() {
         val intent = intent.extras
         val initialScreen = intent?.getSerializable(INITIAL_SCREEN_TYPES) as InitialScreenTypes
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container_view_login) as NavHostFragment
-        val controller = navHostFragment.navController
 
         when (initialScreen) {
             InitialScreenTypes.HOME -> {
-                controller.run {
-                    navigate(R.id.curriculumFragment)
+                controller?.run {
+                    navigate(R.id.homeFragment)
                     backQueue.clear()
                 }
             }
 
             InitialScreenTypes.LOGIN -> {
-                controller.navigate(R.id.loginFragment)
+                controller?.navigate(R.id.loginFragment)
             }
         }
     }
 
+    private fun handleMenuOptions() {
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                id.nav_schedule -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    controller?.navigate(R.id.curriculumFragment)
+                    true
+                }
+
+                id.nav_notification -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    controller?.navigate(R.id.curriculumFragment)
+                    true
+                }
+
+                id.nav_config -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    controller?.navigate(R.id.curriculumFragment)
+                    true
+                }
+
+                id.notification -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    controller?.navigate(R.id.curriculumFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
     fun handleDrawerMenu() {
+        supportActionBar?.dispatchMenuVisibilityChanged(true)
         visibleToolbar(true)
         val actionBarToggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0)
         binding.run {
@@ -56,6 +91,7 @@ class NavigationActivity : AppCompatActivity() {
             toolbar.root.setNavigationOnClickListener {
                 binding.drawerLayout.openDrawer(GravityCompat.START)
             }
+            handleMenuOptions()
         }
     }
 

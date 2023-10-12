@@ -33,8 +33,6 @@ class AppBarCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout
 
     var root: MaterialToolbar = binding.topAppBar
 
-    private lateinit var clickNotificationListener: () -> Unit?
-
     init {
         setLayout(attrs)
     }
@@ -51,32 +49,11 @@ class AppBarCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     private fun setToolbarWithNotification() {
-        binding.topAppBar.inflateMenu(R.menu.menu_app_bar_custom_view)
         binding.topAppBar.navigationIcon = getDrawable(context, R.drawable.ic_menu_24)
-        handleNotificationListener()
     }
 
     private fun setNavigation() {
         binding.topAppBar.navigationIcon = getDrawable(context, R.drawable.ic_arrow_back_24)
-        handleNotificationListener()
     }
 
-    private fun handleNotificationListener() {
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.notification -> {
-                    if (::clickNotificationListener.isInitialized) {
-                        clickNotificationListener()
-                    }
-                    true
-                }
-
-                else -> false
-            }
-        }
-    }
-
-    fun onNotificationListener(listener: () -> Unit) {
-        clickNotificationListener = listener
-    }
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
 import com.savestudents.features.R.string
+import com.savestudents.features.R.id.homeFragment
 import com.savestudents.core.utils.BaseFragment
 import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.NavigationActivity
@@ -32,7 +33,7 @@ class CurriculumFragment :
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleTitleToolbar("Grade Currícular")
         parentActivity?.goBackPressed {
-            findNavController().navigateUp()
+            findNavController().navigate(homeFragment)
         }
 
         init()
