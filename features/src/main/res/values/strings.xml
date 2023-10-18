@@ -4,6 +4,7 @@
     <string name="register_account">Cadastrar</string>
     <string name="register_title">Registrar</string>
     <string name="curriculum_title">Eventos</string>
+    <string name="select_date_title">Selecione uma data</string>
 
     <string name="hint_email_account">E-mail</string>
     <string name="hint_password_account">Senha</string>
@@ -11,7 +12,7 @@
     <string name="hint_search_matter">Digite a matéria</string>
     <string name="hint_date_account">Data de nascimento</string>
     <string name="hint_institution_account">Faculdade</string>
-    <string name="hint_add_eventt">Evemtp</string>
+    <string name="hint_add_event">Evento</string>
     <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
     <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
     <string name="helper_search_matter">Digite a matéria que deseja adicionar</string>
@@ -56,4 +57,10 @@
     <string name="curriculum_calendar_error_message">Nenhum evento registrado</string>
     <string name="curriculum_calendar_fab_matter">Adicionar matéria</string>
     <string name="curriculum_calendar_fab_event">Adicionar evento</string>
+
+    <string name="add_event_empty_event_error">Adicione o nome do evento</string>
+    <string name="add_event_not_selected_date_error">Selecione uma data para esse vento</string>
+    <string name="add_event_success_register_alert">"O evento %s foi cadastrado.</string>
+    <string name="add_event_error_register_alert">Erro ao cadastrar o evento %s.</string>
+
 </resources>

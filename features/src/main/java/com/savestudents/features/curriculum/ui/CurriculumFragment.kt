@@ -80,7 +80,7 @@ class CurriculumFragment :
                     }
 
                     com.savestudents.features.R.id.create_events -> {
-                        findNavController().navigate(com.savestudents.features.R.id.addMatterFragment)
+                        findNavController().navigate(com.savestudents.features.R.id.eventFragment)
                     }
                 }
                 false
@@ -137,11 +137,13 @@ class CurriculumFragment :
         binding.run {
             if (visibility) {
                 loading.root.isVisible = true
+                fabButton.isVisible = false
                 error.root.isVisible = false
                 container.isVisible = false
             } else {
                 loading.root.isVisible = false
                 error.root.isVisible = false
+                fabButton.isVisible = true
                 container.isVisible = true
             }
         }

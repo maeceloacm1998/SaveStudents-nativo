@@ -45,7 +45,7 @@
 
     <style name="Theme.Ui.Text.Error" parent="">
         <item name="android:fontFamily">@font/inter_medium</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/error_primary</item>
     </style>
 

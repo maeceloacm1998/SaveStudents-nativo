@@ -71,10 +71,23 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_curriculumFragment_to_eventFragment"
+            app:destination="@id/eventFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addMatterFragment"
         android:name="com.savestudents.features.addMatter.ui.AddMatterFragment"
         android:label="fragment_add_matter"
         tools:layout="@layout/fragment_add_matter" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.savestudents.features.event.ui.EventFragment"
+        android:label="fragment_event"
+        tools:layout="@layout/fragment_event" />
 </navigation>

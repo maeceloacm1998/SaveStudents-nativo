@@ -1,10 +1,13 @@
 package com.savestudents.core.utils
 
 import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 object DateUtils {
+    const val DATE_WITH_MONTH_NAME = "dd 'de' MMMM"
 
     /**
      * Função para formatar horas e minutos com algarismo unico.
@@ -79,6 +82,46 @@ object DateUtils {
             DaysType.THURSDAY.value -> getDataListPerWeek(WeekType.THURSDAY)
             DaysType.FRIDAY.value -> getDataListPerWeek(WeekType.FRIDAY)
             else -> getDataListPerWeek(WeekType.SATURDAY)
+        }
+    }
+
+    /**
+     * Formata a data de acordo com o pattern fornecido
+     * @param pattern Ex: "dd/MM/YYYY"
+     * @param timestamp
+     */
+    fun formatDateWithPattern(pattern: String, timestamp: Long): String {
+        val dateFormat = SimpleDateFormat(pattern, Locale("pt", "BR"))
+        return dateFormat.format(Date(addOneDayToTimestamp(timestamp)))
+    }
+
+    /**
+     * Adiciona um dia no timestemp
+     * Essa funcao foi criada porque o calendario do datePicker retornava timestemp com 1 dia atrasado
+     * @param timestamp
+     */
+    fun addOneDayToTimestamp(timestamp: Long): Long {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        return calendar.timeInMillis
+    }
+
+    /**
+     * Pega o nome do dia de semana pelo timestamp
+     * @param timestamp
+     */
+
+    fun getDayOfWeekFromTimestamp(timestamp: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+        return when (calendar.get(Calendar.DAY_OF_WEEK)) {
+            WeekType.MONDAY.value -> DaysType.MONDAY.value
+            WeekType.TUESDAY.value -> DaysType.TUESDAY.value
+            WeekType.WEDNESDAY.value -> DaysType.WEDNESDAY.value
+            WeekType.THURSDAY.value -> DaysType.THURSDAY.value
+            WeekType.FRIDAY.value -> DaysType.FRIDAY.value
+            else -> DaysType.SATURDAY.value
         }
     }
 

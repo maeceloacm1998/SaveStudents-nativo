@@ -14,7 +14,7 @@
 
     <color name="primary">#2130BE</color>
     <color name="primary_disabled">#959CD6</color>
-    <color name="error_primary">#F62929</color>
+    <color name="error_primary">#F32E2E</color>
     <color name="success_primary">#3E8545</color>
 
     // Neutral
