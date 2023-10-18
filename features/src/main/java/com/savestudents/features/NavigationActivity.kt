@@ -35,16 +35,9 @@ class NavigationActivity : AppCompatActivity() {
         val initialScreen = intent?.getSerializable(INITIAL_SCREEN_TYPES) as InitialScreenTypes
 
         when (initialScreen) {
-            InitialScreenTypes.HOME -> {
-                controller?.run {
-                    navigate(R.id.homeFragment)
-                    backQueue.clear()
-                }
-            }
+            InitialScreenTypes.HOME -> controller?.navigate(R.id.action_loginFragment_to_homeFragment)
 
-            InitialScreenTypes.LOGIN -> {
-                controller?.navigate(R.id.loginFragment)
-            }
+            InitialScreenTypes.LOGIN -> controller?.navigate(R.id.loginFragment)
         }
     }
 
@@ -74,10 +67,12 @@ class NavigationActivity : AppCompatActivity() {
                     controller?.navigate(R.id.curriculumFragment)
                     true
                 }
+
                 else -> false
             }
         }
     }
+
     fun handleDrawerMenu() {
         supportActionBar?.dispatchMenuVisibilityChanged(true)
         visibleToolbar(true)

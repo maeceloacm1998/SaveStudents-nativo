@@ -33,7 +33,7 @@ class CurriculumFragment :
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleTitleToolbar("Grade Currícular")
         parentActivity?.goBackPressed {
-            findNavController().navigate(homeFragment)
+            findNavController().popBackStack()
         }
 
         init()
