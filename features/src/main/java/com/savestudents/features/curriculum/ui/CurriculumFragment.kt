@@ -76,11 +76,11 @@ class CurriculumFragment :
             setOnActionSelectedListener { actionItem ->
                 when (actionItem.id) {
                     com.savestudents.features.R.id.create_matter -> {
-                        findNavController().navigate(com.savestudents.features.R.id.addMatterFragment)
+                        findNavController().navigate(com.savestudents.features.R.id.action_curriculumFragment_to_addMatterFragment)
                     }
 
                     com.savestudents.features.R.id.create_events -> {
-                        findNavController().navigate(com.savestudents.features.R.id.eventFragment)
+                        findNavController().navigate(com.savestudents.features.R.id.action_curriculumFragment_to_eventFragment)
                     }
                 }
                 false
