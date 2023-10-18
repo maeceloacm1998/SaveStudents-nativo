@@ -6,16 +6,18 @@
     <string name="curriculum_title">Eventos</string>
 
     <string name="hint_email_account">E-mail</string>
-    <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
     <string name="hint_password_account">Senha</string>
     <string name="hint_name_account">Nome</string>
     <string name="hint_search_matter">Digite a matéria</string>
-    <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
-    <string name="helper_search_matter">Digite a matéria que deseja adicionar</string>
     <string name="hint_date_account">Data de nascimento</string>
-    <string name="helper_date_account">Digite sua data de nascimento</string>
     <string name="hint_institution_account">Faculdade</string>
+    <string name="hint_add_eventt">Evemtp</string>
+    <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
+    <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
+    <string name="helper_search_matter">Digite a matéria que deseja adicionar</string>
+    <string name="helper_date_account">Digite sua data de nascimento</string>
     <string name="helper_institution_account">Digite a faculdade que você estuda</string>
+    <string name="helper_add_event">Coloque o nome de algum evento. Ex: Prova, Trabalho, Reunião em grupo.</string>
 
     <string name="account_validation_empty_email">Digite seu e-mail nesse campo.</string>
     <string name="account_validation_empty_password">Digite sua senha nesse campo.</string>
