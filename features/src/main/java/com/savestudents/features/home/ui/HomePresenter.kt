@@ -7,9 +7,6 @@ import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.util.Date
 
 class HomePresenter(
     private val view: HomeContract.View,
@@ -24,22 +21,26 @@ class HomePresenter(
         val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val eventList = it.toObject<Schedule>()?.data
-            eventList?.let { list -> view.setEventList(handleEventsInWeek(list)) }
+            val eventsOfWeek =
+                checkNotNull(eventList?.let { events -> removeEventsNotOfTheWeek(events) })
+            view.setEventList(eventsOfWeek)
         }
     }
 
-    private fun handleEventsInWeek(eventList: List<Event>): List<Event> {
-        val daysOfWeek = DateUtils.getWeekDatesNormalFormat(DateUtils.getCurrentDate())
+    private fun removeEventsNotOfTheWeek(eventList: List<Event>): List<Event> {
+        val daysOfWeek = DateUtils.getWeekDatesWithNormalFormat()
 
         eventList.forEach { event ->
-            event.events.forEach { eventItem ->
-                if (eventItem.type == EventType.EVENT.value) {
-                    val existEvent = daysOfWeek.contains(DateUtils.formatDateWithPattern(DateUtils.NORMAL_DATE, eventItem.timestamp!!))
+            event.events.forEach { item ->
+                val isEvent = item.type == EventType.EVENT.value
+                val existEventInWeek = daysOfWeek.contains(
+                    DateUtils.formatDateWithPattern(
+                        DateUtils.NORMAL_DATE,
+                        item.timestamp!!
+                    )
+                )
 
-                    if(!existEvent) {
-                        event.events.remove(eventItem)
-                    }
-                }
+                if (isEvent && !existEventInWeek) event.events.remove(item)
             }
         }
 

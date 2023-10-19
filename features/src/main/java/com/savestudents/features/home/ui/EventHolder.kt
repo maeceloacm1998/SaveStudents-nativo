@@ -17,13 +17,13 @@ class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHo
             }
         }
 
-        val (year, month, day) = handleEvents(item.dayName)
+        val (_, month, day) = handleEvents(item.dayName)
         eventAdapter.updateData(item.events, day, month)
     }
 
     private fun handleEvents(dayName: String): Triple<Int, Int, Int> {
-        val dateOfWeek: List<Long> = DateUtils.getWeekDatesTimestamp(DateUtils.getCurrentDate())
-        var date: Triple<Int, Int, Int> = Triple(0, 0, 0)
+        val dateOfWeek: List<Long> = DateUtils.getWeekDatesTimestamp()
+        var date: Triple<Int, Int, Int> = Triple(EMPTY_YEAR, EMPTY_MONTH, EMPTY_DAY)
 
         dateOfWeek.forEach { weekDate ->
             if (DateUtils.getDayOfWeekFromTimestamp(weekDate) == dayName) {
@@ -32,5 +32,11 @@ class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHo
         }
 
         return date
+    }
+
+    companion object {
+        const val EMPTY_DAY = 0
+        const val EMPTY_MONTH = 0
+        const val EMPTY_YEAR = 0
     }
 }

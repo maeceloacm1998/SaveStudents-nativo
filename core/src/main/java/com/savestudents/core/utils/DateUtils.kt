@@ -125,10 +125,13 @@ object DateUtils {
         }
     }
 
-    fun getWeekDatesNormalFormat(currentDate: Triple<Int, Int, Int>): List<String> {
+    /**
+     * Traz as datas da semana de acordo com o dia atual.
+     * @return List<dd/MM/YYYY> data formatada.
+     */
+    fun getWeekDatesWithNormalFormat(): List<String> {
         val weekDates = mutableListOf<String>()
-        val dateFormat = SimpleDateFormat(NORMAL_DATE)
-        val (day, month, year) = currentDate
+        val (day, month, year) = getCurrentDate()
 
         val calendar = Calendar.getInstance()
         calendar.set(year, month - 1, day)
@@ -136,17 +139,21 @@ object DateUtils {
 
 
         for (i in 1..7) {
-            val dateFormatted = dateFormat.format(calendar.time)
-            weekDates.add(dateFormatted)
+            weekDates.add(formatDateWithPattern(NORMAL_DATE, calendar.timeInMillis))
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         return weekDates
     }
 
-    fun getWeekDatesTimestamp(currentDate: Triple<Int, Int, Int>): List<Long> {
+
+    /**
+     * Traz as datas da semana de acordo com o dia atual.
+     * @return List<timeInMillis> timestamp
+     */
+    fun getWeekDatesTimestamp(): List<Long> {
         val weekDates = mutableListOf<Long>()
-        val (day, month, year) = currentDate
+        val (day, month, year) = getCurrentDate()
 
         val calendar = Calendar.getInstance()
         calendar.set(year, month - 1, day)
@@ -161,6 +168,10 @@ object DateUtils {
         return weekDates
     }
 
+    /**
+     * Pega a data correspondente com o timestamp
+     * @return Triple<year, month, day>
+     */
     fun getDateWithTimestamp(timestamp: Long): Triple<Int, Int, Int> {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
