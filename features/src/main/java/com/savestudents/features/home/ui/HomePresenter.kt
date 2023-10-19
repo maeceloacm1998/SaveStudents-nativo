@@ -22,28 +22,37 @@ class HomePresenter(
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val eventList = it.toObject<Schedule>()?.data
             val eventsOfWeek =
-                checkNotNull(eventList?.let { events -> removeEventsNotOfTheWeek(events) })
-            view.setEventList(eventsOfWeek)
+                eventList?.let { events -> removeEventsNotOfTheWeek(events) }
+            view.setEventList(eventsOfWeek!!)
         }
     }
 
     private fun removeEventsNotOfTheWeek(eventList: List<Event>): List<Event> {
+        eventList.forEach { event -> event.events = getEventsItems(event.events) }
+
+        return eventList
+    }
+
+    private fun getEventsItems(events: List<Event.EventItem>): MutableList<Event.EventItem> {
         val daysOfWeek = DateUtils.getWeekDatesWithNormalFormat()
+        val eventItemList: MutableList<Event.EventItem> = mutableListOf()
 
-        eventList.forEach { event ->
-            event.events.forEach { item ->
-                val isEvent = item.type == EventType.EVENT.value
-                val existEventInWeek = daysOfWeek.contains(
-                    DateUtils.formatDateWithPattern(
-                        DateUtils.NORMAL_DATE,
-                        item.timestamp!!
-                    )
+        events.forEach { item ->
+            val isEvent = item.type == EventType.EVENT.value
+            val existEventInWeek = daysOfWeek.contains(
+                DateUtils.formatDateWithPattern(
+                    DateUtils.NORMAL_DATE,
+                    item.timestamp!!
                 )
+            )
 
-                if (isEvent && !existEventInWeek) event.events.remove(item)
+            eventItemList.add(item)
+
+            if (isEvent && !existEventInWeek) {
+                eventItemList.remove(item)
             }
         }
 
-        return eventList
+        return eventItemList
     }
 }

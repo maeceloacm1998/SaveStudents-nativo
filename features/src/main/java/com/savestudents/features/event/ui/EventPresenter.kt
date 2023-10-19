@@ -26,6 +26,7 @@ class EventPresenter(
 
     private suspend fun register(eventName: String, dateSelected: Long) {
         val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
+        view.loading(true)
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule = it.toObject<Schedule>()
             val eventList: List<Event> =

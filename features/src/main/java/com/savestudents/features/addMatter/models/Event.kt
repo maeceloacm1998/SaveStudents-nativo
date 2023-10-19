@@ -2,7 +2,7 @@ package com.savestudents.features.addMatter.models
 
 data class Event(
     val dayName: String = "",
-    val events: MutableList<EventItem> = mutableListOf()
+    var events: MutableList<EventItem> = mutableListOf()
 ) {
     data class EventItem(
         val id: String = "",
