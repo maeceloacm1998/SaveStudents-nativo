@@ -60,6 +60,10 @@ class EventPresenter(
                     id = UUID.randomUUID().toString(),
                     type = EventType.EVENT.value,
                     matterName = eventName,
+                    timestamp = dateSelected,
+                    period = null,
+                    initialTime = null,
+                    finalTime = null
                 )
                 event.events.add(eventItem)
             }

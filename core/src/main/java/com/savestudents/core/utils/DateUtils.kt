@@ -8,6 +8,7 @@ import java.util.Locale
 
 object DateUtils {
     const val DATE_WITH_MONTH_NAME = "dd 'de' MMMM"
+    const val NORMAL_DATE = "dd/MM/YYYY"
 
     /**
      * Função para formatar horas e minutos com algarismo unico.
@@ -68,7 +69,6 @@ object DateUtils {
     /**
      * Pegar todos os dias do ano que caem no dia da semana
      *
-     *
      * Para usar, basta passar por parametros algum desses nomes da semana, sendo eles:
      *
      * Segunda, Terça, Quarta, Quinta e Sexta.
@@ -123,6 +123,53 @@ object DateUtils {
             WeekType.FRIDAY.value -> DaysType.FRIDAY.value
             else -> DaysType.SATURDAY.value
         }
+    }
+
+    fun getWeekDatesNormalFormat(currentDate: Triple<Int, Int, Int>): List<String> {
+        val weekDates = mutableListOf<String>()
+        val dateFormat = SimpleDateFormat(NORMAL_DATE)
+        val (day, month, year) = currentDate
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month - 1, day)
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+
+
+        for (i in 1..7) {
+            val dateFormatted = dateFormat.format(calendar.time)
+            weekDates.add(dateFormatted)
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        return weekDates
+    }
+
+    fun getWeekDatesTimestamp(currentDate: Triple<Int, Int, Int>): List<Long> {
+        val weekDates = mutableListOf<Long>()
+        val (day, month, year) = currentDate
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month - 1, day)
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+
+
+        for (i in 1..7) {
+            weekDates.add(calendar.timeInMillis)
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        return weekDates
+    }
+
+    fun getDateWithTimestamp(timestamp: Long): Triple<Int, Int, Int> {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        return Triple(year, month, day)
     }
 
     private fun getDataListPerWeek(week: WeekType): MutableList<Triple<Int, Int, Int>> {
