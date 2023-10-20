@@ -1,5 +1,6 @@
 package com.savestudents.features.home.ui
 
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.savestudents.core.utils.DateUtils
@@ -17,8 +18,21 @@ class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHo
             }
         }
 
-        val (_, month, day) = handleEvents(item.dayName)
-        eventAdapter.updateData(item.events, day, month)
+        if(item.events.isEmpty()) {
+            showCalendarError()
+        } else {
+            hideCalendarError()
+            val (_, month, day) = handleEvents(item.dayName)
+            eventAdapter.updateData(item.events, day, month)
+        }
+    }
+
+    fun showCalendarError() {
+        binding.calendarError.container.isVisible = true
+    }
+
+    fun hideCalendarError() {
+        binding.calendarError.container.isVisible = false
     }
 
     private fun handleEvents(dayName: String): Triple<Int, Int, Int> {

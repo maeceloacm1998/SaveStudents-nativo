@@ -33,7 +33,7 @@ class CurriculumPresenter(
                     }
 
                     weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
-                        if(monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
+                        if (monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
                     }
                 }
             }
@@ -50,13 +50,17 @@ class CurriculumPresenter(
                 DateUtils.getWeeksList(event.dayName).map { (day, month, year) -> Triple(day, month + 1, year) }
             }
 
-            allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
-                if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
-                    view.updateEventList(event.events, day, month)
-                    view.showNotEvents(false)
-                    return
-                } else {
-                    view.showNotEvents(true)
+            if (event.events.isEmpty()) {
+                view.showNotEvents(true)
+            } else {
+                allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
+                    if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
+                        view.run {
+                            updateEventList(event.events, day, month)
+                            showNotEvents(false)
+                        }
+                        return
+                    }
                 }
             }
         }
