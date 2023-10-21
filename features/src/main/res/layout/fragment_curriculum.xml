@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:primaryColor="@color/black"
                 app:selectedItem_background="@drawable/bg_circle_soft_black"
-                app:state="collapsed"
+                app:state="expanded"
                 app:textColor="@android:color/white"
                 app:todayItem_background="@drawable/bg_circle_blue"
                 app:todayItem_textColor="@color/white" />
