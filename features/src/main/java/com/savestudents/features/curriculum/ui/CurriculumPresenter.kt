@@ -3,8 +3,15 @@ package com.savestudents.features.curriculum.ui
 import com.google.firebase.firestore.ktx.toObject
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.core.utils.DateUtils
+import com.savestudents.core.utils.DateUtils.NORMAL_DATE
+import com.savestudents.core.utils.DateUtils.formatDate
+import com.savestudents.core.utils.DateUtils.formatDateWithPattern
+import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
+import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
+import com.savestudents.core.utils.DateUtils.getTimestampWithDate
+import com.savestudents.core.utils.DateUtils.getWeeksList
 import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,13 +34,10 @@ class CurriculumPresenter(
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                event.events.forEach { _ ->
-                    val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
-                        DateUtils.getWeeksList(event.dayName)
-                    }
-
-                    weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
-                        if (monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
+                event.events.forEach { item ->
+                    when (item.type) {
+                        EventType.EVENT.value -> handleEvent(checkNotNull(item.timestamp))
+                        EventType.MATTER.value -> handleMatter(event, month)
                     }
                 }
             }
@@ -44,25 +48,72 @@ class CurriculumPresenter(
         }
     }
 
+    private fun handleEvent(timestamp: Long) {
+        val (year, month, day) = getDateWithTimestamp(timestamp)
+        view.setEvent(year, month - 1, day)
+    }
+
+    private suspend fun handleMatter(event: Event, month: Int) {
+        val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
+            getWeeksList(event.dayName)
+        }
+
+        weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
+            if (monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
+        }
+    }
+
     override suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int) {
         eventList.forEach { event ->
-            val allDaysOfWeek: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
-                DateUtils.getWeeksList(event.dayName).map { (day, month, year) -> Triple(day, month + 1, year) }
-            }
+            val weekName = getDayOfWeekFromTimestamp(getTimestampWithDate(day, month, year))
+            if (weekName == event.dayName) handleEventsWithDate(event, day, month, year)
+        }
+    }
 
-            if (event.events.isEmpty()) {
-                view.showNotEvents(true)
-            } else {
-                allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
-                    if (DateUtils.formatDate(day, month, year) == DateUtils.formatDate(dayWeek, monthWeek, yearWeek)) {
-                        view.run {
-                            updateEventList(event.events, day, month)
-                            showNotEvents(false)
-                        }
+    private suspend fun handleEventsWithDate(event: Event, day: Int, month: Int, year: Int) {
+        val allDaysOfWeek: List<Triple<Int, Int, Int>> = getAllDaysOfWeek(event)
+        val eventItemList = removeEventWithDayNotSelected(event.events, day, month, year)
+
+        if (eventItemList.isEmpty()) {
+            view.showNotEvents(true)
+        } else {
+            allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
+                if (formatDate(day, month, year) == formatDate(
+                        dayWeek,
+                        monthWeek,
+                        yearWeek
+                    )
+                ) {
+                    view.run {
+                        updateEventList(eventItemList, day, month)
+                        showNotEvents(false)
                         return
                     }
                 }
             }
         }
+    }
+
+    private fun removeEventWithDayNotSelected(
+        eventItemList: MutableList<Event.EventItem>,
+        day: Int,
+        month: Int,
+        year: Int
+    ): MutableList<Event.EventItem> {
+        val newEventItemList: MutableList<Event.EventItem> = mutableListOf()
+        val dateSelected = formatDate(day, month, year)
+        eventItemList.forEach { eventItem ->
+            newEventItemList.add(eventItem)
+            if (eventItem.type == EventType.EVENT.value) {
+                val dateEvent =
+                    formatDateWithPattern(NORMAL_DATE, checkNotNull(eventItem.timestamp))
+                if (dateEvent != dateSelected) newEventItemList.remove(eventItem)
+            }
+        }
+        return newEventItemList
+    }
+
+    private suspend fun getAllDaysOfWeek(event: Event) = withContext(Dispatchers.IO) {
+        getWeeksList(event.dayName).map { (day, month, year) -> Triple(day, month + 1, year) }
     }
 }

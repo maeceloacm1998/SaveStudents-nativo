@@ -18,12 +18,14 @@ class HomePresenter(
     }
 
     override suspend fun getEvents() {
-        val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
-        client.getSpecificDocument("scheduleUser", userId).onSuccess {
-            val eventList = it.toObject<Schedule>()?.data
-            val eventsOfWeek =
-                eventList?.let { events -> removeEventsNotOfTheWeek(events) }
-            view.setEventList(eventsOfWeek!!)
+        val userId: String? = accountManager.getUserAccount()?.id
+        userId?.let {
+            client.getSpecificDocument("scheduleUser", it).onSuccess {
+                val eventList = it.toObject<Schedule>()?.data
+                val eventsOfWeek =
+                    eventList?.let { events -> removeEventsNotOfTheWeek(events) }
+                view.setEventList(eventsOfWeek!!)
+            }
         }
     }
 

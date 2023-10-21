@@ -3,7 +3,6 @@ package com.savestudents.core.utils
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 object DateUtils {
@@ -91,8 +90,11 @@ object DateUtils {
      * @param timestamp
      */
     fun formatDateWithPattern(pattern: String, timestamp: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+
         val dateFormat = SimpleDateFormat(pattern, Locale("pt", "BR"))
-        return dateFormat.format(Date(addOneDayToTimestamp(timestamp)))
+        return dateFormat.format(calendar.time)
     }
 
     /**
@@ -123,6 +125,12 @@ object DateUtils {
             WeekType.FRIDAY.value -> DaysType.FRIDAY.value
             else -> DaysType.SATURDAY.value
         }
+    }
+
+    fun getTimestampWithDate(day: Int, month: Int, year: Int): Long {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month - 1, day)
+        return calendar.timeInMillis
     }
 
     /**

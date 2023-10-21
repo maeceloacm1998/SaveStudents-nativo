@@ -27,11 +27,11 @@ class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHo
         }
     }
 
-    fun showCalendarError() {
+    private fun showCalendarError() {
         binding.calendarError.container.isVisible = true
     }
 
-    fun hideCalendarError() {
+    private fun hideCalendarError() {
         binding.calendarError.container.isVisible = false
     }
 

@@ -64,10 +64,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleInitialActivity() {
         if (accountRegister.isLoggedUser()) {
-            val user = accountRegister.getUserAccount()
             lifecycleScope.launch {
-                checkNotNull(user).run {
-                    val login = accountRegister.login(user.email, user.password)
+                val user = accountRegister.getUserAccount()
+
+                user?.let {
+                    val login = accountRegister.login(it.email, it.password)
 
                     login.onSuccess {
                         startActivity(
