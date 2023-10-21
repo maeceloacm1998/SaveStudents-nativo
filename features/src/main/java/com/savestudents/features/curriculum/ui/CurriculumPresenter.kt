@@ -8,14 +8,12 @@ import com.savestudents.core.utils.DateUtils.formatDate
 import com.savestudents.core.utils.DateUtils.formatDateWithPattern
 import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
 import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
-import com.savestudents.core.utils.DateUtils.getTimestampWithDate
 import com.savestudents.core.utils.DateUtils.getWeeksList
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
 class CurriculumPresenter(
     private val view: CurriculumContract.View,
     private val client: FirebaseClient,
@@ -63,27 +61,23 @@ class CurriculumPresenter(
         }
     }
 
-    override suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int) {
+    override suspend fun fetchEventsWithDate(timestamp: Long) {
         eventList.forEach { event ->
-            val weekName = getDayOfWeekFromTimestamp(getTimestampWithDate(day, month, year))
-            if (weekName == event.dayName) handleEventsWithDate(event, day, month, year)
+            val weekName = getDayOfWeekFromTimestamp(timestamp)
+            if (weekName == event.dayName) handleEventsWithDate(event, timestamp)
         }
     }
 
-    private suspend fun handleEventsWithDate(event: Event, day: Int, month: Int, year: Int) {
+    private suspend fun handleEventsWithDate(event: Event, timestamp: Long) {
         val allDaysOfWeek: List<Triple<Int, Int, Int>> = getAllDaysOfWeek(event)
-        val eventItemList = removeEventWithDayNotSelected(event.events, day, month, year)
+        val eventItemList = removeEventWithDayNotSelected(event.events, timestamp)
 
         if (eventItemList.isEmpty()) {
             view.showNotEvents(true)
         } else {
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
-                if (formatDate(day, month, year) == formatDate(
-                        dayWeek,
-                        monthWeek,
-                        yearWeek
-                    )
-                ) {
+                if (formatDateWithPattern(NORMAL_DATE, timestamp) == formatDate(dayWeek, monthWeek, yearWeek)) {
+                    val (_, month, day) = getDateWithTimestamp(timestamp)
                     view.run {
                         updateEventList(eventItemList, day, month)
                         showNotEvents(false)
@@ -96,12 +90,10 @@ class CurriculumPresenter(
 
     private fun removeEventWithDayNotSelected(
         eventItemList: MutableList<Event.EventItem>,
-        day: Int,
-        month: Int,
-        year: Int
+        timestamp: Long
     ): MutableList<Event.EventItem> {
         val newEventItemList: MutableList<Event.EventItem> = mutableListOf()
-        val dateSelected = formatDate(day, month, year)
+        val dateSelected = formatDateWithPattern(NORMAL_DATE, timestamp)
         eventItemList.forEach { eventItem ->
             newEventItemList.add(eventItem)
             if (eventItem.type == EventType.EVENT.value) {

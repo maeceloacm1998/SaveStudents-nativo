@@ -10,7 +10,8 @@ import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
 import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
-import com.savestudents.core.utils.DateUtils
+import com.savestudents.core.utils.DateUtils.getTimestampWithDate
+import com.savestudents.core.utils.DateUtils.getCurrentDate
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
@@ -41,11 +42,11 @@ class CurriculumFragment :
     }
 
     private fun init() {
-        val (day, month, year) = DateUtils.getCurrentDate()
+        val (day, month, year) = getCurrentDate()
         lifecycleScope.launch {
             presenter.start()
             presenter.fetchMatters(binding.calendar.month)
-            presenter.fetchEventsWithDate(day, month, year)
+            presenter.fetchEventsWithDate(getTimestampWithDate(day, month, year))
         }
     }
 
@@ -100,9 +101,11 @@ class CurriculumFragment :
 
                     lifecycleScope.launch {
                         presenter.fetchEventsWithDate(
-                            day = daySelected.day,
-                            month = daySelected.month + 1,
-                            year = daySelected.year
+                            getTimestampWithDate(
+                                daySelected.day,
+                                daySelected.month + 1,
+                                daySelected.year
+                            )
                         )
                     }
                 }

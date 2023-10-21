@@ -36,17 +36,12 @@ class HomePresenter(
     }
 
     private fun getEventsItems(events: List<Event.EventItem>): MutableList<Event.EventItem> {
-        val daysOfWeek = DateUtils.getWeekDatesWithNormalFormat()
+        val daysOfWeek = DateUtils.getWeekDatesTimestamp()
         val eventItemList: MutableList<Event.EventItem> = mutableListOf()
 
         events.forEach { item ->
             val isEvent = item.type == EventType.EVENT.value
-            val existEventInWeek = daysOfWeek.contains(
-                DateUtils.formatDateWithPattern(
-                    DateUtils.NORMAL_DATE,
-                    item.timestamp!!
-                )
-            )
+            val existEventInWeek = daysOfWeek.contains(item.timestamp)
 
             eventItemList.add(item)
 

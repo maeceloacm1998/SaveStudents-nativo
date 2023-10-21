@@ -15,6 +15,6 @@ interface CurriculumContract {
 
     interface Presenter : BasePresenter {
         suspend fun fetchMatters(month: Int)
-        suspend fun fetchEventsWithDate(day: Int, month: Int, year: Int)
+        suspend fun fetchEventsWithDate(timestamp: Long)
     }
 }

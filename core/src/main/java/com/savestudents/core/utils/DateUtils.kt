@@ -102,10 +102,15 @@ object DateUtils {
      * Essa funcao foi criada porque o calendario do datePicker retornava timestemp com 1 dia atrasado
      * @param timestamp
      */
-    fun addOneDayToTimestamp(timestamp: Long): Long {
+        fun addOneDayToTimestamp(timestamp: Long): Long {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
         calendar.add(Calendar.DAY_OF_MONTH, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
         return calendar.timeInMillis
     }
 
@@ -113,7 +118,6 @@ object DateUtils {
      * Pega o nome do dia de semana pelo timestamp
      * @param timestamp
      */
-
     fun getDayOfWeekFromTimestamp(timestamp: Long): String {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
@@ -127,31 +131,17 @@ object DateUtils {
         }
     }
 
+    /**
+     * Pegar a data em com dia, mes e ano e transformar em timestamp
+     * @param day Int
+     * @param month Int
+     * @param year Int
+     * @return timestamp Long
+     */
     fun getTimestampWithDate(day: Int, month: Int, year: Int): Long {
         val calendar = Calendar.getInstance()
         calendar.set(year, month - 1, day)
         return calendar.timeInMillis
-    }
-
-    /**
-     * Traz as datas da semana de acordo com o dia atual.
-     * @return List<dd/MM/YYYY> data formatada.
-     */
-    fun getWeekDatesWithNormalFormat(): List<String> {
-        val weekDates = mutableListOf<String>()
-        val (day, month, year) = getCurrentDate()
-
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month - 1, day)
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-
-
-        for (i in 1..7) {
-            weekDates.add(formatDateWithPattern(NORMAL_DATE, calendar.timeInMillis))
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
-        return weekDates
     }
 
 
@@ -166,7 +156,10 @@ object DateUtils {
         val calendar = Calendar.getInstance()
         calendar.set(year, month - 1, day)
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
         for (i in 1..7) {
             weekDates.add(calendar.timeInMillis)

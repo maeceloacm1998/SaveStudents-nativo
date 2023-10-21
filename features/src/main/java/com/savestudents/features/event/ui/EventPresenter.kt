@@ -33,9 +33,7 @@ class EventPresenter(
                 addEvent(schedule = schedule, eventName = eventName, dateSelected = dateSelected)
 
             client.setSpecificDocument(
-                "scheduleUser",
-                userId,
-                schedule?.copy(data = eventList)
+                "scheduleUser", userId, schedule?.copy(data = eventList)
             ).onSuccess {
                 view.run {
                     showSnackBarSuccess(eventName)
