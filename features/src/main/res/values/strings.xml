@@ -46,8 +46,7 @@
     <string name="add_matter_select_initial_hour">Escolha um horario para o inicia da aula</string>
     <string name="add_matter_hour_error">Selecionar horário</string>
     <string name="add_matter_select_final_hour">Escolha um horario para o término da aula</string>
-    <string name="add_matter_initial_hour">Inicio</string>
-    <string name="add_matter_final_hour">Fim</string>
+    <string name="add_matter_initial_hour">Horário de inicio</string>
     <string name="add_matter_period">Período: %s</string>
     <string name="add_matter_teacher">Professor(a): %s</string>
     <string name="add_matter_success_register_alert">"A Materia %s foi cadastrada.</string>

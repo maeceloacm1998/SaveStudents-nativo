@@ -44,9 +44,8 @@ class AddMatterFragment :
 
     private fun setupViews() {
         binding.run {
-            initialHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_initial_hour)
-            finalHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_final_hour)
 
+            initialHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_initial_hour)
             initialHourTextLayout.onClickInputNotKeyboard {
                 val picker = handleTimePicker(
                     getString(R.string.add_matter_select_initial_hour),
@@ -61,24 +60,6 @@ class AddMatterFragment :
                             DateUtils.formatTime(this.hour.toString(), this.minute.toString())
                         presenter.saveInitialHourSelected(time)
                         setTimeInEditText(binding.initialHourTextLayout, time)
-                    }
-                }
-            }
-
-            finalHourTextLayout.onClickInputNotKeyboard {
-                val picker = handleTimePicker(
-                    getString(R.string.add_matter_select_final_hour),
-                    presenter.getFinalHour(),
-                    presenter.getFinalMinutes()
-                )
-                picker.show(parentFragmentManager, "")
-
-                picker.run {
-                    addOnPositiveButtonClickListener {
-                        val time: String =
-                            DateUtils.formatTime(this.hour.toString(), this.minute.toString())
-                        presenter.saveFinalHourSelected(time)
-                        setTimeInEditText(binding.finalHourTextLayout, time)
                     }
                 }
             }
@@ -166,23 +147,22 @@ class AddMatterFragment :
         }
     }
 
-    override fun errorFinalHourNotSelected(visibility: Boolean) {
-        binding.run {
-            if (visibility) {
-                binding.finalHourTextLayout.error = getString(R.string.add_matter_select_days_error)
-            } else {
-                binding.finalHourTextLayout.error = ""
-            }
-        }
-    }
-
     override fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType) {
-        when(snackBarCustomType) {
+        when (snackBarCustomType) {
             SnackBarCustomType.SUCCESS -> {
-                parentActivity?.showSnackBar(getString(R.string.add_matter_success_register_alert, matterName), snackBarCustomType)
+                parentActivity?.showSnackBar(
+                    getString(
+                        R.string.add_matter_success_register_alert,
+                        matterName
+                    ), snackBarCustomType
+                )
             }
+
             else -> {
-                parentActivity?.showSnackBar(getString(R.string.add_matter_error_register_alert), snackBarCustomType)
+                parentActivity?.showSnackBar(
+                    getString(R.string.add_matter_error_register_alert),
+                    snackBarCustomType
+                )
             }
         }
     }

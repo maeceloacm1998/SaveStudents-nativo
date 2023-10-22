@@ -145,25 +145,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 app:iconRight="@drawable/ic_clock"
-                app:layout_constraintEnd_toStartOf="@id/final_hour_text_layout"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/select_hour_title"
                 app:mask="##:##"
                 tools:hint="@string/add_matter_initial_hour" />
-
-            <com.savestudents.components.textInput.TextInputCustomView
-                android:id="@+id/final_hour_text_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="24dp"
-                app:iconRight="@drawable/ic_clock"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/initial_hour_text_layout"
-                app:layout_constraintTop_toBottomOf="@id/select_hour_title"
-                app:mask="##:##"
-                tools:hint="@string/add_matter_final_hour" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -16,7 +16,6 @@ interface AddMatterContract {
         fun errorMatterNotSelected(visibility: Boolean)
         fun errorDaysNotSelected(visibility: Boolean)
         fun errorInitialHourNotSelected(visibility: Boolean)
-        fun errorFinalHourNotSelected(visibility: Boolean)
         fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType)
         fun goToCurriculum()
     }
@@ -25,11 +24,8 @@ interface AddMatterContract {
         suspend fun fetchMatters()
         fun matterSelect(option: String)
         fun saveInitialHourSelected(time: String)
-        fun saveFinalHourSelected(time: String)
         suspend fun registerMatter(daysSelected: List<String>)
         fun getInitialHour(): Int
         fun getInitialMinutes(): Int
-        fun getFinalHour(): Int
-        fun getFinalMinutes(): Int
     }
 }

@@ -17,8 +17,6 @@ class AddMatterPresenter(
     private var matterList: List<Matter> = mutableListOf()
     private var matterSelected: Matter? = null
     private var initialTime: String? = null
-    private var finalTime: String? = null
-
     override fun start() {
         view.loading(true)
     }
@@ -45,10 +43,6 @@ class AddMatterPresenter(
         initialTime = time
     }
 
-    override fun saveFinalHourSelected(time: String) {
-        finalTime = time
-    }
-
     override suspend fun registerMatter(daysSelected: List<String>) {
         when {
             matterSelected == null -> {
@@ -72,18 +66,10 @@ class AddMatterPresenter(
                 }
             }
 
-            finalTime == null -> {
-                view.run {
-                    errorFinalHourNotSelected(true)
-                    loadingRegister(false)
-                }
-            }
-
             else -> {
                 view.run {
                     errorMatterNotSelected(false)
                     errorDaysNotSelected(false)
-                    errorFinalHourNotSelected(false)
                     errorInitialHourNotSelected(false)
                 }
                 register(daysSelected)
@@ -97,14 +83,6 @@ class AddMatterPresenter(
 
     override fun getInitialMinutes(): Int {
         return initialTime?.split(":")?.get(1)?.toInt() ?: 0
-    }
-
-    override fun getFinalHour(): Int {
-        return finalTime?.split(":")?.get(0)?.toInt() ?: 0
-    }
-
-    override fun getFinalMinutes(): Int {
-        return finalTime?.split(":")?.get(1)?.toInt() ?: 0
     }
 
     suspend fun register(daysSelected: List<String>) {
@@ -144,8 +122,7 @@ class AddMatterPresenter(
                         type = EventType.MATTER.value,
                         matterName = it.matterName,
                         period = it.period,
-                        initialTime = initialTime.toString(),
-                        finalTime = finalTime.toString()
+                        initialTime = initialTime.toString()
                     )
                     event.events.add(eventItem)
                 }

@@ -61,8 +61,7 @@ class EventPresenter(
                     matterName = eventName,
                     timestamp = dateSelected,
                     period = null,
-                    initialTime = null,
-                    finalTime = null
+                    initialTime = null
                 )
                 event.events.add(eventItem)
             }
