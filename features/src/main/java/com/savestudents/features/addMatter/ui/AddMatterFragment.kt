@@ -17,6 +17,7 @@ import com.savestudents.core.utils.BaseFragment
 import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.R
+import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Matter
 import com.savestudents.features.databinding.FragmentAddMatterBinding
 import kotlinx.coroutines.launch
@@ -195,11 +196,12 @@ class AddMatterFragment :
     }
 
     override fun handleMatterSelect(matter: Matter) {
-        binding.run {
-            matterInformation.isVisible = true
-            matterName.text = matter.matterName
-            period.text = getString(R.string.add_matter_period, matter.period)
-            teacher.text = getString(R.string.add_matter_teacher, matter.teacherName)
+        binding.matterInformation.root.isVisible = true
+        binding.matterInformation.run {
+            dayContainer.isVisible = false
+            type.text = EventType.MATTER.value
+            eventTitle.text = matter.matterName
+            eventPeriod.text = matter.period
         }
     }
 }
