@@ -15,7 +15,7 @@ import com.savestudents.core.utils.DateUtils.getCurrentDate
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
-import com.savestudents.features.home.ui.EventItemAdapter
+import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
 import com.shrikanthravi.collapsiblecalendarview.data.Day
 import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
 import com.shrikanthravi.collapsiblecalendarview.widget.UICalendar

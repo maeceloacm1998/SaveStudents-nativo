@@ -1,4 +1,4 @@
-package com.savestudents.features.home.ui
+package com.savestudents.features.home.ui.adapter.eventItem
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

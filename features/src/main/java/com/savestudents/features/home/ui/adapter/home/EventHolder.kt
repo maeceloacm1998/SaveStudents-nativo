@@ -1,4 +1,4 @@
-package com.savestudents.features.home.ui
+package com.savestudents.features.home.ui.adapter.home
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.databinding.EventHolderBinding
 import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
 
 class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Event) {

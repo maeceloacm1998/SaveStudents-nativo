@@ -1,4 +1,4 @@
-package com.savestudents.features.home.ui
+package com.savestudents.features.home.ui.adapter.eventItem
 
 import androidx.recyclerview.widget.RecyclerView
 import com.savestudents.core.utils.DateUtils

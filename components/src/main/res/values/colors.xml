@@ -18,7 +18,7 @@
     <color name="success_primary">#3E8545</color>
 
     // Neutral
-    <color name="black">#1D1B20</color>
+    <color name="black">#000000</color>
     <color name="soft_black">#0A0A0A</color>
     <color name="white">#CAC4D0</color>
     <color name="background_transparent">#77FFFFFF</color>
