@@ -58,7 +58,7 @@
 
             <TextView
                 android:id="@+id/month_text"
-                style="@style/Theme.Ui.Text.Medium"
+                style="@style/Theme.Ui.Text.Medium.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
 
             <TextView
                 android:id="@+id/event_period"
-                style="@style/Theme.Ui.Text.Medium"
+                style="@style/Theme.Ui.Text.Medium.Small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/hour"

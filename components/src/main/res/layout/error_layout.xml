@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/message"
-        style="@style/Theme.Ui.Text.Medium"
+        style="@style/Theme.Ui.Text.Medium.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"

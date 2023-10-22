@@ -23,6 +23,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Theme.Ui.Text.Title" parent="">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
     <style name="Theme.Ui.Text.Bold.Big" parent="">
         <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:textSize">20sp</item>
@@ -38,7 +43,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="Theme.Ui.Text.Medium" parent="">
+    <style name="Theme.Ui.Text.Medium.Medium" parent="">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Theme.Ui.Text.Medium.Small" parent="">
         <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">14sp</item>
     </style>

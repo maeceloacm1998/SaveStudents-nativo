@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/day_name"
-        style="@style/Theme.Ui.Text.Bold.Big"
+        style="@style/Theme.Ui.Text.Medium.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/events_rv"

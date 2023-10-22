@@ -5,6 +5,7 @@
     <string name="register_title">Registrar</string>
     <string name="curriculum_title">Eventos</string>
     <string name="select_date_title">Selecione uma data</string>
+    <string name="week_events_title">Eventos dessa semana</string>
 
     <string name="hint_email_account">E-mail</string>
     <string name="hint_password_account">Senha</string>
