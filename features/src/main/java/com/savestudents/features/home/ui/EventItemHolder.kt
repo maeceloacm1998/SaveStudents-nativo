@@ -10,6 +10,7 @@ class EventItemHolder(private val binding: EventItemBinding) :
 
     fun bind(eventItem: Event.EventItem, day: Int, month: Int) {
         binding.apply {
+            type.text = eventItem.type
             dayText.text = day.toString()
             monthText.text = DateUtils.getMonthName(month)
             eventTitle.text = eventItem.matterName

@@ -6,5 +6,6 @@ enum class DaysType(val value: String) {
     WEDNESDAY("Quarta"),
     THURSDAY("Quinta"),
     FRIDAY("Sexta"),
-    SATURDAY("Sabado")
+    SATURDAY("Sabado"),
+    SUNDAY("Domingo")
 }

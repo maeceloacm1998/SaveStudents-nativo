@@ -18,6 +18,7 @@ import com.savestudents.features.databinding.FragmentCurriculumBinding
 import com.savestudents.features.home.ui.EventItemAdapter
 import com.shrikanthravi.collapsiblecalendarview.data.Day
 import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+import com.shrikanthravi.collapsiblecalendarview.widget.UICalendar
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -154,6 +155,14 @@ class CurriculumFragment :
     override fun showNotEvents(visibility: Boolean) {
         binding.calendarError.container.isVisible = visibility
         binding.eventsRv.isVisible = !visibility
+    }
+
+    override fun calendarExpanded() {
+        binding.calendar.state = UICalendar.STATE_EXPANDED
+    }
+
+    override fun calendarCollapsed() {
+        binding.calendar.state = UICalendar.STATE_COLLAPSED
     }
 
     override fun setEvent(year: Int, month: Int, day: Int) {

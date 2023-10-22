@@ -32,10 +32,15 @@ class CurriculumPresenter(
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                event.events.forEach { item ->
-                    when (item.type) {
-                        EventType.EVENT.value -> handleEvent(checkNotNull(item.timestamp))
-                        EventType.MATTER.value -> handleMatter(event, month)
+                if(event.events.isEmpty()) {
+                    view.calendarExpanded()
+                } else {
+                    view.calendarCollapsed()
+                    event.events.forEach { item ->
+                        when (item.type) {
+                            EventType.EVENT.value -> handleEvent(checkNotNull(item.timestamp))
+                            EventType.MATTER.value -> handleMatter(event, month)
+                        }
                     }
                 }
             }
@@ -76,7 +81,10 @@ class CurriculumPresenter(
             view.showNotEvents(true)
         } else {
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
-                if (formatDateWithPattern(NORMAL_DATE, timestamp) == formatDate(dayWeek, monthWeek, yearWeek)) {
+                val eventDate = formatDateWithPattern(NORMAL_DATE, timestamp)
+                val weekDate = formatDate(dayWeek, monthWeek, yearWeek)
+
+                if (eventDate == weekDate) {
                     val (_, month, day) = getDateWithTimestamp(timestamp)
                     view.run {
                         updateEventList(eventItemList, day, month)

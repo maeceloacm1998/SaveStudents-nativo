@@ -80,7 +80,8 @@ object DateUtils {
             DaysType.WEDNESDAY.value -> getDataListPerWeek(WeekType.WEDNESDAY)
             DaysType.THURSDAY.value -> getDataListPerWeek(WeekType.THURSDAY)
             DaysType.FRIDAY.value -> getDataListPerWeek(WeekType.FRIDAY)
-            else -> getDataListPerWeek(WeekType.SATURDAY)
+            DaysType.SATURDAY.value -> getDataListPerWeek(WeekType.SATURDAY)
+            else -> getDataListPerWeek(WeekType.SUNDAY)
         }
     }
 
@@ -92,6 +93,10 @@ object DateUtils {
     fun formatDateWithPattern(pattern: String, timestamp: Long): String {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
         val dateFormat = SimpleDateFormat(pattern, Locale("pt", "BR"))
         return dateFormat.format(calendar.time)
@@ -102,7 +107,7 @@ object DateUtils {
      * Essa funcao foi criada porque o calendario do datePicker retornava timestemp com 1 dia atrasado
      * @param timestamp
      */
-        fun addOneDayToTimestamp(timestamp: Long): Long {
+    fun addOneDayToTimestamp(timestamp: Long): Long {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
         calendar.add(Calendar.DAY_OF_MONTH, 1)
@@ -127,7 +132,8 @@ object DateUtils {
             WeekType.WEDNESDAY.value -> DaysType.WEDNESDAY.value
             WeekType.THURSDAY.value -> DaysType.THURSDAY.value
             WeekType.FRIDAY.value -> DaysType.FRIDAY.value
-            else -> DaysType.SATURDAY.value
+            WeekType.SATURDAY.value -> DaysType.SATURDAY.value
+            else -> DaysType.SUNDAY.value
         }
     }
 

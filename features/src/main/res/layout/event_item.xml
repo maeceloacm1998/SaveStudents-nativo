@@ -1,94 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewElevatedStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="10dp">
+    android:layout_marginVertical="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/day_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/event_information"
-        app:layout_constraintEnd_toStartOf="@id/event_information"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/event_information">
+        android:paddingHorizontal="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
 
-        <View
-            android:id="@+id/day_bg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/bg_circle_blue"
-            app:layout_constraintEnd_toEndOf="@id/month_text"
-            app:layout_constraintStart_toStartOf="@id/month_text"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/day_text"
-            style="@style/Theme.Ui.Text.Bold.Small"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/type"
+            style="@style/Widget.Material3.Chip.Suggestion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/day_bg"
-            app:layout_constraintEnd_toEndOf="@id/day_bg"
-            app:layout_constraintStart_toStartOf="@id/day_bg"
-            app:layout_constraintTop_toTopOf="@id/day_bg"
-            tools:text="02" />
+            android:layout_height="40dp"
+            android:clickable="false"
 
-        <TextView
-            android:id="@+id/month_text"
-            style="@style/Theme.Ui.Text.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/day_bg"
-            tools:text="maio" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/event_information"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/day_container"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/event_title"
-            style="@style/Theme.Ui.Text.Bold.Medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toStartOf="@id/hour"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Aula de Grafos" />
+            tools:text="Evento" />
 
-        <TextView
-            android:id="@+id/event_period"
-            style="@style/Theme.Ui.Text.Medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/hour"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_title"
-            tools:text="6 Periodo" />
-
-        <TextView
-            android:id="@+id/hour"
-            style="@style/Theme.Ui.Text.Bold.Medium"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/day_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/event_information"
+            app:layout_constraintEnd_toStartOf="@id/event_information"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/event_information">
+
+            <View
+                android:id="@+id/day_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_circle_blue"
+                app:layout_constraintEnd_toEndOf="@id/month_text"
+                app:layout_constraintStart_toStartOf="@id/month_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/day_text"
+                style="@style/Theme.Ui.Text.Bold.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/day_bg"
+                app:layout_constraintEnd_toEndOf="@id/day_bg"
+                app:layout_constraintStart_toStartOf="@id/day_bg"
+                app:layout_constraintTop_toTopOf="@id/day_bg"
+                tools:text="02" />
+
+            <TextView
+                android:id="@+id/month_text"
+                style="@style/Theme.Ui.Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/day_bg"
+                tools:text="maio" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/event_information"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/event_period"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="16:00" />
+            app:layout_constraintStart_toEndOf="@id/day_container"
+            app:layout_constraintTop_toBottomOf="@id/type">
+
+            <TextView
+                android:id="@+id/event_title"
+                style="@style/Theme.Ui.Text.Bold.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@id/hour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Aula de Grafos" />
+
+            <TextView
+                android:id="@+id/event_period"
+                style="@style/Theme.Ui.Text.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/hour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_title"
+                tools:text="6 Periodo" />
+
+            <TextView
+                android:id="@+id/hour"
+                style="@style/Theme.Ui.Text.Bold.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/event_period"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="16:00" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

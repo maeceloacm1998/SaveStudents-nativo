@@ -25,6 +25,9 @@ object ScheduleData {
             ),
             Event(
                 dayName = DaysType.SATURDAY.value
+            ),
+            Event(
+                dayName = DaysType.SUNDAY.value
             )
         )
     )
