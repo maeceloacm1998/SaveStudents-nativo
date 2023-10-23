@@ -1,5 +1,6 @@
 package com.savestudents.features
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.viewbinding.ViewBinding
+import com.savestudents.components.bottomSheet.CustomBottomSheetFragment
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.components.snackbar.SnackBarCustomView
 import com.savestudents.core.utils.InitialScreenTypes
@@ -73,6 +76,7 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     fun handleDrawerMenu() {
         supportActionBar?.dispatchMenuVisibilityChanged(true)
         visibleToolbar(true)
@@ -112,6 +116,18 @@ class NavigationActivity : AppCompatActivity() {
             title = title,
             snackBarCustomType = snackBarCustomType
         )
+    }
+
+    /**
+     * Essa função serve para mostrar o bottomSheet. Como parametro, envie o binding inflado, que
+     * sera retornado de volta para você. Ex: parentActivity?.showBottomSheet(TesteBinding.inflate(layoutInflater))
+     * @param binding
+     * @return binding
+     */
+    fun <T : ViewBinding> showBottomSheet(binding: T): T {
+        val customBottomSheet = CustomBottomSheetFragment(binding)
+        customBottomSheet.show(supportFragmentManager, "customBottomSheet")
+        return binding
     }
 
     companion object {
