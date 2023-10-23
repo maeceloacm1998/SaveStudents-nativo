@@ -13,12 +13,14 @@
     <string name="hint_search_matter">Digite a matéria</string>
     <string name="hint_date_account">Data de nascimento</string>
     <string name="hint_institution_account">Faculdade</string>
+    <string name="hint_period">Período</string>
     <string name="hint_add_event">Evento</string>
     <string name="helper_name_account">O seu nome completo vai aparecer na tela inicial do aplicativo.</string>
     <string name="helper_email_account">Esse é o e-mail cadastrado na sua conta. Impossível mudar.</string>
     <string name="helper_search_matter">Digite a matéria que deseja adicionar</string>
     <string name="helper_date_account">Digite sua data de nascimento</string>
     <string name="helper_institution_account">Digite a faculdade que você estuda</string>
+    <string name="helper_period">Selecione o período dessa matéria.</string>
     <string name="helper_add_event">Coloque o nome de algum evento. Ex: Prova, Trabalho, Reunião em grupo.</string>
 
     <string name="account_validation_empty_email">Digite seu e-mail nesse campo.</string>
@@ -52,6 +54,7 @@
     <string name="add_matter_teacher">Professor(a): %s</string>
     <string name="add_matter_success_register_alert">"A Materia %s foi cadastrada.</string>
     <string name="add_matter_error_register_alert">Erro ao cadastrar a materia.</string>
+    <string name="add_matter_not_search_matter">Não encontrou alguma matéria?</string>
 
     <string name="curriculum_error_message">Ocorreu problema ao baixar a cronograma, tente novamente mais tarde.</string>
     <string name="curriculum_calendar_error_message">Nenhum evento registrado</string>
@@ -63,4 +66,21 @@
     <string name="add_event_success_register_alert">"O evento %s foi cadastrado.</string>
     <string name="add_event_error_register_alert">Erro ao cadastrar o evento %s.</string>
 
+    <string name="bottom_sheet_add_matter_option_title">Adicione uma matéria</string>
+    <string name="bottom_sheet_add_matter_option_subtitle">Pode acontecer de você não encontrar alguma matéria. Para adicionar, basta preencher o campo e confirmar.</string>
+
+    <array name="period_list">
+        <item>1º Período</item>
+        <item>2º Período</item>
+        <item>3º Período</item>
+        <item>4º Período</item>
+        <item>5º Período</item>
+        <item>6º Período</item>
+        <item>7º Período</item>
+        <item>8º Período</item>
+        <item>9º Período</item>
+        <item>10º Período</item>
+        <item>11º Período</item>
+        <item>12º Período</item>
+    </array>
 </resources>

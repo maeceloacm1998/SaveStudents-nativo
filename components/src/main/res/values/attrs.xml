@@ -11,6 +11,7 @@
         <attr name="helperText" format="string" />
         <attr name="mask" format="string"/>
         <attr name="iconRight" format="reference" />
+        <attr name="dropdownList" format="reference" />
         <attr name="android:inputType">
             <flag name="text" value="0x00000001" />
             <flag name="textAutoComplete" value="0x00010001" />

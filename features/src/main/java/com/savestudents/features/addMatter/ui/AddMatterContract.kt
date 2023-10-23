@@ -17,14 +17,16 @@ interface AddMatterContract {
         fun errorDaysNotSelected(visibility: Boolean)
         fun errorInitialHourNotSelected(visibility: Boolean)
         fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType)
+        fun showSnackbarAddMatterOption(message: String, snackBarCustomType: SnackBarCustomType)
         fun goToCurriculum()
     }
 
     interface Presenter : BasePresenter {
         suspend fun fetchMatters()
+        suspend fun registerMatter(daysSelected: List<String>)
+        suspend fun registerMatterOption(matterName: String, period: String)
         fun matterSelect(option: String)
         fun saveInitialHourSelected(time: String)
-        suspend fun registerMatter(daysSelected: List<String>)
         fun getInitialHour(): Int
         fun getInitialMinutes(): Int
     }

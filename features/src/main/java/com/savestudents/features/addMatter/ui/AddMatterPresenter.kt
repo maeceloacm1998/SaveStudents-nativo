@@ -8,6 +8,8 @@ import com.savestudents.features.addMatter.models.Schedule
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Matter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AddMatterPresenter(
     val view: AddMatterContract.View,
@@ -77,6 +79,34 @@ class AddMatterPresenter(
         }
     }
 
+    override suspend fun registerMatterOption(matterName: String, period: String) {
+
+        val id = withContext(Dispatchers.IO) {
+            client.createDocument("matterList", {})
+        }
+
+        val matter = Matter(
+            id = id.getOrNull().toString(),
+            matterName = matterName,
+            period = period,
+        )
+        if (id.isSuccess) {
+            client.setSpecificDocument("matterList", id.getOrNull().toString(), matter)
+                .onSuccess {
+                    view.showSnackbarAddMatterOption(
+                        MESSAGE_SUCCESS_ADD_MATTER_OPTION,
+                        SnackBarCustomType.SUCCESS
+                    )
+                }
+                .onFailure {
+                    view.showSnackbarAddMatterOption(
+                        MESSAGE_ERROR_ADD_MATTER_OPTION,
+                        SnackBarCustomType.ERROR
+                    )
+                }
+        }
+    }
+
     override fun getInitialHour(): Int {
         return initialTime?.split(":")?.get(0)?.toInt() ?: 0
     }
@@ -134,5 +164,10 @@ class AddMatterPresenter(
 
     private fun isDaySelected(event: Event, daysSelected: List<String>): Boolean {
         return daysSelected.contains(event.dayName)
+    }
+
+    companion object {
+        private const val MESSAGE_SUCCESS_ADD_MATTER_OPTION = "Sucesso ao cadastrar a matéria"
+        private const val MESSAGE_ERROR_ADD_MATTER_OPTION = "Erro ao cadastrar a matéria"
     }
 }

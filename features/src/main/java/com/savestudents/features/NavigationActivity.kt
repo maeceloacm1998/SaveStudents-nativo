@@ -21,6 +21,7 @@ import com.savestudents.features.databinding.ActivityNavigationBinding
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
     private var controller: NavController? = null
+    private lateinit var customBottomSheet: CustomBottomSheetFragment<ViewBinding>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,9 +126,13 @@ class NavigationActivity : AppCompatActivity() {
      * @return binding
      */
     fun <T : ViewBinding> showBottomSheet(binding: T): T {
-        val customBottomSheet = CustomBottomSheetFragment(binding)
+        customBottomSheet = CustomBottomSheetFragment(binding)
         customBottomSheet.show(supportFragmentManager, "customBottomSheet")
         return binding
+    }
+
+    fun hideBottomSheet() {
+        customBottomSheet.dismiss()
     }
 
     companion object {

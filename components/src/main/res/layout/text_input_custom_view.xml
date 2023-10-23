@@ -34,7 +34,7 @@
             android:id="@+id/edit_text_autocomplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dropDownHeight="150dp"
+            android:dropDownHeight="200dp"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 

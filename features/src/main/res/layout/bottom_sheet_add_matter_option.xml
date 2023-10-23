@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/standard_bottom_sheet"
+    style="@style/Widget.Material3.BottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:fillViewport="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:id="@+id/drag_handle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Theme.Ui.Text.Bold.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/bottom_sheet_add_matter_option_title"
+            app:layout_constraintTop_toBottomOf="@id/drag_handle" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/Theme.Ui.Text.Medium.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/bottom_sheet_add_matter_option_subtitle"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <com.savestudents.components.textInput.TextInputCustomView
+            android:id="@+id/ti_matter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_search_matter"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+
+        <com.savestudents.components.textInput.TextInputCustomView
+            android:id="@+id/ti_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_period"
+            app:dropdownList="@array/period_list"
+            app:helperText="@string/helper_period"
+            app:layoutType="autocomplete"
+            app:layout_constraintTop_toBottomOf="@id/ti_matter" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_button"
+            style="@style/Theme.Ui.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="16dp"
+            android:text="@string/register_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ti_period" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+

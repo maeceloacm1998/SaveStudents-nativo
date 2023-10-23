@@ -4,6 +4,7 @@
     <application android:theme="@style/Theme.SaveStudentsV2">
         <activity
             android:name=".NavigationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>

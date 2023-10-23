@@ -19,6 +19,7 @@ import com.savestudents.features.NavigationActivity
 import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Matter
+import com.savestudents.features.databinding.BottomSheetAddMatterOptionBinding
 import com.savestudents.features.databinding.FragmentAddMatterBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,6 +40,8 @@ class AddMatterFragment :
         lifecycleScope.launch {
             presenter.fetchMatters()
         }
+
+
         setupViews()
     }
 
@@ -77,6 +80,21 @@ class AddMatterFragment :
                 loadingRegister(true)
                 lifecycleScope.launch {
                     presenter.registerMatter(daysSelected)
+                }
+            }
+
+            btAddMatterOption.setOnClickListener {
+                val bottomSheet = parentActivity?.showBottomSheet(
+                    BottomSheetAddMatterOptionBinding.inflate(layoutInflater)
+                )
+                bottomSheet?.tiPeriod?.showKeyboard = false
+
+                bottomSheet?.submitButton?.setOnClickListener {
+                    val matterName = bottomSheet.tiMatter.editTextDefault.text.toString()
+                    val period = bottomSheet.tiPeriod.editTextAutocomplete.text.toString()
+                    lifecycleScope.launch {
+                        presenter.registerMatterOption(matterName = matterName, period = period)
+                    }
                 }
             }
         }
@@ -164,6 +182,20 @@ class AddMatterFragment :
                     snackBarCustomType
                 )
             }
+        }
+    }
+
+    override fun showSnackbarAddMatterOption(
+        message: String,
+        snackBarCustomType: SnackBarCustomType
+    ) {
+        lifecycleScope.launch {
+            presenter.fetchMatters()
+        }
+
+        parentActivity?.apply {
+            hideBottomSheet()
+            showSnackBar(message, snackBarCustomType)
         }
     }
 
