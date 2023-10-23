@@ -68,6 +68,8 @@
 
     <string name="bottom_sheet_add_matter_option_title">Adicione uma matéria</string>
     <string name="bottom_sheet_add_matter_option_subtitle">Pode acontecer de você não encontrar alguma matéria. Para adicionar, basta preencher o campo e confirmar.</string>
+    <string name="bottom_sheet_add_matter_option_matter_error">Digite o nome da matéria que deseja adicionar.</string>
+    <string name="bottom_sheet_add_matter_option_period_error">Selecione o período que você tem essa matéria na faculdade.</string>
 
     <array name="period_list">
         <item>1º Período</item>

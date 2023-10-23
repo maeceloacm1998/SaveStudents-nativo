@@ -45,7 +45,7 @@ class AddMatterPresenter(
         initialTime = time
     }
 
-    override suspend fun registerMatter(daysSelected: List<String>) {
+    override suspend fun validateMatter(daysSelected: List<String>) {
         when {
             matterSelected == null -> {
                 view.run {
@@ -74,12 +74,26 @@ class AddMatterPresenter(
                     errorDaysNotSelected(false)
                     errorInitialHourNotSelected(false)
                 }
-                register(daysSelected)
+                registerMatter(daysSelected)
             }
         }
     }
 
-    override suspend fun registerMatterOption(matterName: String, period: String) {
+    override suspend fun validateAddMatterOption(matterName: String, period: String) {
+        when {
+            matterName.isEmpty() -> view.errorAddMatterOptionMatterNameNotSelected(true)
+            period.isEmpty() -> view.errorAddMatterOptionPeriodNotSelected(true)
+            else -> {
+                view.run {
+                    errorAddMatterOptionMatterNameNotSelected(false)
+                    errorAddMatterOptionPeriodNotSelected(false)
+                }
+                registerMatterOption(matterName, period)
+            }
+        }
+    }
+
+    private suspend fun registerMatterOption(matterName: String, period: String) {
 
         val id = withContext(Dispatchers.IO) {
             client.createDocument("matterList", {})
@@ -115,7 +129,7 @@ class AddMatterPresenter(
         return initialTime?.split(":")?.get(1)?.toInt() ?: 0
     }
 
-    suspend fun register(daysSelected: List<String>) {
+    suspend fun registerMatter(daysSelected: List<String>) {
         val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule = it.toObject<Schedule>()

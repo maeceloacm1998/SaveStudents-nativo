@@ -31,17 +31,18 @@ class AddMatterFragment :
 
     override val presenter: AddMatterContract.Presenter by inject { parametersOf(this) }
 
+    private var bottomSheetBinding: BottomSheetAddMatterOptionBinding? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleTitleToolbar("Adicionar Matéria")
         parentActivity?.goBackPressed {
             findNavController().popBackStack()
         }
+
         lifecycleScope.launch {
             presenter.fetchMatters()
         }
-
-
         setupViews()
     }
 
@@ -79,21 +80,21 @@ class AddMatterFragment :
 
                 loadingRegister(true)
                 lifecycleScope.launch {
-                    presenter.registerMatter(daysSelected)
+                    presenter.validateMatter(daysSelected)
                 }
             }
 
             btAddMatterOption.setOnClickListener {
-                val bottomSheet = parentActivity?.showBottomSheet(
+                bottomSheetBinding = parentActivity?.showBottomSheet(
                     BottomSheetAddMatterOptionBinding.inflate(layoutInflater)
                 )
-                bottomSheet?.tiPeriod?.showKeyboard = false
+                bottomSheetBinding?.tiPeriod?.showKeyboard = false
 
-                bottomSheet?.submitButton?.setOnClickListener {
-                    val matterName = bottomSheet.tiMatter.editTextDefault.text.toString()
-                    val period = bottomSheet.tiPeriod.editTextAutocomplete.text.toString()
+                bottomSheetBinding?.submitButton?.setOnClickListener {
+                    val matterName = bottomSheetBinding?.tiMatter?.editTextDefault?.text.toString()
+                    val period = bottomSheetBinding?.tiPeriod?.editTextAutocomplete?.text.toString()
                     lifecycleScope.launch {
-                        presenter.registerMatterOption(matterName = matterName, period = period)
+                        presenter.validateAddMatterOption(matterName = matterName, period = period)
                     }
                 }
             }
@@ -162,6 +163,22 @@ class AddMatterFragment :
             } else {
                 binding.initialHourTextLayout.error = ""
             }
+        }
+    }
+
+    override fun errorAddMatterOptionMatterNameNotSelected(visibility: Boolean) {
+        if (visibility) {
+            bottomSheetBinding?.tiMatter?.error = getString(R.string.bottom_sheet_add_matter_option_matter_error)
+        } else {
+            bottomSheetBinding?.tiMatter?.error = ""
+        }
+    }
+
+    override fun errorAddMatterOptionPeriodNotSelected(visibility: Boolean) {
+        if (visibility) {
+            bottomSheetBinding?.tiPeriod?.error = getString(R.string.bottom_sheet_add_matter_option_period_error)
+        } else {
+            bottomSheetBinding?.tiPeriod?.error = ""
         }
     }
 
