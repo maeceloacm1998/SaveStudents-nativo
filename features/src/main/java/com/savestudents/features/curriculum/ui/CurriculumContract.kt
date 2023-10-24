@@ -21,6 +21,6 @@ interface CurriculumContract {
     interface Presenter : BasePresenter {
         suspend fun fetchMatters(month: Int)
         suspend fun fetchEventsWithDate(timestamp: Long)
-        suspend fun deleteEvent(event: Event.EventItem)
+        suspend fun deleteEvent(eventItem: Event.EventItem)
     }
 }
