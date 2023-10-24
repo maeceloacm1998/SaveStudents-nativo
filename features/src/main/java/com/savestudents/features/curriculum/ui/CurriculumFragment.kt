@@ -161,10 +161,12 @@ class CurriculumFragment :
 
     override fun calendarExpanded() {
         binding.calendar.state = UICalendar.STATE_EXPANDED
+        binding.calendar.expand(400)
     }
 
     override fun calendarCollapsed() {
         binding.calendar.state = UICalendar.STATE_COLLAPSED
+        binding.calendar.collapse(400)
     }
 
     override fun setEvent(year: Int, month: Int, day: Int) {

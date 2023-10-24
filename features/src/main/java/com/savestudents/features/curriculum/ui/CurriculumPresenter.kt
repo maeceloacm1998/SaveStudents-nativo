@@ -29,15 +29,15 @@ class CurriculumPresenter(
     }
 
     override suspend fun fetchMatters(month: Int) {
+        view.calendarExpanded()
+
         val userId: String = accountManager.getUserAccount()?.id.toString()
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule: Schedule = checkNotNull(it.toObject())
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                if (event.events.isEmpty()) {
-                    view.calendarExpanded()
-                } else {
+                if (event.events.isNotEmpty()) {
                     view.calendarCollapsed()
                     event.events.forEach { item ->
                         when (item.type) {
