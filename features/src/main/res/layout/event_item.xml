@@ -20,10 +20,22 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:clickable="false"
-
+            app:layout_constraintEnd_toStartOf="@id/bt_delete"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Evento" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_delete"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="@color/error_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/type"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/day_container"

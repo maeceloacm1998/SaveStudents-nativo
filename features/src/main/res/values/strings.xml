@@ -60,6 +60,8 @@
     <string name="curriculum_calendar_error_message">Nenhum evento registrado</string>
     <string name="curriculum_calendar_fab_matter">Adicionar matéria</string>
     <string name="curriculum_calendar_fab_event">Adicionar evento</string>
+    <string name="curriculum_success_remove_event">Evento removido com sucesso!</string>
+    <string name="curriculum_error_remove_event">Erro ao excluir esse evento, tente novamente mais tarde.</string>
 
     <string name="add_event_empty_event_error">Adicione o nome do evento</string>
     <string name="add_event_not_selected_date_error">Selecione uma data para esse vento</string>

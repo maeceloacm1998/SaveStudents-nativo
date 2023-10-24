@@ -1,6 +1,7 @@
 package com.savestudents.features.curriculum.ui
 
 import com.google.firebase.firestore.ktx.toObject
+import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
 import com.savestudents.core.utils.DateUtils.NORMAL_DATE
@@ -9,11 +10,13 @@ import com.savestudents.core.utils.DateUtils.formatDateWithPattern
 import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
 import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
 import com.savestudents.core.utils.DateUtils.getWeeksList
+import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
 class CurriculumPresenter(
     private val view: CurriculumContract.View,
     private val client: FirebaseClient,
@@ -32,7 +35,7 @@ class CurriculumPresenter(
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                if(event.events.isEmpty()) {
+                if (event.events.isEmpty()) {
                     view.calendarExpanded()
                 } else {
                     view.calendarCollapsed()
@@ -71,6 +74,35 @@ class CurriculumPresenter(
             val weekName = getDayOfWeekFromTimestamp(timestamp)
             if (weekName == event.dayName) handleEventsWithDate(event, timestamp)
         }
+    }
+
+    override suspend fun deleteEvent(eventItem: Event.EventItem) {
+        val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
+
+        eventList.forEach { event ->
+            event.events.remove(eventItem)
+        }
+
+        client.setSpecificDocument(
+            "scheduleUser",
+            userId,
+            Schedule(userId = userId, data = eventList)
+        )
+            .onSuccess {
+                view.run {
+                    showSnackBar(
+                        R.string.curriculum_success_remove_event,
+                        SnackBarCustomType.SUCCESS
+                    )
+                    init()
+                }
+            }
+            .onFailure {
+                view.showSnackBar(
+                    R.string.curriculum_error_remove_event,
+                    SnackBarCustomType.ERROR
+                )
+            }
     }
 
     private suspend fun handleEventsWithDate(event: Event, timestamp: Long) {

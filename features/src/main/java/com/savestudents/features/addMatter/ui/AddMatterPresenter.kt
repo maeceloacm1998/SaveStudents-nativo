@@ -129,7 +129,7 @@ class AddMatterPresenter(
         return initialTime?.split(":")?.get(1)?.toInt() ?: 0
     }
 
-    suspend fun registerMatter(daysSelected: List<String>) {
+    private suspend fun registerMatter(daysSelected: List<String>) {
         val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule = it.toObject<Schedule>()

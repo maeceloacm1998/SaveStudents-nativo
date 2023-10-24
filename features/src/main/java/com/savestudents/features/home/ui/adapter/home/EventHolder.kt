@@ -10,7 +10,7 @@ import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
 
 class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Event) {
-        val eventAdapter = EventItemAdapter()
+        val eventAdapter = EventItemAdapter(showDelete = false, clickDeleteEventListener = null)
         binding.apply {
             dayName.text = item.dayName
             eventsRv.run {

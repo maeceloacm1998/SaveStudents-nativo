@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
+import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
 import com.savestudents.core.utils.DateUtils.getTimestampWithDate
@@ -28,7 +29,8 @@ class CurriculumFragment :
     CurriculumContract.View {
 
     override val presenter: CurriculumContract.Presenter by inject { parametersOf(this) }
-    private val adapterCurriculum: EventItemAdapter = EventItemAdapter()
+    private val adapterCurriculum: EventItemAdapter =
+        EventItemAdapter(showDelete = true, clickDeleteEventListener = ::clickDeleteEventListener)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +44,7 @@ class CurriculumFragment :
         handleFabButton()
     }
 
-    private fun init() {
+    override fun init() {
         val (day, month, year) = getCurrentDate()
         lifecycleScope.launch {
             presenter.start()
@@ -174,7 +176,17 @@ class CurriculumFragment :
         )
     }
 
+    private fun clickDeleteEventListener(item: Event.EventItem) {
+        lifecycleScope.launch {
+            presenter.deleteEvent(item)
+        }
+    }
+
     override fun updateEventList(eventList: List<Event.EventItem>, day: Int, month: Int) {
         adapterCurriculum.updateData(eventList, day, month)
+    }
+
+    override fun showSnackBar(message: Int, type: SnackBarCustomType) {
+        parentActivity?.showSnackBar(getString(message), type)
     }
 }

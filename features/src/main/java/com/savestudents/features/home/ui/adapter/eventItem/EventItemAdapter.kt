@@ -10,7 +10,9 @@ import com.savestudents.features.databinding.EventItemBinding
 class EventItemAdapter(
     private var eventList: List<Event.EventItem> = mutableListOf(),
     private var day: Int = 0,
-    private var month: Int = 0
+    private var month: Int = 0,
+    private var showDelete: Boolean = false,
+    private var clickDeleteEventListener: ((item: Event.EventItem) -> Unit)?,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -25,7 +27,13 @@ class EventItemAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as EventItemHolder).bind(eventItem = eventList[position], day = day, month = month)
+        (holder as EventItemHolder).bind(
+            eventItem = eventList[position],
+            day = day,
+            month = month,
+            showDelete = showDelete,
+            clickDeleteEventListener = clickDeleteEventListener
+        )
     }
 
     @SuppressLint("NotifyDataSetChanged")
