@@ -29,7 +29,6 @@ class CurriculumPresenter(
     }
 
     override suspend fun fetchMatters(month: Int) {
-        view.calendarExpanded()
 
         val userId: String = accountManager.getUserAccount()?.id.toString()
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
@@ -38,7 +37,6 @@ class CurriculumPresenter(
 
             schedule.data.forEach { event ->
                 if (event.events.isNotEmpty()) {
-                    view.calendarCollapsed()
                     event.events.forEach { item ->
                         when (item.type) {
                             EventType.EVENT.value -> handleEvent(checkNotNull(item.timestamp))
@@ -56,7 +54,6 @@ class CurriculumPresenter(
 
     private fun handleEvent(timestamp: Long) {
         val (year, month, day) = getDateWithTimestamp(timestamp)
-        view.setEvent(year, month - 1, day)
     }
 
     private suspend fun handleMatter(event: Event, month: Int) {
@@ -65,7 +62,6 @@ class CurriculumPresenter(
         }
 
         weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
-            if (monthWeek == month) view.setEvent(yearWeek, monthWeek, dayWeek)
         }
     }
 

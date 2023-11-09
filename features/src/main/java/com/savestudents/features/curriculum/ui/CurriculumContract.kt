@@ -11,9 +11,6 @@ interface CurriculumContract {
         fun error()
         fun loadingScreen(visibility: Boolean)
         fun showNotEvents(visibility: Boolean)
-        fun calendarExpanded()
-        fun calendarCollapsed()
-        fun setEvent(year: Int, month: Int, day: Int)
         fun updateEventList(eventList: List<Event.EventItem>, day: Int, month: Int)
         fun showSnackBar(message: Int, type: SnackBarCustomType)
     }

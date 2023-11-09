@@ -17,9 +17,6 @@ import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
 import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
-import com.shrikanthravi.collapsiblecalendarview.data.Day
-import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
-import com.shrikanthravi.collapsiblecalendarview.widget.UICalendar
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -48,7 +45,6 @@ class CurriculumFragment :
         val (day, month, year) = getCurrentDate()
         lifecycleScope.launch {
             presenter.start()
-            presenter.fetchMatters(binding.calendar.month)
             presenter.fetchEventsWithDate(getTimestampWithDate(day, month, year))
         }
     }
@@ -97,32 +93,6 @@ class CurriculumFragment :
                 adapter = adapterCurriculum
                 layoutManager = LinearLayoutManager(context)
             }
-
-            calendar.setCalendarListener(object : CollapsibleCalendar.CalendarListener {
-                override fun onDaySelect() {
-                    val daySelected: Day = calendar.selectedDay
-
-                    lifecycleScope.launch {
-                        presenter.fetchEventsWithDate(
-                            getTimestampWithDate(
-                                daySelected.day,
-                                daySelected.month + 1,
-                                daySelected.year
-                            )
-                        )
-                    }
-                }
-
-                override fun onItemClick(v: View?) {}
-                override fun onDataUpdate() {}
-                override fun onMonthChange() {
-                    lifecycleScope.launch {
-                        presenter.fetchMatters(calendar.month)
-                    }
-                }
-
-                override fun onWeekChange(position: Int) {}
-            })
         }
     }
 
@@ -157,25 +127,6 @@ class CurriculumFragment :
     override fun showNotEvents(visibility: Boolean) {
         binding.calendarError.container.isVisible = visibility
         binding.eventsRv.isVisible = !visibility
-    }
-
-    override fun calendarExpanded() {
-        binding.calendar.state = UICalendar.STATE_EXPANDED
-        binding.calendar.expand(400)
-    }
-
-    override fun calendarCollapsed() {
-        binding.calendar.state = UICalendar.STATE_COLLAPSED
-        binding.calendar.collapse(400)
-    }
-
-    override fun setEvent(year: Int, month: Int, day: Int) {
-        binding.calendar.addEventTag(
-            year,
-            month,
-            day,
-            requireContext().getColor(R.color.primary)
-        )
     }
 
     private fun clickDeleteEventListener(item: Event.EventItem) {
