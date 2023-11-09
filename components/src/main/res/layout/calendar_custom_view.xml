@@ -21,9 +21,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="16dp">
+            android:paddingVertical="10dp">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/exFivePreviousMonthImage"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -35,21 +35,19 @@
                 app:srcCompat="@drawable/ic_arrow_left"
                 app:tint="@color/white" />
 
-            <!--            concertar esse texto para o padrao do app-->
             <TextView
                 android:id="@+id/exFiveMonthYearText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:textAppearance="@style/Theme.Ui.Text.Bold.Medium"
                 android:textColor="@color/white"
-                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/exFiveNextMonthImage"
                 app:layout_constraintStart_toEndOf="@id/exFivePreviousMonthImage"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="April 2018" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/exFiveNextMonthImage"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
