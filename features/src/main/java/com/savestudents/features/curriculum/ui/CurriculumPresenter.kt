@@ -1,6 +1,9 @@
 package com.savestudents.features.curriculum.ui
 
+import android.annotation.SuppressLint
 import com.google.firebase.firestore.ktx.toObject
+import com.savestudents.components.calendar.EventCalendar
+import com.savestudents.components.calendar.EventCalendarType
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
@@ -16,6 +19,7 @@ import com.savestudents.features.addMatter.models.EventType
 import com.savestudents.features.addMatter.models.Schedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 class CurriculumPresenter(
     private val view: CurriculumContract.View,
@@ -23,13 +27,13 @@ class CurriculumPresenter(
     private val accountManager: AccountManager
 ) : CurriculumContract.Presenter {
     private var eventList: List<Event> = mutableListOf()
+    private var eventCalendarList: MutableList<EventCalendar> = mutableListOf()
 
     override fun start() {
         view.loadingScreen(true)
     }
 
-    override suspend fun fetchMatters(month: Int) {
-
+    override suspend fun fetchMatters() {
         val userId: String = accountManager.getUserAccount()?.id.toString()
         client.getSpecificDocument("scheduleUser", userId).onSuccess {
             val schedule: Schedule = checkNotNull(it.toObject())
@@ -40,28 +44,39 @@ class CurriculumPresenter(
                     event.events.forEach { item ->
                         when (item.type) {
                             EventType.EVENT.value -> handleEvent(checkNotNull(item.timestamp))
-                            EventType.MATTER.value -> handleMatter(event, month)
+                            EventType.MATTER.value -> handleMatter(event)
                         }
                     }
                 }
             }
 
+            view.updateCalendar(eventCalendarList)
             view.loadingScreen(false)
         }.onFailure {
             view.error()
         }
     }
 
+    @SuppressLint("NewApi")
     private fun handleEvent(timestamp: Long) {
         val (year, month, day) = getDateWithTimestamp(timestamp)
+        val event =
+            EventCalendar(date = LocalDate.of(year, month, day), listOf(EventCalendarType.EVENT))
+        eventCalendarList.add(event)
     }
 
-    private suspend fun handleMatter(event: Event, month: Int) {
+    @SuppressLint("NewApi")
+    private suspend fun handleMatter(event: Event) {
         val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
             getWeeksList(event.dayName)
         }
 
         weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
+            val event = EventCalendar(
+                date = LocalDate.of(yearWeek, monthWeek + 1, dayWeek),
+                listOf(EventCalendarType.MATTER)
+            )
+            eventCalendarList.add(event)
         }
     }
 

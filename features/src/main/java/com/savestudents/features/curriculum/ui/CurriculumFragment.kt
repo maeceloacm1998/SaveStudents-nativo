@@ -1,5 +1,6 @@
 package com.savestudents.features.curriculum.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -8,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
+import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
@@ -20,6 +22,7 @@ import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import java.time.ZoneId
 
 class CurriculumFragment :
     BaseFragment<FragmentCurriculumBinding, NavigationActivity>(FragmentCurriculumBinding::inflate),
@@ -41,10 +44,12 @@ class CurriculumFragment :
         handleFabButton()
     }
 
+    @SuppressLint("NewApi")
     override fun init() {
         val (day, month, year) = getCurrentDate()
         lifecycleScope.launch {
             presenter.start()
+            presenter.fetchMatters()
             presenter.fetchEventsWithDate(getTimestampWithDate(day, month, year))
         }
     }
@@ -87,11 +92,21 @@ class CurriculumFragment :
         }
     }
 
+    @SuppressLint("NewApi")
     private fun setupViews() {
         binding.run {
             eventsRv.run {
                 adapter = adapterCurriculum
                 layoutManager = LinearLayoutManager(context)
+            }
+
+            binding.calendar.onClickDayListener { localDate ->
+                val zoneId = ZoneId.of("America/Sao_Paulo")
+                val instant = localDate.atStartOfDay(zoneId).toInstant()
+                val timestamp = instant.toEpochMilli()
+                lifecycleScope.launch {
+                    presenter.fetchEventsWithDate(timestamp)
+                }
             }
         }
     }
@@ -141,5 +156,9 @@ class CurriculumFragment :
 
     override fun showSnackBar(message: Int, type: SnackBarCustomType) {
         parentActivity?.showSnackBar(getString(message), type)
+    }
+
+    override fun updateCalendar(eventCalendarList: MutableList<EventCalendar>) {
+        binding.calendar.eventCalendar = eventCalendarList
     }
 }
