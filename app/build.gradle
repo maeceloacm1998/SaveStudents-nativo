@@ -81,7 +81,9 @@ dependencies {
     implementation libs.androidx.legacy
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
-    kapt libs.androidx.room.compiler
+    implementation "androidx.room:room-runtime:2.4.0-alpha03"
+    annotationProcessor "androidx.room:room-compiler:2.4.0-alpha03"
+    kapt 'androidx.room:room-compiler:2.4.0-alpha03'
 
     implementation libs.material
     implementation platform(libs.firebase.bom)
