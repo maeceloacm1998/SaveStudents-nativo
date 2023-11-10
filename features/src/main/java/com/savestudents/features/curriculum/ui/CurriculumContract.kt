@@ -15,6 +15,7 @@ interface CurriculumContract {
         fun updateEventList(eventList: List<Event.EventItem>, day: Int, month: Int)
         fun showSnackBar(message: Int, type: SnackBarCustomType)
         fun updateCalendar(eventCalendarList: MutableList<EventCalendar>)
+        fun clearCalendarEvents()
     }
 
     interface Presenter : BasePresenter {

@@ -161,4 +161,8 @@ class CurriculumFragment :
     override fun updateCalendar(eventCalendarList: MutableList<EventCalendar>) {
         binding.calendar.eventCalendar = eventCalendarList
     }
+
+    override fun clearCalendarEvents() {
+        binding.calendar.eventCalendar = mutableListOf()
+    }
 }
