@@ -76,6 +76,7 @@ class CalendarCustom(context: Context, attrs: AttributeSet) :
         val startMonth = currentMonth.minusMonths(MONTH_TO_SUBTRACT)
         val endMonth = currentMonth.plusMonths(MONTH_TO_ADD)
 
+        binding.exFiveMonthYearText.text = getMonthNameByMonthYear(currentMonth.toString())
         binding.exFiveCalendar.setup(startMonth, endMonth, daysOfWeek.first())
         binding.exFiveCalendar.scrollToMonth(currentMonth)
         configureBinders()

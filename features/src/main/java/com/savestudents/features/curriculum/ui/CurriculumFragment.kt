@@ -22,6 +22,7 @@ import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
 import java.time.ZoneId
 
 class CurriculumFragment :
@@ -47,6 +48,7 @@ class CurriculumFragment :
     @SuppressLint("NewApi")
     override fun init() {
         val (day, month, year) = getCurrentDate()
+        binding.calendar.selectedDate = LocalDate.of(year, month, day)
         lifecycleScope.launch {
             presenter.start()
             presenter.fetchMatters()
@@ -119,7 +121,6 @@ class CurriculumFragment :
 
             error.message.text = getString(string.curriculum_error_message)
             error.button.setOnClickListener { init() }
-
         }
     }
 

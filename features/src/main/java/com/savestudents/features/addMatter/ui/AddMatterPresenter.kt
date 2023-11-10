@@ -122,7 +122,7 @@ class AddMatterPresenter(
     }
 
     override fun getInitialHour(): Int {
-        return initialTime?.split(":")?.get(0)?.toInt() ?: 0
+        return initialTime?.split(":")?.get(0)?.toInt() ?: 10
     }
 
     override fun getInitialMinutes(): Int {
