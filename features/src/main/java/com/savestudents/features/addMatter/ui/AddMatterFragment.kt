@@ -168,7 +168,8 @@ class AddMatterFragment :
 
     override fun errorAddMatterOptionMatterNameNotSelected(visibility: Boolean) {
         if (visibility) {
-            bottomSheetBinding?.tiMatter?.error = getString(R.string.bottom_sheet_add_matter_option_matter_error)
+            bottomSheetBinding?.tiMatter?.error =
+                getString(R.string.bottom_sheet_add_matter_option_matter_error)
         } else {
             bottomSheetBinding?.tiMatter?.error = ""
         }
@@ -176,7 +177,8 @@ class AddMatterFragment :
 
     override fun errorAddMatterOptionPeriodNotSelected(visibility: Boolean) {
         if (visibility) {
-            bottomSheetBinding?.tiPeriod?.error = getString(R.string.bottom_sheet_add_matter_option_period_error)
+            bottomSheetBinding?.tiPeriod?.error =
+                getString(R.string.bottom_sheet_add_matter_option_period_error)
         } else {
             bottomSheetBinding?.tiPeriod?.error = ""
         }
@@ -231,6 +233,7 @@ class AddMatterFragment :
             type.text = EventType.MATTER.value
             eventTitle.text = matter.matterName
             eventPeriod.text = matter.period
+            btDelete.isVisible = false
         }
     }
 }

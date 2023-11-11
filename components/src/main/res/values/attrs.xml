@@ -9,7 +9,7 @@
         <attr name="android:hint" format="string" />
         <attr name="passwordToggleEnabled" format="boolean" />
         <attr name="helperText" format="string" />
-        <attr name="mask" format="string"/>
+        <attr name="mask" format="string" />
         <attr name="iconRight" format="reference" />
         <attr name="dropdownList" format="reference" />
         <attr name="android:inputType">
@@ -26,5 +26,9 @@
             <enum name="normal" value="1" />
             <enum name="autocomplete" value="2" />
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CalendarCustom">
+
     </declare-styleable>
 </resources>

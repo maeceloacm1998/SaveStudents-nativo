@@ -1,5 +1,6 @@
 package com.savestudents.features.curriculum.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -8,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
+import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
@@ -17,12 +19,11 @@ import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
 import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
-import com.shrikanthravi.collapsiblecalendarview.data.Day
-import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
-import com.shrikanthravi.collapsiblecalendarview.widget.UICalendar
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
+import java.time.ZoneId
 
 class CurriculumFragment :
     BaseFragment<FragmentCurriculumBinding, NavigationActivity>(FragmentCurriculumBinding::inflate),
@@ -44,11 +45,13 @@ class CurriculumFragment :
         handleFabButton()
     }
 
+    @SuppressLint("NewApi")
     override fun init() {
         val (day, month, year) = getCurrentDate()
+        binding.calendar.selectedDate = LocalDate.of(year, month, day)
         lifecycleScope.launch {
             presenter.start()
-            presenter.fetchMatters(binding.calendar.month)
+            presenter.fetchMatters()
             presenter.fetchEventsWithDate(getTimestampWithDate(day, month, year))
         }
     }
@@ -91,6 +94,7 @@ class CurriculumFragment :
         }
     }
 
+    @SuppressLint("NewApi")
     private fun setupViews() {
         binding.run {
             eventsRv.run {
@@ -98,31 +102,14 @@ class CurriculumFragment :
                 layoutManager = LinearLayoutManager(context)
             }
 
-            calendar.setCalendarListener(object : CollapsibleCalendar.CalendarListener {
-                override fun onDaySelect() {
-                    val daySelected: Day = calendar.selectedDay
-
-                    lifecycleScope.launch {
-                        presenter.fetchEventsWithDate(
-                            getTimestampWithDate(
-                                daySelected.day,
-                                daySelected.month + 1,
-                                daySelected.year
-                            )
-                        )
-                    }
+            binding.calendar.onClickDayListener { localDate ->
+                val zoneId = ZoneId.of("America/Sao_Paulo")
+                val instant = localDate.atStartOfDay(zoneId).toInstant()
+                val timestamp = instant.toEpochMilli()
+                lifecycleScope.launch {
+                    presenter.fetchEventsWithDate(timestamp)
                 }
-
-                override fun onItemClick(v: View?) {}
-                override fun onDataUpdate() {}
-                override fun onMonthChange() {
-                    lifecycleScope.launch {
-                        presenter.fetchMatters(calendar.month)
-                    }
-                }
-
-                override fun onWeekChange(position: Int) {}
-            })
+            }
         }
     }
 
@@ -134,7 +121,6 @@ class CurriculumFragment :
 
             error.message.text = getString(string.curriculum_error_message)
             error.button.setOnClickListener { init() }
-
         }
     }
 
@@ -159,25 +145,6 @@ class CurriculumFragment :
         binding.eventsRv.isVisible = !visibility
     }
 
-    override fun calendarExpanded() {
-        binding.calendar.state = UICalendar.STATE_EXPANDED
-        binding.calendar.expand(400)
-    }
-
-    override fun calendarCollapsed() {
-        binding.calendar.state = UICalendar.STATE_COLLAPSED
-        binding.calendar.collapse(400)
-    }
-
-    override fun setEvent(year: Int, month: Int, day: Int) {
-        binding.calendar.addEventTag(
-            year,
-            month,
-            day,
-            requireContext().getColor(R.color.primary)
-        )
-    }
-
     private fun clickDeleteEventListener(item: Event.EventItem) {
         lifecycleScope.launch {
             presenter.deleteEvent(item)
@@ -190,5 +157,13 @@ class CurriculumFragment :
 
     override fun showSnackBar(message: Int, type: SnackBarCustomType) {
         parentActivity?.showSnackBar(getString(message), type)
+    }
+
+    override fun updateCalendar(eventCalendarList: MutableList<EventCalendar>) {
+        binding.calendar.eventCalendar = eventCalendarList
+    }
+
+    override fun clearCalendarEvents() {
+        binding.calendar.eventCalendar = mutableListOf()
     }
 }
