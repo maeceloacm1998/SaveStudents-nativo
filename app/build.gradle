@@ -26,13 +26,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug {
-            firebaseAppDistribution {
-                serviceCredentialsFile="./app/src/main/savestudants-bdf1649c4815.json"
-                releaseNotes="Amostra de notas de versão"
-                testers="maeceloacm1998@gmail.com"
-            }
-        }
+        // Olhar sobre o app distribution assim que terminar o projeto
+//        debug {
+//            firebaseAppDistribution {
+//                serviceCredentialsFile="./app/src/main/savestudants-bdf1649c4815.json"
+//                releaseNotes="Amostra de notas de versão"
+//                testers="maeceloacm1998@gmail.com"
+//            }
+//        }
     }
 
     viewBinding {
