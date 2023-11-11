@@ -25,4 +25,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build app version
-      run: ./gradlew assembleDebug appDistributionUploadDebug
+      run: ./gradlew assembleDebug
