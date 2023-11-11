@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
-    id 'com.google.firebase.appdistribution'
+//    id 'com.google.firebase.appdistribution'
 }
 
 android {
@@ -106,8 +106,8 @@ dependencies {
     // Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
 
-    // App Distribution
-    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
+//    // App Distribution
+//    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
 
     // WorkManager
     implementation "androidx.work:work-runtime-ktx:$workerVersion"
