@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "new-flow" ]
   pull_request:
     branches: [ "develop", "new-flow" ]
 
