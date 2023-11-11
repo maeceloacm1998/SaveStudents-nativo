@@ -73,6 +73,10 @@
     <string name="bottom_sheet_add_matter_option_matter_error">Digite o nome da matéria que deseja adicionar.</string>
     <string name="bottom_sheet_add_matter_option_period_error">Selecione o período que você tem essa matéria na faculdade.</string>
 
+    <string name="config_security_button_title">Acesso e segurança</string>
+    <string name="config_notification_button_title">Notificações</string>
+    <string name="config_exit_app_button_title">Sair</string>
+
     <array name="period_list">
         <item>1º Período</item>
         <item>2º Período</item>
@@ -87,4 +91,6 @@
         <item>11º Período</item>
         <item>12º Período</item>
     </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

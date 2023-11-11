@@ -62,7 +62,7 @@ class NavigationActivity : AppCompatActivity() {
 
                 id.nav_config -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    controller?.navigate(R.id.curriculumFragment)
+                    controller?.navigate(R.id.configFragment)
                     true
                 }
 

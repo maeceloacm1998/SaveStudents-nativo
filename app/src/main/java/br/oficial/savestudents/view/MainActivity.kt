@@ -16,6 +16,7 @@ import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInj
 import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.di.AddMatterDependencyInjection
+import com.savestudents.features.config.di.ConfigDependencyInjection
 import com.savestudents.features.curriculum.di.CurriculumDependencyInjection
 import com.savestudents.features.event.di.AddEventDependencyInjection
 import com.savestudents.features.home.di.HomeDependencyInjection
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*AddMatterDependencyInjection.modules)
         KoinUtils.addModules(*CurriculumDependencyInjection.modules)
         KoinUtils.addModules(*AddEventDependencyInjection.modules)
+        KoinUtils.addModules(*ConfigDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {
