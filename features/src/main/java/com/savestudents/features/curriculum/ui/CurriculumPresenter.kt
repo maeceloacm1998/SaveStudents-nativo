@@ -8,10 +8,10 @@ import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
 import com.savestudents.core.utils.DateUtils.NORMAL_DATE
-import com.savestudents.core.utils.DateUtils.formatDate
 import com.savestudents.core.utils.DateUtils.formatDateWithPattern
 import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
 import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
+import com.savestudents.core.utils.DateUtils.getTimestampWithDate
 import com.savestudents.core.utils.DateUtils.getWeeksList
 import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.Event
@@ -156,7 +156,10 @@ class CurriculumPresenter(
         } else {
             allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
                 val eventDate = formatDateWithPattern(NORMAL_DATE, timestamp)
-                val weekDate = formatDate(dayWeek, monthWeek, yearWeek)
+                val weekDate = formatDateWithPattern(
+                    NORMAL_DATE,
+                    getTimestampWithDate(dayWeek, monthWeek, yearWeek)
+                )
 
                 if (eventDate == weekDate) {
                     val (_, month, day) = getDateWithTimestamp(timestamp)
