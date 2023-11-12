@@ -99,8 +99,17 @@ class AccountManagerImpl(
         }
     }
 
+    override fun setNotifications(enabled: Boolean) {
+        return sharedPreferences.putBoolean(NOTIFICATION_ACCOUNT, enabled)
+    }
+
+    override fun isNotificationEnabled(): Boolean {
+        return sharedPreferences.getBoolean(NOTIFICATION_ACCOUNT, false)
+    }
+
     companion object {
         private const val LOGGED_USER = "logged_user"
         private const val USER_ACCOUNT = "user_account"
+        private const val NOTIFICATION_ACCOUNT = "notification_account"
     }
 }

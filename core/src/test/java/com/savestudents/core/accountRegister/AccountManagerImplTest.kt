@@ -1,10 +1,11 @@
 package com.savestudents.core.accountRegister
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.firebase.auth.FirebaseUser
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.model.UserAccount
+import com.savestudents.core.sharedPreferences.SharedPreferencesBuilder
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,6 +15,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
@@ -24,6 +27,7 @@ class AccountManagerImplTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     private val accountManager: AccountManager = mockk()
+    private val sharedPreferences: SharedPreferencesBuilder = mockk(relaxed = true)
 
     @Test
     fun `login user when email and password correctly`() = runTest {
@@ -67,5 +71,19 @@ class AccountManagerImplTest {
         val res = accountManager.register(userAccount)
 
         assert(res.isFailure)
+    }
+
+    @Test
+    fun `set notification with true then is notification enabled`() {
+        accountManager.setNotifications(true)
+
+        assertTrue { accountManager.isNotificationEnabled() }
+    }
+
+    @Test
+    fun `set notification with true then is notification not enabled`() {
+        accountManager.setNotifications(false)
+
+        assertFalse { accountManager.isNotificationEnabled() }
     }
 }

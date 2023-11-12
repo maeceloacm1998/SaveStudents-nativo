@@ -13,4 +13,6 @@ interface AccountManager {
     fun isLoggedUser(): Boolean
     fun getFirebaseUser(): FirebaseUser?
     fun getUserAccount(): UserAccount?
+    fun setNotifications(enabled: Boolean)
+    fun isNotificationEnabled(): Boolean
 }

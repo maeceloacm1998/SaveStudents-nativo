@@ -1,7 +1,7 @@
 package com.savestudents.features.login
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.firebase.auth.FirebaseUser
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.features.login.ui.LoginContract
@@ -74,18 +74,19 @@ class LoginPresenterTest : KoinTest {
         val password = "123456"
         val userMock = mock(FirebaseUser::class.java)
 
-        `when`(accountManager.login(email,password)).thenReturn(Result.success(userMock))
+        `when`(accountManager.login(email, password)).thenReturn(Result.success(userMock))
         presenter.validateAccount(email, password)
         verify(view, times(1)).successValidateAccount()
     }
 
     @Test
-    fun `call showValidateAccountError() function when get incorrect email and password`() = runTest {
-        val email = "teste@teste.com"
-        val password = "123456"
+    fun `call showValidateAccountError() function when get incorrect email and password`() =
+        runTest {
+            val email = "teste@teste.com"
+            val password = "123456"
 
-        `when`(accountManager.login(email,password)).thenReturn(Result.failure(Throwable()))
-        presenter.validateAccount(email, password)
-        verify(view, times(1)).showValidateAccountError()
-    }
+            `when`(accountManager.login(email, password)).thenReturn(Result.failure(Throwable()))
+            presenter.validateAccount(email, password)
+            verify(view, times(1)).showValidateAccountError()
+        }
 }

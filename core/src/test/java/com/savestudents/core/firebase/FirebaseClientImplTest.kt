@@ -1,7 +1,7 @@
 package com.savestudents.core.firebase
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.firebase.firestore.FirebaseFirestore
 import io.mockk.coEvery
 import io.mockk.mockk
