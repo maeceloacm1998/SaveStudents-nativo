@@ -77,6 +77,9 @@
     <string name="config_notification_button_title">Notificações</string>
     <string name="config_exit_app_button_title">Sair</string>
 
+    <string name="notification_config_notification_title">Habilitar notificação</string>
+    <string name="notification_config_notification_description">Opção para ativar as notificações na configuração do seu aplicativo.</string>
+
     <array name="period_list">
         <item>1º Período</item>
         <item>2º Período</item>

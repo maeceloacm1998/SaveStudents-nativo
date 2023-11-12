@@ -8,11 +8,11 @@ class ConfigPresenter(
 ) : ConfigContract.Presenter {
     override fun start() {}
     override fun handleSecurityConfig() {
-        TODO("Not yet implemented")
+        view.goToSecurityConfig()
     }
 
     override fun handleNotificationConfig() {
-        TODO("Not yet implemented")
+        view.goToNotificationConfig()
     }
 
     override fun handleExitApp() {

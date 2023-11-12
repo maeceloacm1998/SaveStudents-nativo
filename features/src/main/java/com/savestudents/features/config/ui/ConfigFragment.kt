@@ -33,6 +33,14 @@ class ConfigFragment :
             btExit.setOnClickListener {
                 presenter.handleExitApp()
             }
+
+            btNotification.setOnClickListener {
+                presenter.handleNotificationConfig()
+            }
+
+            btSecurity.setOnClickListener {
+                presenter.handleSecurityConfig()
+            }
         }
     }
 
@@ -41,7 +49,7 @@ class ConfigFragment :
     }
 
     override fun goToNotificationConfig() {
-        TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_configFragment_to_notificationConfigFragment)
     }
 
     override fun onLogout() {
