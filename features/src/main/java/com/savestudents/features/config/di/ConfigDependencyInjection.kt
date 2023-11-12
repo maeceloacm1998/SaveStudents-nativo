@@ -8,7 +8,7 @@ import org.koin.dsl.module
 object ConfigDependencyInjection {
     private val configModules = module {
         factory<ConfigContract.Presenter> { (view: ConfigFragment) ->
-            ConfigPresenter(view)
+            ConfigPresenter(view, get())
         }
     }
     val modules = arrayOf(configModules)
