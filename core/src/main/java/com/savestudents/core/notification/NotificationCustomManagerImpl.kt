@@ -2,6 +2,7 @@ package com.savestudents.core.notification
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -12,13 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
-class NotificationManagerImpl(val context: Context) : NotificationManager {
+class NotificationCustomManagerImpl(val context: Context) : NotificationCustomManager {
     override fun createChannel(idChannel: String, name: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = android.app.NotificationManager.IMPORTANCE_HIGH
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val notificationChannel = NotificationChannel(idChannel, name, importance)
             val notificationManager =
-                context.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE) as android.app.NotificationManager
+                context.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }
@@ -31,17 +32,15 @@ class NotificationManagerImpl(val context: Context) : NotificationManager {
         drawable: Int,
         idNotification: Int
     ) {
-        val pendingIntent = handleNotificationClick(deepLink)
-        val builder = NotificationCompat.Builder(context, idChannel).setSmallIcon(drawable)
-            .setContentTitle(title).setContentText(description)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
-            .setSmallIcon(com.google.android.gms.auth.api.R.drawable.ic_call_answer_low)
-            .setContentIntent(pendingIntent);
+        val notification = NotificationCompat.Builder(context, idChannel)
+            .setContentTitle(title)
+            .setSmallIcon(drawable)
+            .setContentText(description)
+            .build()
 
-        with(NotificationManagerCompat.from(context)) {
-            notify(idNotification, builder.build())
-        }
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(idNotification, notification)
     }
 
     @SuppressLint("ObsoleteSdkInt")

@@ -1,6 +1,6 @@
 package com.savestudents.core.notification
 
-interface NotificationManager {
+interface NotificationCustomManager {
     fun createChannel(idChannel: String, name: String)
     fun builderNotification(
         idChannel: String,

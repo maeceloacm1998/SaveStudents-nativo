@@ -11,6 +11,7 @@ import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
 import com.savestudents.core.notification.NotificationManagerDependencyInjection
+import com.savestudents.core.notificationworker.di.NotificationWorkerDependencyInjection
 import com.savestudents.core.sharedPreferences.SharedPreferencesDependencyInjection
 import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
@@ -42,10 +43,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun koinInjection() {
         KoinUtils.createInstance(applicationContext)
+        KoinUtils.addModules(*NotificationManagerDependencyInjection.modules)
         KoinUtils.addModules(*FirebaseDependencyInjection.modules)
         KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
         KoinUtils.addModules(*SharedPreferencesDependencyInjection.modules)
-        KoinUtils.addModules(*NotificationManagerDependencyInjection.modules)
+        KoinUtils.addModules(*NotificationWorkerDependencyInjection.modules)
         KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
         KoinUtils.addModules(*HomeDependencyInjection.modules)

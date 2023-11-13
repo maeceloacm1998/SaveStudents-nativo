@@ -47,6 +47,7 @@ dependencies {
     implementation libs.koin
     implementation libs.gson
     implementation libs.kotlinx.coroutines.android
+    implementation(libs.androidx.work.runtime.ktx)
     testImplementation libs.bundles.test
     implementation libs.kotlinx.coroutines.test
 }

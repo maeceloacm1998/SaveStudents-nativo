@@ -15,13 +15,16 @@ import androidx.viewbinding.ViewBinding
 import com.savestudents.components.bottomSheet.CustomBottomSheetFragment
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.components.snackbar.SnackBarCustomView
+import com.savestudents.core.notificationworker.NotificationWorkerClient
 import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.databinding.ActivityNavigationBinding
+import org.koin.android.ext.android.inject
 
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
     private var controller: NavController? = null
     private lateinit var customBottomSheet: CustomBottomSheetFragment<ViewBinding>
+    private val worker: NotificationWorkerClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class NavigationActivity : AppCompatActivity() {
 
         handleUserLogger()
         setContentView(binding.root)
+        worker.workerEnqueue()
     }
 
     private fun handleUserLogger() {

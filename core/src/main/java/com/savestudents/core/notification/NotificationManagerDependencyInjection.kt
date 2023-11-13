@@ -5,6 +5,6 @@ import org.koin.dsl.module
 
 object NotificationManagerDependencyInjection {
     val modules = arrayOf(module {
-        single<NotificationManager> { NotificationManagerImpl(androidContext()) }
+        single<NotificationCustomManager> { NotificationCustomManagerImpl(androidContext()) }
     })
 }

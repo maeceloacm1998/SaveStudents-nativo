@@ -1,19 +1,19 @@
 package com.savestudents.features.notificationconfig.ui
 
-import com.savestudents.core.notification.NotificationManager
+import com.savestudents.core.notification.NotificationCustomManager
 
 class NotificationConfigPresenter(
     private val view: NotificationConfigContract.View,
-    private val notificationManager: NotificationManager
+    private val notificationCustomManager: NotificationCustomManager
 ) : NotificationConfigContract.Presenter {
     override fun start() {}
 
     override fun handleNotification() {
-        notificationManager.openAppNotificationSettings()
+        notificationCustomManager.openAppNotificationSettings()
     }
 
     override fun checkNotificationResult() {
-        if (notificationManager.isNotificationEnabled()) {
+        if (notificationCustomManager.isNotificationEnabled()) {
             view.enabledNotificationSwitch()
         } else {
             view.disabledNotificationSwitch()
