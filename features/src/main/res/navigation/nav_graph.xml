@@ -121,10 +121,22 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_configFragment_to_securityConfigFragment"
+            app:destination="@id/securityConfigFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/notificationConfigFragment"
         android:name="com.savestudents.features.notificationconfig.ui.NotificationConfigFragment"
         android:label="fragment_notification_config"
         tools:layout="@layout/fragment_notification_config" />
+    <fragment
+        android:id="@+id/securityConfigFragment"
+        android:name="com.savestudents.features.securityconfig.ui.SecurityConfigFragment"
+        android:label="SecurityConfigFragment"
+        tools:layout="@layout/fragment_security_config" />
 </navigation>

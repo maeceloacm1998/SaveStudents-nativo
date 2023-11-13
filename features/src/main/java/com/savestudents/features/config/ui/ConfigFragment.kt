@@ -45,7 +45,7 @@ class ConfigFragment :
     }
 
     override fun goToSecurityConfig() {
-        TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_configFragment_to_securityConfigFragment)
     }
 
     override fun goToNotificationConfig() {

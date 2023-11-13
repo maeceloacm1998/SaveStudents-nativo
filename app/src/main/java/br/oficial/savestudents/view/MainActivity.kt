@@ -22,6 +22,7 @@ import com.savestudents.features.curriculum.di.CurriculumDependencyInjection
 import com.savestudents.features.event.di.AddEventDependencyInjection
 import com.savestudents.features.home.di.HomeDependencyInjection
 import com.savestudents.features.notificationconfig.di.NotificationConfigDependencyInjection
+import com.savestudents.features.securityconfig.di.SecurityConfigDependencyInjection
 import com.savestudents.features.shared.utils.KoinUtils
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*AddEventDependencyInjection.modules)
         KoinUtils.addModules(*ConfigDependencyInjection.modules)
         KoinUtils.addModules(*NotificationConfigDependencyInjection.modules)
+        KoinUtils.addModules(*SecurityConfigDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {
