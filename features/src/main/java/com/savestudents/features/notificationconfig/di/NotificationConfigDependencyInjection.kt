@@ -1,4 +1,4 @@
-package com.savestudents.features.login.di
+package com.savestudents.features.notificationconfig.di
 
 import com.savestudents.features.notificationconfig.ui.NotificationConfigContract
 import com.savestudents.features.notificationconfig.ui.NotificationConfigFragment
@@ -6,9 +6,11 @@ import com.savestudents.features.notificationconfig.ui.NotificationConfigPresent
 import org.koin.dsl.module
 
 object NotificationConfigDependencyInjection {
-    private val loginModules = module {
-        factory<NotificationConfigContract.Presenter> { (view: NotificationConfigFragment) -> NotificationConfigPresenter(view, get()) }
+    private val notificationModules = module {
+        factory<NotificationConfigContract.Presenter> { (view: NotificationConfigFragment) ->
+            NotificationConfigPresenter(view, get())
+        }
     }
 
-    val modules = arrayOf(loginModules)
+    val modules = arrayOf(notificationModules)
 }

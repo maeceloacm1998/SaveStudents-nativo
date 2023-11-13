@@ -10,6 +10,7 @@ import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
+import com.savestudents.core.notification.NotificationManagerDependencyInjection
 import com.savestudents.core.sharedPreferences.SharedPreferencesDependencyInjection
 import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
@@ -20,6 +21,7 @@ import com.savestudents.features.config.di.ConfigDependencyInjection
 import com.savestudents.features.curriculum.di.CurriculumDependencyInjection
 import com.savestudents.features.event.di.AddEventDependencyInjection
 import com.savestudents.features.home.di.HomeDependencyInjection
+import com.savestudents.features.notificationconfig.di.NotificationConfigDependencyInjection
 import com.savestudents.features.shared.utils.KoinUtils
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*FirebaseDependencyInjection.modules)
         KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
         KoinUtils.addModules(*SharedPreferencesDependencyInjection.modules)
+        KoinUtils.addModules(*NotificationManagerDependencyInjection.modules)
         KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
         KoinUtils.addModules(*HomeDependencyInjection.modules)
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*CurriculumDependencyInjection.modules)
         KoinUtils.addModules(*AddEventDependencyInjection.modules)
         KoinUtils.addModules(*ConfigDependencyInjection.modules)
+        KoinUtils.addModules(*NotificationConfigDependencyInjection.modules)
     }
 
     private fun initAdminCheckDb() {

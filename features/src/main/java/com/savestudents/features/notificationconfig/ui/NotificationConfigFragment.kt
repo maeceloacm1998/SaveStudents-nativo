@@ -26,9 +26,24 @@ class NotificationConfigFragment :
         setupViews()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.checkNotificationResult()
+    }
+
     private fun setupViews() {
         binding.apply {
-
+            swNotification.setOnClickListener {
+                presenter.handleNotification()
+            }
         }
+    }
+
+    override fun enabledNotificationSwitch() {
+        binding.swNotification.isChecked = true
+    }
+
+    override fun disabledNotificationSwitch() {
+        binding.swNotification.isChecked = false
     }
 }
