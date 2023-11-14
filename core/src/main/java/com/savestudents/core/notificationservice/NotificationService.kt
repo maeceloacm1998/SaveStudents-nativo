@@ -22,7 +22,10 @@ import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
 import com.savestudents.core.utils.DateUtils.getTimestampCurrentDate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -32,6 +35,7 @@ class NotificationService : Service() {
     private val client: FirebaseClient by inject()
     private val accountManager: AccountManager by inject()
     private val delayToFourHours: Long = 4 * 60 * 60 * 1000
+    private var isServiceRunning = false
 
     override fun onCreate() {
         super.onCreate()
@@ -44,9 +48,12 @@ class NotificationService : Service() {
         startForeground(1, notification)
 
         coroutineScope.launch {
-            while (true) {
-                startedNotification()
+            while (isActive) {
+                if (isServiceRunning) {
+                    startedNotification()
+                }
                 delay(delayToFourHours)
+                isServiceRunning = true
             }
         }
 
@@ -165,8 +172,7 @@ class NotificationService : Service() {
 
     private fun buildNotification(): Notification {
         return NotificationCompat.Builder(this, ID_CHANNEL_BACKGROUND)
-            .setContentTitle("Serviço em Execução")
-            .setContentText("Seu serviço está rodando em primeiro plano")
+            .setContentTitle("Serviço de notificação")
             .setSmallIcon(R.drawable.saveicon)
             .build()
     }

@@ -42,11 +42,9 @@ class CurriculumPresenter(
             eventList = schedule.data
 
             schedule.data.forEach { event ->
-                if (event.events.isNotEmpty()) {
-                    event.events.forEach { item ->
-                        handleMatter(event)
-                        handleEvent(checkNotNull(item.timestamp))
-                    }
+                event.events.forEach { item ->
+                    handleMatter(event)
+                    handleEvent(checkNotNull(item.timestamp))
                 }
             }
 
@@ -75,17 +73,20 @@ class CurriculumPresenter(
 
     @SuppressLint("NewApi")
     private suspend fun handleMatter(event: Event) {
-        val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
-            getWeeksList(event.dayName)
-        }
+        val containsMatter = event.events.filter { it.type == EventType.MATTER.value }
+        if (event.events.isNotEmpty() && containsMatter.isNotEmpty()) {
+            val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
+                getWeeksList(event.dayName)
+            }
 
-        weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
-            val event = EventCalendar(
-                date = LocalDate.of(yearWeek, monthWeek + 1, dayWeek),
-                eventCalendarType = mutableListOf(EventCalendarType.MATTER)
-            )
+            weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
+                val event = EventCalendar(
+                    date = LocalDate.of(yearWeek, monthWeek + 1, dayWeek),
+                    eventCalendarType = mutableListOf(EventCalendarType.MATTER)
+                )
 
-            addEvent(event = event, type = EventCalendarType.MATTER)
+                addEvent(event = event, type = EventCalendarType.MATTER)
+            }
         }
     }
 
