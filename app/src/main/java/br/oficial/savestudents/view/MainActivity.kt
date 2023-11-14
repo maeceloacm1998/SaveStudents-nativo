@@ -1,5 +1,6 @@
 package br.oficial.savestudents.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +12,7 @@ import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
 import com.savestudents.core.notification.NotificationManagerDependencyInjection
-import com.savestudents.core.notificationworker.di.NotificationWorkerDependencyInjection
+import com.savestudents.core.notificationservice.NotificationService
 import com.savestudents.core.sharedPreferences.SharedPreferencesDependencyInjection
 import com.savestudents.core.utils.InitialScreenTypes
 import com.savestudents.features.accountRegister.di.AccountRegisterDependencyInjection
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initService()
         getPushToken()
         koinInjection()
         initAdminCheckDb()
@@ -47,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*FirebaseDependencyInjection.modules)
         KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
         KoinUtils.addModules(*SharedPreferencesDependencyInjection.modules)
-        KoinUtils.addModules(*NotificationWorkerDependencyInjection.modules)
         KoinUtils.addModules(*LoginDependencyInjection.modules)
         KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
         KoinUtils.addModules(*HomeDependencyInjection.modules)
@@ -57,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*ConfigDependencyInjection.modules)
         KoinUtils.addModules(*NotificationConfigDependencyInjection.modules)
         KoinUtils.addModules(*SecurityConfigDependencyInjection.modules)
+    }
+
+    private fun initService() {
+        val serviceIntent = Intent(applicationContext, NotificationService::class.java)
+        startService(serviceIntent)
     }
 
     private fun initAdminCheckDb() {

@@ -41,6 +41,16 @@ object DateUtils {
     }
 
     /**
+     * Função para pegar o timestamp do dia atual
+     *
+     * @return timeInMillis
+     */
+    fun getTimestampCurrentDate(): Long {
+        val calendar = Calendar.getInstance()
+        return calendar.timeInMillis
+    }
+
+    /**
      * Retorna o nome em Português do mês passado por parâmetro
      * @param month
      */

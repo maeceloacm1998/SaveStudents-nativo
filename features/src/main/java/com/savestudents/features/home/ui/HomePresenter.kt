@@ -22,8 +22,7 @@ class HomePresenter(
         userId?.let {
             client.getSpecificDocument("scheduleUser", it).onSuccess {
                 val eventList = it.toObject<Schedule>()?.data
-                val eventsOfWeek =
-                    eventList?.let { events -> removeEventsNotOfTheWeek(events) }
+                val eventsOfWeek = eventList?.let { events -> removeEventsNotOfTheWeek(events) }
                 view.setEventList(eventsOfWeek!!)
             }
         }

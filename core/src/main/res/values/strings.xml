@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_worker_matter_title">Hoje você tem aula de %s 🥳</string>
+    <string name="notification_worker_matter_description">Sua aula é hoje as %s, aproveita para estudar!</string>
+
+    <string name="notification_worker_event_title">Hoje você tem um evento 😱</string>
+    <string name="notification_worker_event_description">Lembrando que você tem que o evento: %s.</string>
+</resources>

@@ -92,6 +92,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts"
             android:theme="@style/Theme.SaveStudents" />
+
+        <service
+            android:name="com.savestudents.core.notificationservice.NotificationService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
