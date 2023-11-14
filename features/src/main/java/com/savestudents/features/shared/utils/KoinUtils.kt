@@ -9,7 +9,7 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.core.module.Module
 
 object KoinUtils {
-    private lateinit var mKoinApplication: KoinApplication
+    private var mKoinApplication: KoinApplication? = null
 
     fun addModules(vararg modules: Module) {
         loadKoinModules(modules.asList())
@@ -20,8 +20,10 @@ object KoinUtils {
     }
 
     fun createInstance(context: Context) {
-        mKoinApplication = startKoin {
-            androidContext(context)
+        if (mKoinApplication == null) {
+            mKoinApplication = startKoin {
+                androidContext(context)
+            }
         }
     }
 }

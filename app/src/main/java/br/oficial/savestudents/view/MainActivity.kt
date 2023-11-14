@@ -60,6 +60,11 @@ class MainActivity : AppCompatActivity() {
         KoinUtils.addModules(*SecurityConfigDependencyInjection.modules)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        KoinUtils.removeModules()
+    }
+
     private fun initService() {
         val serviceIntent = Intent(applicationContext, NotificationService::class.java)
         startService(serviceIntent)

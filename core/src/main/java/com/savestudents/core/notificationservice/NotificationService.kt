@@ -31,6 +31,7 @@ class NotificationService : Service() {
     private val notificationCustomManager: NotificationCustomManager by inject()
     private val client: FirebaseClient by inject()
     private val accountManager: AccountManager by inject()
+    private val delayToFourHours: Long = 4 * 60 * 60 * 1000
 
     override fun onCreate() {
         super.onCreate()
@@ -45,7 +46,7 @@ class NotificationService : Service() {
         coroutineScope.launch {
             while (true) {
                 startedNotification()
-                delay(10000)
+                delay(delayToFourHours)
             }
         }
 
