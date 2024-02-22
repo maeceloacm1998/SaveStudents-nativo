@@ -1,8 +1,10 @@
 package com.savestudents.features.curriculum.ui
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -45,7 +47,7 @@ class CurriculumFragment :
         handleFabButton()
     }
 
-    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun init() {
         val (day, month, year) = getCurrentDate()
         binding.calendar.selectedDate = LocalDate.of(year, month, day)

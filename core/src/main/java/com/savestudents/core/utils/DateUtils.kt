@@ -202,14 +202,14 @@ object DateUtils {
 
     private fun getDataListPerWeek(week: WeekType): MutableList<Triple<Int, Int, Int>> {
         val weeks: MutableList<Triple<Int, Int, Int>> = mutableListOf()
+        val (_, _, year) = getCurrentDate()
 
         val calendar = Calendar.getInstance()
         calendar.isLenient = false
-        calendar.set(Calendar.YEAR, 2023)
         calendar.set(Calendar.MONTH, Calendar.JANUARY)
         calendar.set(Calendar.DAY_OF_MONTH, 1)
 
-        while (calendar[Calendar.YEAR] == 2023) {
+        while (calendar[Calendar.YEAR] == year) {
             if (calendar[Calendar.DAY_OF_WEEK] == week.value) {
                 weeks.add(
                     Triple(

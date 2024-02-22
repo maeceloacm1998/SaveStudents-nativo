@@ -1,6 +1,5 @@
 package com.savestudents.features.curriculum.ui
 
-import android.annotation.SuppressLint
 import com.google.firebase.firestore.ktx.toObject
 import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.calendar.EventCalendarType
@@ -11,7 +10,6 @@ import com.savestudents.core.utils.DateUtils.NORMAL_DATE
 import com.savestudents.core.utils.DateUtils.formatDateWithPattern
 import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
 import com.savestudents.core.utils.DateUtils.getDayOfWeekFromTimestamp
-import com.savestudents.core.utils.DateUtils.getTimestampWithDate
 import com.savestudents.core.utils.DateUtils.getWeeksList
 import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.Event
@@ -60,7 +58,6 @@ class CurriculumPresenter(
         eventCalendarList = mutableListOf()
     }
 
-    @SuppressLint("NewApi")
     private fun handleEvent(timestamp: Long) {
         val (year, month, day) = getDateWithTimestamp(timestamp)
         val event = EventCalendar(
@@ -71,21 +68,18 @@ class CurriculumPresenter(
         addEvent(event = event, type = EventCalendarType.EVENT)
     }
 
-    @SuppressLint("NewApi")
-    private suspend fun handleMatter(event: Event) {
+    private fun handleMatter(event: Event) {
         val containsMatter = event.events.filter { it.type == EventType.MATTER.value }
         if (event.events.isNotEmpty() && containsMatter.isNotEmpty()) {
-            val weekList: List<Triple<Int, Int, Int>> = withContext(Dispatchers.IO) {
-                getWeeksList(event.dayName)
-            }
+            val weekList: List<Triple<Int, Int, Int>> = getWeeksList(event.dayName)
 
             weekList.forEach { (dayWeek, monthWeek, yearWeek) ->
-                val event = EventCalendar(
+                val newEvent = EventCalendar(
                     date = LocalDate.of(yearWeek, monthWeek + 1, dayWeek),
                     eventCalendarType = mutableListOf(EventCalendarType.MATTER)
                 )
 
-                addEvent(event = event, type = EventCalendarType.MATTER)
+                addEvent(event = newEvent, type = EventCalendarType.MATTER)
             }
         }
     }
@@ -148,28 +142,17 @@ class CurriculumPresenter(
         eventCalendarList.add(oldEvent)
     }
 
-    private suspend fun handleEventsWithDate(event: Event, timestamp: Long) {
-        val allDaysOfWeek: List<Triple<Int, Int, Int>> = getAllDaysOfWeek(event)
+    private fun handleEventsWithDate(event: Event, timestamp: Long) {
         val eventItemList = removeEventWithDayNotSelected(event.events, timestamp)
 
         if (eventItemList.isEmpty()) {
             view.showNotEvents(true)
         } else {
-            allDaysOfWeek.forEach { (dayWeek, monthWeek, yearWeek) ->
-                val eventDate = formatDateWithPattern(NORMAL_DATE, timestamp)
-                val weekDate = formatDateWithPattern(
-                    NORMAL_DATE,
-                    getTimestampWithDate(dayWeek, monthWeek, yearWeek)
-                )
-
-                if (eventDate == weekDate) {
-                    val (_, month, day) = getDateWithTimestamp(timestamp)
-                    view.run {
-                        updateEventList(eventItemList, day, month)
-                        showNotEvents(false)
-                        return
-                    }
-                }
+            val (_, month, day) = getDateWithTimestamp(timestamp)
+            view.run {
+                updateEventList(eventItemList, day, month)
+                showNotEvents(false)
+                return
             }
         }
     }
