@@ -1,4 +1,4 @@
-package com.savestudents.features.mvp
+package com.savestudents.core.mvp
 
 
 interface BaseView<out T : BasePresenter> {

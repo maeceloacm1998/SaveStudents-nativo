@@ -3,8 +3,8 @@ package com.savestudents.features.curriculum.ui
 import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.addMatter.models.Event
-import com.savestudents.features.mvp.BasePresenter
-import com.savestudents.features.mvp.BaseView
+import com.savestudents.core.mvp.BasePresenter
+import com.savestudents.core.mvp.BaseView
 
 interface CurriculumContract {
     interface View : BaseView<Presenter> {

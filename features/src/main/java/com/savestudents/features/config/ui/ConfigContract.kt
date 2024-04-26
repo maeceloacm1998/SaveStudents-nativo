@@ -1,7 +1,7 @@
 package com.savestudents.features.config.ui
 
-import com.savestudents.features.mvp.BasePresenter
-import com.savestudents.features.mvp.BaseView
+import com.savestudents.core.mvp.BasePresenter
+import com.savestudents.core.mvp.BaseView
 
 interface ConfigContract {
     interface View : BaseView<Presenter> {

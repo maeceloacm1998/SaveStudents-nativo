@@ -2,8 +2,8 @@ package com.savestudents.features.addMatter.ui
 
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.addMatter.models.Matter
-import com.savestudents.features.mvp.BasePresenter
-import com.savestudents.features.mvp.BaseView
+import com.savestudents.core.mvp.BasePresenter
+import com.savestudents.core.mvp.BaseView
 
 interface AddMatterContract {
 
