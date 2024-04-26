@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk 24
-        //noinspection EditedTargetSdkVersion
         targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -24,7 +23,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled = true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }

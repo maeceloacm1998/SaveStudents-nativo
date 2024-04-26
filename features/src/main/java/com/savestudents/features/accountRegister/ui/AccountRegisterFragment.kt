@@ -102,7 +102,7 @@ class AccountRegisterFragment : BaseFragment<FragmentAccountRegisterBinding, Nav
     override fun goToHomeFragment() {
         findNavController().run {
             navigate(R.id.action_accountRegisterFragment_to_homeFragment)
-            backQueue.clear()
+            clearBackStack(R.id.action_accountRegisterFragment_to_homeFragment)
         }
     }
 

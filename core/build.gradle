@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -39,6 +40,8 @@ dependencies {
     implementation libs.androidx.legacy
     implementation libs.androidx.view.binding
     implementation libs.androidx.lifecycle.livedata.ktx
+    implementation 'androidx.room:room-ktx:2.6.1'
+    kapt "androidx.room:room-compiler:2.6.1"
 
     implementation libs.firebase.firestore
     implementation platform(libs.firebase.bom)

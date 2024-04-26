@@ -93,7 +93,7 @@ class LoginFragment :
     override fun successValidateAccount() {
         findNavController().run {
             navigate(R.id.action_loginFragment_to_homeFragment)
-            backQueue.clear()
+            clearBackStack(R.id.action_loginFragment_to_homeFragment)
         }
     }
 
