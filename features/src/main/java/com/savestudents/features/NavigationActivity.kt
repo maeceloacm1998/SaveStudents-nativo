@@ -30,69 +30,8 @@ class NavigationActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navController) as NavHostFragment
         controller = navHostFragment.navController
 
-        handleUserLogger()
+        handleInitialScreen()
         setContentView(binding.root)
-    }
-
-    private fun handleUserLogger() {
-        val intent = intent.extras
-        val initialScreen = intent?.getSerializable(INITIAL_SCREEN_TYPES) as InitialScreenTypes
-
-        when (initialScreen) {
-            InitialScreenTypes.HOME -> controller?.navigate(R.id.action_loginFragment_to_homeFragment)
-
-            InitialScreenTypes.LOGIN -> controller?.navigate(R.id.loginFragment)
-        }
-    }
-
-    private fun handleMenuOptions() {
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                id.nav_schedule -> {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    controller?.navigate(R.id.curriculumFragment)
-                    true
-                }
-
-                id.nav_notification -> {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    controller?.navigate(R.id.curriculumFragment)
-                    true
-                }
-
-                id.nav_config -> {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    controller?.navigate(R.id.configFragment)
-                    true
-                }
-
-                id.notification -> {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    controller?.navigate(R.id.curriculumFragment)
-                    true
-                }
-
-                else -> false
-            }
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    fun handleDrawerMenu() {
-        supportActionBar?.dispatchMenuVisibilityChanged(true)
-        visibleToolbar(true)
-        val actionBarToggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0)
-        binding.run {
-            toolbar.withNotification = true
-            toolbar.title = ""
-            drawerLayout.addDrawerListener(actionBarToggle)
-            actionBarToggle.syncState()
-
-            toolbar.root.setNavigationOnClickListener {
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-            }
-            handleMenuOptions()
-        }
     }
 
     fun goBackPressed(action: () -> Unit) {
@@ -119,6 +58,24 @@ class NavigationActivity : AppCompatActivity() {
         )
     }
 
+    @SuppressLint("RestrictedApi")
+    fun handleDrawerMenu() {
+        supportActionBar?.dispatchMenuVisibilityChanged(true)
+        visibleToolbar(true)
+        val actionBarToggle = ActionBarDrawerToggle(this, binding.drawerLayout, 0, 0)
+        binding.run {
+            toolbar.withNotification = true
+            toolbar.title = ""
+            drawerLayout.addDrawerListener(actionBarToggle)
+            actionBarToggle.syncState()
+
+            toolbar.root.setNavigationOnClickListener {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+            handleMenuOptions()
+        }
+    }
+
     /**
      * Essa função serve para mostrar o bottomSheet. Como parametro, envie o binding inflado, que
      * sera retornado de volta para você. Ex: parentActivity?.showBottomSheet(TesteBinding.inflate(layoutInflater))
@@ -133,6 +90,48 @@ class NavigationActivity : AppCompatActivity() {
 
     fun hideBottomSheet() {
         customBottomSheet.dismiss()
+    }
+
+    private fun handleInitialScreen() {
+        val intent = intent.extras
+
+        when (intent?.getSerializable(INITIAL_SCREEN_TYPES) as InitialScreenTypes) {
+            InitialScreenTypes.HOME -> controller?.navigate(R.id.action_loginFragment_to_homeFragment)
+
+            InitialScreenTypes.LOGIN -> controller?.navigate(R.id.loginFragment)
+        }
+    }
+
+    private fun handleMenuOptions() {
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                id.nav_schedule -> {
+                    onSetDrawerNavigate(R.id.curriculumFragment)
+                    true
+                }
+
+                id.nav_notification -> {
+                    onSetDrawerNavigate(R.id.curriculumFragment)
+                    true
+                }
+
+                id.nav_config -> {
+                    onSetDrawerNavigate(R.id.configFragment)
+                    true
+                }
+
+                id.notification -> {
+                    onSetDrawerNavigate(R.id.curriculumFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun onSetDrawerNavigate(screenId: Int) {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        controller?.navigate(screenId)
     }
 
     companion object {

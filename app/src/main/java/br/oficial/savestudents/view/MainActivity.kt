@@ -26,6 +26,8 @@ import com.savestudents.features.home.di.HomeDependencyInjection
 import com.savestudents.features.notificationconfig.di.NotificationConfigDependencyInjection
 import com.savestudents.features.securityconfig.di.SecurityConfigDependencyInjection
 import com.savestudents.features.shared.utils.KoinUtils
+import com.savestudents.features.shared.utils.KoinUtils.addModules
+import com.savestudents.features.shared.utils.KoinUtils.createInstance
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -36,28 +38,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initService()
-        getPushToken()
         koinInjection()
-        initAdminCheckDb()
         handleInitialActivity()
+        initService()
     }
 
     private fun koinInjection() {
-        KoinUtils.createInstance(applicationContext)
-        KoinUtils.addModules(*NotificationManagerDependencyInjection.modules)
-        KoinUtils.addModules(*FirebaseDependencyInjection.modules)
-        KoinUtils.addModules(*AccountManagerDependencyInjection.modules)
-        KoinUtils.addModules(*SharedPreferencesDependencyInjection.modules)
-        KoinUtils.addModules(*LoginDependencyInjection.modules)
-        KoinUtils.addModules(*AccountRegisterDependencyInjection.modules)
-        KoinUtils.addModules(*HomeDependencyInjection.modules)
-        KoinUtils.addModules(*AddMatterDependencyInjection.modules)
-        KoinUtils.addModules(*CurriculumDependencyInjection.modules)
-        KoinUtils.addModules(*AddEventDependencyInjection.modules)
-        KoinUtils.addModules(*ConfigDependencyInjection.modules)
-        KoinUtils.addModules(*NotificationConfigDependencyInjection.modules)
-        KoinUtils.addModules(*SecurityConfigDependencyInjection.modules)
+        createInstance(applicationContext)
+        addModules(*NotificationManagerDependencyInjection.modules)
+        addModules(*FirebaseDependencyInjection.modules)
+        addModules(*AccountManagerDependencyInjection.modules)
+        addModules(*SharedPreferencesDependencyInjection.modules)
+        addModules(*LoginDependencyInjection.modules)
+        addModules(*AccountRegisterDependencyInjection.modules)
+        addModules(*HomeDependencyInjection.modules)
+        addModules(*AddMatterDependencyInjection.modules)
+        addModules(*CurriculumDependencyInjection.modules)
+        addModules(*AddEventDependencyInjection.modules)
+        addModules(*ConfigDependencyInjection.modules)
+        addModules(*NotificationConfigDependencyInjection.modules)
+        addModules(*SecurityConfigDependencyInjection.modules)
     }
 
     private fun initService() {
@@ -65,44 +65,43 @@ class MainActivity : AppCompatActivity() {
         startService(serviceIntent)
     }
 
-    private fun initAdminCheckDb() {
-        AdminCheckDB.getDataBase(applicationContext).adminCheckDAO()
-    }
-
-    private fun getPushToken() {
-        val pushToken = SharedPreferencesBuilderR1.GetInstance(applicationContext)
-            .getString(NotificationsManager.PUSH_TOKEN_KEY)
-
-        if (pushToken.isNullOrBlank()) {
-            NotificationsManager(applicationContext).getPushToken()
-        }
-    }
-
     private fun handleInitialActivity() {
         if (accountRegister.isLoggedUser()) {
             lifecycleScope.launch {
-                val user = accountRegister.getUserAccount()
+                val user = checkNotNull(accountRegister.getUserAccount())
 
-                user?.let {
-                    val login = accountRegister.login(it.email, it.password)
-
-                    login.onSuccess {
-                        startActivity(
-                            NavigationActivity.newInstance(
-                                applicationContext,
-                                InitialScreenTypes.HOME
-                            )
-                        )
-                    }
-                }
+                goToHome(
+                    email = user.email,
+                    password = user.password
+                )
             }
         } else {
+            goToLogin()
+        }
+    }
+
+    private suspend fun goToHome(email: String, password: String) {
+        accountRegister.login(
+            email = email,
+            password = password
+        ).onSuccess {
             startActivity(
                 NavigationActivity.newInstance(
                     applicationContext,
-                    InitialScreenTypes.LOGIN
+                    InitialScreenTypes.HOME
                 )
             )
+        }.onFailure {
+            goToLogin()
         }
+    }
+
+    private fun goToLogin() {
+        startActivity(
+            NavigationActivity.newInstance(
+                applicationContext,
+                InitialScreenTypes.LOGIN
+            )
+        )
     }
 }
