@@ -8,8 +8,9 @@ data class Event(
         val id: String = "",
         val type: String = "",
         val matterName: String = "",
-        val period: String? = "",
-        val initialTime: String? = "",
-        val timestamp: Long? = 0L
+        val dayOfWeek: String = "",
+        val period: String = "",
+        val initialTime: String = "",
+        val timestamp: Long = 0L
     )
 }

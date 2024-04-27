@@ -1,4 +1,4 @@
-package com.savestudents.features.event.ui
+package com.savestudents.features.addEvent.ui
 
 import com.savestudents.core.mvp.BasePresenter
 import com.savestudents.core.mvp.BaseView

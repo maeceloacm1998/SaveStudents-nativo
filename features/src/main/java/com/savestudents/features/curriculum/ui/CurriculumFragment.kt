@@ -1,8 +1,10 @@
 package com.savestudents.features.curriculum.ui
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -45,14 +47,11 @@ class CurriculumFragment :
         handleFabButton()
     }
 
-    @SuppressLint("NewApi")
     override fun init() {
-        val (day, month, year) = getCurrentDate()
-        binding.calendar.selectedDate = LocalDate.of(year, month, day)
         lifecycleScope.launch {
             presenter.start()
             presenter.fetchMatters()
-            presenter.fetchEventsWithDate(getTimestampWithDate(day, month, year))
+            presenter.fetchEventsWithDate()
         }
     }
 
@@ -107,7 +106,7 @@ class CurriculumFragment :
                 val instant = localDate.atStartOfDay(zoneId).toInstant()
                 val timestamp = instant.toEpochMilli()
                 lifecycleScope.launch {
-                    presenter.fetchEventsWithDate(timestamp)
+                    presenter.fetchEventsWithDate()
                 }
             }
         }
@@ -140,6 +139,10 @@ class CurriculumFragment :
         }
     }
 
+    override fun onSetCurrentDate(localDate: LocalDate) {
+        binding.calendar.selectedDate = localDate
+    }
+
     override fun showNotEvents(visibility: Boolean) {
         binding.calendarError.container.isVisible = visibility
         binding.eventsRv.isVisible = !visibility
@@ -159,7 +162,7 @@ class CurriculumFragment :
         parentActivity?.showSnackBar(getString(message), type)
     }
 
-    override fun updateCalendar(eventCalendarList: MutableList<EventCalendar>) {
+    override fun updateCalendar(eventCalendarList: List<EventCalendar>) {
         binding.calendar.eventCalendar = eventCalendarList
     }
 

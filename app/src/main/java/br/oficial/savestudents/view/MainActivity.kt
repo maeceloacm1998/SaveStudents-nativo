@@ -5,9 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import br.oficial.savestudents.R
-import com.br.core.notifications.NotificationsManager
-import com.br.core.service.internal.database.AdminCheckDB
-import com.br.core.service.sharedPreferences.SharedPreferencesBuilderR1
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
@@ -20,12 +17,11 @@ import com.savestudents.features.login.di.LoginDependencyInjection
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.di.AddMatterDependencyInjection
 import com.savestudents.features.config.di.ConfigDependencyInjection
-import com.savestudents.features.curriculum.di.CurriculumDependencyInjection
-import com.savestudents.features.event.di.AddEventDependencyInjection
+import com.savestudents.features.curriculum.data.di.CurriculumDependencyInjection
+import com.savestudents.features.addEvent.di.AddEventDependencyInjection
 import com.savestudents.features.home.di.HomeDependencyInjection
 import com.savestudents.features.notificationconfig.di.NotificationConfigDependencyInjection
 import com.savestudents.features.securityconfig.di.SecurityConfigDependencyInjection
-import com.savestudents.features.shared.utils.KoinUtils
 import com.savestudents.features.shared.utils.KoinUtils.addModules
 import com.savestudents.features.shared.utils.KoinUtils.createInstance
 import kotlinx.coroutines.launch

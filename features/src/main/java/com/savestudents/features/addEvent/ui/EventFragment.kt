@@ -1,4 +1,4 @@
-package com.savestudents.features.event.ui
+package com.savestudents.features.addEvent.ui
 
 import android.os.Bundle
 import android.view.View

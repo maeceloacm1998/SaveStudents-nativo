@@ -1,4 +1,4 @@
-package com.savestudents.features.event.ui
+package com.savestudents.features.addEvent.ui
 
 import com.google.firebase.firestore.ktx.toObject
 import com.savestudents.core.accountManager.AccountManager
@@ -59,9 +59,7 @@ class EventPresenter(
                     id = UUID.randomUUID().toString(),
                     type = EventType.EVENT.value,
                     matterName = eventName,
-                    timestamp = dateSelected,
-                    period = null,
-                    initialTime = null
+                    timestamp = dateSelected
                 )
                 event.events.add(eventItem)
             }

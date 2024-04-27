@@ -99,6 +99,13 @@ class AccountManagerImpl(
         }
     }
 
+    override fun getUserId(): String {
+        val user = sharedPreferences.getString(USER_ACCOUNT, "").run {
+            Gson().fromJson(this, UserAccount::class.java)
+        }
+        return user.id
+    }
+
     override fun setNotifications(enabled: Boolean) {
         return sharedPreferences.putBoolean(NOTIFICATION_ACCOUNT, enabled)
     }

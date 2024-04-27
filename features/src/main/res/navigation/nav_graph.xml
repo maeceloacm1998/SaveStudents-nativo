@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_add_matter" />
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.savestudents.features.event.ui.EventFragment"
+        android:name="com.savestudents.features.addEvent.ui.EventFragment"
         android:label="fragment_event"
         android:windowSoftInputMode="adjustResize"
         tools:layout="@layout/fragment_event" />
