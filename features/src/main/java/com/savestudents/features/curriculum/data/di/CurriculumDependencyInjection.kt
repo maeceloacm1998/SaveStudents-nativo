@@ -2,6 +2,8 @@ package com.savestudents.features.curriculum.data.di
 
 import com.savestudents.features.curriculum.data.CurriculumRepository
 import com.savestudents.features.curriculum.data.CurriculumRepositoryImpl
+import com.savestudents.features.curriculum.domain.DeleteEventUseCase
+import com.savestudents.features.curriculum.domain.GetEventsToDateSelectedUseCase
 import com.savestudents.features.curriculum.domain.GetMattersUseCase
 import com.savestudents.features.curriculum.ui.CurriculumContract
 import com.savestudents.features.curriculum.ui.CurriculumFragment
@@ -17,14 +19,16 @@ object CurriculumDependencyInjection {
             )
         }
 
-        factory { GetMattersUseCase(curriculumRepository = get())}
+        factory { GetMattersUseCase(curriculumRepository = get()) }
+        factory { GetEventsToDateSelectedUseCase(curriculumRepository = get()) }
+        factory { DeleteEventUseCase(curriculumRepository = get()) }
 
         factory<CurriculumContract.Presenter> { (view: CurriculumFragment) ->
             CurriculumPresenter(
                 view = view,
-                client = get(),
-                accountManager = get(),
-                getMattersUseCase = get()
+                getMattersUseCase = get(),
+                getEventsToDateSelectedUseCase = get(),
+                deleteEventUseCase = get()
             )
         }
     }

@@ -1,10 +1,8 @@
 package com.savestudents.features.curriculum.ui
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,8 +13,7 @@ import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
-import com.savestudents.core.utils.DateUtils.getTimestampWithDate
-import com.savestudents.core.utils.DateUtils.getCurrentDate
+import com.savestudents.core.utils.DateUtils.getTimestampCurrentDate
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
@@ -32,8 +29,10 @@ class CurriculumFragment :
     CurriculumContract.View {
 
     override val presenter: CurriculumContract.Presenter by inject { parametersOf(this) }
-    private val adapterCurriculum: EventItemAdapter =
-        EventItemAdapter(showDelete = true, clickDeleteEventListener = ::clickDeleteEventListener)
+    private val adapterCurriculum: EventItemAdapter = EventItemAdapter(
+        showDelete = true,
+        clickDeleteEventListener = ::clickDeleteEventListener
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,10 +47,30 @@ class CurriculumFragment :
     }
 
     override fun init() {
+        val currentDate = getTimestampCurrentDate()
         lifecycleScope.launch {
             presenter.start()
             presenter.fetchMatters()
-            presenter.fetchEventsWithDate()
+            presenter.fetchEventsWithDate(currentDate)
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun setupViews() {
+        binding.run {
+            eventsRv.run {
+                adapter = adapterCurriculum
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            binding.calendar.onClickDayListener { localDate ->
+                val zoneId = ZoneId.of("America/Sao_Paulo")
+                val instant = localDate.atStartOfDay(zoneId).toInstant()
+                val timestamp = instant.toEpochMilli()
+                lifecycleScope.launch {
+                    presenter.fetchEventsWithDate(timestamp)
+                }
+            }
         }
     }
 
@@ -93,22 +112,9 @@ class CurriculumFragment :
         }
     }
 
-    @SuppressLint("NewApi")
-    private fun setupViews() {
-        binding.run {
-            eventsRv.run {
-                adapter = adapterCurriculum
-                layoutManager = LinearLayoutManager(context)
-            }
-
-            binding.calendar.onClickDayListener { localDate ->
-                val zoneId = ZoneId.of("America/Sao_Paulo")
-                val instant = localDate.atStartOfDay(zoneId).toInstant()
-                val timestamp = instant.toEpochMilli()
-                lifecycleScope.launch {
-                    presenter.fetchEventsWithDate()
-                }
-            }
+    private fun clickDeleteEventListener(item: Event.EventItem) {
+        lifecycleScope.launch {
+            presenter.deleteEvent(item)
         }
     }
 
@@ -146,12 +152,6 @@ class CurriculumFragment :
     override fun showNotEvents(visibility: Boolean) {
         binding.calendarError.container.isVisible = visibility
         binding.eventsRv.isVisible = !visibility
-    }
-
-    private fun clickDeleteEventListener(item: Event.EventItem) {
-        lifecycleScope.launch {
-            presenter.deleteEvent(item)
-        }
     }
 
     override fun updateEventList(eventList: List<Event.EventItem>, day: Int, month: Int) {

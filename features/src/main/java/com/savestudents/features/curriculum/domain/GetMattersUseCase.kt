@@ -19,7 +19,6 @@ class GetMattersUseCase(
     @RequiresApi(Build.VERSION_CODES.O)
     suspend operator fun invoke(): Result<List<EventCalendar>> {
 
-        curriculumRepository.handleCreateMatter()
         curriculumRepository.handleFetchMatters().onSuccess {
             val events = checkNotNull(it.toObject<CurriculumEventCalendar>()).events
 

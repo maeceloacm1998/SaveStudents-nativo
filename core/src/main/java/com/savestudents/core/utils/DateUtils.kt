@@ -1,7 +1,10 @@
 package com.savestudents.core.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
 
@@ -199,6 +202,14 @@ object DateUtils {
 
         return Triple(year, month, day)
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getLocalDateWithTimestamp(timestamp: Long): LocalDate {
+        val (year, month, day) = getDateWithTimestamp(timestamp)
+
+        return LocalDate.of(year, month, day)
+    }
+
 
     private fun getDataListPerWeek(week: WeekType): MutableList<Triple<Int, Int, Int>> {
         val weeks: MutableList<Triple<Int, Int, Int>> = mutableListOf()
