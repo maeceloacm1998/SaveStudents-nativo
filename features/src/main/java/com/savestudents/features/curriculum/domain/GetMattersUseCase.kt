@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.toObject
 import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.calendar.EventCalendarType
-import com.savestudents.core.utils.DateUtils
+import com.savestudents.core.utils.DateUtils.getLocalDateWithTimestamp
 import com.savestudents.features.addMatter.models.Event.EventItem
 import com.savestudents.features.curriculum.data.CurriculumRepository
 import com.savestudents.features.curriculum.ui.models.CurriculumEventCalendar
@@ -14,10 +14,11 @@ import java.time.LocalDate
 class GetMattersUseCase(
     private val curriculumRepository: CurriculumRepository
 ) {
-    private val eventList: MutableList<EventCalendar> = mutableListOf()
+    private var eventList: MutableList<EventCalendar> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend operator fun invoke(): Result<List<EventCalendar>> {
+        eventList = mutableListOf()
 
         curriculumRepository.handleFetchMatters().onSuccess {
             val events = checkNotNull(it.toObject<CurriculumEventCalendar>()).events
@@ -46,7 +47,7 @@ class GetMattersUseCase(
         eventType: EventCalendarType
     ): EventCalendar {
         return EventCalendar(
-            date = DateUtils.getLocalDateWithTimestamp(event.timestamp),
+            date = getLocalDateWithTimestamp(event.timestamp),
             eventCalendarType = mutableListOf(eventType)
         )
     }

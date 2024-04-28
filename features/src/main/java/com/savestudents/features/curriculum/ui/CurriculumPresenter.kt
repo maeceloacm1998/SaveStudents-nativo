@@ -2,12 +2,14 @@ package com.savestudents.features.curriculum.ui
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.utils.DateUtils
 import com.savestudents.core.utils.DateUtils.getDateWithTimestamp
 import com.savestudents.core.utils.DateUtils.getLocalDateWithTimestamp
 import com.savestudents.features.R
 import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.addMatter.models.Event.EventItem
 import com.savestudents.features.curriculum.domain.DeleteEventUseCase
 import com.savestudents.features.curriculum.domain.GetEventsToDateSelectedUseCase
 import com.savestudents.features.curriculum.domain.GetMattersUseCase
@@ -56,7 +58,7 @@ class CurriculumPresenter(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun deleteEvent(eventItem: Event.EventItem) {
+    override suspend fun deleteEvent(eventItem: EventItem) {
         deleteEventUseCase(eventForDelete = eventItem)
             .onSuccess {
                 view.run {
