@@ -46,7 +46,7 @@ class AddMatterFragment :
         }
     }
 
-    override fun onSetupViewTextLayout() {
+    override fun onSetupViewsTextLayout() {
         binding.run {
             initialHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_initial_hour)
             initialHourTextLayout.onClickInputNotKeyboard {
@@ -59,8 +59,7 @@ class AddMatterFragment :
 
                 picker.run {
                     addOnPositiveButtonClickListener {
-                        val time: String =
-                            DateUtils.formatTime(this.hour.toString(), this.minute.toString())
+                        val time = DateUtils.formatTime(hour.toString(), minute.toString())
                         presenter.onSaveInitialHourSelected(time)
                         setTimeInEditText(binding.initialHourTextLayout, time)
                     }
@@ -91,13 +90,13 @@ class AddMatterFragment :
     }
 
     override fun onSetupViewsCreateMatter() {
-        binding.run {
-            val daysSelected: List<String> = chipGroup.children
-                .toList()
-                .filter { (it as Chip).isChecked }
-                .map { (it as Chip).text.toString() }
-
+        binding.apply {
             submitButton.setOnClickListener {
+                val daysSelected: List<String> = chipGroup.children
+                    .toList()
+                    .filter { (it as Chip).isChecked }
+                    .map { (it as Chip).text.toString() }
+
                 onLoadingRegister(true)
                 lifecycleScope.launch {
                     presenter.handleValidateMatter(daysSelected)
@@ -106,7 +105,7 @@ class AddMatterFragment :
         }
     }
 
-    override fun setupViewsMatterInput() {
+    override fun onSetupViewsMatterInput() {
         binding.matterTextInput.onItemSelected { item ->
             presenter.onMatterSelect(item)
         }

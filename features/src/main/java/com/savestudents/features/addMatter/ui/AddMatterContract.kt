@@ -8,10 +8,10 @@ import com.savestudents.core.mvp.BaseView
 interface AddMatterContract {
 
     interface View : BaseView<Presenter> {
-        fun onSetupViewTextLayout()
+        fun onSetupViewsTextLayout()
         fun onSetupViewsAddMatter()
         fun onSetupViewsCreateMatter()
-        fun setupViewsMatterInput()
+        fun onSetupViewsMatterInput()
         fun onSetMatterOptions(matterList: List<String>)
         fun onMatterSelect(matter: Matter)
         fun onLoading(loading: Boolean)

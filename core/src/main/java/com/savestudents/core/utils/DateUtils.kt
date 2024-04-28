@@ -24,11 +24,11 @@ object DateUtils {
      * @param minutes
      */
     fun formatTime(hour: String, minutes: String): String {
-        val hour = hour.toInt()
-        val minute = minutes.toInt()
+        val hourInt = hour.toInt()
+        val minuteInt = minutes.toInt()
 
-        val formattedHour = String.format("%02d", hour)
-        val formattedMinutes = String.format("%02d", minute)
+        val formattedHour = String.format("%02d", hourInt)
+        val formattedMinutes = String.format("%02d", minuteInt)
 
         return "$formattedHour:$formattedMinutes"
     }

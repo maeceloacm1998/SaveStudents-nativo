@@ -20,10 +20,10 @@ class AddMatterPresenter(
 
     override fun start() {
         view.run {
-            onSetupViewTextLayout()
+            onSetupViewsTextLayout()
             onSetupViewsAddMatter()
-            onSetupViewTextLayout()
             onSetupViewsCreateMatter()
+            onSetupViewsMatterInput()
             onLoading(true)
         }
     }

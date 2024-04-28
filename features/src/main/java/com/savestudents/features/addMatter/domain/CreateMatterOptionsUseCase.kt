@@ -4,7 +4,7 @@ import com.savestudents.features.addMatter.data.AddMatterRepository
 import com.savestudents.features.addMatter.models.Matter
 
 class CreateMatterOptionsUseCase(
-    private val addMaterRepository: AddMatterRepository
+    private val addMatterRepository: AddMatterRepository
 ) {
     suspend operator fun invoke(
         period: String,
@@ -15,7 +15,7 @@ class CreateMatterOptionsUseCase(
             period = period,
             matterName = matterName,
         )
-        addMaterRepository.handleSaveMatter(matter)
+        addMatterRepository.handleSaveMatter(matter)
             .onSuccess {
                 return Result.success(true)
             }

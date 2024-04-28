@@ -2,7 +2,7 @@ package com.savestudents.features.curriculum.domain
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.toObject
 import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.calendar.EventCalendarType
 import com.savestudents.core.utils.DateUtils

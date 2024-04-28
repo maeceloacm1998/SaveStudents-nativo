@@ -4,7 +4,6 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.toObject
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.core.utils.DateUtils
 import com.savestudents.features.addMatter.models.Schedule
 import com.savestudents.features.curriculum.ui.models.CurriculumEventCalendar
 
