@@ -42,8 +42,4 @@ class CurriculumRepositoryImpl(
             data = curriculumEventCalendar
         )
     }
-
-    override suspend fun handleGetAllWeekDay(dayOfWeek: String): List<Triple<Int, Int, Int>> {
-        return DateUtils.getWeeksList(dayOfWeek)
-    }
 }

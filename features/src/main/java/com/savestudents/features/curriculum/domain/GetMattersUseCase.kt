@@ -14,7 +14,7 @@ import java.time.LocalDate
 class GetMattersUseCase(
     private val curriculumRepository: CurriculumRepository
 ) {
-    val eventList: MutableList<EventCalendar> = mutableListOf()
+    private val eventList: MutableList<EventCalendar> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend operator fun invoke(): Result<List<EventCalendar>> {
@@ -45,10 +45,8 @@ class GetMattersUseCase(
         event: EventItem,
         eventType: EventCalendarType
     ): EventCalendar {
-        val (year, month, day) = DateUtils.getDateWithTimestamp(event.timestamp)
-
         return EventCalendar(
-            date = LocalDate.of(year, month, day),
+            date = DateUtils.getLocalDateWithTimestamp(event.timestamp),
             eventCalendarType = mutableListOf(eventType)
         )
     }

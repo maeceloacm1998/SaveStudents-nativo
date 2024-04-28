@@ -1,6 +1,5 @@
 package com.savestudents.features.curriculum.ui
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.savestudents.components.snackbar.SnackBarCustomType
@@ -39,7 +38,7 @@ class CurriculumPresenter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun fetchEventsWithDate(timestamp: Long) {
-        val (_, month, day) = getDateWithTimestamp(timestamp)
+        val (day, month, _) = getDateWithTimestamp(timestamp)
         val selectedDate = getLocalDateWithTimestamp(timestamp)
 
         getEventsToDateSelectedUseCase(selectedDate)
