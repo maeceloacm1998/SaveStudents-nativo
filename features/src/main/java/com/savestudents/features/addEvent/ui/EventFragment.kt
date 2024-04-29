@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.savestudents.components.button.disabled
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.core.utils.BaseFragment
+import com.savestudents.core.utils.arguments
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.R
 import com.savestudents.features.databinding.FragmentEventBinding
@@ -19,6 +20,9 @@ class EventFragment() :
     EventContract.View {
 
     override val presenter: EventContract.Presenter by inject { parametersOf(this) }
+
+    private val dateSelected by arguments<Long>(ARG_DATE_SELECTED)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleTitleToolbar("Adicionar Evento")
@@ -26,20 +30,26 @@ class EventFragment() :
             findNavController().popBackStack()
         }
 
-        setupViews()
+        lifecycleScope.launch {
+            presenter.start()
+        }
     }
 
-    private fun setupViews() {
+    override fun onSetupViewsSelectedDate() {
+        binding.datePicker.date = dateSelected
+    }
+
+    override fun onSetupViewsCreateEventButton() {
         binding.submitButton.setOnClickListener {
             val eventName = binding.tiEvent.editTextDefault.text.toString()
             val date = binding.datePicker.timestemp
             lifecycleScope.launch {
-                presenter.validateEvent(eventName, date)
+                presenter.handleValidateEvent(eventName, date)
             }
         }
     }
 
-    override fun loading(loading: Boolean) {
+    override fun onLoading(loading: Boolean) {
         binding.submitButton.disabled(loading)
     }
 
@@ -79,5 +89,9 @@ class EventFragment() :
 
     override fun goToCurriculum() {
         findNavController().popBackStack()
+    }
+
+    companion object {
+        const val ARG_DATE_SELECTED = "dateSelected"
     }
 }

@@ -11,10 +11,10 @@ import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.savestudents.components.R
 import com.savestudents.components.calendar.EventCalendar
 import com.savestudents.components.snackbar.SnackBarCustomType
-import com.savestudents.features.R.string
 import com.savestudents.core.utils.BaseFragment
 import com.savestudents.core.utils.DateUtils.getTimestampCurrentDate
 import com.savestudents.features.NavigationActivity
+import com.savestudents.features.R.*
 import com.savestudents.features.addMatter.models.Event
 import com.savestudents.features.databinding.FragmentCurriculumBinding
 import com.savestudents.features.home.ui.adapter.eventItem.EventItemAdapter
@@ -104,7 +104,10 @@ class CurriculumFragment :
                     }
 
                     com.savestudents.features.R.id.create_events -> {
-                        findNavController().navigate(com.savestudents.features.R.id.action_curriculumFragment_to_eventFragment)
+                        val action =
+                            CurriculumFragmentDirections.actionCurriculumFragmentToEventFragment()
+                        action.dateSelected = presenter.onGetSelectedDate()
+                        findNavController().navigate(action)
                     }
                 }
                 false

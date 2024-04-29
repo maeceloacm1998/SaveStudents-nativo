@@ -25,5 +25,6 @@ interface CurriculumContract {
         suspend fun fetchEventsWithDate(timestamp: Long)
         suspend fun deleteEvent(eventItem: Event.EventItem)
         fun onSetCurrentDate()
+        fun onGetSelectedDate(): Long
     }
 }

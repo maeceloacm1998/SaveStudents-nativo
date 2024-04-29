@@ -1,74 +1,39 @@
 package com.savestudents.features.addEvent.ui
 
-import com.google.firebase.firestore.ktx.toObject
-import com.savestudents.core.accountManager.AccountManager
-import com.savestudents.core.firebase.FirebaseClient
-import com.savestudents.core.utils.DateUtils
-import com.savestudents.features.addMatter.models.Event
-import com.savestudents.features.addMatter.models.EventType
-import com.savestudents.features.addMatter.models.Schedule
-import java.util.UUID
+import com.savestudents.features.addEvent.domain.CreateEventUseCase
 
 class EventPresenter(
     private val view: EventContract.View,
-    private val client: FirebaseClient,
-    private val accountManager: AccountManager
+    private val createEventUseCase: CreateEventUseCase
 ) : EventContract.Presenter {
-    override fun start() {}
+    override fun start() {
+        view.run {
+            onSetupViewsCreateEventButton()
+            onSetupViewsSelectedDate()
+        }
+    }
 
-    override suspend fun validateEvent(eventName: String, date: Long?) {
+    override suspend fun handleValidateEvent(eventName: String, dateSelected: Long?) {
         when {
             eventName.isEmpty() -> view.showEventNameError()
-            date == null -> view.showDateSelectedError()
-            else -> register(eventName, date)
+            dateSelected == null -> view.showDateSelectedError()
+            else -> onCreateEvent(eventName =eventName, dateSelected = dateSelected)
         }
     }
 
-    private suspend fun register(eventName: String, dateSelected: Long) {
-        val userId: String = checkNotNull(accountManager.getUserAccount()?.id)
-        view.loading(true)
-        client.getSpecificDocument("scheduleUser", userId).onSuccess {
-            val schedule = it.toObject<Schedule>()
-            val eventList: List<Event> =
-                addEvent(schedule = schedule, eventName = eventName, dateSelected = dateSelected)
-
-            client.setSpecificDocument(
-                "scheduleUser", userId, schedule?.copy(data = eventList)
-            ).onSuccess {
-                view.run {
-                    showSnackBarSuccess(eventName)
-                    goToCurriculum()
-                }
-            }.onFailure {
-                view.run {
-                    hideEventNameError()
-                    hideEventNameError()
-                    loading(false)
-                    showSnackBarError(eventName)
-                }
+    private suspend fun onCreateEvent(eventName: String, dateSelected: Long) {
+        createEventUseCase(eventName, dateSelected).onSuccess {
+            view.run {
+                showSnackBarSuccess(eventName)
+                goToCurriculum()
+            }
+        }.onFailure {
+            view.run {
+                hideEventNameError()
+                hideEventNameError()
+                onLoading(false)
+                showSnackBarError(eventName)
             }
         }
-    }
-
-    private fun addEvent(schedule: Schedule?, eventName: String, dateSelected: Long): List<Event> {
-        val eventList: List<Event> = requireNotNull(schedule?.data)
-
-        eventList.map { event ->
-            if (isDaySelected(event, dateSelected)) {
-                val eventItem: Event.EventItem = Event.EventItem(
-                    id = UUID.randomUUID().toString(),
-                    type = EventType.EVENT.value,
-                    matterName = eventName,
-                    timestamp = dateSelected
-                )
-                event.events.add(eventItem)
-            }
-        }
-
-        return eventList
-    }
-
-    private fun isDaySelected(event: Event, dateSelected: Long): Boolean {
-        return DateUtils.getDayOfWeekFromTimestamp(dateSelected) == event.dayName
     }
 }

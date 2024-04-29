@@ -11,6 +11,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.savestudents.components.R
 import com.savestudents.components.databinding.DatePickerCustomViewBinding
 import com.savestudents.core.utils.DateUtils
+import com.savestudents.core.utils.DateUtils.formatDateWithPattern
 
 
 class DatePickerCustomView(context: Context, attrs: AttributeSet) :
@@ -20,6 +21,17 @@ class DatePickerCustomView(context: Context, attrs: AttributeSet) :
     )
 
     var timestemp: Long? = null
+
+    var date: Long = 0L
+        set(value) {
+            binding.tvDate.text = if (value != 0L) {
+                timestemp = value
+                formatDateWithPattern(DateUtils.DATE_WITH_MONTH_NAME, value)
+            } else {
+                binding.tvDate.context.getString(R.string.date_picker_custom_view_empty_selected_date)
+            }
+            field = value
+        }
 
     var error: String = ""
         set(value) {
@@ -43,12 +55,8 @@ class DatePickerCustomView(context: Context, attrs: AttributeSet) :
     }
 
     private fun setupViews() {
-        binding.run {
-            tvDate.text =
-                tvDate.context.getString(R.string.date_picker_custom_view_empty_selected_date)
-            container.setOnClickListener {
-                handleDatePicker()
-            }
+        binding.container.setOnClickListener {
+            handleDatePicker()
         }
     }
 
@@ -61,9 +69,10 @@ class DatePickerCustomView(context: Context, attrs: AttributeSet) :
             .build()
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            timestemp = DateUtils.addOneDayToTimestamp(selection)
+            val dateSelected = DateUtils.addOneDayToTimestamp(selection)
+            timestemp = dateSelected
             binding.tvDate.text =
-                DateUtils.formatDateWithPattern(DateUtils.DATE_WITH_MONTH_NAME, selection)
+                formatDateWithPattern(DateUtils.DATE_WITH_MONTH_NAME, dateSelected)
         }
 
         datePicker.show(fragmentManager, "date_picker")

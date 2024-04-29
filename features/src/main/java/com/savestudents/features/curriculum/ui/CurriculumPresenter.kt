@@ -21,6 +21,7 @@ class CurriculumPresenter(
     private val getEventsToDateSelectedUseCase: GetEventsToDateSelectedUseCase,
     private val deleteEventUseCase: DeleteEventUseCase
 ) : CurriculumContract.Presenter {
+    private var selectedDate: Long = 0
 
     override fun start() {
         view.loadingScreen(true)
@@ -40,6 +41,7 @@ class CurriculumPresenter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun fetchEventsWithDate(timestamp: Long) {
+        selectedDate = timestamp
         val (day, month, _) = getDateWithTimestamp(timestamp)
         val selectedDate = getLocalDateWithTimestamp(timestamp)
 
@@ -83,5 +85,9 @@ class CurriculumPresenter(
     override fun onSetCurrentDate() {
         val (day, month, year) = DateUtils.getCurrentDate()
         view.onSetCurrentDate(LocalDate.of(year, month, day))
+    }
+
+    override fun onGetSelectedDate(): Long {
+        return selectedDate
     }
 }

@@ -5,7 +5,9 @@ import com.savestudents.core.mvp.BaseView
 
 interface EventContract {
     interface View : BaseView<Presenter> {
-        fun loading(loading: Boolean)
+        fun onLoading(loading: Boolean)
+        fun onSetupViewsCreateEventButton()
+        fun onSetupViewsSelectedDate()
         fun showEventNameError()
         fun hideEventNameError()
         fun showDateSelectedError()
@@ -16,6 +18,6 @@ interface EventContract {
     }
 
     interface Presenter : BasePresenter {
-        suspend fun validateEvent(eventName: String, date: Long?)
+        suspend fun handleValidateEvent(eventName: String, dateSelected: Long?)
     }
 }

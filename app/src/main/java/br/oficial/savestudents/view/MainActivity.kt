@@ -18,7 +18,7 @@ import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.data.di.AddMatterDependencyInjection
 import com.savestudents.features.config.di.ConfigDependencyInjection
 import com.savestudents.features.curriculum.data.di.CurriculumDependencyInjection
-import com.savestudents.features.addEvent.di.AddEventDependencyInjection
+import com.savestudents.features.addEvent.data.di.AddEventDependencyInjection
 import com.savestudents.features.home.di.HomeDependencyInjection
 import com.savestudents.features.notificationconfig.di.NotificationConfigDependencyInjection
 import com.savestudents.features.securityconfig.di.SecurityConfigDependencyInjection

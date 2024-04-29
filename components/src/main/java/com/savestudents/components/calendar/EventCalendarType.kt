@@ -11,7 +11,7 @@ enum class EventCalendarType(@DrawableRes val drawableInt: Int) {
     companion object {
         fun parse(value: String): EventCalendarType {
             return when(value) {
-                EventType.EVENT.name -> EVENT
+                EventType.EVENT.value -> EVENT
                 else -> MATTER
             }
         }
