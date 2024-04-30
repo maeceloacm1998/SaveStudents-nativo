@@ -8,6 +8,7 @@ import com.savestudents.core.utils.BaseFragment
 import com.savestudents.features.databinding.FragmentHomeBinding
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.home.ui.adapter.home.HomeAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -23,24 +24,24 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleDrawerMenu()
 
-        setupViews()
         lifecycleScope.launch {
-            presenter.getEvents()
+            presenter.start()
+            presenter.handleEvents()
         }
     }
 
-    private fun setupViews() {
+    override fun onSetupViewsHomeAdapter() {
         binding.homeRv.run {
             adapter = adapterHome
             layoutManager = LinearLayoutManager(context)
         }
     }
 
-    override fun loading(loading: Boolean) {
-        TODO("Not yet implemented")
+    override fun onLoading(loading: Boolean) {
+
     }
 
-    override fun setEventList(eventList: List<Event>) {
+    override fun onSetEventList(eventList: List<Event>) {
         adapterHome.submitList(eventList)
     }
 }

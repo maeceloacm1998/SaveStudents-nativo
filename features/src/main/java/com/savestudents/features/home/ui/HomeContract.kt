@@ -7,11 +7,12 @@ import com.savestudents.core.mvp.BaseView
 interface HomeContract {
 
     interface View : BaseView<Presenter> {
-        fun loading(loading: Boolean)
-        fun setEventList(eventList: List<Event>)
+        fun onLoading(loading: Boolean)
+        fun onSetupViewsHomeAdapter()
+        fun onSetEventList(eventList: List<Event>)
     }
 
     interface Presenter : BasePresenter {
-        suspend fun getEvents()
+        suspend fun handleEvents()
     }
 }

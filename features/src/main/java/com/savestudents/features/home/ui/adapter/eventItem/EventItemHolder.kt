@@ -17,12 +17,12 @@ class EventItemHolder(private val binding: EventItemBinding) :
         clickDeleteEventListener: ((item: Event.EventItem) -> Unit)?,
     ) {
         binding.apply {
-            type.text = eventItem.type
-            dayText.text = day.toString()
-            monthText.text = DateUtils.getMonthName(month)
-            eventTitle.text = eventItem.matterName
-            eventPeriod.text = eventItem.period
-            hour.text = eventItem.initialTime
+            chType.text = eventItem.type
+            tvDayText.text = day.toString()
+            tvMonthText.text = DateUtils.getMonthName(month)
+            tvEventTitle.text = eventItem.matterName
+            tvEventPeriod.text = eventItem.period
+            tvHour.text = eventItem.initialTime
 
             btDelete.apply {
                 isVisible = showDelete

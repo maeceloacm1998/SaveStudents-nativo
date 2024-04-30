@@ -7,5 +7,19 @@ enum class DaysType(val value: String) {
     THURSDAY("Quinta"),
     FRIDAY("Sexta"),
     SATURDAY("Sabado"),
-    SUNDAY("Domingo")
+    SUNDAY("Domingo");
+
+    companion object {
+        fun getDayOfWeekList(): List<String> {
+            return listOf(
+                MONDAY.value,
+                TUESDAY.value,
+                WEDNESDAY.value,
+                THURSDAY.value,
+                FRIDAY.value,
+                SATURDAY.value,
+                SUNDAY.value
+            )
+        }
+    }
 }

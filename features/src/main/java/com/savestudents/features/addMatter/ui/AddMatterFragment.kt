@@ -239,10 +239,10 @@ class AddMatterFragment :
     override fun onMatterSelect(matter: Matter) {
         binding.matterInformation.root.isVisible = true
         binding.matterInformation.run {
-            dayContainer.isVisible = false
-            type.text = EventType.MATTER.value
-            eventTitle.text = matter.matterName
-            eventPeriod.text = matter.period
+            clDate.isVisible = false
+            chType.text = EventType.MATTER.value
+            tvEventTitle.text = matter.matterName
+            tvEventPeriod.text = matter.period
             btDelete.isVisible = false
         }
     }
