@@ -109,8 +109,6 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
         collectionPath: String,
         documentPath: String
     ): Result<DocumentSnapshot> {
-        database.clearPersistence()
-
         return try {
             val res = withContext(Dispatchers.IO) {
                 database.collection(collectionPath).document(documentPath).get().await()
@@ -124,8 +122,6 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = document.toString()
             )
-
-            database.clearPersistence()
 
             Result.success(document)
         } catch (e: Exception) {
