@@ -46,6 +46,7 @@ class CurriculumFragment :
         handleFabButton()
     }
 
+    @SuppressLint("NewApi")
     override fun init() {
         val currentDate = getTimestampCurrentDate()
         lifecycleScope.launch {
