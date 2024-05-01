@@ -46,7 +46,8 @@ dependencies {
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.auth
     implementation libs.firebase.play.service.auth
-    implementation libs.bundles.room
+    implementation libs.androidx.room.ktx
+
     implementation libs.koin
     implementation libs.gson
     implementation libs.kotlinx.coroutines.android

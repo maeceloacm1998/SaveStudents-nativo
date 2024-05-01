@@ -100,7 +100,6 @@ speed-dial = { module = "com.leinardi.android:speed-dial", version.ref = "speedD
 calendar-view = { module = "com.kizitonwose.calendar:view", version.ref = "viewVersion" }
 
 [bundles]
-room = ["androidx-room-ktx", "androidx-room-compiler"]
 navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
 retrofit = ["retrofit-android", "retrofit-gson-android"]
 test = ["androidx-junit-ktx", "androidx-junit-test-ktx", "mockito-core", "koin-test", "mockito-kotlin", "roboletric", "core-testing", "mockk"]

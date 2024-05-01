@@ -7,17 +7,31 @@ class HomePresenter(
     private val getScheduleUseCase: GetScheduleUseCase
 ) : HomeContract.Presenter {
     override fun start() {
-        view.onLoading(true)
-        view.onSetupViewsHomeAdapter()
+        view.run {
+            onLoading(true)
+            onError(false)
+            onSetupViewsHomeAdapter()
+            onSetupViewsErrorScreen()
+        }
     }
 
     override suspend fun handleEvents() {
         getScheduleUseCase()
             .onSuccess {
-                view.onSetEventList(it)
+                view.run {
+                    onLoading(false)
+                    onSetEventList(it)
+                }
             }
             .onFailure {
-                val x = ""
+                view.onError(true)
             }
+    }
+
+    override suspend fun handleRetryEvents() {
+        view.run {
+            onError(false)
+            onLoading(true)
+        }
     }
 }

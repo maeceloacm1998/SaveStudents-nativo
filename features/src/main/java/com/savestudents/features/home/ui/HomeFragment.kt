@@ -2,6 +2,7 @@ package com.savestudents.features.home.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.savestudents.core.utils.BaseFragment
@@ -37,8 +38,21 @@ class HomeFragment :
         }
     }
 
-    override fun onLoading(loading: Boolean) {
+    override fun onSetupViewsErrorScreen() {
+        binding.error.button.setOnClickListener {
+            lifecycleScope.launch {
+                presenter.handleEvents()
+                onError(false)
+            }
+        }
+    }
 
+    override fun onLoading(loading: Boolean) {
+        binding.loading.shimmerHolder.isVisible = loading
+    }
+
+    override fun onError(error: Boolean) {
+        binding.error.root.isVisible = error
     }
 
     override fun onSetEventList(eventList: List<Event>) {
