@@ -1,10 +1,9 @@
-package br.oficial.savestudents.view
+package br.oficial.savestudents
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import br.oficial.savestudents.R
 import com.savestudents.core.accountManager.AccountManager
 import com.savestudents.core.accountManager.AccountManagerDependencyInjection
 import com.savestudents.core.firebase.FirebaseDependencyInjection
@@ -62,13 +61,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleInitialActivity() {
-        if (accountRegister.isLoggedUser()) {
-            lifecycleScope.launch {
-                val user = checkNotNull(accountRegister.getUserAccount())
+        if (accountRegister.isLoggedUser() && accountRegister.getUserAccount() != null) {
+            val user = accountRegister.getUserAccount()
 
+            user?.let {
                 goToHome(
-                    email = user.email,
-                    password = user.password
+                    email = it.email,
+                    password = it.password
                 )
             }
         } else {
@@ -76,19 +75,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun goToHome(email: String, password: String) {
-        accountRegister.login(
-            email = email,
-            password = password
-        ).onSuccess {
-            startActivity(
-                NavigationActivity.newInstance(
-                    applicationContext,
-                    InitialScreenTypes.HOME
+    private fun goToHome(email: String, password: String) {
+        lifecycleScope.launch {
+            accountRegister.login(
+                email = email,
+                password = password
+            ).onSuccess {
+                startActivity(
+                    NavigationActivity.newInstance(
+                        applicationContext,
+                        InitialScreenTypes.HOME
+                    )
                 )
-            )
-        }.onFailure {
-            goToLogin()
+            }.onFailure {
+                goToLogin()
+            }
         }
     }
 
