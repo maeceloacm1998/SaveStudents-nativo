@@ -41,17 +41,16 @@ dependencies {
     implementation libs.androidx.legacy
     implementation libs.androidx.view.binding
     implementation libs.androidx.lifecycle.livedata.ktx
-    implementation 'androidx.room:room-ktx:2.6.1'
-    kapt "androidx.room:room-compiler:2.6.1"
 
     implementation libs.firebase.firestore
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.auth
     implementation libs.firebase.play.service.auth
+    implementation libs.bundles.room
     implementation libs.koin
     implementation libs.gson
     implementation libs.kotlinx.coroutines.android
     implementation(libs.androidx.work.runtime.ktx)
-    testImplementation libs.bundles.test
     implementation libs.kotlinx.coroutines.test
+    testImplementation libs.bundles.test
 }

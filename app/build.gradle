@@ -50,60 +50,19 @@ android {
 }
 
 dependencies {
-    api project(path: ':app:core')
-    api project(path: ':app:data_transfer')
     implementation project(path: ':features')
     implementation project(path: ':components')
     implementation project(path: ':core')
-
-    def epoxyVersion = "4.2.0"
-    def shimmerVersion = '0.5.0'
-    def serializeVersion = '1.2.2'
-    def appDistributionVersion = '3.2.0'
-    def workerVersion = "2.7.1"
-    def viewPagerVersion = "1.0.0"
 
 
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core.ktx
 
-    implementation libs.androidx.room.ktx
     implementation libs.androidx.legacy
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
-    implementation "androidx.room:room-runtime:2.4.0-alpha03"
-    annotationProcessor "androidx.room:room-compiler:2.4.0-alpha03"
-    kapt 'androidx.room:room-compiler:2.4.0-alpha03'
 
-    implementation libs.material
-    implementation platform(libs.firebase.bom)
-    implementation libs.firebase.auth
-    implementation libs.firebase.crash
-    implementation libs.firebase.analytics
-    implementation libs.firebase.firestore
-    implementation libs.firebase.link
     implementation libs.koin
-
-
-    // Epoxy
-    implementation "com.airbnb.android:epoxy:$epoxyVersion"
-    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
-
-    // Shimmer
-    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
-
-    // Serialization
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializeVersion"
-
-//    // App Distribution
-//    implementation "com.google.firebase:firebase-appdistribution-gradle:$appDistributionVersion"
-
-    // WorkManager
-    implementation "androidx.work:work-runtime-ktx:$workerVersion"
-
-    // ViewPager
-    implementation "androidx.viewpager2:viewpager2:$viewPagerVersion"
-
-    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation libs.kotlinx.coroutines.android
 }
