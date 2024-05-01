@@ -2,34 +2,38 @@ package com.savestudents.features.addMatter.ui
 
 import com.savestudents.components.snackbar.SnackBarCustomType
 import com.savestudents.features.addMatter.models.Matter
-import com.savestudents.features.mvp.BasePresenter
-import com.savestudents.features.mvp.BaseView
+import com.savestudents.core.mvp.BasePresenter
+import com.savestudents.core.mvp.BaseView
 
 interface AddMatterContract {
 
     interface View : BaseView<Presenter> {
-        fun setMatterOptions(matterList: List<String>)
-        fun handleMatterSelect(matter: Matter)
-        fun loading(loading: Boolean)
-        fun loadingRegister(loading: Boolean)
+        fun onSetupViewsTextLayout()
+        fun onSetupViewsAddMatter()
+        fun onSetupViewsCreateMatter()
+        fun onSetupViewsMatterInput()
+        fun onSetMatterOptions(matterList: List<String>)
+        fun onMatterSelect(matter: Matter)
+        fun onLoading(loading: Boolean)
+        fun onLoadingRegister(loading: Boolean)
         fun showError()
-        fun errorMatterNotSelected(visibility: Boolean)
-        fun errorDaysNotSelected(visibility: Boolean)
-        fun errorInitialHourNotSelected(visibility: Boolean)
-        fun errorAddMatterOptionMatterNameNotSelected(visibility: Boolean)
-        fun errorAddMatterOptionPeriodNotSelected(visibility: Boolean)
+        fun showErrorMatterNotSelected(visibility: Boolean)
+        fun showErrorDaysNotSelected(visibility: Boolean)
+        fun showErrorInitialHourNotSelected(visibility: Boolean)
+        fun showErrorAddMatterOptionMatterNameNotSelected(visibility: Boolean)
+        fun showErrorAddMatterOptionPeriodNotSelected(visibility: Boolean)
         fun showSnackbarStatus(matterName: String?, snackBarCustomType: SnackBarCustomType)
         fun showSnackbarAddMatterOption(message: String, snackBarCustomType: SnackBarCustomType)
         fun goToCurriculum()
     }
 
     interface Presenter : BasePresenter {
-        suspend fun fetchMatters()
-        suspend fun validateMatter(daysSelected: List<String>)
-        suspend fun validateAddMatterOption(matterName: String, period: String)
-        fun matterSelect(option: String)
-        fun saveInitialHourSelected(time: String)
-        fun getInitialHour(): Int
-        fun getInitialMinutes(): Int
+        suspend fun handleFetchMatters()
+        suspend fun handleValidateMatter(daysSelected: List<String>)
+        suspend fun handleValidateAddMatterOption(matterName: String, period: String)
+        fun onMatterSelect(option: String)
+        fun onSaveInitialHourSelected(time: String)
+        fun onGetInitialHour(): Int
+        fun onGetInitialMinutes(): Int
     }
 }

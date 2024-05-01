@@ -4,6 +4,13 @@ import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.DELETE_DOCUMENT
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.POST_DOCUMENT
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT
+import com.savestudents.core.firebase.FirebaseConstants.MethodsFirebaseClient.UPDATE_DOCUMENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -23,7 +30,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             }
 
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                typeRequisition = GET_DOCUMENT_VALUE,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = documents.toString()
@@ -31,7 +38,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(documents)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                typeRequisition = GET_DOCUMENT_VALUE,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = e.message.toString()
@@ -52,7 +59,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             val documents = res.documents as T
 
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                typeRequisition = GET_DOCUMENT_VALUE,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = documents.toString()
@@ -60,7 +67,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(documents)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_DOCUMENT_VALUE,
+                typeRequisition = GET_DOCUMENT_VALUE,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -81,7 +88,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             val documents = res.documents as T
 
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
+                typeRequisition = GET_FILTER_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = documents.toString()
@@ -89,7 +96,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(documents)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_FILTER_DOCUMENT,
+                typeRequisition = GET_FILTER_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -110,15 +117,16 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             val document = res as DocumentSnapshot
 
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                typeRequisition = GET_SPECIFIC_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = document.toString()
             )
+
             Result.success(document)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.GET_SPECIFIC_DOCUMENT,
+                typeRequisition = GET_SPECIFIC_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -137,7 +145,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
                 database.collection(collectionPath).document(documentPath).set(data as Any).await()
             }
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                typeRequisition = SET_SPECIFIC_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = "SUCCESS SET DOCUMENT"
@@ -145,7 +153,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(true)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.SET_SPECIFIC_DOCUMENT,
+                typeRequisition = SET_SPECIFIC_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -164,7 +172,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             }
 
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.POST_DOCUMENT,
+                typeRequisition = POST_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = "SUCCESS SET DOCUMENT"
@@ -172,7 +180,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(id)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.POST_DOCUMENT,
+                typeRequisition = POST_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -190,7 +198,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
                 database.collection(collectionPath).document(documentPath).delete().await()
             }
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.DELETE_DOCUMENT,
+                typeRequisition = DELETE_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = "SUCCESS DELETE DOCUMENT"
@@ -198,7 +206,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(true)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.DELETE_DOCUMENT,
+                typeRequisition = DELETE_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT
@@ -218,7 +226,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
                 database.collection(collectionPath).document(documentPath).update(field, value).await()
             }
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.UPDATE_DOCUMENT,
+                typeRequisition = UPDATE_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.SUCCESS.toString(),
                 data = "SUCCESS UPDATE DOCUMENT"
@@ -226,7 +234,7 @@ class FirebaseClientImpl(private val database: FirebaseFirestore) : FirebaseClie
             Result.success(true)
         } catch (e: Exception) {
             handleLog(
-                typeRequisition = FirebaseConstants.MethodsFirebaseClient.UPDATE_DOCUMENT,
+                typeRequisition = UPDATE_DOCUMENT,
                 collectionPath = collectionPath,
                 statusCode = FirebaseConstants.StatusCode.NOT_FOUND.toString(),
                 data = FirebaseConstants.MessageError.EMPTY_RESULT

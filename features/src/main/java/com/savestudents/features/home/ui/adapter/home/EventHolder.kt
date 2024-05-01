@@ -23,7 +23,7 @@ class EventHolder(private val binding: EventHolderBinding) : RecyclerView.ViewHo
             showCalendarError()
         } else {
             hideCalendarError()
-            val (_, month, day) = handleEvents(item.dayName)
+            val (day, month, _) = handleEvents(item.dayName)
             eventAdapter.updateData(item.events, day, month)
         }
     }

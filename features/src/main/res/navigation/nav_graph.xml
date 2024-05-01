@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--suppress NavigationFile -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -86,7 +86,11 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:popExitAnim="@android:anim/fade_out" >
+            <argument
+                android:name="dateSelected"
+                android:defaultValue="0L" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addMatterFragment"
@@ -96,10 +100,15 @@
         tools:layout="@layout/fragment_add_matter" />
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.savestudents.features.event.ui.EventFragment"
+        android:name="com.savestudents.features.addEvent.ui.EventFragment"
         android:label="fragment_event"
         android:windowSoftInputMode="adjustResize"
-        tools:layout="@layout/fragment_event" />
+        tools:layout="@layout/fragment_event">
+        <argument
+            android:name="dateSelected"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/configFragment"
         android:name="com.savestudents.features.config.ui.ConfigFragment"

@@ -2,6 +2,8 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -44,10 +46,12 @@ dependencies {
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.auth
     implementation libs.firebase.play.service.auth
+    implementation libs.androidx.room.ktx
+
     implementation libs.koin
     implementation libs.gson
     implementation libs.kotlinx.coroutines.android
     implementation(libs.androidx.work.runtime.ktx)
-    testImplementation libs.bundles.test
     implementation libs.kotlinx.coroutines.test
+    testImplementation libs.bundles.test
 }

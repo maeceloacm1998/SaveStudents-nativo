@@ -41,63 +41,73 @@ class AddMatterFragment :
         }
 
         lifecycleScope.launch {
-            presenter.fetchMatters()
+            presenter.start()
+            presenter.handleFetchMatters()
         }
-        setupViews()
     }
 
-    private fun setupViews() {
+    override fun onSetupViewsTextLayout() {
         binding.run {
-
             initialHourTextLayout.editTextDefault.hint = getString(R.string.add_matter_initial_hour)
             initialHourTextLayout.onClickInputNotKeyboard {
                 val picker = handleTimePicker(
                     getString(R.string.add_matter_select_initial_hour),
-                    presenter.getInitialHour(),
-                    presenter.getInitialMinutes()
+                    presenter.onGetInitialHour(),
+                    presenter.onGetInitialMinutes()
                 )
                 picker.show(parentFragmentManager, "")
 
                 picker.run {
                     addOnPositiveButtonClickListener {
-                        val time: String =
-                            DateUtils.formatTime(this.hour.toString(), this.minute.toString())
-                        presenter.saveInitialHourSelected(time)
+                        val time = DateUtils.formatTime(hour.toString(), minute.toString())
+                        presenter.onSaveInitialHourSelected(time)
                         setTimeInEditText(binding.initialHourTextLayout, time)
                     }
                 }
             }
+        }
+    }
 
-            matterTextInput.onItemSelected { item ->
-                presenter.matterSelect(item)
+    override fun onSetupViewsAddMatter() {
+        binding.btAddMatterOption.setOnClickListener {
+            bottomSheetBinding = parentActivity?.showBottomSheet(
+                BottomSheetAddMatterOptionBinding.inflate(layoutInflater)
+            )
+
+            bottomSheetBinding?.tiPeriod?.showKeyboard = false
+
+            bottomSheetBinding?.submitButton?.setOnClickListener {
+                val matterName = bottomSheetBinding?.tiMatter?.editTextDefault?.text.toString()
+                val period = bottomSheetBinding?.tiPeriod?.editTextAutocomplete?.text.toString()
+                lifecycleScope.launch {
+                    presenter.handleValidateAddMatterOption(
+                        matterName = matterName,
+                        period = period
+                    )
+                }
             }
+        }
+    }
 
+    override fun onSetupViewsCreateMatter() {
+        binding.apply {
             submitButton.setOnClickListener {
                 val daysSelected: List<String> = chipGroup.children
                     .toList()
                     .filter { (it as Chip).isChecked }
                     .map { (it as Chip).text.toString() }
 
-                loadingRegister(true)
+                onLoadingRegister(true)
                 lifecycleScope.launch {
-                    presenter.validateMatter(daysSelected)
+                    presenter.handleValidateMatter(daysSelected)
                 }
             }
+        }
+    }
 
-            btAddMatterOption.setOnClickListener {
-                bottomSheetBinding = parentActivity?.showBottomSheet(
-                    BottomSheetAddMatterOptionBinding.inflate(layoutInflater)
-                )
-                bottomSheetBinding?.tiPeriod?.showKeyboard = false
-
-                bottomSheetBinding?.submitButton?.setOnClickListener {
-                    val matterName = bottomSheetBinding?.tiMatter?.editTextDefault?.text.toString()
-                    val period = bottomSheetBinding?.tiPeriod?.editTextAutocomplete?.text.toString()
-                    lifecycleScope.launch {
-                        presenter.validateAddMatterOption(matterName = matterName, period = period)
-                    }
-                }
-            }
+    override fun onSetupViewsMatterInput() {
+        binding.matterTextInput.onItemSelected { item ->
+            presenter.onMatterSelect(item)
         }
     }
 
@@ -115,7 +125,7 @@ class AddMatterFragment :
             .build()
     }
 
-    override fun loading(loading: Boolean) {
+    override fun onLoading(loading: Boolean) {
         binding.run {
             if (loading) {
                 this.loading.root.isVisible = true
@@ -130,7 +140,7 @@ class AddMatterFragment :
         }
     }
 
-    override fun loadingRegister(loading: Boolean) {
+    override fun onLoadingRegister(loading: Boolean) {
         binding.submitButton.disabled(loading)
     }
 
@@ -138,7 +148,7 @@ class AddMatterFragment :
         binding.error.root.isVisible = true
     }
 
-    override fun errorMatterNotSelected(visibility: Boolean) {
+    override fun showErrorMatterNotSelected(visibility: Boolean) {
         binding.run {
             if (visibility) {
                 binding.matterTextInput.error = getString(R.string.add_matter_select_matter_error)
@@ -148,14 +158,14 @@ class AddMatterFragment :
         }
     }
 
-    override fun errorDaysNotSelected(visibility: Boolean) {
+    override fun showErrorDaysNotSelected(visibility: Boolean) {
         binding.selectDaysError.run {
             isVisible = visibility
             text = getString(R.string.add_matter_select_days_error)
         }
     }
 
-    override fun errorInitialHourNotSelected(visibility: Boolean) {
+    override fun showErrorInitialHourNotSelected(visibility: Boolean) {
         binding.run {
             if (visibility) {
                 binding.initialHourTextLayout.error =
@@ -166,7 +176,7 @@ class AddMatterFragment :
         }
     }
 
-    override fun errorAddMatterOptionMatterNameNotSelected(visibility: Boolean) {
+    override fun showErrorAddMatterOptionMatterNameNotSelected(visibility: Boolean) {
         if (visibility) {
             bottomSheetBinding?.tiMatter?.error =
                 getString(R.string.bottom_sheet_add_matter_option_matter_error)
@@ -175,7 +185,7 @@ class AddMatterFragment :
         }
     }
 
-    override fun errorAddMatterOptionPeriodNotSelected(visibility: Boolean) {
+    override fun showErrorAddMatterOptionPeriodNotSelected(visibility: Boolean) {
         if (visibility) {
             bottomSheetBinding?.tiPeriod?.error =
                 getString(R.string.bottom_sheet_add_matter_option_period_error)
@@ -209,7 +219,7 @@ class AddMatterFragment :
         snackBarCustomType: SnackBarCustomType
     ) {
         lifecycleScope.launch {
-            presenter.fetchMatters()
+            presenter.handleFetchMatters()
         }
 
         parentActivity?.apply {
@@ -222,17 +232,17 @@ class AddMatterFragment :
         findNavController().popBackStack()
     }
 
-    override fun setMatterOptions(matterList: List<String>) {
+    override fun onSetMatterOptions(matterList: List<String>) {
         binding.matterTextInput.setAutocompleteItems = matterList
     }
 
-    override fun handleMatterSelect(matter: Matter) {
+    override fun onMatterSelect(matter: Matter) {
         binding.matterInformation.root.isVisible = true
         binding.matterInformation.run {
-            dayContainer.isVisible = false
-            type.text = EventType.MATTER.value
-            eventTitle.text = matter.matterName
-            eventPeriod.text = matter.period
+            clDate.isVisible = false
+            chType.text = EventType.MATTER.value
+            tvEventTitle.text = matter.matterName
+            tvEventPeriod.text = matter.period
             btDelete.isVisible = false
         }
     }

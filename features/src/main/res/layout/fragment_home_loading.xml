@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shimmer_holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="25dp"
+                android:background="@color/gray_scale_200" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/gray_scale_200" />
+
+            <include
+                layout="@layout/event_item_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <include
+                layout="@layout/event_item_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray_scale_200" />
+
+            <include
+                layout="@layout/event_item_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray_scale_200" />
+
+            <include
+                layout="@layout/event_item_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <include
+                layout="@layout/event_item_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</com.facebook.shimmer.ShimmerFrameLayout>

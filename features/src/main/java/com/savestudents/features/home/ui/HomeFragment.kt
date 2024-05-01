@@ -2,12 +2,14 @@ package com.savestudents.features.home.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.savestudents.core.utils.BaseFragment
 import com.savestudents.features.databinding.FragmentHomeBinding
 import com.savestudents.features.NavigationActivity
 import com.savestudents.features.addMatter.models.Event
+import com.savestudents.features.home.ui.adapter.home.HomeAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -23,24 +25,37 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
         parentActivity?.handleDrawerMenu()
 
-        setupViews()
         lifecycleScope.launch {
-            presenter.getEvents()
+            presenter.start()
+            presenter.handleEvents()
         }
     }
 
-    private fun setupViews() {
+    override fun onSetupViewsHomeAdapter() {
         binding.homeRv.run {
             adapter = adapterHome
             layoutManager = LinearLayoutManager(context)
         }
     }
 
-    override fun loading(loading: Boolean) {
-        TODO("Not yet implemented")
+    override fun onSetupViewsErrorScreen() {
+        binding.error.button.setOnClickListener {
+            lifecycleScope.launch {
+                presenter.handleEvents()
+                onError(false)
+            }
+        }
     }
 
-    override fun setEventList(eventList: List<Event>) {
+    override fun onLoading(loading: Boolean) {
+        binding.loading.shimmerHolder.isVisible = loading
+    }
+
+    override fun onError(error: Boolean) {
+        binding.error.root.isVisible = error
+    }
+
+    override fun onSetEventList(eventList: List<Event>) {
         adapterHome.submitList(eventList)
     }
 }

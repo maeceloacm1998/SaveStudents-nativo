@@ -15,7 +15,7 @@
         <View
             android:id="@+id/calendar_loading"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="400dp"
             android:background="@color/gray_scale_400"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,22 +44,26 @@
             <include
                 layout="@layout/event_item_loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
             <include
                 layout="@layout/event_item_loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
             <include
                 layout="@layout/event_item_loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
             <include
                 layout="@layout/event_item_loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

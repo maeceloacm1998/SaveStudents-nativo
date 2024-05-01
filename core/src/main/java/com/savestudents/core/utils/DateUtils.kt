@@ -1,7 +1,15 @@
 package com.savestudents.core.utils
 
+import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.temporal.TemporalAdjusters
 import java.util.Calendar
 import java.util.Locale
 
@@ -16,11 +24,11 @@ object DateUtils {
      * @param minutes
      */
     fun formatTime(hour: String, minutes: String): String {
-        val hour = hour.toInt()
-        val minute = minutes.toInt()
+        val hourInt = hour.toInt()
+        val minuteInt = minutes.toInt()
 
-        val formattedHour = String.format("%02d", hour)
-        val formattedMinutes = String.format("%02d", minute)
+        val formattedHour = String.format("%02d", hourInt)
+        val formattedMinutes = String.format("%02d", minuteInt)
 
         return "$formattedHour:$formattedMinutes"
     }
@@ -81,17 +89,18 @@ object DateUtils {
      * Para usar, basta passar por parametros algum desses nomes da semana, sendo eles:
      *
      * Segunda, Terça, Quarta, Quinta e Sexta.
-     * @param weekName
+     * @param dayOfWeek
      */
-    fun getWeeksList(weekName: String): List<Triple<Int, Int, Int>> {
-        return when (weekName) {
-            DaysType.MONDAY.value -> getDataListPerWeek(WeekType.MONDAY)
-            DaysType.TUESDAY.value -> getDataListPerWeek(WeekType.TUESDAY)
-            DaysType.WEDNESDAY.value -> getDataListPerWeek(WeekType.WEDNESDAY)
-            DaysType.THURSDAY.value -> getDataListPerWeek(WeekType.THURSDAY)
-            DaysType.FRIDAY.value -> getDataListPerWeek(WeekType.FRIDAY)
-            DaysType.SATURDAY.value -> getDataListPerWeek(WeekType.SATURDAY)
-            else -> getDataListPerWeek(WeekType.SUNDAY)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getWeeksList(dayOfWeek: String): List<Long> {
+        return when (dayOfWeek) {
+            DaysType.MONDAY.value -> getDaysOfWeekTimestamps(DaysType.MONDAY.toString())
+            DaysType.TUESDAY.value -> getDaysOfWeekTimestamps(DaysType.TUESDAY.toString())
+            DaysType.WEDNESDAY.value -> getDaysOfWeekTimestamps(DaysType.WEDNESDAY.toString())
+            DaysType.THURSDAY.value -> getDaysOfWeekTimestamps(DaysType.THURSDAY.toString())
+            DaysType.FRIDAY.value -> getDaysOfWeekTimestamps(DaysType.FRIDAY.toString())
+            DaysType.SATURDAY.value -> getDaysOfWeekTimestamps(DaysType.SATURDAY.toString())
+            else -> getDaysOfWeekTimestamps(DaysType.SUNDAY.toString())
         }
     }
 
@@ -156,10 +165,9 @@ object DateUtils {
      */
     fun getTimestampWithDate(day: Int, month: Int, year: Int): Long {
         val calendar = Calendar.getInstance()
-        calendar.set(year, month - 1, day)
+        calendar.set(year, month + 1, day)
         return calendar.timeInMillis
     }
-
 
     /**
      * Traz as datas da semana de acordo com o dia atual.
@@ -192,36 +200,44 @@ object DateUtils {
     fun getDateWithTimestamp(timestamp: Long): Triple<Int, Int, Int> {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timestamp
-
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        return Triple(year, month, day)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        return Triple(day, month, year)
     }
 
-    private fun getDataListPerWeek(week: WeekType): MutableList<Triple<Int, Int, Int>> {
-        val weeks: MutableList<Triple<Int, Int, Int>> = mutableListOf()
-        val (_, _, year) = getCurrentDate()
+    /**
+     * Pega o localDate com o timestamp
+     * @return LocalDate
+     */
+    @SuppressLint("NewApi")
+    fun getLocalDateWithTimestamp(timestamp: Long): LocalDate {
+        return Instant.ofEpochMilli(timestamp)
+            .atZone(ZoneId.of("America/Sao_Paulo"))
+            .toLocalDate()
+    }
 
-        val calendar = Calendar.getInstance()
-        calendar.isLenient = false
-        calendar.set(Calendar.MONTH, Calendar.JANUARY)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
+    /**
+     * Pega todos os timestamps dos dias da semana passada por parâmetro
+     * @param weekDayName String Ex: "Segunda" "Terça" "Quarta" "Quinta" "Sexta"
+     * @return List<Long> timestamps dos dias da semana
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDaysOfWeekTimestamps(weekDayName: String): List<Long> {
+        val year = LocalDate.now().year
+        val dayOfWeek = DayOfWeek.valueOf(weekDayName.uppercase())
+        val startDate = LocalDate.of(year, 1, 1)
+        val endDate = LocalDate.of(year, 12, 31)
 
-        while (calendar[Calendar.YEAR] == year) {
-            if (calendar[Calendar.DAY_OF_WEEK] == week.value) {
-                weeks.add(
-                    Triple(
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.YEAR)
-                    )
-                )
-            }
-            calendar.add(Calendar.DAY_OF_YEAR, 1)
+        val timestamps = mutableListOf<Long>()
+        var currentDate = startDate.with(TemporalAdjusters.nextOrSame(dayOfWeek))
+
+        while (!currentDate.isAfter(endDate)) {
+            timestamps.add(currentDate.atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant().toEpochMilli())
+            currentDate = currentDate.plusWeeks(1)
         }
 
-        return weeks
+        return timestamps
     }
+
 }
