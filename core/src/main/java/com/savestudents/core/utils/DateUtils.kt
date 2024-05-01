@@ -206,6 +206,10 @@ object DateUtils {
         return Triple(day, month, year)
     }
 
+    /**
+     * Pega o localDate com o timestamp
+     * @return LocalDate
+     */
     @SuppressLint("NewApi")
     fun getLocalDateWithTimestamp(timestamp: Long): LocalDate {
         return Instant.ofEpochMilli(timestamp)
@@ -213,6 +217,11 @@ object DateUtils {
             .toLocalDate()
     }
 
+    /**
+     * Pega todos os timestamps dos dias da semana passada por parâmetro
+     * @param weekDayName String Ex: "Segunda" "Terça" "Quarta" "Quinta" "Sexta"
+     * @return List<Long> timestamps dos dias da semana
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     fun getDaysOfWeekTimestamps(weekDayName: String): List<Long> {
         val year = LocalDate.now().year
